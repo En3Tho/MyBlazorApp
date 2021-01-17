@@ -1,2 +1,8 @@
-﻿/src/.vs/
-/src/.idea/
+﻿.vs
+.idea
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
