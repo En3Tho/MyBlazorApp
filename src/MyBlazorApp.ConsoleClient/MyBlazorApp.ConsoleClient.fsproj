@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="WeatherForecastsApiV1ConsoleClient.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ConsoleAppFramework" Version="3.2.0" />
+      <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.Api.Contracts\MyBlazorApp.Api.Contracts.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Api.HttpClients\MyBlazorApp.Api.HttpClients.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Domain\MyBlazorApp.Domain.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+
+</Project>

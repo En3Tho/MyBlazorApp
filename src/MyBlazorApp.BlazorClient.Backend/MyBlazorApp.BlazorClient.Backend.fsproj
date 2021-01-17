@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Models.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
+      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+
+</Project>
