@@ -2,6 +2,7 @@
 
 open System
 open System.Collections.Generic
+open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Utility.FSharpHelpers
 open MyBlazorApp.Utility.Modules
@@ -14,7 +15,6 @@ type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equalit
     static do ComponentValueDictionary<'TType, 'TKey, 'TValue>._KeyValueBag <- Dictionary()
     static member KeyValueBag = ComponentValueDictionary<'TType, 'TKey, 'TValue>._KeyValueBag
 
-    static member val KeyValueBag2 = Dictionary<'TKey, 'TValue>() with get
 
 type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
     member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey: equality and 'TValue: (new: unit -> 'TValue)> key =
@@ -45,9 +45,37 @@ type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
         let bag = ComponentValueDictionary<'TType, 'TKey, 'TValue>.KeyValueBag
         bag.Remove key |> ignore
 
+[<Struct>]
+type ComponentEventHandler =
+    [<DefaultValue>]
+    val mutable private handler: EventHandler
+    member this.Subscribe<'b when 'b :> ComponentData>(action: Action, [<ParamArray>] datas: 'b[]) =
+        this.handler <- EventHandler (fun _ _ -> action.Invoke())
+        for data in datas do data.OnChange.AddHandler this.handler
+
+    member this.Unsubscribe<'b when 'b :> ComponentData>([<ParamArray>] datas: 'b[]) =
+        for data in datas do data.OnChange.RemoveHandler this.handler
+        this.handler <- null
+
 type CounterData() =
     inherit ComponentData()
     let mutable current = 0
     let mutable totalClicks = 0
     member this.Current with get() = current and set (value) = current <- value; this.OnDataChanged()
     member this.TotalClicks with get() = totalClicks and set (value) = totalClicks <- value; this.OnDataChanged()
+
+type Theme =
+    | Black = 0
+    | Red = 1
+    | Blue = 2
+
+type ThemeSwitch(theme: Theme) =
+    inherit ComponentData()
+    let mutable theme = theme
+    member this.Theme with get() = theme and set (value) = theme <- value; this.OnDataChanged();
+    member this.ThemeString =
+        match this.Theme with
+        | Theme.Black -> "black-Theme"
+        | Theme.Blue -> "blue-Theme"
+        | Theme.Red -> "red-Theme"
+        | _ -> ""

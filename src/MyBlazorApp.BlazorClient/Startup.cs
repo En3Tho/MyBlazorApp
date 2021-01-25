@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Win32.SafeHandles;
 using MyBlazorApp.Api.HttpClients;
 using MyBlazorApp.BlazorClient.Backend.Models;
 
@@ -22,6 +21,11 @@ namespace MyBlazorApp.BlazorClient
         public static WebAssemblyHostBuilder ConfigureLogging(this WebAssemblyHostBuilder builder)
         {
             builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+            builder.Logging.Configure(options =>
+                options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
+                                                | ActivityTrackingOptions.SpanId
+                                                | ActivityTrackingOptions.TraceId);
+
             return builder;
         }
 
@@ -29,6 +33,8 @@ namespace MyBlazorApp.BlazorClient
         {
             builder.Services.AddSingleton(new JsonSerializerOptions { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
             builder.Services.AddSingleton<ComponentDataProvider>();
+            builder.Services.AddSingleton(new ThemeSwitch(Theme.Blue)); // load theme from user config or smth?
+            // global StateHasChanged event to simplify programming?
             return builder;
         }
 
