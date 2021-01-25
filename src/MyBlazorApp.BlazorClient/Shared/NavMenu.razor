@@ -1,6 +1,8 @@
 ﻿@inject ILogger<NavMenu> _logger
+@inject ThemeSwitch ThemeSwitch
+@implements IDisposable
 
-<div class="navbar navbar-dark pl-4 top-row">
+<div class="navbar navbar-dark pl-4 top-row @ThemeSwitch.ThemeString">
     <a class="navbar-brand" href="">MyBlazorApp</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -31,6 +33,12 @@
 
 @code {
     private bool collapseNavMenu = true;
+    private ComponentEventHandler _handler;
+
+    protected override void OnInitialized()
+    {
+        _handler.Subscribe(StateHasChanged, ThemeSwitch);
+    }
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -40,4 +48,5 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
+    public void Dispose() => _handler.Unsubscribe(ThemeSwitch);
 }

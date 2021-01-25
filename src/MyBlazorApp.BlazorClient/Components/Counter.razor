@@ -1,12 +1,14 @@
 ﻿@inject ILogger<Counter> Logger
 @inject ComponentDataProvider DataProvider
+@inject ThemeSwitch ThemeSwitch;
+@implements IDisposable
 
 <h1>@($"Counter: {IncrementAmount}")</h1>
 
 <p>Current count: @_counterData!.Current</p>
 <p>Clicks (this session): @_clicksInThisSession</p>
 <p>Clicks (total): @_counterData.TotalClicks</p>
-<button class="btn btn-primary" @onclick="OnClick">Click me</button>
+<button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="OnClick">Click me</button>
 
 @code {
 
@@ -15,28 +17,31 @@
 
     private CounterData? _counterData;
     private int _clicksInThisSession;
+    private ComponentEventHandler _handler;
 
     protected override void OnParametersSet()
     {
         Logger.Trace()?.Write($"{nameof(OnParametersSet)}");
         Logger.Trace()?.Write($"Getting CounterData({IncrementAmount})");
+
         _clicksInThisSession = 0;
-        _counterData = DataProvider.GetOrCreateWith<Counter, int, CounterData>(
-            IncrementAmount,
-            () => new CounterData { Current = 500});
-        //_counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        _counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
     }
 
     protected override void OnInitialized()
     {
         Logger.Trace()?.Write($"{nameof(OnInitialized)}");
+
+        _handler.Subscribe(StateHasChanged, ThemeSwitch);
     }
 
     private void OnClick(MouseEventArgs e)
     {
+        Logger.Trace()?.Write($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
+
         _clicksInThisSession++;
         _counterData!.TotalClicks++;
-        Logger.Trace()?.Write($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
+
         switch (e.CtrlKey, e.ShiftKey, e.AltKey)
         {
             case (true, true, true):
@@ -60,12 +65,16 @@
     private void Clear()
     {
         Logger.Trace()?.Write(nameof(Clear));
+
         _counterData!.Current = 0;
     }
 
     private void ChangeCount(int amount)
     {
         Logger.Trace()?.Write(nameof(ChangeCount));
+
         _counterData!.Current += amount;
     }
+
+    public void Dispose() => _handler.Unsubscribe(ThemeSwitch);
 }

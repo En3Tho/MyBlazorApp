@@ -14,29 +14,33 @@
 }
 else
 {
-    <input @bind="@_forecastRequestCount" type="number" width="300"/>
-    <button class="btn btn-primary" @onclick="RefreshData">Get brand new set of weather forecasts!</button>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var forecast in _forecasts)
-        {
+    <div>
+        <input @bind="@_forecastRequestCount" type="number" width="300"/>
+        <button class="btn btn-primary" @onclick="GetForecasts">Get brand new set of weather forecasts!</button>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
             <tr>
-                <td>@forecast.Date.ToShortDateString()</td>
-                <td>@forecast.TemperatureC</td>
-                <td>@forecast.TemperatureF</td>
-                <td>@forecast.Summary</td>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
             </tr>
-        }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <Virtualize Context="forecast" Items="@_forecasts" ItemSize="25">
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            </Virtualize>
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {
@@ -44,16 +48,21 @@ else
 
     private int _forecastRequestCount = 5;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         Logger.Trace()?.Write(nameof(OnInitializedAsync));
-        _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+
+        return GetForecasts();
     }
 
-    private async Task RefreshData()
+    private async Task GetForecasts()
     {
-        StateHasChanged();
+        Logger.Trace()?.Write(nameof(GetForecasts));
+
         _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+        Logger.Trace()?.Write($"Successfully got {_forecastRequestCount} weather forecasts!");
+
+        StateHasChanged();
     }
 
 }

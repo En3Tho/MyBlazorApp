@@ -33,6 +33,8 @@
     <Content Update="wwwroot\appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Remove="Pages\FetchData.razor.css" />
+    <Content Include="Pages\FetchData.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

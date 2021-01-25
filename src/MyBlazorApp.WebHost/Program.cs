@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace MyBlazorApp.WebHost
 {
@@ -15,6 +16,10 @@ namespace MyBlazorApp.WebHost
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                  {
+                     logging.ClearProviders();
+                     logging.AddConsole(options =>
+                         options.IncludeScopes = true);
+
                      logging.Configure(options =>
                      {
                          options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
