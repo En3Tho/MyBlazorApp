@@ -19,6 +19,7 @@
     <ProjectReference Include="..\MyBlazorApp.Api.HttpClients\MyBlazorApp.Api.HttpClients.fsproj" />
     <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
     <ProjectReference Include="..\MyBlazorApp.Domain\MyBlazorApp.Domain.fsproj" />
+    <ProjectReference Include="..\MyBlazorApp.LearningGrounds\MyBlazorApp.LearningGrounds.csproj" />
     <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
   </ItemGroup>
 

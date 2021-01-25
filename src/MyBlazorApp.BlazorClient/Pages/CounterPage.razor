@@ -1,4 +1,4 @@
-﻿@page "/counter/{IncrementAmount?}"
+﻿@attribute [Route("/" + nameof(Counter) + "/{IncrementAmount?}")]
 @code {
     [Parameter]
     public string IncrementAmount { get; init; } = "1";

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32.SafeHandles;
 using MyBlazorApp.Api.HttpClients;
 using MyBlazorApp.BlazorClient.Backend.Models;
 

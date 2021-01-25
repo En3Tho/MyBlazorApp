@@ -1,4 +1,4 @@
-@page "/fetchdata"
+@attribute [RouteAttribute("/" + nameof(FetchData))]
 @inject WeatherForecastApiV1HttpClient WeatherForecastClientV1
 @inject ILogger<FetchData> Logger
 
