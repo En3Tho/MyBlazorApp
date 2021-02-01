@@ -1,6 +1,6 @@
 ﻿@inject ILogger<CounterNavLink> Logger
 @inject ComponentDataProvider DataProvider
-@implements IDisposable
+@inherits SubscribingComponentBase
 
 <NavLink class="nav-link" href="@Href">
     <span aria-hidden="true" class="oi oi-plus"></span> Counter: @IncrementAmount @_counterData!.Current
@@ -8,21 +8,19 @@
 
 @code {
 
+    private CounterData? _counterData;
+
     [Parameter]
     public string Href { get; init; } = "";
 
     [Parameter]
     public int IncrementAmount { get; init; }
 
-    private ComponentEventHandler _handler;
-
-    private CounterData? _counterData;
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _counterData! };
 
     protected override void OnParametersSet()
     {
         _counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
-        _handler.Subscribe(StateHasChanged, _counterData);
     }
 
-    public void Dispose() => _handler.Unsubscribe(_counterData);
 }
