@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Types.fs" />
         <Compile Include="WeatherForecastsService.fs" />
+        <Compile Include="DiscriminatedUnionService.fs" />
     </ItemGroup>
 
     <ItemGroup>

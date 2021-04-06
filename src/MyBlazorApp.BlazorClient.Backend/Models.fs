@@ -90,34 +90,62 @@ type CounterData() =
 
     member this.Current
         with get () = current
-        and set (value) =
+         and set value =
             current <- value
             this.OnDataChanged()
 
     member this.TotalClicks
         with get () = totalClicks
-        and set (value) =
+         and set value =
             totalClicks <- value
             this.OnDataChanged()
 
+type SimpleChatData() =
+    inherit ComponentData()
+    let messages = List<string>()
+
+    member val CurrentMessage: string = null with get, set
+    member _.Messages = messages
+
+    member this.AddMessage msg =
+        messages.Add msg
+        this.OnDataChanged()
+
+type SingleValueData<'a>() =
+    inherit ComponentData()
+    let mutable value: 'a = Unchecked.defaultof<_>
+    member this.Value
+        with get() = value
+         and set newValue =
+            value <- newValue
+            this.OnDataChanged()
+
 type Theme =
-    | Black = 0
-    | Red = 1
-    | Blue = 2
+    | Custom = 0
+    | Black = 1
+    | Red = 2
+    | Blue = 3
 
 type ThemeSwitch(theme: Theme) =
     inherit ComponentData()
     let mutable theme = theme
 
+    static member ThemesCount = Enum.GetValues<Theme>().Length
+
     member this.Theme
         with get () = theme
-        and set (value) =
+         and set value =
             theme <- value
             this.OnDataChanged()
+
+    member this.Next =
+        (int this.Theme + 1) % ThemeSwitch.ThemesCount
+        |> enum<Theme>
 
     member this.ThemeString =
         match this.Theme with
         | Theme.Black -> "black-Theme"
         | Theme.Blue -> "blue-Theme"
         | Theme.Red -> "red-Theme"
-        | _ -> ""
+        | Theme.Custom -> "custom-Theme"
+        | _ -> "blue-Theme"

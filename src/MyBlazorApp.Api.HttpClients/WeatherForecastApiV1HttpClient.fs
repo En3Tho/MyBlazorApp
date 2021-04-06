@@ -34,6 +34,6 @@ type WeatherForecastApiV1HttpClient(logger: WeatherForecastApiV1HttpClient ILogg
         return! httpClient.GetFromJsonAsync<WeatherForecast[]>(endPoint, jsonSerializerOptions).ConfigureAwait false
     }
 
-    interface WeatherForecastApiV1.IContract with
+    interface WeatherForecastApiV1.IService with
        member this.GetForecasts count = this.GetForecasts count
        member this.GetSuperForecasts count superNumber = this.GetSuperForecasts count superNumber

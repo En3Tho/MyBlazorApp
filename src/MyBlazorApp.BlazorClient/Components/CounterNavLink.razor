@@ -1,6 +1,7 @@
-﻿@inject ILogger<CounterNavLink> Logger
+﻿@inherits SubscribingComponentBase
+
+@inject ILogger<CounterNavLink> Logger
 @inject ComponentDataProvider DataProvider
-@inherits SubscribingComponentBase
 
 <NavLink class="nav-link" href="@Href">
     <span aria-hidden="true" class="oi oi-plus"></span> Counter: @IncrementAmount @_counterData!.Current
@@ -8,7 +9,7 @@
 
 @code {
 
-    private CounterData? _counterData;
+    private CounterData _counterData = null!;
 
     [Parameter]
     public string Href { get; init; } = "";
@@ -16,11 +17,12 @@
     [Parameter]
     public int IncrementAmount { get; init; }
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { _counterData! };
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _counterData };
 
     protected override void OnParametersSet()
     {
         _counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        base.OnParametersSet();
     }
 
 }

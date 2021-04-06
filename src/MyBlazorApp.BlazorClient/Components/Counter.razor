@@ -1,7 +1,8 @@
-﻿@inject ILogger<Counter> Logger
+﻿@inherits SubscribingComponentBase
+
+@inject ILogger<Counter> Logger
 @inject ComponentDataProvider DataProvider
 @inject ThemeSwitch ThemeSwitch
-@inherits SubscribingComponentBase
 
 <h1>@($"Counter: {IncrementAmount}")</h1>
 
@@ -27,6 +28,8 @@
 
         _clicksInThisSession = 0;
         _counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+
+        base.OnParametersSet();
     }
 
     protected override void OnInitialized()
@@ -74,6 +77,4 @@
 
         _counterData!.Current += amount;
     }
-
-
 }

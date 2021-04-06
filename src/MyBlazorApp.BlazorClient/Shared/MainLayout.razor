@@ -3,7 +3,7 @@
 @inject ThemeSwitch ThemeSwitch
 
 @* here goes app div? *@
-<div class="sidebar">
+<div class="sidebar @ThemeSwitch.ThemeString">
     <NavMenu/>
 </div>
 
@@ -22,7 +22,7 @@
 
     void ChangeTheme()
     {
-        ThemeSwitch.Theme = (Theme)(((int)ThemeSwitch.Theme + 1) % 3);
+        ThemeSwitch.Theme = ThemeSwitch.Next;
     }
 
     void ProcessKeyDown(KeyboardEventArgs args)

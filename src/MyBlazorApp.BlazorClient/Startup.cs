@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyBlazorApp.Api.HttpClients;
 using MyBlazorApp.BlazorClient.Backend.Models;
+using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient
 {
@@ -31,9 +33,9 @@ namespace MyBlazorApp.BlazorClient
 
         private static WebAssemblyHostBuilder ConfigureSingletons(this WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddSingleton(new JsonSerializerOptions { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            builder.Services.AddSingleton(Json.CreateDefaultOptions());
             builder.Services.AddSingleton<ComponentDataProvider>();
-            builder.Services.AddSingleton(new ThemeSwitch(Theme.Blue)); // load theme from user config or smth?
+            builder.Services.AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?
             // global StateHasChanged event to simplify programming?
             return builder;
         }
@@ -42,6 +44,7 @@ namespace MyBlazorApp.BlazorClient
         {
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<WeatherForecastApiV1HttpClient>();
+            builder.Services.AddScoped<DiscriminatedUnionApiV1HttpClient>();
             return builder;
         }
 

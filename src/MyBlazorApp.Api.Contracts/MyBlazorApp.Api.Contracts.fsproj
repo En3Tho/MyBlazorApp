@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <Compile Include="WeatherForecastApiV1.fs" />
+        <Compile Include="DiscriminatedUnionApiV1.fs" />
     </ItemGroup>
 
     <ItemGroup>
