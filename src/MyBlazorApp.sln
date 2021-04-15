@@ -24,15 +24,17 @@ ProjectSection(SolutionItems) = preProject
 	global.json = global.json
 EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.BlazorClient", "MyBlazorApp.BlazorClient\MyBlazorApp.BlazorClient.csproj", "{AA50E0B6-EF8C-4E23-8126-D1ACB998664D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.BlazorClient.WebAssembly", "MyBlazorApp.BlazorClient.WebAssembly\MyBlazorApp.BlazorClient.WebAssembly.csproj", "{AA50E0B6-EF8C-4E23-8126-D1ACB998664D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.WebHost", "MyBlazorApp.WebHost\MyBlazorApp.WebHost.csproj", "{A5328D5F-49E7-4AA3-99D2-813220FC1E09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.LearningGrounds", "MyBlazorApp.LearningGrounds\MyBlazorApp.LearningGrounds.csproj", "{BFFCD97E-C84A-4494-A6F3-8B6EA4883996}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.ComponentsAndPages", "MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj", "{BFFCD97E-C84A-4494-A6F3-8B6EA4883996}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{06A318D3-76DA-4B53-B2F5-6AB35914A41F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{84E0C3A6-D772-49B6-8274-60F67154C724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.BlazorClient.WebWindow", "MyBlazorApp.BlazorClient.WebWindow\MyBlazorApp.BlazorClient.WebWindow.csproj", "{36063BEB-F539-45CD-87F6-779EED0BCC12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{BFFCD97E-C84A-4494-A6F3-8B6EA4883996}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFFCD97E-C84A-4494-A6F3-8B6EA4883996}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFFCD97E-C84A-4494-A6F3-8B6EA4883996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36063BEB-F539-45CD-87F6-779EED0BCC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36063BEB-F539-45CD-87F6-779EED0BCC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36063BEB-F539-45CD-87F6-779EED0BCC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36063BEB-F539-45CD-87F6-779EED0BCC12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{BFFCD97E-C84A-4494-A6F3-8B6EA4883996} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{53241FB6-6A14-4AC5-AF56-89F4E4090DEA} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{FE829312-00FB-443A-A44F-9A71A7891EF2} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
+		{36063BEB-F539-45CD-87F6-779EED0BCC12} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 	EndGlobalSection
 EndGlobal

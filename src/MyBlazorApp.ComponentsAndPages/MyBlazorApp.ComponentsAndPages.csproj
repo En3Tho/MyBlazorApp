@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.Api.HttpClients\MyBlazorApp.Api.HttpClients.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Domain\MyBlazorApp.Domain.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
+      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.5" />
+    </ItemGroup>
+
+</Project>
