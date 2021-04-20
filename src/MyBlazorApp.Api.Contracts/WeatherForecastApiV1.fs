@@ -14,6 +14,6 @@ module Endpoints =
     let [<Literal>] GetForecasts = Routes.Controller + Routes.GetForecasts
     let [<Literal>] GetSuperForecasts = Routes.Controller + Routes.GetSuperForecasts
 
-type IContract =
+type IService =
     abstract GetForecasts: count: int -> Task<WeatherForecast[]>
     abstract GetSuperForecasts: count: int -> superNumber: int -> Task<WeatherForecast[]>

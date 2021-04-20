@@ -11,9 +11,11 @@
         <Compile Include="Http.fs" />
         <Compile Include="Logging.fs" />
         <Compile Include="Logging.CSharp.fs" />
+        <Compile Include="Json.fs" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     </ItemGroup>
 

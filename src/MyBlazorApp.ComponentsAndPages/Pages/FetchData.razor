@@ -1,0 +1,73 @@
+@attribute [RouteAttribute("/" + nameof(FetchData))]
+@inject WeatherForecastApiV1HttpClient WeatherForecastClientV1
+@inject ILogger<FetchData> Logger
+@inject ThemeSwitch ThemeSwitch
+@inherits SubscribingComponentBase
+
+<div>
+    <h1>Weather forecast</h1>
+
+    <p>This component demonstrates fetching data from the server.</p>
+
+    @if (_forecasts == null)
+    {
+        <p>
+            <em>Loading...</em>
+        </p>
+    }
+    else
+    {
+        <div>
+            <input @bind="@_forecastRequestCount" type="number" width="300"/>
+            <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="GetForecasts">Get brand new set of weather forecasts!</button>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
+                </tr>
+                </thead>
+                <tbody>
+                <Virtualize Context="forecast" Items="@_forecasts" ItemSize="25">
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                </Virtualize>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+
+@code {
+    private WeatherForecastsService.WeatherForecast[]? _forecasts;
+
+    private int _forecastRequestCount = 5;
+    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+
+    protected override Task OnInitializedAsync()
+    {
+        Logger.Trace()?.Write(nameof(OnInitializedAsync));
+        return GetForecasts();
+    }
+
+    private async Task GetForecasts()
+    {
+        Logger.Trace()?.Write(nameof(GetForecasts));
+
+        _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+        Logger.Trace()?.Write($"Successfully got {_forecastRequestCount} weather forecasts!");
+
+        StateHasChanged();
+    }
+
+}

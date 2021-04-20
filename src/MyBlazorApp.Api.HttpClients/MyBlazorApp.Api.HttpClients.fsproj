@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="DiscriminatedUnionApiV1HttpClient.fs" />
         <Compile Include="WeatherForecastApiV1HttpClient.fs" />
     </ItemGroup>
 

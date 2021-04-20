@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyBlazorApp.Server.Controllers;
+using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.WebHost
 {
@@ -22,9 +23,11 @@ namespace MyBlazorApp.WebHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
+                    .AddJsonOptions(options => Json.UpdateExistingOptions(options.JsonSerializerOptions))
                     .AddApplicationPart(typeof(WeatherForecastsController).Assembly);
             services.AddRazorPages();
             services.AddSwaggerDocument();
+            services.AddSingleton(Json.CreateDefaultOptions());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
