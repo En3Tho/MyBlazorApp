@@ -2,7 +2,6 @@
 
 open System
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Domain.Types
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open MyBlazorApp.Utility.Modules.Core
 

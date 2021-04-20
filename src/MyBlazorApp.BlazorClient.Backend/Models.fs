@@ -2,7 +2,6 @@
 
 open System
 open System.Collections.Generic
-open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Utility.FSharpHelpers
 open MyBlazorApp.Utility.Modules
