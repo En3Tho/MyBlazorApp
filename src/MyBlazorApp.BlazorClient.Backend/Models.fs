@@ -9,6 +9,7 @@ open MyBlazorApp.Utility.Modules
 
 [<AbstractClass>]
 type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equality>() =
+    static let Bag = Dictionary<'TKey, 'TValue>()
 
     [<DefaultValue>]
     static val mutable private _KeyValueBag: Dictionary<'TKey, 'TValue>
@@ -58,23 +59,11 @@ type ComponentDataChangeEventHandler =
         this._componentDatas <- datas
         for data in datas do data.OnChange.AddHandler this._handler
 
-    member this.Subscribe(action: Action, data1) =
-        this._handler <- EventHandler(fun _ _ -> action.Invoke())
-        this._componentDatas <- [| data1 |]
-        data1.OnChange.AddHandler this._handler
+    member this.Subscribe(action: Action, data1) = this.Subscribe(action, [| data1 |])
 
-    member this.Subscribe(action: Action, data1, data2) =
-        this._handler <- EventHandler(fun _ _ -> action.Invoke())
-        this._componentDatas <- [| data1; data2 |]
-        data1.OnChange.AddHandler this._handler
-        data2.OnChange.AddHandler this._handler
+    member this.Subscribe(action: Action, data1, data2) = this.Subscribe(action, [| data1; data2 |])
 
-    member this.Subscribe(action: Action, data1, data2, data3) =
-        this._handler <- EventHandler(fun _ _ -> action.Invoke())
-        this._componentDatas <- [| data1; data2; data3 |]
-        data1.OnChange.AddHandler this._handler
-        data2.OnChange.AddHandler this._handler
-        data3.OnChange.AddHandler this._handler
+    member this.Subscribe(action: Action, data1, data2, data3) = this.Subscribe(action, [| data1; data2; data3 |])
     
     member this.Unsubscribe() =
         if this._componentDatas <> null then
