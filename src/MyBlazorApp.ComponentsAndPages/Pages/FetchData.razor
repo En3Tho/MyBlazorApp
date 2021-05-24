@@ -1,8 +1,9 @@
 @attribute [RouteAttribute("/" + nameof(FetchData))]
+@inherits SubscribingComponentBase
+
 @inject WeatherForecastApiV1HttpClient WeatherForecastClientV1
 @inject ILogger<FetchData> Logger
 @inject ThemeSwitch ThemeSwitch
-@inherits SubscribingComponentBase
 
 <div>
     <h1>Weather forecast</h1>

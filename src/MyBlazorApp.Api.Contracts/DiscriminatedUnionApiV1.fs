@@ -13,4 +13,4 @@ module Endpoints =
     let [<Literal>] GetRandomImportantData = Routes.Controller + Routes.GetRandomImportantData
 
 type IService =
-    abstract GetRandomImportantData: unit -> Task<ImportantData>
+    abstract GetRandomImportantData: unit -> ImportantData Task

@@ -1,8 +1,9 @@
 @attribute [RouteAttribute("/" + nameof(FetchImportantData))]
+@inherits SubscribingComponentBase
+
 @inject DiscriminatedUnionApiV1HttpClient DiscriminatedUnionApiV1HttpClient
 @inject ILogger<FetchImportantData> Logger
 @inject ThemeSwitch ThemeSwitch
-@inherits SubscribingComponentBase
 @using ImportantData = Domain.DiscriminatedUnionService.ImportantData
 
 <div>

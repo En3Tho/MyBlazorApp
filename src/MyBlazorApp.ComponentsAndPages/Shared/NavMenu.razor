@@ -1,7 +1,8 @@
 @using MyBlazorApp.ComponentsAndPages.Pages
+@inherits SubscribingComponentBase
+
 @inject ILogger<NavMenu> _logger
 @inject ThemeSwitch ThemeSwitch
-@inherits SubscribingComponentBase
 
 <div class="navbar navbar-dark pl-4 top-row @ThemeSwitch.ThemeString">
     <a class="navbar-brand" href="">MyBlazorApp</a>
