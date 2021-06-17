@@ -45,22 +45,18 @@ namespace MyBlazorApp.BlazorClient.WebWindow
             return builder;
         }
 
-        private static IServiceCollection ConfigureSingletons(this IServiceCollection services)
-        {
-            services.AddSingleton(Json.CreateDefaultOptions());
-            services.AddSingleton<ComponentDataProvider>();
-            services.AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?
-            // global StateHasChanged event to simplify programming?
-            return services;
-        }
+        private static IServiceCollection ConfigureSingletons(this IServiceCollection services) =>
+            services
+                .AddSingleton(Json.CreateDefaultOptions())
+                .AddSingleton<ComponentDataProvider>()
+                .AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?// global StateHasChanged event to simplify programming?
 
-        private static IServiceCollection ConfigureScoped(this IServiceCollection services)
-        {
+        private static IServiceCollection ConfigureScoped(this IServiceCollection services) =>
             //services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            services.AddScoped<WeatherForecastApiV1HttpClient>();
-            services.AddScoped<DiscriminatedUnionApiV1HttpClient>();
-            return services;
-        }
+            services
+                .AddScoped(_ => new HttpClient { BaseAddress = new Uri("localhost:5001/") })
+                .AddScoped<WeatherForecastApiV1HttpClient>()
+                .AddScoped<DiscriminatedUnionApiV1HttpClient>();
 
         private static IServiceCollection ConfigureTransient(this IServiceCollection services)
         {
@@ -68,8 +64,9 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         }
 
         public static IServiceCollection ConfigureDI(this IServiceCollection services) =>
-            services.ConfigureScoped()
-                    .ConfigureSingletons()
-                    .ConfigureTransient();
+            services
+                .ConfigureScoped()
+                .ConfigureSingletons()
+                .ConfigureTransient();
     }
 }

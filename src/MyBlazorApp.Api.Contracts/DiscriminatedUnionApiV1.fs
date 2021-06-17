@@ -6,8 +6,8 @@ open MyBlazorApp.Domain.DiscriminatedUnionService
 let [<Literal>] Version = "v1"
 
 module Routes =
-    let [<Literal>] Controller = "discriminatedunion" + "/" + Version + "/"
-    let [<Literal>] GetRandomImportantData = "getrandomimportantdata"
+    let [<Literal>] Controller = "discriminated-union" + "/" + Version + "/"
+    let [<Literal>] GetRandomImportantData = "get-random-important-data"
 
 module Endpoints =
     let [<Literal>] GetRandomImportantData = Routes.Controller + Routes.GetRandomImportantData

@@ -25,7 +25,7 @@ type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
         match bag |> Dictionary.tryGetValue key with
         | Some value -> value
         | None ->
-            let value = Object.createNew<'TValue> ()
+            let value = Object.createNew<'TValue>
             bag.[key] <- value
             value
 

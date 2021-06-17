@@ -55,6 +55,7 @@ module Object =
     let inline nullCheck argName arg = if arg &== null then nullArg argName |> ignore
     let inline ensureNotNull argName arg = if arg &== null then nullArg argName else arg
     let toStringSafe  str = if isNull str then "" else str.ToString()
+    let inline createNew<'a when 'a: (new: unit -> 'a)> = new 'a()
 
 module Functions =
     module Operators =

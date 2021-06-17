@@ -6,9 +6,9 @@ open MyBlazorApp.Domain.WeatherForecastsService
 let [<Literal>] Version = "v1"
 
 module Routes =
-    let [<Literal>] Controller = "weatherforecasts" + "/" + Version + "/"
+    let [<Literal>] Controller = "weather-forecasts" + "/" + Version + "/"
     let [<Literal>] GetForecasts = "forecasts"
-    let [<Literal>] GetSuperForecasts = "superforecasts"
+    let [<Literal>] GetSuperForecasts = "super-forecasts"
 
 module Endpoints =
     let [<Literal>] GetForecasts = Routes.Controller + Routes.GetForecasts

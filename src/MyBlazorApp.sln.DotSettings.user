@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">VISIBLE_FILES</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=0489197d_002D9f61_002D431c_002D9b6e_002Dcb2cb21f742e_0023MyBlazorApp_002EBlazorClient_002EMaui/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=c54aec2d_002D4f95_002D4a46_002D9712_002Dbecd9f608077_0023MyBlazorApp_002EBlazorClient_002EMaui_002EWinUI3/@EntryIndexedValue">True</s:Boolean>
 	</wpf:ResourceDictionary>
