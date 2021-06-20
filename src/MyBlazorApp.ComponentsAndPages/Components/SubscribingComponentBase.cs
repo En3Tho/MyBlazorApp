@@ -17,7 +17,7 @@ namespace MyBlazorApp.ComponentsAndPages.Components
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            _handler.Subscribe(StateHasChanged, Subscriptions);
+            _handler.Subscribe(() => InvokeAsync(StateHasChanged), Subscriptions);
         }
 
         public virtual void Dispose() => _handler.Unsubscribe();

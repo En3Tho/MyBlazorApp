@@ -98,7 +98,7 @@
         _importantData = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
         Logger.Trace()?.Write($"Successfully got important data!");
 
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
 }
