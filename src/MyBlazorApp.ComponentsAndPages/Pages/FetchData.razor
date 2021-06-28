@@ -62,16 +62,16 @@
 
     protected override Task OnInitializedAsync()
     {
-        Logger.Trace()?.Write(nameof(OnInitializedAsync));
+        Logger.Trace()?.Log(nameof(OnInitializedAsync));
         return GetForecasts();
     }
 
     private async Task GetForecasts()
     {
-        Logger.Trace()?.Write(nameof(GetForecasts));
+        Logger.Trace()?.Log(nameof(GetForecasts));
 
         _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
-        Logger.Trace()?.Write($"Successfully got {_forecastRequestCount} weather forecasts!");
+        Logger.Trace()?.Log($"Successfully got {_forecastRequestCount} weather forecasts!");
 
         await InvokeAsync(StateHasChanged);
     }

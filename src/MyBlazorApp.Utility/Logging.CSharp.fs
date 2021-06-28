@@ -6,7 +6,7 @@ open Microsoft.Extensions.Logging
 
 [<Struct>]
 type Logger(logger: ILogger, logLevel: LogLevel) =
-    member _.Write(message, [<ParamArray>] args) =
+    member _.Log(message, [<ParamArray>] args) =
         logger.Log(logLevel, message, args)
 
 [<Extension>]

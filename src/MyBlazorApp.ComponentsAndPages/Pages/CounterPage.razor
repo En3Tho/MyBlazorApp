@@ -1,8 +1,10 @@
 ﻿@attribute [Route("/" + nameof(Counter) + "/{IncrementAmount?}")]
+
+<Counter IncrementAmount="@IncrementAmountInt32"></Counter>
+
 @code {
     [Parameter]
     public string IncrementAmount { get; init; } = "1";
 
     public int IncrementAmountInt32 => int.TryParse(IncrementAmount, out var result) ? result : 1;
 }
-<Counter IncrementAmount="@IncrementAmountInt32"></Counter>

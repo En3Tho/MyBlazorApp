@@ -1,0 +1,68 @@
+﻿@if (Show)
+{
+    <div aria-modal="true" class="fade modal show" role="dialog" style="display:block" @onclick="OnCancelClick">
+        <div class="modal-dialog"  @onclick:stopPropagation="true">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    @if (Header is {})
+                    {
+                        @Header
+                    }
+                    else
+                    {
+                        <button class="close" @onclick="@OnCancelClick" type="button">&times;</button>
+                    }
+                </div>
+
+
+                <div class="modal-body">
+                    @Body
+                </div>
+                <div class="modal-footer">
+                    @if (Footer is {})
+                    {
+                        @Footer
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" @onclick="OnOkClick" type="button">Ok</button>
+                        <button class="btn btn-danger" @onclick="OnCancelClick" type="button">Cancel</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public bool Show { get; init; }
+
+    [Parameter]
+    public RenderFragment? Header { get; init; }
+
+    [Parameter]
+    public RenderFragment? Body { get; init; }
+
+    [Parameter]
+    public RenderFragment? Footer { get; init; }
+
+    [Parameter]
+    public Action? OnOk { get; init; }
+
+    [Parameter]
+    public Action? OnCancel { get; init; }
+
+    private void OnOkClick()
+    {
+        OnOk?.Invoke();
+    }
+
+    private void OnCancelClick()
+    {
+        OnCancel?.Invoke();
+    }
+
+}
