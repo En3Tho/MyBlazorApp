@@ -16,7 +16,7 @@
 </div>
 <div>
     <input @bind="@_chatData.CurrentMessage" type="text" width="300">
-        <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="OnClick">Click me</button>
+    <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="OnClick">Click me</button>
 </div>
 
 @code {
@@ -38,4 +38,5 @@
             _chatData.CurrentMessage = null;
         }
     }
+
 }
