@@ -1,4 +1,5 @@
 @attribute [RouteAttribute("/" + nameof(FetchImportantData))]
+@inherits SubscribingComponentBase
 
 @using ImportantData = MyBlazorApp.Services.DiscriminatedUnions.Domain.ImportantData
 @using MyBlazorApp.Services.DiscriminatedUnions.Contracts
@@ -6,7 +7,6 @@
 @inject Version1.IDiscriminatedUnionsService DiscriminatedUnionApiV1HttpClient
 @inject ILogger<FetchImportantData> Logger
 @inject ThemeSwitch ThemeSwitch
-@inherits SubscribingComponentBase
 
 <div>
     <h1>Weather forecast</h1>

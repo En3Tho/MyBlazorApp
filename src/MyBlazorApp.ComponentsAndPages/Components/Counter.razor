@@ -6,7 +6,7 @@
 
 <h1>@($"Counter: {IncrementAmount}")</h1>
 
-<p>Current count: @_counterData!.Current</p>
+<p>Current count: @_counterData.Current</p>
 <p>Clicks (this session): @_clicksInThisSession</p>
 <p>Clicks (total): @_counterData.TotalClicks</p>
 <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="OnClick">Click me</button>
@@ -28,7 +28,6 @@
 
         _clicksInThisSession = 0;
         _counterData = DataProvider.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
-
         base.OnParametersSet();
     }
 
@@ -42,7 +41,7 @@
         Logger.Trace()?.Write($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
 
         _clicksInThisSession++;
-        _counterData!.TotalClicks++;
+        _counterData.TotalClicks++;
 
         switch (e.CtrlKey, e.ShiftKey, e.AltKey)
         {
@@ -68,13 +67,13 @@
     {
         Logger.Trace()?.Write(nameof(Clear));
 
-        _counterData!.Current = 0;
+        _counterData.Current = 0;
     }
 
     private void ChangeCount(int amount)
     {
         Logger.Trace()?.Write(nameof(ChangeCount));
 
-        _counterData!.Current += amount;
+        _counterData.Current += amount;
     }
 }
