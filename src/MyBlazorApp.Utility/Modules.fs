@@ -260,7 +260,7 @@ module ConcurrentDictionary =
         | true, value -> Some value
         | _ -> None
 
-    let inline tryRemove key (cd: ConcurrentDictionary<'key, 'value>) =
+    let inline tryRemove (key: 'key) (cd: ConcurrentDictionary<'key, 'value>) =
         match cd.TryRemove key with
         | true, value -> Some value
         | _ -> None

@@ -4,7 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MyBlazorApp.Server.Controllers;
+using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
+using MyBlazorApp.Services.WeatherForecasts.Hosting.DependencyInjection;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.WebHost
@@ -24,7 +25,15 @@ namespace MyBlazorApp.WebHost
         {
             services.AddControllersWithViews()
                     .AddJsonOptions(options => Json.UpdateExistingOptions(options.JsonSerializerOptions))
-                    .AddApplicationPart(typeof(WeatherForecastsController).Assembly);
+                    .AddDiscriminatedUnionsController()
+                    .AddWeatherForecastsController();
+            services.AddCors(o =>
+                o.AddDefaultPolicy(builder =>
+                    builder
+                       .SetIsOriginAllowed(_ => true)
+                       .AllowCredentials()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()));
             services.AddRazorPages();
             services.AddSwaggerDocument();
             services.AddSingleton(Json.CreateDefaultOptions());
@@ -46,7 +55,7 @@ namespace MyBlazorApp.WebHost
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
@@ -54,6 +63,7 @@ namespace MyBlazorApp.WebHost
                .UseSwaggerUi3();
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

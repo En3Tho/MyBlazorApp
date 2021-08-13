@@ -8,7 +8,6 @@ open MyBlazorApp.Utility.Modules
 
 [<AbstractClass>]
 type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equality>() =
-    static let Bag = Dictionary<'TKey, 'TValue>()
 
     [<DefaultValue>]
     static val mutable private _KeyValueBag: Dictionary<'TKey, 'TValue>

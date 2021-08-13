@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>MyBlazorApp.Services.WeatherForecasts</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
+        <Compile Include="Domain.fs" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="ConsoleAppFramework" Version="3.3.1" />
-      <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
       <PackageReference Update="FSharp.Core" Version="5.0.2" />
     </ItemGroup>
 

@@ -9,7 +9,7 @@ namespace MyBlazorApp.Utility.FSharpHelpers
         protected virtual void OnDataChanged()
         {
             var handler = OnChange;
-            handler?.Invoke(this, null);
+            handler?.Invoke(this, EventArgs.Empty);
         }
     }
 }

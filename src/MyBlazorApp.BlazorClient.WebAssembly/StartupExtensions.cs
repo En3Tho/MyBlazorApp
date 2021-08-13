@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MyBlazorApp.Api.HttpClients;
 using MyBlazorApp.BlazorClient.Backend.Models;
+using MyBlazorApp.Services.DiscriminatedUnions.Clients;
+using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
+using MyBlazorApp.Services.WeatherForecasts.Clients;
+using MyBlazorApp.Services.WeatherForecasts.Clients.DependencyInjection;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.WebAssembly
@@ -14,6 +17,8 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
     {
         public static WebAssemblyHostBuilder ConfigureOptions(this WebAssemblyHostBuilder builder)
         {
+            builder.Services.Configure<WeatherForecastsServiceConnectionSettings>(builder.Configuration.GetSection(nameof(WeatherForecastsServiceConnectionSettings)));
+            builder.Services.Configure<DiscriminatedUnionsServiceConnectionSettings>(builder.Configuration.GetSection(nameof(DiscriminatedUnionsServiceConnectionSettings)));
             Console.WriteLine(builder.Configuration.Build().GetDebugView());
             return builder;
         }
@@ -34,15 +39,15 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
             builder.Services.AddSingleton(Json.CreateDefaultOptions());
             builder.Services.AddSingleton<ComponentDataProvider>();
             builder.Services.AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?
-            // global StateHasChanged event to simplify programming?
+            // global StateHasChanged event to simplify programming? MessagePipe ?
             return builder;
         }
 
         private static WebAssemblyHostBuilder ConfigureScoped(this WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddScoped<WeatherForecastApiV1HttpClient>();
-            builder.Services.AddScoped<DiscriminatedUnionApiV1HttpClient>();
+            //builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new (builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddWeatherForecastsHttpClient();
+            builder.Services.AddDiscriminatedUnionsHttpClient();
             return builder;
         }
 

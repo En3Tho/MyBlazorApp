@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Net.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyBlazorApp.Api.HttpClients;
 using MyBlazorApp.BlazorClient.Backend.Models;
-using MyBlazorApp.ComponentsAndPages;
+using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
+using MyBlazorApp.Services.WeatherForecasts.Clients.DependencyInjection;
 using MyBlazorApp.Utility;
 using Photino.Blazor;
 
@@ -57,8 +54,8 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         private static IServiceCollection ConfigureScoped(this IServiceCollection services)
         {
             //services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            services.AddScoped<WeatherForecastApiV1HttpClient>();
-            services.AddScoped<DiscriminatedUnionApiV1HttpClient>();
+            services.AddWeatherForecastsHttpClient()
+                    .AddDiscriminatedUnionsHttpClient();
             return services;
         }
 

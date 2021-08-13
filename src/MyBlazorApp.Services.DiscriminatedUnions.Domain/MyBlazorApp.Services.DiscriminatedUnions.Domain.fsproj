@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <LangVersion>preview</LangVersion>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Types.fs" />
-        <Compile Include="WeatherForecastsService.fs" />
-        <Compile Include="DiscriminatedUnionService.fs" />
+        <Compile Include="Domain.fs" />
     </ItemGroup>
 
     <ItemGroup>
