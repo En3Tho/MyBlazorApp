@@ -1,4 +1,4 @@
-﻿<Router AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }" AppAssembly="@GetType().Assembly">
+﻿<Router AdditionalAssemblies="@(new[] { typeof(MainLayout).Assembly })" AppAssembly="@typeof(Main).Assembly">
 	<Found Context="routeData">
 		<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
 	</Found>

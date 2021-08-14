@@ -73,7 +73,7 @@
         _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
         Logger.Trace()?.Write($"Successfully got {_forecastRequestCount} weather forecasts!");
 
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
 }

@@ -28,11 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{84E0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.WebWindow", "MyBlazorApp.BlazorClient.WebWindow\MyBlazorApp.BlazorClient.WebWindow.csproj", "{36063BEB-F539-45CD-87F6-779EED0BCC12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Maui", "MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.csproj", "{0489197D-9F61-431C-9B6E-CB2CB21F742E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Maui", "MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.csproj", "{C7E6253A-B847-41F9-BED0-92F9991B63E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Maui.WinUI3", "MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.WinUI3\MyBlazorApp.BlazorClient.Maui.WinUI3.csproj", "{C54AEC2D-4F95-4A46-9712-BECD9F608077}"
-EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MyBlazorApp.BlazorClient.Maui.WinUI3 (Package)", "MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.WinUI3 (Package)\MyBlazorApp.BlazorClient.Maui.WinUI3 (Package).wapproj", "{B5E4D390-1B97-4640-A269-D674D765D9F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Maui.WinUI", "MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.WinUI\MyBlazorApp.BlazorClient.Maui.WinUI.csproj", "{14405DA6-FFAB-4BD3-83D8-CD07F50FA2E5}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MyBlazorApp.Services.WeatherForecasts.Domain", "MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj", "{25BF0CB8-CF0F-4830-BA79-FD6F3DE5A559}"
 EndProject
