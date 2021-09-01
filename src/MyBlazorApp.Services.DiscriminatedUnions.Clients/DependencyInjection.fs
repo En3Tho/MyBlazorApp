@@ -2,7 +2,6 @@
 
 open System.Runtime.CompilerServices
 open Microsoft.Extensions.DependencyInjection
-open Microsoft.Extensions.Options
 open MyBlazorApp.Services.DiscriminatedUnions.Clients
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 

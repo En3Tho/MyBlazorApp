@@ -50,7 +50,7 @@
     <None Include="@(_ThisProjectStaticWebAsset)"/>
 		<RazorComponent
       Include="..\MyBlazorApp.BlazorClient.Maui\**\*.razor"
-      Exclude="..\MyBlazorApp.BlazorClient.Maui\bin\**;..\MyBlazorApp.BlazorClient.Maui\obj\**" 
+      Exclude="..\MyBlazorApp.BlazorClient.Maui\bin\**;..\MyBlazorApp.BlazorClient.Maui\obj\**"
       Link="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
@@ -64,9 +64,10 @@
 		<PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0-preview" />
 		<PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.0-preview" />
 		<PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.0-preview" />
-		<ProjectReference Include="..\..\MyBlazorApp.Api.HttpClients\MyBlazorApp.Api.HttpClients.fsproj" />
 		<ProjectReference Include="..\..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
 		<ProjectReference Include="..\..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+		<ProjectReference Include="..\..\MyBlazorApp.Services.DiscriminatedUnions.Clients\MyBlazorApp.Services.DiscriminatedUnions.Clients.fsproj" />
+		<ProjectReference Include="..\..\MyBlazorApp.Services.WeatherForecasts.Clients\MyBlazorApp.Services.WeatherForecasts.Clients.fsproj" />
 		<ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.16" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.19041.16" />

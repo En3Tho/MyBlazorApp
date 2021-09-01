@@ -6,9 +6,9 @@ open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open MyBlazorApp.Utility.Modules.Core
 
 type ImportantData =
-        | NameAndAge of Name: string * Age: int
-        | PriceRangeAndCount of RangeFrom: int * RangeTo: int * Count: int
-        | Cart of Items: string[]
+    | NameAndAge of Name: string * Age: int
+    | PriceRangeAndCount of RangeFrom: int * RangeTo: int * Count: int
+    | Cart of Items: string[]
 
 module rec DiscriminatedUnionsService =
 

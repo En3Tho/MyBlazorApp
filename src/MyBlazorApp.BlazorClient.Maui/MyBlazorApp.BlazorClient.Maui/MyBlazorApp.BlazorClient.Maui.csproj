@@ -48,10 +48,19 @@
 		<AndroidEnvironment Include="Android\AndroidEnvironment.txt" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\MyBlazorApp.Api.HttpClients\MyBlazorApp.Api.HttpClients.fsproj" />
 	  <ProjectReference Include="..\..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
 	  <ProjectReference Include="..\..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+	  <ProjectReference Include="..\..\MyBlazorApp.Services.DiscriminatedUnions.Clients\MyBlazorApp.Services.DiscriminatedUnions.Clients.fsproj" />
+	  <ProjectReference Include="..\..\MyBlazorApp.Services.WeatherForecasts.Clients\MyBlazorApp.Services.WeatherForecasts.Clients.fsproj" />
 	  <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="wwwroot\appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\appsettings.Development.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>
