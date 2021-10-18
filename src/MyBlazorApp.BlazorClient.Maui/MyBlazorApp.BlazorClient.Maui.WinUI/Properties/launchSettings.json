@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "MyBlazorApp.BlazorClient.Maui.WinUI": {
-      "commandName": "AppContainer"
-    }
-  }
-}

@@ -11,8 +11,8 @@
 
     <ItemGroup>
       <PackageReference Include="ConsoleAppFramework" Version="3.3.1" />
-      <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
-      <PackageReference Update="FSharp.Core" Version="5.0.2" />
+      <PackageReference Include="TaskBuilder.fs" Version="2.2.0-alpha" />
+      <PackageReference Update="FSharp.Core" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
