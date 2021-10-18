@@ -1,4 +1,4 @@
-﻿@attribute [Route("/" + nameof(Counter) + "/{IncrementAmount?}")]
+﻿@attribute [Route($"/{nameof(Counter)}/{{IncrementAmount?}}")]
 
 <Counter IncrementAmount="@IncrementAmountInt32"></Counter>
 

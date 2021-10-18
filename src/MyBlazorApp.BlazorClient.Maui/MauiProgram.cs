@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
+using MyBlazorApp.BlazorClient.Maui.Services;
 
 namespace MyBlazorApp.BlazorClient.Maui
 {
@@ -27,6 +28,7 @@ namespace MyBlazorApp.BlazorClient.Maui
             builder.Services.AddSingleton<INotificationService, MacCatalyst.NotificationService>();
 #endif
 
+            System.Net.ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
             return builder.Build();
         }

@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
 <!--    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
     <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
     <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Clients\MyBlazorApp.Services.DiscriminatedUnions.Clients.fsproj" />
-    <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Clients\MyBlazorApp.Services.WeatherForecasts.Clients.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

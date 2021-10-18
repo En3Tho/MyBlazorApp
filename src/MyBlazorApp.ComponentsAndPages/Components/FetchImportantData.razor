@@ -1,0 +1,108 @@
+@inherits SubscribingComponentBase
+
+@using MyBlazorApp.Services.DiscriminatedUnions.Contracts
+@using MyBlazorApp.ComponentsAndPages.Pages.DiscriminatedUnions
+
+@inject Version1.IDiscriminatedUnionsService DiscriminatedUnionApiV1HttpClient
+@inject ILogger<FetchImportantData> Logger
+@inject ThemeSwitch ThemeSwitch
+
+<ErrorBoundary>
+    <div>
+        <h1>Weather forecast</h1>
+
+        <p>This component demonstrates fetching data from the server.</p>
+
+        @if (_importantData == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else
+        {
+            <div>
+                <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="GetImportantData">Get new important data!</button>
+            </div>
+
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        @switch (_importantData)
+                        {
+                            case ImportantData.NameAndAge nameAndAge:
+                                <td>@nameof(nameAndAge.Name)</td>
+                                <td>@nameof(nameAndAge.Age)</td>
+                                break;
+                            case ImportantData.Cart cart:
+                                <td>@nameof(cart.Items)</td>
+                                break;
+                            case ImportantData.PriceRangeAndCount priceRangeAndCount:
+                                <td>@nameof(priceRangeAndCount.RangeFrom)</td>
+                                <td>@nameof(priceRangeAndCount.RangeTo)</td>
+                                <td>@nameof(priceRangeAndCount.Count)</td>
+                                break;
+                            default:
+                                throw new InvalidOperationException($"Unsupported case of {_importantData.GetType().Name}");
+                        }
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @switch (_importantData)
+                    {
+                        case ImportantData.NameAndAge nameAndAge:
+                            <tr>
+                                <td>@nameAndAge.Name</td>
+                                <td>@nameAndAge.Age</td>
+                            </tr>
+                            break;
+                        case ImportantData.Cart cart:
+                            foreach (var item in cart.Items)
+                            {
+                                <tr>
+                                    <td>@item</td>
+                                </tr>
+                            }
+                            break;
+                        case ImportantData.PriceRangeAndCount priceRangeAndCount:
+                            <tr>
+                                <td>@priceRangeAndCount.RangeFrom</td>
+                                <td>@priceRangeAndCount.RangeTo</td>
+                                <td>@priceRangeAndCount.Count</td>
+                            </tr>
+                            break;
+                        default:
+                            throw new InvalidOperationException($"Unsupported case of {_importantData.GetType().Name}");
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</ErrorBoundary>
+
+@code {
+    private ImportantData? _importantData;
+
+    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+
+    protected override Task OnInitializedAsync()
+    {
+        Logger.Trace()?.Log(nameof(OnInitializedAsync));
+        return GetImportantData();
+    }
+
+    private async Task GetImportantData()
+    {
+        Logger.Trace()?.Log(nameof(GetImportantData));
+
+        var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        _importantData = ImportantData.FromDto(result);
+        Logger.Trace()?.Log($"Successfully got important data!");
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+}
