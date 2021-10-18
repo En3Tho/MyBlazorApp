@@ -3,7 +3,7 @@ using Foundation;
 using MyBlazorApp.BlazorClient.Maui.Services;
 using UserNotifications;
 
-namespace MyBlazorApp.BlazorClient.Maui
+namespace MyBlazorApp.BlazorClient.Maui.MacCatalyst
 {
 	public class NotificationService : INotificationService
 	{

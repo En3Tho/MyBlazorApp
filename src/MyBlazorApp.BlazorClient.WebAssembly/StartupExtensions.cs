@@ -6,9 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
-using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
-using MyBlazorApp.Services.WeatherForecasts.Clients.DependencyInjection;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.WebAssembly

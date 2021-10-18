@@ -1,4 +1,4 @@
-﻿namespace MyBlazorApp.BlazorClient.Maui
+﻿namespace MyBlazorApp.BlazorClient.Maui.Services
 {
     public interface INotificationService
     {

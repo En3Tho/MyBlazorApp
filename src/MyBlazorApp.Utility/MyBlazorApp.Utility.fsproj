@@ -6,9 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Disposables.fs" />
-        <Compile Include="Modules.fs" />
-        <Compile Include="ItModule.fs" />
         <Compile Include="Http.fs" />
         <Compile Include="Logging.fs" />
         <Compile Include="Logging.CSharp.fs" />
@@ -17,6 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.2" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-rc.2.21480.5" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-rc.2.21480.5" />

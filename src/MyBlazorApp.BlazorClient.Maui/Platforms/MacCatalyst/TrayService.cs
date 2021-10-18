@@ -8,7 +8,7 @@ using Foundation;
 using MyBlazorApp.BlazorClient.Maui.Services;
 using ObjCRuntime;
 
-namespace MyBlazorApp.BlazorClient.Maui
+namespace MyBlazorApp.BlazorClient.Maui.MacCatalyst
 {
 	[Preserve]
 	public class TrayService : ITrayService

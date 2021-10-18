@@ -3,7 +3,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Hosting;
 
-namespace MyBlazorApp.BlazorClient.Maui
+namespace MyBlazorApp.BlazorClient.Maui.Services
 {
     public static class ServiceProvider
     {

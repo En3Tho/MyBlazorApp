@@ -3,7 +3,7 @@
 open System
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
-open MyBlazorApp.Utility.Modules.Core
+open En3Tho.FSharp.Extensions
 
 type ImportantData =
     | NameAndAge of Name: string * Age: int
