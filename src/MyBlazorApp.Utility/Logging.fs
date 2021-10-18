@@ -2,7 +2,7 @@
 
 open System
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Utility.Modules
+open En3Tho.FSharp.Extensions
 
 type SimpleConsoleLogger(_logLevel: LogLevel, categoryName: string) =
     interface ILogger with

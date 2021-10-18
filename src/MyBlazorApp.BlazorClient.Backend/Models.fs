@@ -4,7 +4,7 @@ open System
 open System.Collections.Generic
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Utility.FSharpHelpers
-open MyBlazorApp.Utility.Modules
+open En3Tho.FSharp.Extensions
 
 [<AbstractClass>]
 type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equality>() =
@@ -25,7 +25,7 @@ type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
         match bag |> Dictionary.tryGetValue key with
         | Some value -> value
         | None ->
-            let value = Object.createNew<'TValue>
+            let value = new 'TValue()
             bag.[key] <- value
             value
 

@@ -8,7 +8,6 @@
     <ItemGroup>
         <Compile Include="Version1.fs" />
         <Compile Include="Clients.fs" />
-        <Compile Include="DependencyInjection.fs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +16,7 @@
 
     <ItemGroup>
       <PackageReference Update="FSharp.Core" Version="6.0.0" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.2" />
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,10 @@
 ﻿namespace MyBlazorApp.Services.WeatherForecasts.Clients
 
 open System.Net.Http
+open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Threading.Tasks
+open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open System.Net.Http.Json
@@ -42,3 +44,11 @@ type WeatherForecastsApiVersion1HttpClient(logger: WeatherForecastsApiVersion1Ht
     interface IWeatherForecastsService with
        member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts count)
        member this.GetSuperForecasts (count, superNumber) = ValueTask<_>(task = this.GetSuperForecasts count superNumber)
+
+[<Extension; AbstractClass>]
+type DependencyInjectionExtensions() =
+
+    [<Extension>]
+    static member AddWeatherForecastsHttpClient(services: IServiceCollection, serviceUri) =
+        services.AddHttpClient<IWeatherForecastsService, WeatherForecastsApiVersion1HttpClient>(HttpClient.setBaseAddress serviceUri) |> ignore
+        services
