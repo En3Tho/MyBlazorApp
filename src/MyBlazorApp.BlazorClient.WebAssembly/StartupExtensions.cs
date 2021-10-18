@@ -45,9 +45,8 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
 
         private static WebAssemblyHostBuilder ConfigureScoped(this WebAssemblyHostBuilder builder)
         {
-            //builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new (builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddWeatherForecastsHttpClient();
-            builder.Services.AddDiscriminatedUnionsHttpClient();
+            builder.Services.AddWeatherForecastsHttpClient(new Uri(builder.HostEnvironment.BaseAddress));
+            builder.Services.AddDiscriminatedUnionsHttpClient(new Uri(builder.HostEnvironment.BaseAddress));
             return builder;
         }
 

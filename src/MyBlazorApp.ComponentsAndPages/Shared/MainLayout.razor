@@ -28,7 +28,7 @@
 
     void ProcessKeyDown(KeyboardEventArgs args)
     {
-        Logger.Trace()?.Write($"Key:{args.Key} Alt:{args.AltKey} Ctrl:{args.CtrlKey} Shift:{args.ShiftKey} Meta:{args.MetaKey}");
+        Logger.Trace()?.Log($"Key:{args.Key} Alt:{args.AltKey} Ctrl:{args.CtrlKey} Shift:{args.ShiftKey} Meta:{args.MetaKey}");
     }
 
 }

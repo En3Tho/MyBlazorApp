@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
@@ -17,8 +17,10 @@
 
     <ItemGroup>
       <PackageReference Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-      <PackageReference Update="FSharp.Core" Version="5.0.2" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-rc.2.21480.5" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-rc.2.21480.5" />
+      <PackageReference Update="FSharp.Core" Version="6.0.0" />
     </ItemGroup>
 
 </Project>

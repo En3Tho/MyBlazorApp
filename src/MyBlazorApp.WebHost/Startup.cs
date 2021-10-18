@@ -24,9 +24,7 @@ namespace MyBlazorApp.WebHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
-                    .AddJsonOptions(options => Json.UpdateExistingOptions(options.JsonSerializerOptions))
-                    .AddDiscriminatedUnionsController()
-                    .AddWeatherForecastsController();
+                    .AddJsonOptions(options => Json.UpdateExistingOptions(options.JsonSerializerOptions));
             services.AddCors(o =>
                 o.AddDefaultPolicy(builder =>
                     builder
@@ -34,6 +32,8 @@ namespace MyBlazorApp.WebHost
                        .AllowCredentials()
                        .AllowAnyHeader()
                        .AllowAnyMethod()));
+            services.AddWeatherForecastsService()
+                    .AddDiscriminatedUnionsService();
             services.AddRazorPages();
             services.AddSwaggerDocument();
             services.AddSingleton(Json.CreateDefaultOptions());

@@ -89,18 +89,19 @@
 
     protected override Task OnInitializedAsync()
     {
-        Logger.Trace()?.Write(nameof(OnInitializedAsync));
+        Logger.Trace()?.Log(nameof(OnInitializedAsync));
         return GetImportantData();
     }
 
     private async Task GetImportantData()
     {
-        Logger.Trace()?.Write(nameof(GetImportantData));
+        Logger.Trace()?.Log(nameof(GetImportantData));
 
-        _importantData = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
-        Logger.Trace()?.Write($"Successfully got important data!");
+        var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        _importantData = Services.DiscriminatedUnions.CrossCutting.ImportantData.fromDto(result);
+        Logger.Trace()?.Log($"Successfully got important data!");
 
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
 }

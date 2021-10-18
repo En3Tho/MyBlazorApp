@@ -50,12 +50,12 @@ type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
 [<Struct>]
 type ComponentDataChangeEventHandler =
     val mutable private _handler: EventHandler
-    val mutable private _componentDatas: ComponentData[]
+    val mutable private _componentsData: ComponentData[]
 
-    member this.Subscribe(action: Action, [<ParamArray>] datas: ComponentData[]) =
+    member this.Subscribe(action: Action, [<ParamArray>] componentsData: ComponentData[]) =
         this._handler <- EventHandler(fun _ _ -> action.Invoke())
-        this._componentDatas <- datas
-        for data in datas do data.OnChange.AddHandler this._handler
+        this._componentsData <- componentsData
+        for data in componentsData do data.OnChange.AddHandler this._handler
 
     member this.Subscribe(action: Action, data1) = this.Subscribe(action, [| data1 |])
 
@@ -64,11 +64,11 @@ type ComponentDataChangeEventHandler =
     member this.Subscribe(action: Action, data1, data2, data3) = this.Subscribe(action, [| data1; data2; data3 |])
     
     member this.Unsubscribe() =
-        if this._componentDatas <> null then
-            for data in this._componentDatas do
+        if this._componentsData <> null then
+            for data in this._componentsData do
                 data.OnChange.RemoveHandler this._handler
         this._handler <- null
-        this._componentDatas <- null
+        this._componentsData <- null
 
 type CounterData() =
     inherit ComponentData()

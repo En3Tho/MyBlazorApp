@@ -54,8 +54,8 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         private static IServiceCollection ConfigureScoped(this IServiceCollection services)
         {
             //services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            services.AddWeatherForecastsHttpClient()
-                    .AddDiscriminatedUnionsHttpClient();
+            services.AddWeatherForecastsHttpClient(new Uri("localhost:5001//"))
+                    .AddDiscriminatedUnionsHttpClient(new Uri("localhost:5001//"));
             return services;
         }
 

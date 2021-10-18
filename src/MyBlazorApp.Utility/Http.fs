@@ -1,5 +1,10 @@
 ﻿module MyBlazorApp.Utility.Http
 
+open System.Net.Http
+
+module HttpClient =
+    let setBaseAddress uri (httpClient: HttpClient) = httpClient.BaseAddress <- uri
+
 [<AbstractClass; Sealed>]
 type UriHelper() =
     static member inline GetParametrizedUriString(baseAddress: string, p1Name: string, p1Value) =
