@@ -62,11 +62,32 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\css\app.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
+        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
+        <_ContentIncludedByDefault Remove="wwwroot\index.html" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <Content Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
         <BundleResource Include="Platforms\MacCatalyst\trayicon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="favicon.ico" />
     </ItemGroup>
 
     <ItemGroup>

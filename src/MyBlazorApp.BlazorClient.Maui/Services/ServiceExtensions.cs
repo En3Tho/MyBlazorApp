@@ -1,7 +1,6 @@
 ﻿using Microsoft.Maui;
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Maui.Hosting;
 
 namespace MyBlazorApp.BlazorClient.Maui.Services
 {

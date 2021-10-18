@@ -17,11 +17,13 @@ namespace MyBlazorApp.BlazorClient.Maui.WinUI
 
         public void Initialize()
         {
-            tray = new WindowsTrayIcon("Platforms/Windows/Resources/trayicon.ico");
-            tray.LeftClick = () =>
+            tray = new WindowsTrayIcon("Platforms/Windows/Resources/trayicon.ico")
             {
-                Microsoft.Maui.MauiWinUIApplication.Current.MainWindow.BringToFront();
-                ClickHandler?.Invoke();
+                LeftClick = () =>
+                {
+                    Microsoft.Maui.MauiWinUIApplication.Current.MainWindow.BringToFront();
+                    ClickHandler?.Invoke();
+                }
             };
         }
     }

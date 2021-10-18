@@ -21,8 +21,8 @@ namespace MyBlazorApp.BlazorClient.Maui
         private static IServiceCollection ConfigureScoped(this IServiceCollection services)
         {
             //services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            services.AddWeatherForecastsHttpClient(new Uri("localhost:5001//"))
-                    .AddDiscriminatedUnionsHttpClient(new Uri("localhost:5001//"));
+            services.AddWeatherForecastsHttpClient(new Uri("127.0.0.1:5001//"))
+                    .AddDiscriminatedUnionsHttpClient(new Uri("127.0.0.1:5001//"));
             return services;
         }
 
