@@ -6,11 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="ControllerVersion1.fs" />
-        <Compile Include="DependencyInjection.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.0-rc.2.21480.10" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
       <PackageReference Update="FSharp.Core" Version="6.0.0" />
@@ -18,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Contracts\MyBlazorApp.Services.DiscriminatedUnions.Contracts.fsproj" />
-      <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.CrossCutting\MyBlazorApp.Services.DiscriminatedUnions.CrossCutting.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Implementation\MyBlazorApp.Services.DiscriminatedUnions.Implementation.fsproj" />
       <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Domain\MyBlazorApp.Services.DiscriminatedUnions.Domain.fsproj" />
     </ItemGroup>
 

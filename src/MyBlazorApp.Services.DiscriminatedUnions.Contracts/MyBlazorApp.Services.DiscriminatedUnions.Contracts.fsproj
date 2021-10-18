@@ -7,9 +7,12 @@
 
     <ItemGroup>
         <Compile Include="Version1.fs" />
+        <Compile Include="Clients.fs" />
+        <Compile Include="DependencyInjection.fs" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>
 
     <ItemGroup>

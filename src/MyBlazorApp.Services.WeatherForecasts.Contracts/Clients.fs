@@ -7,7 +7,6 @@ open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open System.Net.Http.Json
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
-open FSharp.Control.Tasks.V2
 open MyBlazorApp.Utility.Http
 
 [<CLIMutable>]

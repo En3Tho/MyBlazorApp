@@ -1,7 +1,7 @@
 @attribute [RouteAttribute("/" + nameof(FetchData))]
 
 @using MyBlazorApp.Services.WeatherForecasts.Contracts
-@using MyBlazorApp.Services.WeatherForecasts.Domain
+@using MyBlazorApp.ComponentsAndPages.Pages.WeatherForecasts
 
 @inject Version1.IWeatherForecastsService WeatherForecastClientV1
 @inject ILogger<FetchData> Logger
@@ -70,7 +70,7 @@
         Logger.Trace()?.Log(nameof(GetForecasts));
 
         var forecastDto = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
-        _forecasts = forecastDto.Select(Services.WeatherForecasts.CrossCutting.WeatherForecast.fromDto).ToArray();
+        _forecasts = forecastDto.Select(WeatherForecast.FromDto).ToArray();
         Logger.Trace()?.Log($"Successfully got {_forecastRequestCount} weather forecasts!");
 
         await InvokeAsync(StateHasChanged);

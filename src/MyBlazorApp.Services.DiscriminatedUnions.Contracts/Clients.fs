@@ -4,7 +4,6 @@ open System.Net.Http
 open System.Net.Http.Json
 open System.Text.Json
 open System.Threading.Tasks
-open FSharp.Control.Tasks
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts

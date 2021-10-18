@@ -3,7 +3,7 @@ namespace MyBlazorApp.Services.WeatherForecasts.Hosting.DependencyInjection
 open System.Runtime.CompilerServices
 open Microsoft.Extensions.DependencyInjection
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
-open MyBlazorApp.Services.WeatherForecasts.Controller
+open MyBlazorApp.Services.WeatherForecasts.Hosting
 
 [<Extension; AbstractClass>]
 type DependencyInjectionExtensions() =

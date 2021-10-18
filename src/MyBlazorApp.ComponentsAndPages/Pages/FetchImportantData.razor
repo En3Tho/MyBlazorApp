@@ -1,8 +1,8 @@
 @attribute [RouteAttribute("/" + nameof(FetchImportantData))]
 @inherits SubscribingComponentBase
 
-@using ImportantData = MyBlazorApp.Services.DiscriminatedUnions.Domain.ImportantData
 @using MyBlazorApp.Services.DiscriminatedUnions.Contracts
+@using MyBlazorApp.ComponentsAndPages.Pages.DiscriminatedUnions
 
 @inject Version1.IDiscriminatedUnionsService DiscriminatedUnionApiV1HttpClient
 @inject ILogger<FetchImportantData> Logger
@@ -98,7 +98,7 @@
         Logger.Trace()?.Log(nameof(GetImportantData));
 
         var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
-        _importantData = Services.DiscriminatedUnions.CrossCutting.ImportantData.fromDto(result);
+        _importantData = ImportantData.FromDto(result);
         Logger.Trace()?.Log($"Successfully got important data!");
 
         await InvokeAsync(StateHasChanged);

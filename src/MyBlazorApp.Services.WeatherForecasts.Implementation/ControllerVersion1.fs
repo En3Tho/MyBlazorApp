@@ -1,9 +1,8 @@
-﻿namespace MyBlazorApp.Services.WeatherForecasts.Controller
+﻿namespace MyBlazorApp.Services.WeatherForecasts.Hosting
 
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Services.WeatherForecasts.Contracts
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open MyBlazorApp.Services.WeatherForecasts.CrossCutting
 open MyBlazorApp.Services.WeatherForecasts.Domain

@@ -6,11 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Clients.fs" />
-        <Compile Include="DependencyInjection.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj" />
       <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>

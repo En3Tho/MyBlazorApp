@@ -6,13 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="ControllerVersion1.fs" />
-        <Compile Include="DependencyInjection.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj" />
-      <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.CrossCutting\MyBlazorApp.Services.WeatherForecasts.CrossCutting.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Implementation\MyBlazorApp.Services.WeatherForecasts.Implementation.fsproj" />
     </ItemGroup>
 
     <ItemGroup>
