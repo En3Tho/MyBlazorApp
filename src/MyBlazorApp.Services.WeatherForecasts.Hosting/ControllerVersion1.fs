@@ -4,22 +4,34 @@ open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.WeatherForecasts.Contracts
+open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
+open MyBlazorApp.Services.WeatherForecasts.CrossCutting
 open MyBlazorApp.Services.WeatherForecasts.Domain
 
-[<Route(Version1.Routes.ServiceName)>]
-type WeatherForecastsServiceVersion1Controller(logger: ILogger<WeatherForecastsServiceVersion1Controller>) =
-   inherit ControllerBase()
+type WeatherForecastServiceVersion1(logger: WeatherForecastServiceVersion1 ILogger) =
 
-   [<HttpGet(Version1.Routes.GetForecasts)>]
-   member _.GetForecasts (count: int) =
-      WeatherForecastsService.getForecasts logger count
-      |> Task.FromResult
+    member this.GetForecasts count =
+        WeatherForecastsService.getForecasts logger count
+        |> Array.map WeatherForecast.toDto
+        |> ValueTask.FromResult
 
-   [<HttpGet(Version1.Routes.GetSuperForecasts)>]
-   member _.GetSuperForecasts (count: int) (superNumber: int) =
-      WeatherForecastsService.getSuperForecasts logger count superNumber
-      |> Task.FromResult
+    member this.GetSuperForecasts count superNumber =
+        WeatherForecastsService.getSuperForecasts logger count superNumber
+        |> Array.map WeatherForecast.toDto
+        |> ValueTask.FromResult
 
-   interface Version1.IWeatherForecastsService with
-      member this.GetForecasts count = failwith "Controller should not be called by a marker interface"
-      member this.GetSuperForecasts count superNumber = failwith "Controller should not be called by a marker interface"
+    interface IWeatherForecastsService with
+        member this.GetForecasts count = this.GetForecasts count
+        member this.GetSuperForecasts (count, superNumber) = this.GetSuperForecasts count superNumber
+
+[<Route(Routes.ServiceName)>]
+type WeatherForecastsServiceVersion1Controller(service: IWeatherForecastsService, logger: ILogger<WeatherForecastsServiceVersion1Controller>) =
+    inherit ControllerBase()
+
+    [<HttpGet(Routes.GetForecasts)>]
+    member _.GetForecasts (count: int) =
+        service.GetForecasts(count)
+
+    [<HttpGet(Routes.GetSuperForecasts)>]
+    member _.GetSuperForecasts (count: int, superNumber: int) =
+        service.GetSuperForecasts(count, superNumber)

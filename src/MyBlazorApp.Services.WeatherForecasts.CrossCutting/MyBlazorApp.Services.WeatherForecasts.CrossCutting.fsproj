@@ -10,6 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj" />
     </ItemGroup>
 
     <ItemGroup>

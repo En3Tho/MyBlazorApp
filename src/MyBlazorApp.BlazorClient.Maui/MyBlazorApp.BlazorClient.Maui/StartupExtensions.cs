@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Utility;
 using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
@@ -15,8 +16,8 @@ namespace MyBlazorApp.BlazorClient.Maui
                 .AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?// global StateHasChanged event to simplify programming?
 
         private static IServiceCollection ConfigureScoped(this IServiceCollection services) =>
-                services.AddWeatherForecastsHttpClient()
-                        .AddDiscriminatedUnionsHttpClient();
+                services.AddWeatherForecastsHttpClient(new Uri("localhost:5151"))
+                        .AddDiscriminatedUnionsHttpClient(new Uri("localhost:5151"));
             
 
         private static IServiceCollection ConfigureTransient(this IServiceCollection services)

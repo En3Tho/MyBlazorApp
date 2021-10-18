@@ -4,6 +4,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
+
 namespace MyBlazorApp.BlazorClient.Maui
 {
     public class Startup : IStartup
@@ -17,7 +18,7 @@ namespace MyBlazorApp.BlazorClient.Maui
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                })                
+                })
                 .ConfigureServices(services =>
                 {
                     services.AddBlazorWebView()

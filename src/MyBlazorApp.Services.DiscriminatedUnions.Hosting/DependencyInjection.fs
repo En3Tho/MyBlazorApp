@@ -2,10 +2,13 @@
 
 open System.Runtime.CompilerServices
 open Microsoft.Extensions.DependencyInjection
+open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.DiscriminatedUnions.Hosting
 
 [<Extension; AbstractClass>]
 type DependencyInjectionExtensions() =
+
     [<Extension>]
-    static member AddDiscriminatedUnionsController(builder: IMvcBuilder) =
-        builder.AddApplicationPart(typeof<DiscriminatedUnionController>.Assembly)
+    static member AddDiscriminatedUnionsService(services: IServiceCollection) =
+        services.AddMvcCore().AddApplicationPart(typeof<DiscriminatedUnionsController>.Assembly) |> ignore
+        services.AddSingleton<IDiscriminatedUnionsService, DiscriminatedUnionsServiceVersion1>()

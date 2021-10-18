@@ -4,16 +4,23 @@ open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
+open MyBlazorApp.Services.DiscriminatedUnions.CrossCutting
 open MyBlazorApp.Services.DiscriminatedUnions.Domain
 
+type DiscriminatedUnionsServiceVersion1(logger: DiscriminatedUnionsServiceVersion1 ILogger) =
+
+    member this.GetRandomImportantData() =
+        DiscriminatedUnions.getRandomImportantData logger
+        |> ImportantData.toDto
+        |> ValueTask.FromResult
+
+    interface IDiscriminatedUnionsService with
+        member this.GetRandomImportantData() = this.GetRandomImportantData()
+
 [<Route(Routes.Controller)>]
-type DiscriminatedUnionController(logger: ILogger<DiscriminatedUnionController>) =
+type DiscriminatedUnionsController(service: IDiscriminatedUnionsService, logger: ILogger<DiscriminatedUnionsController>) =
    inherit ControllerBase()
 
    [<HttpGet(Routes.GetRandomImportantData)>]
    member _.GetRandomImportantData() =
-      DiscriminatedUnionsService.getRandomImportantData logger
-      |> ValueTask.FromResult
-
-   interface IDiscriminatedUnionsService with
-      member this.GetRandomImportantData() = failwith "Controller should not be called by a marker interface"
+      service.GetRandomImportantData()

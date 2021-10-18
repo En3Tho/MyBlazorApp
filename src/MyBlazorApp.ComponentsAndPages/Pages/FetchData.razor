@@ -7,7 +7,6 @@
 @inject ILogger<FetchData> Logger
 @inject ThemeSwitch ThemeSwitch
 
-
 @inherits SubscribingComponentBase
 
 <div>
@@ -70,7 +69,8 @@
     {
         Logger.Trace()?.Log(nameof(GetForecasts));
 
-        _forecasts = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+        var forecastDto = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+        _forecasts = forecastDto.Select(Services.WeatherForecasts.CrossCutting.WeatherForecast.fromDto).ToArray();
         Logger.Trace()?.Log($"Successfully got {_forecastRequestCount} weather forecasts!");
 
         await InvokeAsync(StateHasChanged);

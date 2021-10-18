@@ -97,7 +97,8 @@
     {
         Logger.Trace()?.Log(nameof(GetImportantData));
 
-        _importantData = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        _importantData = Services.DiscriminatedUnions.CrossCutting.ImportantData.fromDto(result);
         Logger.Trace()?.Log($"Successfully got important data!");
 
         await InvokeAsync(StateHasChanged);

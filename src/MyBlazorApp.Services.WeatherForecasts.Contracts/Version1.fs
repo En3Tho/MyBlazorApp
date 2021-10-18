@@ -1,7 +1,7 @@
 ﻿module MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 
+open System
 open System.Threading.Tasks
-open MyBlazorApp.Services.WeatherForecasts.Domain
 
 let [<Literal>] Version = "v1"
 
@@ -14,6 +14,12 @@ module Endpoints =
     let [<Literal>] GetForecasts = Routes.ServiceName + Routes.GetForecasts
     let [<Literal>] GetSuperForecasts = Routes.ServiceName + Routes.GetSuperForecasts
 
+type WeatherForecastDto = {
+    Date: DateTime
+    TemperatureC: int
+    Summary: string
+}
+
 type IWeatherForecastsService =
-    abstract GetForecasts: count: int -> ValueTask<WeatherForecast[]>
-    abstract GetSuperForecasts: count: int -> superNumber: int -> ValueTask<WeatherForecast[]>
+    abstract GetForecasts: count: int -> ValueTask<WeatherForecastDto[]>
+    abstract GetSuperForecasts: count: int * superNumber: int -> ValueTask<WeatherForecastDto[]>
