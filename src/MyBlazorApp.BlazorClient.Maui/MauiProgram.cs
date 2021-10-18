@@ -21,7 +21,7 @@ namespace MyBlazorApp.BlazorClient.Maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            builder.Services.AddBlazorWebView();            
+            builder.Services.AddBlazorWebView().ConfigureDI();
 #if WINDOWS
             builder.Services.AddSingleton<ITrayService, WinUI.TrayService>();
             builder.Services.AddSingleton<INotificationService, WinUI.NotificationService>();

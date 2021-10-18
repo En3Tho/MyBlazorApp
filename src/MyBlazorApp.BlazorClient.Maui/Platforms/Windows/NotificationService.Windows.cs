@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
+using MyBlazorApp.BlazorClient.Maui.Services;
 
 namespace MyBlazorApp.BlazorClient.Maui.WinUI
 {

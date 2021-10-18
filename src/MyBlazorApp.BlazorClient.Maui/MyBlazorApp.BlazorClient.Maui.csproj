@@ -73,4 +73,12 @@
         <Content Include="Platforms\Windows\Resources\trayicon.ico" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+      <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Contracts\MyBlazorApp.Services.DiscriminatedUnions.Contracts.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj" />
+      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+
 </Project>
