@@ -3,6 +3,8 @@
 open System
 open System.Collections.Generic
 open Microsoft.Extensions.Logging
+open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
+open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open MyBlazorApp.Utility.FSharpHelpers
 open En3Tho.FSharp.Extensions
 
@@ -17,6 +19,32 @@ type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equalit
     static member KeyValueBag =
         ComponentValueDictionary<'TType, 'TKey, 'TValue>
             ._KeyValueBag
+
+type ImportantData =
+    | NameAndAge of Name: string * Age: int
+    | PriceRangeAndCount of RangeFrom: int * RangeTo: int * Count: int
+    | Cart of Items: string[]
+
+module ImportantDataMapper =
+    let fromDto (dto: ImportantDataDto) =
+        match dto with
+        | ImportantDataDto.NameAndAge(name, age) -> NameAndAge(name, age)
+        | ImportantDataDto.PriceRangeAndCount(priceFrom, priceTo, count) -> PriceRangeAndCount(priceFrom, priceTo, count)
+        | ImportantDataDto.Cart(items) -> Cart(items)
+
+type WeatherForecast = {
+    Date: DateTime
+    TemperatureC: int
+    Summary: string
+} with
+    member this.TemperatureF = 32 + int (float this.TemperatureC / 0.5556);
+
+module WeatherForecastMapper =
+    let fromDto (dto: WeatherForecastDto) : WeatherForecast = {
+        Date = dto.Date
+        TemperatureC = dto.TemperatureC
+        Summary = dto.Summary
+    }
 
 type ComponentDataProvider(_logger: ILogger<ComponentDataProvider>) =
     member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey: equality and 'TValue: (new: unit -> 'TValue)> key =
