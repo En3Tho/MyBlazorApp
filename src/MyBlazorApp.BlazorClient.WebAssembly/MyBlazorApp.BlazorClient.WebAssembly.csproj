@@ -8,12 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-rc.2.21480.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-rc.2.21480.10" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0-rc.2.21480.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-rc.2.21480.5" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-rc.2.21480.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-rtm.21520.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-rtm.21520.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-rtm.21518.12" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rtm.21518.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0-rtm.21518.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-rtm.21518.12" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-rtm.21518.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,21 +50,6 @@
     <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
     <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
     <_ContentIncludedByDefault Remove="wwwroot\index.html" />
-    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
-    <_ContentIncludedByDefault Remove="Pages\CounterPage.razor" />
-    <_ContentIncludedByDefault Remove="Pages\FetchData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\FetchImportantData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Index.razor" />
-    <_ContentIncludedByDefault Remove="Pages\LearningGrounds.razor" />
-    <_ContentIncludedByDefault Remove="Shared\MainLayout.razor" />
-    <_ContentIncludedByDefault Remove="Shared\NavMenu.razor" />
-    <_ContentIncludedByDefault Remove="Shared\SurveyPrompt.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Shared\MainLayout.razor" />
-    <UpToDateCheckInput Remove="Shared\NavMenu.razor" />
-    <UpToDateCheckInput Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
 </Project>
