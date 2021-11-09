@@ -14,11 +14,11 @@
 
     <ItemGroup>
       <PackageReference Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-rc.2.21480.5" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-rc.2.21480.5" />
-      <PackageReference Update="FSharp.Core" Version="6.0.0" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.5" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+      <PackageReference Update="FSharp.Core" Version="6.0.1" />
     </ItemGroup>
 
 </Project>

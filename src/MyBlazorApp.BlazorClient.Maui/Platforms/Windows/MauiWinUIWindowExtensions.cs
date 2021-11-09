@@ -7,13 +7,13 @@ namespace MyBlazorApp.BlazorClient.Maui.WinUI
 {
     public static class WindowExtensions
     {
-        public static IntPtr GetNativeWindowHandle(this Window window)
+        public static IntPtr GetNativeWindowHandle(this Microsoft.Maui.IWindow window)
         {
             var nativeWindow = window.As<IWindowNative>();
             return nativeWindow.WindowHandle;
         }
 
-        public static void BringToFront(this Window window)
+        public static void BringToFront(this Microsoft.Maui.IWindow window)
         {
             var hwnd = window.GetNativeWindowHandle();
 
@@ -23,7 +23,7 @@ namespace MyBlazorApp.BlazorClient.Maui.WinUI
             _ = PInvoke.User32.SetForegroundWindow(hwnd);
         }
 
-        public static void MinimizeToTray(this Window window)
+        public static void MinimizeToTray(this Microsoft.Maui.IWindow window)
         {
             var hwnd = window.GetNativeWindowHandle();
 

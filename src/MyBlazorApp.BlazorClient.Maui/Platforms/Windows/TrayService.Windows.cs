@@ -1,10 +1,5 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification.Interop;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyBlazorApp.BlazorClient.Maui;
 using MyBlazorApp.BlazorClient.Maui.Services;
 
 namespace MyBlazorApp.BlazorClient.Maui.WinUI
@@ -20,8 +15,8 @@ namespace MyBlazorApp.BlazorClient.Maui.WinUI
             tray = new WindowsTrayIcon("Platforms/Windows/Resources/trayicon.ico")
             {
                 LeftClick = () =>
-                {
-                    Microsoft.Maui.MauiWinUIApplication.Current.MainWindow.BringToFront();
+                {                   
+                    Microsoft.Maui.MauiWinUIApplication.Current.Application.Windows[0].BringToFront();
                     ClickHandler?.Invoke();
                 }
             };

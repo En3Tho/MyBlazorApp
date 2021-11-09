@@ -35,7 +35,7 @@ namespace MyBlazorApp.WebHost
             services.AddWeatherForecastsService()
                     .AddDiscriminatedUnionsService();
             services.AddRazorPages();
-            services.AddSwaggerDocument();
+            //services.AddSwaggerDocument();
             services.AddSingleton(Json.CreateDefaultOptions());
         }
 
@@ -59,8 +59,8 @@ namespace MyBlazorApp.WebHost
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseOpenApi()
-               .UseSwaggerUi3();
+            // app.UseOpenApi()
+            //    .UseSwaggerUi3();
 
             app.UseRouting();
             app.UseCors();
