@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
-    <ProjectReference Include="..\MyBlazorApp.Services.DiscriminatedUnions.Clients\MyBlazorApp.Services.DiscriminatedUnions.Clients.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

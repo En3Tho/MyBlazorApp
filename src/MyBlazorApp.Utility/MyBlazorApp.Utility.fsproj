@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.5" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.8" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
