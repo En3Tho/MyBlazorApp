@@ -138,7 +138,7 @@
     <ItemGroup>
       <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
       <ProjectReference Include="..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
-      <ProjectReference Include="..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+      <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>
 
 </Project>
