@@ -1,0 +1,79 @@
+﻿@inherits SubscribingComponentBase
+
+@inject ILogger<Counter> _logger
+@inject ComponentDataFactory _dataFactory
+@inject ThemeSwitch _themeSwitch // Subscribe to ThemeChangedEvent via MessagePipe instead of such mechanism?
+
+<h1>@($"Counter: {IncrementAmount}")</h1>
+
+<p>Current count: @_counterData.Current</p>
+<p>Clicks (this session): @_clicksInThisSession</p>
+<p>Clicks (total): @_counterData.TotalClicks</p>
+<button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="OnClick">Click me</button>
+
+@code {
+
+    private CounterData _counterData = null!;
+    private int _clicksInThisSession;
+
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+
+    protected override void OnParametersSet()
+    {
+        _logger.Trace()?.Log($"{nameof(OnParametersSet)}");
+        _logger.Trace()?.Log($"Getting CounterData({IncrementAmount})");
+
+        _clicksInThisSession = 0;
+        _counterData = _dataFactory.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        base.OnParametersSet();
+    }
+
+    protected override void OnInitialized()
+    {
+        _logger.Trace()?.Log($"{nameof(OnInitialized)}");
+    }
+
+    private void OnClick(MouseEventArgs e)
+    {
+        _logger.Trace()?.Log($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
+
+        _clicksInThisSession++;
+        _counterData.TotalClicks++;
+
+        switch (e.CtrlKey, e.ShiftKey, e.AltKey)
+        {
+            case (true, true, true):
+                Clear();
+                return;
+            case (true, true, _):
+                ChangeCount(-IncrementAmount * IncrementAmount);
+                return;
+            case (false, true, _):
+                ChangeCount(-IncrementAmount);
+                return;
+            case (true, false, _):
+                ChangeCount(IncrementAmount * IncrementAmount);
+                return;
+            default:
+                ChangeCount(IncrementAmount);
+                return;
+        }
+    }
+
+    private void Clear()
+    {
+        _logger.Trace()?.Log(nameof(Clear));
+
+        _counterData.Current = 0;
+    }
+
+    private void ChangeCount(int amount)
+    {
+        _logger.Trace()?.Log(nameof(ChangeCount));
+
+        _counterData.Current += amount;
+    }
+}

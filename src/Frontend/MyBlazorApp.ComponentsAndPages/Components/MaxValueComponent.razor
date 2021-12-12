@@ -1,0 +1,15 @@
+﻿<h3>MaxValueComponent</h3>
+
+<h3>Int32.MinValue: @int.MinValue</h3>
+<h3>Int32.MaxValue: @int.MaxValue</h3>
+
+<h3>Int64.MinValue: @long.MinValue</h3>
+<h3>Int64.MaxValue: @long.MaxValue</h3>
+
+<input type="number" @bind="@_value">
+
+<h3> Current num is: @_value </h3>
+
+@code {
+    private long _value = 0;
+}

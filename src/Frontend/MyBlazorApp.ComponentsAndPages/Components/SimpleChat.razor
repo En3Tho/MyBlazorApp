@@ -1,0 +1,42 @@
+﻿@inherits SubscribingComponentBase
+
+@inject ComponentDataFactory _dataFactory
+@inject ThemeSwitch _themeSwitch
+
+<h3>SimpleChat</h3>
+
+<div style="height:100px;overflow-y:scroll">
+    <ul>
+        <Virtualize Context="message" Items="@_chatData.Messages" ItemSize="5">
+            <li>
+                @message
+            </li>
+        </Virtualize>
+    </ul>
+</div>
+<div>
+    <input @bind="@_chatData.CurrentMessage" type="text" width="300">
+    <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="OnClick">Click me</button>
+</div>
+
+@code {
+    private SimpleChatData _chatData = null!;
+
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+
+    protected override void OnParametersSet()
+    {
+        _chatData = _dataFactory.GetOrCreateNew<SimpleChat, int, SimpleChatData>(0);
+        base.OnParametersSet();
+    }
+
+    private void OnClick()
+    {
+        if (_chatData.CurrentMessage is not null)
+        {
+            _chatData.AddMessage(_chatData.CurrentMessage);
+            _chatData.CurrentMessage = null;
+        }
+    }
+
+}
