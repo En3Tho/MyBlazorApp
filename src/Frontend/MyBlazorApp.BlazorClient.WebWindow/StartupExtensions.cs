@@ -14,7 +14,7 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             Console.WriteLine("Configuring services");
-            services.ConfigureDependencyInjection(configuration);
+            services.AddServices(configuration);
         }
 
         public void Configure(DesktopApplicationBuilder app)
@@ -26,11 +26,11 @@ namespace MyBlazorApp.BlazorClient.WebWindow
 
     public static class StartupExtensions
     {
-        public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataFactory>()
+                .AddSingleton<ComponentDataStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red)) // load theme from user config or smth?
 
                 .AddWeatherForecastsHttpClient(configuration)

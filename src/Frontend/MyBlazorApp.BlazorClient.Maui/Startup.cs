@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
@@ -8,13 +7,13 @@ using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.Maui
 {
-    public static class StartupExtensions
+    public static class Startup
     {
-        public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataFactory>()
+                .AddSingleton<ComponentDataStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red))
 
                 .AddWeatherForecastsHttpClient(configuration)

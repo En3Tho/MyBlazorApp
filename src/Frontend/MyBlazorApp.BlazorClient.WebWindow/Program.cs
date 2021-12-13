@@ -6,7 +6,7 @@ namespace MyBlazorApp.BlazorClient.WebWindow
     public class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ComponentsDesktop.Run<Startup>(
                 "MyBlazorApp.WebWindow",

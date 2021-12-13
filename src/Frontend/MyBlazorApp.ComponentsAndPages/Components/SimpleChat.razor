@@ -1,6 +1,6 @@
 ﻿@inherits SubscribingComponentBase
 
-@inject ComponentDataFactory _dataFactory
+@inject ComponentDataStorage _dataStorage
 @inject ThemeSwitch _themeSwitch
 
 <h3>SimpleChat</h3>
@@ -26,7 +26,7 @@
 
     protected override void OnParametersSet()
     {
-        _chatData = _dataFactory.GetOrCreateNew<SimpleChat, int, SimpleChatData>(0);
+        _chatData = _dataStorage.GetOrCreateNew<SimpleChat, int, SimpleChatData>(0);
         base.OnParametersSet();
     }
 

@@ -2,23 +2,12 @@
 
 open System
 open System.Collections.Generic
+open System.Runtime.InteropServices
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open MyBlazorApp.Utility.FSharpHelpers
 open En3Tho.FSharp.Extensions
-
-[<AbstractClass>]
-type private ComponentValueDictionary<'TType, 'TKey, 'TValue when 'TKey: equality>() =
-
-    [<DefaultValue>]
-    static val mutable private _KeyValueBag: Dictionary<'TKey, 'TValue>
-
-    static do ComponentValueDictionary<'TType, 'TKey, 'TValue>._KeyValueBag <- Dictionary()
-
-    static member KeyValueBag =
-        ComponentValueDictionary<'TType, 'TKey, 'TValue>
-            ._KeyValueBag
 
 type ImportantData =
     | NameAndAge of Name: string * Age: int
@@ -46,34 +35,39 @@ module WeatherForecastMapper =
         Summary = dto.Summary
     }
 
-type ComponentDataFactory(_logger: ILogger<ComponentDataFactory>) =
-    member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey: equality and 'TValue: (new: unit -> 'TValue)> key =
-        let bag = ComponentValueDictionary<'TType, 'TKey, 'TValue>.KeyValueBag
-        
-        match bag |> Dictionary.tryGetValue key with
-        | Some value -> value
-        | None ->
-            let value = new 'TValue()
-            bag.[key] <- value
-            value
+/// Single threaded component data storage
+type ComponentDataStorage(_logger: ILogger<ComponentDataStorage>) =
 
-    member this.GetOrCreateWith<'TType, 'TKey, 'TValue when 'TKey: equality> key (factory: 'TValue Func) =
-        let bag = ComponentValueDictionary<'TType, 'TKey, 'TValue>.KeyValueBag
-        
-        match bag |> Dictionary.tryGetValue key with
-        | Some value -> value
-        | None ->
-            let value = factory.Invoke()
-            bag.[key] <- value
-            value
+    let typeStorage = Dictionary<struct (Type * Type), obj>() // stores Dictionary<'TKey, 'TValue> as obj
 
-    member this.Set<'TType, 'TKey, 'TValue when 'TKey: equality> key value =
-        let bag = ComponentValueDictionary<'TType, 'TKey, 'TValue>.KeyValueBag
-        bag.[key] <- value
+    member this.GetValueStorage<'TType, 'TKey, 'TValue when 'TKey: equality>() =
+        let typeKey = struct (typeof<'TType>, typeof<'TKey>)
+        let mutable found = false
+        let valueStorageRef = &CollectionsMarshal.GetValueRefOrAddDefault(typeStorage, typeKey, &found)
+        if not found then valueStorageRef <- Dictionary<'TKey, 'TValue>()
+        valueStorageRef :?> Dictionary<'TKey, 'TValue>
 
-    member this.Remove<'TType, 'TKey, 'TValue when 'TKey: equality> key =
-        let bag = ComponentValueDictionary<'TType, 'TKey, 'TValue>.KeyValueBag
-        bag.Remove key |> ignore
+    member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey: equality and 'TValue: (new: unit -> 'TValue)> (key: 'TKey) =
+        let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
+        let mutable found = false
+        let valueRef = &CollectionsMarshal.GetValueRefOrAddDefault(valueStorage, key, &found)
+        if not found then valueRef <- new 'TValue()
+        valueRef
+
+    member this.GetOrCreateWith<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) (factory: 'TValue Func) =
+        let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
+        let mutable found = false
+        let valueRef = &CollectionsMarshal.GetValueRefOrAddDefault(valueStorage, key, &found)
+        if not found then valueRef <- factory.Invoke()
+        valueRef
+
+    member this.Set<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) (value: 'TValue) =
+        let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
+        valueStorage.[key] <- value
+
+    member this.Remove<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) =
+        let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
+        valueStorage.Remove key |> ignore
 
 [<Struct>]
 type ComponentDataChangeEventHandler =

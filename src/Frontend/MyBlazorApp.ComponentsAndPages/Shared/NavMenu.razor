@@ -4,10 +4,12 @@
 @inject ThemeSwitch _themeSwitch
 
 <div class="navbar navbar-dark pl-4 top-row @_themeSwitch.ThemeString">
-    <a class="navbar-brand" href="">MyBlazorApp</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container-fluid">
+         <a class="navbar-brand" href="">MyBlazorApp</a>
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 </div>
 
 <div class="@NavMenuCssClass @_themeSwitch.ThemeString" @onclick="ToggleNavMenu">

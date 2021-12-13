@@ -50,6 +50,23 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MyBlazorApp.Services.Weathe
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MyBlazorApp.Services.WeatherForecasts.Implementation", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Implementation\MyBlazorApp.Services.WeatherForecasts.Implementation.fsproj", "{74131212-47FA-4A6C-A607-CFE5305C6AD1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{56F9C242-314D-48A6-9ECB-D2D4E04F3C89}"
+	ProjectSection(SolutionItems) = preProject
+		Frontend\Shared\css\app.css = Frontend\Shared\css\app.css
+		Frontend\Shared\css\bootstrap\bootstrap.min.css = Frontend\Shared\css\bootstrap\bootstrap.min.css
+		Frontend\Shared\css\bootstrap\bootstrap.min.css.map = Frontend\Shared\css\bootstrap\bootstrap.min.css.map
+		Frontend\Shared\css\open-iconic\font\css\open-iconic-bootstrap.min.css = Frontend\Shared\css\open-iconic\font\css\open-iconic-bootstrap.min.css
+		Frontend\Shared\css\open-iconic\font\fonts\open-iconic.eot = Frontend\Shared\css\open-iconic\font\fonts\open-iconic.eot
+		Frontend\Shared\css\open-iconic\font\fonts\open-iconic.otf = Frontend\Shared\css\open-iconic\font\fonts\open-iconic.otf
+		Frontend\Shared\css\open-iconic\font\fonts\open-iconic.svg = Frontend\Shared\css\open-iconic\font\fonts\open-iconic.svg
+		Frontend\Shared\css\open-iconic\font\fonts\open-iconic.ttf = Frontend\Shared\css\open-iconic\font\fonts\open-iconic.ttf
+		Frontend\Shared\css\open-iconic\font\fonts\open-iconic.woff = Frontend\Shared\css\open-iconic\font\fonts\open-iconic.woff
+		Frontend\Shared\css\open-iconic\FONT-LICENSE = Frontend\Shared\css\open-iconic\FONT-LICENSE
+		Frontend\Shared\css\open-iconic\ICON-LICENSE = Frontend\Shared\css\open-iconic\ICON-LICENSE
+		Frontend\Shared\css\open-iconic\README.md = Frontend\Shared\css\open-iconic\README.md
+		Frontend\Shared\favicon.ico = Frontend\Shared\favicon.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -339,6 +356,7 @@ Global
 		{07E90C3A-7976-4E71-9873-87C1512F750F} = {0C1852BF-D119-4BDD-AF69-F6E5C843677D}
 		{E64D47D9-941F-4DA3-BA57-565D813569E1} = {0C1852BF-D119-4BDD-AF69-F6E5C843677D}
 		{74131212-47FA-4A6C-A607-CFE5305C6AD1} = {0C1852BF-D119-4BDD-AF69-F6E5C843677D}
+		{56F9C242-314D-48A6-9ECB-D2D4E04F3C89} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E88D22E3-F71A-4514-A666-011EE1B3AD94}

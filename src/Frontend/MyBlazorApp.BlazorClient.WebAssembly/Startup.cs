@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,7 @@ using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.WebAssembly
 {
-    public static class StartupExtensions
+    public static class Startup
     {
         public static WebAssemblyHostBuilder ConfigureOptions(this WebAssemblyHostBuilder builder)
         {
@@ -21,7 +20,6 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
 
         public static WebAssemblyHostBuilder ConfigureLogging(this WebAssemblyHostBuilder builder)
         {
-            builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
             builder.Logging.Configure(options =>
                 options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
                                                 | ActivityTrackingOptions.SpanId
@@ -30,11 +28,11 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
             return builder;
         }
 
-        public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataFactory>()
+                .AddSingleton<ComponentDataStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red))
 
                 .AddWeatherForecastsHttpClient(configuration)

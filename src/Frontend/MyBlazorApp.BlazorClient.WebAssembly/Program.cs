@@ -1,21 +1,15 @@
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MyBlazorApp.BlazorClient.WebAssembly;
 
-namespace MyBlazorApp.BlazorClient.WebAssembly
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.ConfigureOptions()
-                   .ConfigureLogging();
+builder
+    .ConfigureLogging()
+    .ConfigureOptions();
 
-            builder.Services.ConfigureDependencyInjection(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+await builder.Build().RunAsync();

@@ -5,14 +5,16 @@ using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.BlazorServer
 {
-    public static class StartupExtensions
+    public static class Startup
     {
-        public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataFactory>()
-                .AddSingleton(new ThemeSwitch(Theme.Red))
+                .AddSingleton(Json.CreateDefaultOptions());
+
+            services
+                .AddScoped<ComponentDataStorage>()
+                .AddScoped(_ => new ThemeSwitch(Theme.Red))
 
                 .AddWeatherForecastsService()
                 .AddDiscriminatedUnionsService();

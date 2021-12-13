@@ -62,76 +62,19 @@
         <OutputType>WinExe</OutputType>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     </PropertyGroup>
-
-    <ItemGroup>
-        <_ContentIncludedByDefault Remove="wwwroot\css\app.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
-        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-        <_ContentIncludedByDefault Remove="wwwroot\index.html" />
-    </ItemGroup>
     
     <ItemGroup>
         <Content Remove="Properties\launchSettings.json" />
+        <Content Remove="wwwroot\css\**" />
+        <Content Remove="wwwroot\favicon.ico" />
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
         <BundleResource Include="Platforms\MacCatalyst\trayicon.png" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <None Remove="favicon.ico" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="..\Shared\css\app.css">
-          <Link>wwwroot\css\app.css</Link>
-        </Content>
-        <Content Include="..\Shared\css\bootstrap\bootstrap.min.css">
-          <Link>wwwroot\css\bootstrap\bootstrap.min.css</Link>
-        </Content>
-        <Content Include="..\Shared\css\bootstrap\bootstrap.min.css.map">
-          <Link>wwwroot\css\bootstrap\bootstrap.min.css.map</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\FONT-LICENSE">
-          <Link>wwwroot\css\open-iconic\FONT-LICENSE</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\css\open-iconic-bootstrap.min.css">
-          <Link>wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\fonts\open-iconic.eot">
-          <Link>wwwroot\css\open-iconic\font\fonts\open-iconic.eot</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\fonts\open-iconic.otf">
-          <Link>wwwroot\css\open-iconic\font\fonts\open-iconic.otf</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\fonts\open-iconic.svg">
-          <Link>wwwroot\css\open-iconic\font\fonts\open-iconic.svg</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\fonts\open-iconic.ttf">
-          <Link>wwwroot\css\open-iconic\font\fonts\open-iconic.ttf</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\font\fonts\open-iconic.woff">
-          <Link>wwwroot\css\open-iconic\font\fonts\open-iconic.woff</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\ICON-LICENSE">
-          <Link>wwwroot\css\open-iconic\ICON-LICENSE</Link>
-        </Content>
-        <Content Include="..\Shared\css\open-iconic\README.md">
-          <Link>wwwroot\css\open-iconic\README.md</Link>
-        </Content>
-        <Content Include="..\Shared\favicon.ico">
-          <Link>wwwroot\favicon.ico</Link>
-        </Content>
+        <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
         <Content Include="Platforms\Windows\Resources\trayicon.ico" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
@@ -139,6 +82,14 @@
       <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
       <ProjectReference Include="..\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <MauiXaml Remove="wwwroot\css\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiCss Remove="wwwroot\css\**" />
     </ItemGroup>
 
 </Project>

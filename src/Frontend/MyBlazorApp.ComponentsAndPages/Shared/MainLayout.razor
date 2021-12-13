@@ -3,12 +3,14 @@
 @inject ILogger<MainLayout> _logger
 @inject ThemeSwitch _themeSwitch
 
-<app>
+<PageTitle>MyBlazorApp</PageTitle>
+
+<div class="page">
     <div class="sidebar @_themeSwitch.ThemeString">
         <NavMenu/>
     </div>
 
-    <main class="main" @onkeydown="ProcessKeyDown">
+    <main @onkeydown="ProcessKeyDown">
         <div class="px-4 top-row">
             <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="ChangeTheme">Change theme</button>
             <a class="ml-md-auto" href="http://blazor.net" target="_blank">About</a>
@@ -18,7 +20,7 @@
             @Body
         </div>
     </main>
-</app>
+</div>
 
 
 @code {

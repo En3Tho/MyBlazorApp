@@ -11,14 +11,14 @@ namespace MyBlazorApp.BlazorClient.Maui.MacCatalyst
 	{
 		public TrayService() : base()
 		{
-			serviceNative = new TrayServiceNative();
-			serviceNative.ClickHandler = () => ClickHandler?.Invoke();
+			_serviceNative = new TrayServiceNative();
+			_serviceNative.ClickHandler = () => ClickHandler?.Invoke();
 		}
 
-		TrayServiceNative serviceNative;
+		private readonly TrayServiceNative _serviceNative;
 
 		public void Initialize()
-			=> serviceNative.Initialize();
+			=> _serviceNative.Initialize();
 
 		public Action ClickHandler { get; set; }
 	}
@@ -41,37 +41,37 @@ namespace MyBlazorApp.BlazorClient.Maui.MacCatalyst
 		[DllImport("/usr/lib/libobjc.dylib", EntryPoint = "objc_msgSend")]
 		public static extern void void_objc_msgSend_bool(IntPtr receiver, IntPtr selector, bool arg1);
 
-		NSObject systemStatusBarObj;
-		NSObject statusBarObj;
-		NSObject statusBarItem;
-		NSObject statusBarButton;
-		NSObject statusBarImage;
+		private NSObject _systemStatusBarObj;
+		private NSObject _statusBarObj;
+		private NSObject _statusBarItem;
+		private NSObject _statusBarButton;
+		private NSObject _statusBarImage;
 
 		public Action ClickHandler { get; set; }
 
 		public void Initialize()
 		{
-			statusBarObj = Runtime.GetNSObject(Class.GetHandle("NSStatusBar"));
-			systemStatusBarObj = statusBarObj.PerformSelector(new Selector("systemStatusBar"));
-			statusBarItem = Runtime.GetNSObject(IntPtr_objc_msgSend_nfloat(systemStatusBarObj.Handle, Selector.GetHandle("statusItemWithLength:"), -1));
-			statusBarButton = Runtime.GetNSObject(IntPtr_objc_msgSend(statusBarItem.Handle, Selector.GetHandle("button")));
-			statusBarImage = Runtime.GetNSObject(IntPtr_objc_msgSend(ObjCRuntime.Class.GetHandle("NSImage"), Selector.GetHandle("alloc")));
+			_statusBarObj = Runtime.GetNSObject(Class.GetHandle("NSStatusBar"));
+			_systemStatusBarObj = _statusBarObj.PerformSelector(new Selector("systemStatusBar"));
+			_statusBarItem = Runtime.GetNSObject(IntPtr_objc_msgSend_nfloat(_systemStatusBarObj.Handle, Selector.GetHandle("statusItemWithLength:"), -1));
+			_statusBarButton = Runtime.GetNSObject(IntPtr_objc_msgSend(_statusBarItem.Handle, Selector.GetHandle("button")));
+			_statusBarImage = Runtime.GetNSObject(IntPtr_objc_msgSend(ObjCRuntime.Class.GetHandle("NSImage"), Selector.GetHandle("alloc")));
 
 			// var imgPath = System.IO.Path.Combine(NSBundle.MainBundle.BundlePath, "Contents", "trayicon.png");
 			var imgPath = System.IO.Path.Combine(NSBundle.MainBundle.BundlePath, "Contents", "Resources", "MacCatalyst", "trayicon.png");
 			var imageFileStr = NSString.CreateNative(imgPath);
-			var nsImagePtr = IntPtr_objc_msgSend_IntPtr(statusBarImage.Handle, Selector.GetHandle("initWithContentsOfFile:"), imageFileStr);
+			var nsImagePtr = IntPtr_objc_msgSend_IntPtr(_statusBarImage.Handle, Selector.GetHandle("initWithContentsOfFile:"), imageFileStr);
 
-			void_objc_msgSend_IntPtr(statusBarButton.Handle, Selector.GetHandle("setImage:"), statusBarImage.Handle);
+			void_objc_msgSend_IntPtr(_statusBarButton.Handle, Selector.GetHandle("setImage:"), _statusBarImage.Handle);
 			void_objc_msgSend_bool(nsImagePtr, Selector.GetHandle("setTemplate:"), true);
 
 			// Handle click
-			void_objc_msgSend_IntPtr(statusBarButton.Handle, Selector.GetHandle("setTarget:"), this.Handle);
-			void_objc_msgSend_IntPtr(statusBarButton.Handle, Selector.GetHandle("setAction:"), new Selector ("handleButtonClick:").Handle);
+			void_objc_msgSend_IntPtr(_statusBarButton.Handle, Selector.GetHandle("setTarget:"), this.Handle);
+			void_objc_msgSend_IntPtr(_statusBarButton.Handle, Selector.GetHandle("setAction:"), new Selector ("handleButtonClick:").Handle);
 		}
 
 		[Export ("handleButtonClick:")]
-		void HandleClick (NSObject senderStatusBarButton)
+		private void HandleClick (NSObject senderStatusBarButton)
 		{
 			var nsapp = Runtime.GetNSObject(Class.GetHandle("NSApplication"));
 			var sharedApp = nsapp.PerformSelector(new Selector("sharedApplication"));

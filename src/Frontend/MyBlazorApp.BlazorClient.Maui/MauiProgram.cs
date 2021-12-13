@@ -2,9 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
+
+#if WINDOWS || MACCATALYST
 using MyBlazorApp.BlazorClient.Maui.Services;
-using MyBlazorApp.Services.DiscriminatedUnions.Clients;
-using MyBlazorApp.Services.WeatherForecasts.Clients;
+#endif
 
 namespace MyBlazorApp.BlazorClient.Maui
 {
@@ -23,7 +24,7 @@ namespace MyBlazorApp.BlazorClient.Maui
 
             builder.Services
                 .AddBlazorWebView()
-                .ConfigureDependencyInjection(builder.Configuration);
+                .AddServices(builder.Configuration);
 #if WINDOWS
             builder.Services.AddSingleton<ITrayService, WinUI.TrayService>();
             builder.Services.AddSingleton<INotificationService, WinUI.NotificationService>();
@@ -31,7 +32,6 @@ namespace MyBlazorApp.BlazorClient.Maui
             builder.Services.AddSingleton<ITrayService, MacCatalyst.TrayService>();
             builder.Services.AddSingleton<INotificationService, MacCatalyst.NotificationService>();
 #endif
-
             System.Net.ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
             return builder.Build();

@@ -1,7 +1,8 @@
-﻿@inherits SubscribingComponentBase
+﻿@using System.Diagnostics.CodeAnalysis
+@inherits SubscribingComponentBase
 
 @inject ILogger<Counter> _logger
-@inject ComponentDataFactory _dataFactory
+@inject ComponentDataStorage _dataStorage
 @inject ThemeSwitch _themeSwitch // Subscribe to ThemeChangedEvent via MessagePipe instead of such mechanism?
 
 <h1>@($"Counter: {IncrementAmount}")</h1>
@@ -21,13 +22,14 @@
 
     protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
 
+    [MemberNotNull(nameof(_counterData))]
     protected override void OnParametersSet()
     {
         _logger.Trace()?.Log($"{nameof(OnParametersSet)}");
         _logger.Trace()?.Log($"Getting CounterData({IncrementAmount})");
 
         _clicksInThisSession = 0;
-        _counterData = _dataFactory.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        _counterData = _dataStorage.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
         base.OnParametersSet();
     }
 
