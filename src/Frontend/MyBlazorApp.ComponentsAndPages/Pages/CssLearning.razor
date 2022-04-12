@@ -1,0 +1,59 @@
+@attribute [Route($"/{nameof(CssLearning)}")]
+
+<article>
+    <div>
+        <p>Some text</p>
+    </div>
+    <div class="superDiv">
+        SuperDivHere
+    </div>
+</article>
+
+<div class="mainDiv">
+
+    <h2>CssLearning</h2>
+
+    <h1>I am a level one heading</h1>
+
+    <p>This is a paragraph of text. <span class="special">In the text is a </span><span >span element</span>
+    and also a <a href="http://example.com">link</a>.</p>
+
+    <p>This is the second paragraph. It contains an <em>emphasized</em> element.</p>
+
+    <ul>
+        <li>Item one</li>
+        <li class="special">
+            <a class="special">Item two</a>
+        </li>
+        <li>Item <em>three</em></li>
+        <li>
+            <div class="box"></div>
+        </li>
+    </ul>
+
+    <h2>Contact information</h2>
+        <ul class="contactInformation">
+          <li style="scale: none; border: 10px solid black">Email:
+            <a href="mailto:jane@example.com">jane@example.com</a>
+          </li>
+          <li>Web:
+            <a href="https://example.com">http://example.com</a>
+          </li>
+          <li>Tel: 123 45678</li>
+        </ul>
+</div>
+
+<div class="boxContainer">
+  <div class="boxItem">Change my margin.</div>
+</div>
+
+<div>
+    <div class="divBox"></div>
+    <div class="divCircle"></div>
+</div>
+
+
+
+@code {
+
+}

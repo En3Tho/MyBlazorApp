@@ -24,6 +24,8 @@ builder.Logging.Configure(logging =>
 
 var app = builder.Build();
 
+app.UseCors();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -40,9 +42,9 @@ else
 //app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
+
 app.UseRouting();
 app.UseAuthorization();
-app.UseCors();
 
 app.UseEndpoints(endpoints =>
 {

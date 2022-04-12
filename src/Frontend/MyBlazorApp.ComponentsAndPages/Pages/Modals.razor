@@ -1,7 +1,5 @@
 ﻿@attribute [Route($"/{nameof(Modals)}")]
 
-
-
 <h3>Modals Page</h3>
 
 <div>
@@ -15,6 +13,7 @@
     <Counter IncrementAmount="15"></Counter>
     </Body>
 </Modal>
+
 <Modal OnCancel="OnModal2Cancel" OnOk="OnModal2Ok" Show="@_showModal2">
     <Body>
     <Counter IncrementAmount="25"></Counter>

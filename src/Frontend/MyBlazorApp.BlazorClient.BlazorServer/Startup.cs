@@ -13,7 +13,7 @@ namespace MyBlazorApp.BlazorClient.BlazorServer
                 .AddSingleton(Json.CreateDefaultOptions());
 
             services
-                .AddScoped<ComponentDataStorage>()
+                .AddScoped<StateStorage>()
                 .AddScoped(_ => new ThemeSwitch(Theme.Red))
 
                 .AddWeatherForecastsService()

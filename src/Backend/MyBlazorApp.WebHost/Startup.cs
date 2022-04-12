@@ -16,7 +16,7 @@ namespace MyBlazorApp.WebHost
                 o.AddDefaultPolicy(builder =>
                     builder
                         .SetIsOriginAllowed(_ => true)
-                        .AllowCredentials()
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()));
 

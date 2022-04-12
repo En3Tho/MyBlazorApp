@@ -13,7 +13,7 @@ namespace MyBlazorApp.BlazorClient.Maui
         {
             services
                 .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataStorage>()
+                .AddSingleton<StateStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red))
 
                 .AddWeatherForecastsHttpClient(configuration)

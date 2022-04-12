@@ -1,6 +1,6 @@
 ﻿@inherits SubscribingComponentBase
 
-@inject ComponentDataStorage _dataStorage
+@inject StateStorage _dataStorage
 @inject ThemeSwitch _themeSwitch
 
 <h3>SimpleChat</h3>
@@ -16,10 +16,11 @@
 </div>
 <div>
     <input @bind="@_chatData.CurrentMessage" type="text" width="300">
-    <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="OnClick">Click me</button>
+    <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="AddMessage">Click me</button>
 </div>
 
 @code {
+
     private SimpleChatData _chatData = null!;
 
     protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
@@ -30,7 +31,7 @@
         base.OnParametersSet();
     }
 
-    private void OnClick()
+    private void AddMessage()
     {
         if (_chatData.CurrentMessage is not null)
         {

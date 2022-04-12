@@ -1,7 +1,7 @@
 ﻿@inherits SubscribingComponentBase
 
 @inject ILogger<CounterNavLink> _logger
-@inject ComponentDataStorage _dataStorage
+@inject StateStorage _dataStorage
 
 <NavLink class="nav-link" href="@Href">
     <span aria-hidden="true" class="oi oi-plus"></span> Counter: @IncrementAmount @_counterData.Current

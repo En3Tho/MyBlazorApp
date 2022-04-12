@@ -3,6 +3,7 @@
 open System
 open System.Collections.Generic
 open System.Runtime.InteropServices
+open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
@@ -17,9 +18,12 @@ type ImportantData =
 module ImportantDataMapper =
     let fromDto (dto: ImportantDataDto) =
         match dto with
-        | ImportantDataDto.NameAndAge(name, age) -> NameAndAge(name, age)
-        | ImportantDataDto.PriceRangeAndCount(priceFrom, priceTo, count) -> PriceRangeAndCount(priceFrom, priceTo, count)
-        | ImportantDataDto.Cart(items) -> Cart(items)
+        | ImportantDataDto.NameAndAge(name, age) ->
+            NameAndAge(name, age)
+        | ImportantDataDto.PriceRangeAndCount(priceFrom, priceTo, count) ->
+            PriceRangeAndCount(priceFrom, priceTo, count)
+        | ImportantDataDto.Cart(items) ->
+            Cart(items)
 
 type WeatherForecast = {
     Date: DateTime
@@ -36,39 +40,40 @@ module WeatherForecastMapper =
     }
 
 /// Single threaded component data storage
-type ComponentDataStorage(_logger: ILogger<ComponentDataStorage>) =
+type StateStorage() =
 
     let typeStorage = Dictionary<struct (Type * Type), obj>() // stores Dictionary<'TKey, 'TValue> as obj
 
-    member this.GetValueStorage<'TType, 'TKey, 'TValue when 'TKey: equality>() =
+    member this.GetValueStorage<'TType, 'TKey, 'TValue when 'TKey :> IEquatable<'TKey> and 'TValue: not struct>() =
         let typeKey = struct (typeof<'TType>, typeof<'TKey>)
         let mutable found = false
         let valueStorageRef = &CollectionsMarshal.GetValueRefOrAddDefault(typeStorage, typeKey, &found)
         if not found then valueStorageRef <- Dictionary<'TKey, 'TValue>()
         valueStorageRef :?> Dictionary<'TKey, 'TValue>
 
-    member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey: equality and 'TValue: (new: unit -> 'TValue)> (key: 'TKey) =
+    member this.GetOrCreateNew<'TType, 'TKey, 'TValue when 'TKey :> IEquatable<'TKey> and 'TValue: (new: unit -> 'TValue) and 'TValue: not struct> (key: 'TKey) =
         let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
         let mutable found = false
         let valueRef = &CollectionsMarshal.GetValueRefOrAddDefault(valueStorage, key, &found)
         if not found then valueRef <- new 'TValue()
         valueRef
 
-    member this.GetOrCreateWith<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) (factory: 'TValue Func) =
+    member this.GetOrCreateWith<'TType, 'TKey, 'TValue when 'TKey :> IEquatable<'TKey> and 'TValue: not struct> (key: 'TKey, factory: 'TValue Func) =
         let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
         let mutable found = false
         let valueRef = &CollectionsMarshal.GetValueRefOrAddDefault(valueStorage, key, &found)
         if not found then valueRef <- factory.Invoke()
         valueRef
 
-    member this.Set<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) (value: 'TValue) =
+    member this.Set<'TType, 'TKey, 'TValue when 'TKey :> IEquatable<'TKey> and 'TValue: not struct> (key: 'TKey, value: 'TValue) =
         let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
         valueStorage.[key] <- value
 
-    member this.Remove<'TType, 'TKey, 'TValue when 'TKey: equality> (key: 'TKey) =
+    member this.Remove<'TType, 'TKey, 'TValue when 'TKey :> IEquatable<'TKey> and 'TValue: not struct> (key: 'TKey) =
         let valueStorage = this.GetValueStorage<'TType, 'TKey, 'TValue>()
         valueStorage.Remove key |> ignore
 
+// TODO: Refactor
 [<Struct>]
 type ComponentDataChangeEventHandler =
     val mutable private _handler: EventHandler
@@ -78,12 +83,6 @@ type ComponentDataChangeEventHandler =
         this._handler <- EventHandler(fun _ _ -> action.Invoke())
         this._componentsData <- componentsData
         for data in componentsData do data.OnChange.AddHandler this._handler
-
-    member this.Subscribe(action: Action, data1) = this.Subscribe(action, [| data1 |])
-
-    member this.Subscribe(action: Action, data1, data2) = this.Subscribe(action, [| data1; data2 |])
-
-    member this.Subscribe(action: Action, data1, data2, data3) = this.Subscribe(action, [| data1; data2; data3 |])
     
     member this.Unsubscribe() =
         if this._componentsData <> null then
@@ -113,7 +112,7 @@ type SimpleChatData() =
     inherit ComponentData()
     let messages = List<string>()
 
-    member val CurrentMessage: string = null with get, set
+    member val CurrentMessage: string = "" with get, set
     member _.Messages = messages
 
     member this.AddMessage msg =

@@ -30,7 +30,7 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         {
             services
                 .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<ComponentDataStorage>()
+                .AddSingleton<StateStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red)) // load theme from user config or smth?
 
                 .AddWeatherForecastsHttpClient(configuration)
