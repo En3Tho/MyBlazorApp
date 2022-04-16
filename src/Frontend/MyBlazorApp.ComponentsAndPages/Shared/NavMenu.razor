@@ -1,0 +1,93 @@
+@inherits SubscribingComponentBase
+
+@inject ILogger<NavMenu> _logger
+@inject ThemeSwitch _themeSwitch
+
+<div class="navbar navbar-dark pl-4 top-row @_themeSwitch.ThemeString">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">MyBlazorApp</a>
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass @_themeSwitch.ThemeString" @onclick="ToggleNavMenu">
+    <ul class="flex-column nav">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span aria-hidden="true" class="oi oi-home"></span> Home
+            </NavLink>
+        </li>
+        @foreach (var i in Enumerable.Range(1, 10)) // TODO: subnav
+        {
+            <li class="nav-item px-3">
+                <CounterNavLink href="@($"{nameof(Counter)}/{i}")" IncrementAmount="@i"/>
+            </li>
+        }
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(FetchData))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(FetchData))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(FetchImportantData))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(FetchImportantData))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(LearningGrounds))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(LearningGrounds))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(Modals))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(Modals))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(FlexSections))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(FlexSections))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(CssLearning))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(CssLearning))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(Draggables))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(Draggables))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(GridMadness))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(GridMadness))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(MobileFirstLayout))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(MobileFirstLayout))
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@(nameof(MozillaBalloons))">
+                <span aria-hidden="true" class="oi oi-list-rich"></span> @(nameof(MozillaBalloons))
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool _collapseNavMenu = true;
+
+    private string NavMenuCssClass => _collapseNavMenu ? "collapse" : "collapse show";
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+
+    private void ToggleNavMenu()
+    {
+        _logger.Trace()?.Log(nameof(ToggleNavMenu));
+        _collapseNavMenu = !_collapseNavMenu;
+    }
+
+}

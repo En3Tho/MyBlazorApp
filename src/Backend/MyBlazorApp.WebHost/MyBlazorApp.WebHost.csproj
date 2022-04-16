@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.3.0-preview" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Implementation\MyBlazorApp.Services.DiscriminatedUnions.Implementation.fsproj" />
+    <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Implementation\MyBlazorApp.Services.WeatherForecasts.Implementation.fsproj" />
+    <ProjectReference Include="..\..\Frontend\MyBlazorApp.BlazorClient.WebAssembly\MyBlazorApp.BlazorClient.WebAssembly.csproj" />
+  </ItemGroup>
+
+</Project>

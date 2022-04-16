@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Domain.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+      <PackageReference Update="FSharp.Core" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+    </ItemGroup>
+
+</Project>

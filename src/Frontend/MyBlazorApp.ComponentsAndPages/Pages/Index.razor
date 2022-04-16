@@ -1,0 +1,19 @@
+﻿@page "/"
+@inherits SubscribingComponentBase
+
+@inject ThemeSwitch _themeSwitch
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@if (_themeSwitch.Theme == Theme.Red)
+{
+    <MaxValueComponent></MaxValueComponent>
+}
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+}

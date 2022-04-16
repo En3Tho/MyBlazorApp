@@ -1,0 +1,28 @@
+﻿@inherits SubscribingComponentBase
+
+@inject ILogger<CounterNavLink> _logger
+@inject StateStorage _dataStorage
+
+<NavLink class="nav-link" href="@Href">
+    <span aria-hidden="true" class="oi oi-plus"></span> Counter: @IncrementAmount @_counterData.Current
+</NavLink>
+
+@code {
+
+    private CounterData _counterData = null!;
+
+    [Parameter]
+    public string Href { get; init; } = "";
+
+    [Parameter]
+    public int IncrementAmount { get; init; }
+
+    protected override ComponentData[] Subscriptions => new ComponentData[] { _counterData };
+
+    protected override void OnParametersSet()
+    {
+        _counterData = _dataStorage.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        base.OnParametersSet();
+    }
+
+}

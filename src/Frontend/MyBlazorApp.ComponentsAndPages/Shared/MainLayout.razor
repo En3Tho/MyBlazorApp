@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+
+@inject ILogger<MainLayout> _logger
+@inject ThemeSwitch _themeSwitch
+
+<PageTitle>MyBlazorApp</PageTitle>
+
+<div class="page">
+    <div class="sidebar @_themeSwitch.ThemeString">
+        <NavMenu/>
+    </div>
+
+    <main @onkeydown="ProcessKeyDown">
+        <div class="px-4 top-row">
+            <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="ChangeTheme">Change theme</button>
+            <a class="ml-md-auto" href="http://blazor.net" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </main>
+</div>
+
+
+@code {
+
+    void ChangeTheme()
+    {
+        _themeSwitch.Theme = _themeSwitch.Next;
+    }
+
+    void ProcessKeyDown(KeyboardEventArgs args)
+    {
+        _logger.Trace()?.Log($"Key:{args.Key} Alt:{args.AltKey} Ctrl:{args.CtrlKey} Shift:{args.ShiftKey} Meta:{args.MetaKey}");
+    }
+
+}

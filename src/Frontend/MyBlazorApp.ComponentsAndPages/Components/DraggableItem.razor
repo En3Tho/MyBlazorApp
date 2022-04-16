@@ -1,0 +1,20 @@
+<h3>DraggableItem</h3>
+
+<div style="margin: @_margin" @ondrag:stopPropagation="true" @ondrag="HandleDrag" draggable="true">
+    @ChildContent(_dragEventArgs)
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public RenderFragment<DragEventArgs?> ChildContent { get; init; } = null!;
+
+    private int _margin;
+
+    private DragEventArgs? _dragEventArgs;
+
+    private void HandleDrag(DragEventArgs e)
+    {
+        _dragEventArgs = e;
+    }
+}
