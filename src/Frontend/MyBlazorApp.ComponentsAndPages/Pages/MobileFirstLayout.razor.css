@@ -1,28 +1,28 @@
-* {
+.mobile-first * {
     box-sizing: border-box;
 }
 
-html {
+.html {
     font: 1.2em/1.4 Arial, Helvetica, sans-serif;
 }
 
-body {
+.body {
     padding: 0 0 1em;
 }
 
-header {
+.header {
     background-color: #333;
     color: #fff;
     border: 5px solid #000;
 }
 
-header ul {
+.header ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-header a {
+.header a {
     color: #fff;
     text-decoration: none;
     display: block;
@@ -30,7 +30,7 @@ header a {
     border-top: 1px solid #999;
 }
 
-header .title {
+.header .title {
     font-size: 150%;
     font-style: italic;
     font-weight: bold;
