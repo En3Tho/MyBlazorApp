@@ -2,9 +2,9 @@
 
 @using MyBlazorApp.Services.DiscriminatedUnions.Contracts
 
-@inject Version1.IDiscriminatedUnionsService _discriminatedUnionApiV1HttpClient
-@inject ILogger<FetchImportantData> _logger
-@inject ThemeSwitch _themeSwitch
+@inject Version1.IDiscriminatedUnionsService DiscriminatedUnionApiV1HttpClient
+@inject ILogger<FetchImportantData> Logger
+@inject ThemeSwitch ThemeSwitch
 
 <ErrorBoundary>
     <div>
@@ -21,7 +21,7 @@
         else
         {
             <div>
-                <button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="GetImportantData">Get new important data!</button>
+                <button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="GetImportantData">Get new important data!</button>
             </div>
 
             <div>
@@ -85,21 +85,21 @@
 @code {
     private ImportantData? _importantData;
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
 
     protected override Task OnInitializedAsync()
     {
-        _logger.Trace()?.Log(nameof(OnInitializedAsync));
+        Logger.Trace()?.Log(nameof(OnInitializedAsync));
         return GetImportantData();
     }
 
     private async Task GetImportantData()
     {
-        _logger.Trace()?.Log(nameof(GetImportantData));
+        Logger.Trace()?.Log(nameof(GetImportantData));
 
-        var result = await _discriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
         _importantData = ImportantDataMapper.fromDto(result);
-        _logger.Trace()?.Log($"Successfully got important data!");
+        Logger.Trace()?.Log($"Successfully got important data!");
 
         await InvokeAsync(StateHasChanged);
     }

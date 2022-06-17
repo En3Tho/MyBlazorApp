@@ -1,16 +1,16 @@
 ﻿@using System.Diagnostics.CodeAnalysis
 @inherits SubscribingComponentBase
 
-@inject ILogger<Counter> _logger
-@inject StateStorage _stateStorage
-@inject ThemeSwitch _themeSwitch
+@inject ILogger<Counter> Logger
+@inject StateStorage StateStorage
+@inject ThemeSwitch ThemeSwitch
 
 <h1>@($"Counter: {IncrementAmount}")</h1>
 
 <p>Current count: @_counterData.Current</p>
 <p>Clicks (this session): @_clicksInThisSession</p>
 <p>Clicks (total): @_counterData.TotalClicks</p>
-<button class="btn btn-primary @_themeSwitch.ThemeString" @onclick="OnClick">Click me</button>
+<button class="btn btn-primary @ThemeSwitch.ThemeString" @onclick="OnClick">Click me</button>
 
 @code {
 
@@ -20,28 +20,28 @@
     [Parameter]
     public int IncrementAmount { get; set; } = 1;
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { _themeSwitch };
+    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
 
     [MemberNotNull(nameof(_counterData))]
     protected override void OnParametersSet()
     {
-        _logger.Trace()?.Log($"{nameof(OnParametersSet)}");
-        _logger.Trace()?.Log($"Getting CounterData({IncrementAmount})");
+        Logger.Trace()?.Log($"{nameof(OnParametersSet)}");
+        Logger.Trace()?.Log($"Getting CounterData({IncrementAmount})");
 
         _clicksInThisSession = 0;
 
-        _counterData = _stateStorage.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
+        _counterData = StateStorage.GetOrCreateNew<Counter, int, CounterData>(IncrementAmount);
         base.OnParametersSet();
     }
 
     protected override void OnInitialized()
     {
-        _logger.Trace()?.Log($"{nameof(OnInitialized)}");
+        Logger.Trace()?.Log($"{nameof(OnInitialized)}");
     }
 
     private void OnClick(MouseEventArgs e)
     {
-        _logger.Trace()?.Log($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
+        Logger.Trace()?.Log($"CtrlKey: {e.CtrlKey}. AltKey: {e.AltKey}. ShiftKey: {e.ShiftKey}");
 
         _clicksInThisSession++;
         _counterData.TotalClicks++;
@@ -68,14 +68,14 @@
 
     private void Clear()
     {
-        _logger.Trace()?.Log(nameof(Clear));
+        Logger.Trace()?.Log(nameof(Clear));
 
         _counterData.Current = 0;
     }
 
     private void ChangeCount(int amount)
     {
-        _logger.Trace()?.Log(nameof(ChangeCount));
+        Logger.Trace()?.Log(nameof(ChangeCount));
 
         _counterData.Current += amount;
     }

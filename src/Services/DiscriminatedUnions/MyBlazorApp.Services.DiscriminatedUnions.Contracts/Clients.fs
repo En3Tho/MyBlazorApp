@@ -11,7 +11,6 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
-open MyBlazorApp.Services.DiscriminatedUnions.Contracts
 open MyBlazorApp.Utility.Logging
 open ILoggerExtensions
 
@@ -29,12 +28,11 @@ type DiscriminatedUnionsServiceVersion1HttpClient(logger: DiscriminatedUnionsSer
 
     member this.GetRandomImportantData() = task {
         let endPoint = Endpoints.GetRandomImportantData
-
         logger.Tracef $"{nameof this.GetRandomImportantData}. Sending message to: {httpClient.BaseAddress}{endPoint}"
         return! httpClient.GetFromJsonAsync<ImportantDataDto>(endPoint, jsonSerializerOptions).ConfigureAwait false
     }
 
-    interface Version1.IDiscriminatedUnionsService with
+    interface IDiscriminatedUnionsService with
         member this.GetRandomImportantData() = ValueTask<_>(task = this.GetRandomImportantData())
 
 [<Extension; AbstractClass>]
