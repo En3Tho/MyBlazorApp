@@ -15,8 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.0.8" />
-      <PackageReference Update="FSharp.Core" Version="6.0.1" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.7" />
+      <PackageReference Update="FSharp.Core" Version="6.0.5" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
     </ItemGroup>
 

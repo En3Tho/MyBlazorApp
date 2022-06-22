@@ -8,13 +8,15 @@ namespace MyBlazorApp.BlazorClient.WebWindow
         [STAThread]
         private static void Main(string[] args)
         {
-            ComponentsDesktop.Run<Startup>(
-                "MyBlazorApp.WebWindow",
-                "wwwroot/index.html",
-                x: 450,
-                y: 100,
-                width: 1000,
-                height: 900);
+            // TODO: fix this
+
+            // PhotinoBlazorAppBuilder.CreateDefault()..Run<Startup>(
+            //     "MyBlazorApp.WebWindow",
+            //     "wwwroot/index.html",
+            //     x: 450,
+            //     y: 100,
+            //     width: 1000,
+            //     height: 900);
         }
     }
 }

@@ -14,8 +14,8 @@ namespace MyBlazorApp.BlazorClient.Maui
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            // TODO: add blazor again
             builder
-                .RegisterBlazorMauiWebView()
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {

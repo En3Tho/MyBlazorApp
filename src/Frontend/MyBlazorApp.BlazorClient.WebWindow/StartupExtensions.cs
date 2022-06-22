@@ -17,10 +17,10 @@ namespace MyBlazorApp.BlazorClient.WebWindow
             services.AddServices(configuration);
         }
 
-        public void Configure(DesktopApplicationBuilder app)
+        public void Configure(PhotinoBlazorAppBuilder app)
         {
             Console.WriteLine("Adding app component");
-            app.AddComponent<App>("app");
+            app.RootComponents.Add<App>("app");
         }
     }
 
