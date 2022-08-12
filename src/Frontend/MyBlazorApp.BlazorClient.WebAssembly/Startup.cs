@@ -30,17 +30,17 @@ namespace MyBlazorApp.BlazorClient.WebAssembly
             return builder;
         }
 
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+        public static WebAssemblyHostBuilder AddServices(this WebAssemblyHostBuilder builder)
         {
-            services
+            builder.Services
                 .AddSingleton(Json.CreateDefaultOptions())
                 .AddSingleton<StateStorage>()
                 .AddSingleton(new ThemeSwitch(Theme.Red))
 
-                .AddWeatherForecastsHttpClient(configuration)
-                .AddDiscriminatedUnionsHttpClient(configuration);// load theme from user config or smth?
+                .AddWeatherForecastsHttpClient(builder.Configuration)
+                .AddDiscriminatedUnionsHttpClient(builder.Configuration);
 
-            return services;
+            return builder;
         }
     }
 }
