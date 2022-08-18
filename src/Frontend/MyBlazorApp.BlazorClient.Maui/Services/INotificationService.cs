@@ -1,7 +1,6 @@
-﻿namespace MyBlazorApp.BlazorClient.Maui.Services
+﻿namespace MyBlazorApp.BlazorClient.Maui.Services;
+
+public interface INotificationService
 {
-    public interface INotificationService
-    {
-        void ShowNotification(string title, string subtitle, string body);
-    }
+    void ShowNotification(string title, string subtitle, string body);
 }

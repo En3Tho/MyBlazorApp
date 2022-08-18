@@ -3,23 +3,22 @@ using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
 using MyBlazorApp.Services.WeatherForecasts.Hosting.DependencyInjection;
 using MyBlazorApp.Utility;
 
-namespace MyBlazorApp.BlazorClient.BlazorServer
+namespace MyBlazorApp.BlazorClient.BlazorServer;
+
+public static class Startup
 {
-    public static class Startup
+    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services
-                .AddSingleton(Json.CreateDefaultOptions());
+        services
+           .AddSingleton(Json.CreateDefaultOptions());
 
-            services
-                .AddScoped<StateStorage>()
-                .AddScoped(_ => new ThemeSwitch(Theme.Red))
+        services
+           .AddScoped<StateStorage>()
+           .AddScoped(_ => new ThemeSwitch(Theme.Red))
 
-                .AddWeatherForecastsService()
-                .AddDiscriminatedUnionsService();
+           .AddWeatherForecastsService()
+           .AddDiscriminatedUnionsService();
 
-            return services;
-        }
+        return services;
     }
 }

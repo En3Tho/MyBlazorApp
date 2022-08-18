@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace MyBlazorApp.Utility.FSharpHelpers
-{
-    public abstract class ComponentData
-    {
-        public event EventHandler OnChange;
+namespace MyBlazorApp.Utility.FSharpHelpers;
 
-        protected virtual void OnDataChanged()
-        {
-            var handler = OnChange;
-            handler?.Invoke(this, EventArgs.Empty);
-        }
+public abstract class ComponentData
+{
+    public event EventHandler OnChange;
+
+    protected virtual void OnDataChanged()
+    {
+        var handler = OnChange;
+        handler?.Invoke(this, EventArgs.Empty);
     }
 }

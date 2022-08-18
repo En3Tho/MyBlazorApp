@@ -10,37 +10,36 @@ using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
 using MyBlazorApp.Utility;
 
-namespace MyBlazorApp.BlazorClient.WebAssembly
+namespace MyBlazorApp.BlazorClient.WebAssembly;
+
+public static class Startup
 {
-    public static class Startup
+    public static WebAssemblyHostBuilder ConfigureOptions(this WebAssemblyHostBuilder builder)
     {
-        public static WebAssemblyHostBuilder ConfigureOptions(this WebAssemblyHostBuilder builder)
-        {
-            Console.WriteLine(builder.Configuration.Build().GetDebugView());
-            return builder;
-        }
+        Console.WriteLine(builder.Configuration.Build().GetDebugView());
+        return builder;
+    }
 
-        public static WebAssemblyHostBuilder ConfigureLogging(this WebAssemblyHostBuilder builder)
-        {
-            builder.Logging.Configure(options =>
-                options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
-                                                | ActivityTrackingOptions.SpanId
-                                                | ActivityTrackingOptions.TraceId);
+    public static WebAssemblyHostBuilder ConfigureLogging(this WebAssemblyHostBuilder builder)
+    {
+        builder.Logging.Configure(options =>
+            options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
+                                            | ActivityTrackingOptions.SpanId
+                                            | ActivityTrackingOptions.TraceId);
 
-            return builder;
-        }
+        return builder;
+    }
 
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services
-                .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<StateStorage>()
-                .AddSingleton(new ThemeSwitch(Theme.Red))
+    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+           .AddSingleton(Json.CreateDefaultOptions())
+           .AddSingleton<StateStorage>()
+           .AddSingleton(new ThemeSwitch(Theme.Red))
 
-                .AddWeatherForecastsHttpClient(configuration)
-                .AddDiscriminatedUnionsHttpClient(configuration);// load theme from user config or smth?
+           .AddWeatherForecastsHttpClient(configuration)
+           .AddDiscriminatedUnionsHttpClient(configuration); // load theme from user config or smth?
 
-            return services;
-        }
+        return services;
     }
 }

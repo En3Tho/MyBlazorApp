@@ -7,36 +7,20 @@ using MyBlazorApp.Services.WeatherForecasts.Clients;
 using MyBlazorApp.Utility;
 using Photino.Blazor;
 
-namespace MyBlazorApp.BlazorClient.WebWindow
+namespace MyBlazorApp.BlazorClient.WebWindow;
+
+public static class StartupExtensions
 {
-    public class Startup
+    public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
-        {
-            Console.WriteLine("Configuring services");
-            services.AddServices(configuration);
-        }
+        services
+           .AddSingleton(Json.CreateDefaultOptions())
+           .AddSingleton<StateStorage>()
+           .AddSingleton(new ThemeSwitch(Theme.Red)); // load theme from user config or smth?
 
-        public void Configure(DesktopApplicationBuilder app)
-        {
-            Console.WriteLine("Adding app component");
-            app.AddComponent<App>("app");
-        }
-    }
+        // .AddWeatherForecastsHttpClient(configuration)
+        // .AddDiscriminatedUnionsHttpClient(configuration);
 
-    public static class StartupExtensions
-    {
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services
-                .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<StateStorage>()
-                .AddSingleton(new ThemeSwitch(Theme.Red)) // load theme from user config or smth?
-
-                .AddWeatherForecastsHttpClient(configuration)
-                .AddDiscriminatedUnionsHttpClient(configuration);
-
-            return services;
-        }
+        return services;
     }
 }

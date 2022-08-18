@@ -1,20 +1,16 @@
 ﻿using System;
 using Photino.Blazor;
 
-namespace MyBlazorApp.BlazorClient.WebWindow
+namespace MyBlazorApp.BlazorClient.WebWindow;
+
+public class Program
 {
-    public class Program
+    [STAThread]
+    private static void Main(string[] args)
     {
-        [STAThread]
-        private static void Main(string[] args)
-        {
-            ComponentsDesktop.Run<Startup>(
-                "MyBlazorApp.WebWindow",
-                "wwwroot/index.html",
-                x: 450,
-                y: 100,
-                width: 1000,
-                height: 900);
-        }
+        var app = PhotinoBlazorAppBuilder.CreateDefault(args);
+        app.RootComponents.Add<App>("app");
+        app.Services.AddServices();
+        app.Build().Run();
     }
 }

@@ -5,21 +5,20 @@ using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
 using MyBlazorApp.Utility;
 
-namespace MyBlazorApp.BlazorClient.Maui
+namespace MyBlazorApp.BlazorClient.Maui;
+
+public static class Startup
 {
-    public static class Startup
+    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services
-                .AddSingleton(Json.CreateDefaultOptions())
-                .AddSingleton<StateStorage>()
-                .AddSingleton(new ThemeSwitch(Theme.Red))
+        services
+           .AddSingleton(Json.CreateDefaultOptions())
+           .AddSingleton<StateStorage>()
+           .AddSingleton(new ThemeSwitch(Theme.Red))
 
-                .AddWeatherForecastsHttpClient(configuration)
-                .AddDiscriminatedUnionsHttpClient(configuration);// load theme from user config or smth?
+           .AddWeatherForecastsHttpClient(configuration)
+           .AddDiscriminatedUnionsHttpClient(configuration); // load theme from user config or smth?
 
-            return services;
-        }
+        return services;
     }
 }

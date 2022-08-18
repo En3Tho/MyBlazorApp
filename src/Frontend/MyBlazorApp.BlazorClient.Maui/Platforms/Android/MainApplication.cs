@@ -4,16 +4,15 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace MyBlazorApp.BlazorClient.Maui
-{
-    [Application]
-    public class MainApplication : MauiApplication
-    {
-        public MainApplication(IntPtr handle, JniHandleOwnership ownership)
-            : base(handle, ownership)
-        {
-        }
+namespace MyBlazorApp.BlazorClient.Maui;
 
-        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+[Application]
+public class MainApplication : MauiApplication
+{
+    public MainApplication(IntPtr handle, JniHandleOwnership ownership)
+        : base(handle, ownership)
+    {
     }
+
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }

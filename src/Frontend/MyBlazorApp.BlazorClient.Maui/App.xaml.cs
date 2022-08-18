@@ -1,13 +1,12 @@
 ﻿using Application = Microsoft.Maui.Controls.Application;
 
-namespace MyBlazorApp.BlazorClient.Maui
+namespace MyBlazorApp.BlazorClient.Maui;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            InitializeComponent();
-            MainPage = new MainPage() { Title = "My Blazor App" };
-        }
+        InitializeComponent();
+        MainPage = new MainPage() { Title = "My Blazor App" };
     }
 }

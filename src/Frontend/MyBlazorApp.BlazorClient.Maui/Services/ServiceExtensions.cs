@@ -2,15 +2,15 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MyBlazorApp.BlazorClient.Maui.Services
-{
-    public static class ServiceProvider
-    {
-        public static TService GetService<TService>()
-            => Current.GetService<TService>();
+namespace MyBlazorApp.BlazorClient.Maui.Services;
 
-        public static IServiceProvider Current
-            =>
+public static class ServiceProvider
+{
+    public static TService GetService<TService>()
+        => Current.GetService<TService>();
+
+    public static IServiceProvider Current
+        =>
 #if WINDOWS10_0_17763_0_OR_GREATER
             MauiWinUIApplication.Current.Services;
 #elif ANDROID
@@ -20,5 +20,4 @@ namespace MyBlazorApp.BlazorClient.Maui.Services
 #else
             null;
 #endif
-    }
 }
