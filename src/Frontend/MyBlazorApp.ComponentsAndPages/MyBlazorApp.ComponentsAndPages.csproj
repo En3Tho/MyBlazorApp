@@ -14,6 +14,7 @@
       <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+      <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
     </ItemGroup>
     
     <ItemGroup>

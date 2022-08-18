@@ -30,16 +30,15 @@ public static class Startup
         return builder;
     }
 
-    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static WebAssemblyHostBuilder AddServices(this WebAssemblyHostBuilder builder)
     {
-        services
-           .AddSingleton(Json.CreateDefaultOptions())
-           .AddSingleton<StateStorage>()
-           .AddSingleton(new ThemeSwitch(Theme.Red))
+        builder.Services
+               .AddSingleton(Json.CreateDefaultOptions())
+               .AddSingleton<StateStorage>()
+               .AddSingleton(new ThemeSwitch(Theme.Red))
+               .AddWeatherForecastsHttpClient(builder.Configuration)
+               .AddDiscriminatedUnionsHttpClient(builder.Configuration);
 
-           .AddWeatherForecastsHttpClient(configuration)
-           .AddDiscriminatedUnionsHttpClient(configuration); // load theme from user config or smth?
-
-        return services;
+        return builder;
     }
 }
