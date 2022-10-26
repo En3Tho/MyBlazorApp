@@ -1,36 +1,34 @@
-﻿@code {
+﻿<ExampleBlock>
+    <div class="text-gray-500 box-content bg-amber-900 border-8 hover:text-blue-500">
+        This component is defined in the TailwindComponents library 1.
+    </div>
+
+    <div class="text-gray-500 border-purple-500 box-content bg-amber-900 border-8 hover:text-red-500">
+        This component is defined in the TailwindComponents library 2.
+    </div>
+
+    <div class="text-gray-500 border-red-500 box-content bg-amber-900 border-8 hover:text-black">
+        This component is defined in the TailwindComponents library 3.
+    </div>
+
+    <div class="text-gray-500 border-cyan-700 box-content bg-amber-900 border-8 myCustomDiv">
+        This component is defined in the TailwindComponents library 4.
+    </div>
+
+    <div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700">
+        This component is defined in the TailwindComponents library 5.
+    </div>
+
+    <div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700">
+        This component is defined in the TailwindComponents library 6.
+    </div>
+
+    <div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700 @ClassName">
+        This component is defined in the TailwindComponents library 7.
+    </div>
+</ExampleBlock>
+
+@code {
     bool Q = false;
     string ClassName => Q ? "hover:text-red-700" : "";
 }
-
-square table ? with numbers defining fortresses
-weights map has same size
-input table with auto-fortresses calculation
-
-<div class="text-gray-500 box-content bg-amber-900 border-8 hover:text-blue-500">
-    This component is defined in the TailwindComponents library 1.
-</div>
-
-<div class="text-gray-500 border-purple-500 box-content bg-amber-900 border-8 hover:text-red-500">
-    This component is defined in the TailwindComponents library 2.
-</div>
-
-<div class="text-gray-500 border-red-500 box-content bg-amber-900 border-8 hover:text-black">
-    This component is defined in the TailwindComponents library 3.
-</div>
-
-<div class="text-gray-500 border-cyan-700 box-content bg-amber-900 border-8 myCustomDiv">
-    This component is defined in the TailwindComponents library 4.
-</div>
-
-<div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700">
-    This component is defined in the TailwindComponents library 5.
-</div>
-
-<div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700">
-    This component is defined in the TailwindComponents library 6.
-</div>
-
-<div class="text-gray-600 border-8 hover:border-red-700 hover:text-red-700 @ClassName">
-    This component is defined in the TailwindComponents library 7.
-</div>

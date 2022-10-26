@@ -1,29 +1,29 @@
-
-@foreach (var person in People)
-{
-    <ul role="list" class="p-6 divide-y divide-slate-200">
-        <!-- Remove top/bottom padding when first/last child -->
-        <li class="flex py-4 first:pt-0 last:pb-0">
-            <img class="h-10 w-10 rounded-full" src="_content/TailwindComponents/img/@person.ImageUrl" alt=""/>
-            <div class="ml-3 overflow-hidden">
-                <p class="text-sm font-medium text-slate-900">@person.Name</p>
-                <p class="text-sm text-slate-500 truncate">@person.Email</p>
-            </div>
-        </li>
-    </ul>
-}
-
+<ExampleBlock>
+    <div class="max-w-md mx-auto bg-white shadow">
+        <ul role="list" class="p-6 divide-y divide-slate-200">
+            @foreach (var person in _people)
+            {
+                <!-- Remove top/bottom padding when first/last child -->
+                <li class="flex py-4 first:pt-0 last:pb-0">
+                    <img class="h-10 w-10 rounded-full" src="@person.ImageUrl" alt=""/>
+                    <div class="ml-3 overflow-hidden">
+                        <p class="text-sm font-medium text-slate-900">@person.Name</p>
+                        <p class="text-sm text-slate-500 truncate">@person.Email</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</ExampleBlock>
 
 @code {
 
-    static string Erin => "erin-lindford.jpg";
-
-    Person[] People =
+    Person[] _people =
     {
-        new("Kristen Ramos", "kristen.ramos@example.com", Erin),
-        new("Floyd Miles", "floyd.miles@example.com", Erin),
-        new("Courtney Henry", "courtney.henry@example.com", Erin),
-        new("Ted Fox", "ted.fox@example.com", Erin)
+        new("Kristen Ramos", "kristen.ramos@example.com", @"https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"),
+        new("Floyd Miles", "floyd.miles@example.com", @"https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"),
+        new("Courtney Henry", "courtney.henry@example.com", @"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"),
+        new("Ted Fox", "ted.fox@example.com", @"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80")
     };
 
 }
