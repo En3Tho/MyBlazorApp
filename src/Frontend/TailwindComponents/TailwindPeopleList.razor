@@ -1,0 +1,29 @@
+
+@foreach (var person in People)
+{
+    <ul role="list" class="p-6 divide-y divide-slate-200">
+        <!-- Remove top/bottom padding when first/last child -->
+        <li class="flex py-4 first:pt-0 last:pb-0">
+            <img class="h-10 w-10 rounded-full" src="_content/TailwindComponents/img/@person.ImageUrl" alt=""/>
+            <div class="ml-3 overflow-hidden">
+                <p class="text-sm font-medium text-slate-900">@person.Name</p>
+                <p class="text-sm text-slate-500 truncate">@person.Email</p>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@code {
+
+    static string Erin => "erin-lindford.jpg";
+
+    Person[] People =
+    {
+        new("Kristen Ramos", "kristen.ramos@example.com", Erin),
+        new("Floyd Miles", "floyd.miles@example.com", Erin),
+        new("Courtney Henry", "courtney.henry@example.com", Erin),
+        new("Ted Fox", "ted.fox@example.com", Erin)
+    };
+
+}
