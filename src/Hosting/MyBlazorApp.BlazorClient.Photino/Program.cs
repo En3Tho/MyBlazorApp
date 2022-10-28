@@ -8,9 +8,11 @@ public class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        var app = PhotinoBlazorAppBuilder.CreateDefault(args);
-        app.RootComponents.Add<App>("app");
-        app.Services.AddServices();
-        app.Build().Run();
+        var builder = PhotinoBlazorAppBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("app");
+        builder.Services.AddServices();
+        var app = builder.Build();
+        app.MainWindow.StartUrl = "index.html";
+        app.Run();
     }
 }
