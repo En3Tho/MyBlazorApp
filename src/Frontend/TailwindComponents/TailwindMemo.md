@@ -1,6 +1,6 @@
 Command:
 ```
-npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css --watch
+npx tailwindcss -i ./Styles/TailwindComponents.css -o ./wwwroot/css/TailwindComponents.css --watch
 ```
 ```
 https://tailwindcss.com/docs/installation
