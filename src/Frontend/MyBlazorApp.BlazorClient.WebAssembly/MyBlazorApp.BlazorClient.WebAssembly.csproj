@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
-    <Content Remove="wwwroot\css\**" />
-    <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
   
   <ItemGroup>

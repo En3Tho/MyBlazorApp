@@ -63,8 +63,6 @@
     
     <ItemGroup>
         <Content Remove="Properties\launchSettings.json" />
-        <Content Remove="wwwroot\css\**" />
-        <Content Remove="wwwroot\favicon.ico" />
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
