@@ -8,9 +8,22 @@
             <p class="text-slate-500">You have a new message!</p>
         </div>
     </div>
+    <div class="group py-8 flex flex-col gap-1">
+        <div class="flex gap-1">
+            @DrawBlock("hover:bg-red-500 bg-violet-300 rounded-full")
+            @DrawBlock("hover:bg-amber-500 bg-red-300")
+        </div>
+        <div class="flex gap-1">
+            @DrawBlock("group-hover:bg-yellow-500 group-hover:hover:bg-violet-500")
+            @DrawBlock("hover:bg-blue-500")
+        </div>
+    </div>
 </ExampleBlock>
 
-
 @code {
+
+    static readonly RenderFragment<string> DrawBlock = customStyle =>
+        @<div class="h-6 w-6 bg-black @customStyle"></div>;
+
     static string Logo => "logo.svg";
 }
