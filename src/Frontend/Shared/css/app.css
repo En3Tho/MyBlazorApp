@@ -12,19 +12,14 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
-.blue-Theme {
-    background-color: #1b6ec2!important;
-    border-color: #1861ac!important;
-}
-
-.red-Theme {
-    background-color: #b21f2d!important;
-    border-color: #901f2d!important;
-}
-
 .black-Theme {
-    background-color: #000000!important;
-    border-color: #404040!important;
+    background-color: gray!important;
+}
+.red-Theme {
+    background-color: darkred!important;
+}
+.blue-Theme {
+    background-color: blueviolet!important;
 }
 
 app {
