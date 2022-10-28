@@ -69,8 +69,7 @@
         <BundleResource Include="Platforms\MacCatalyst\trayicon.png" />
     </ItemGroup>
     
-    <ItemGroup>
-        <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
+    <ItemGroup>       
         <Content Include="Platforms\Windows\Resources\trayicon.ico" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
@@ -79,13 +78,11 @@
       <ProjectReference Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <MauiXaml Remove="wwwroot\css\**" />
-    </ItemGroup>
 
     <ItemGroup>
-      <MauiCss Remove="wwwroot\css\**" />
+        <Content Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\wwwroot\css\**" Link="wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)"
+                 CopyToOutputDirectory="PreserveNewest"
+                 CopyToPublishDirectory="Always" />
     </ItemGroup>
 
 </Project>

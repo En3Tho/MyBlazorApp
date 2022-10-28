@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
+    <Content Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\wwwroot\css\**" Link="wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="Always" />
   </ItemGroup>
   
   <ItemGroup>
