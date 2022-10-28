@@ -7,7 +7,7 @@ using MyBlazorApp.Services.WeatherForecasts.Clients;
 using MyBlazorApp.Utility;
 using Photino.Blazor;
 
-namespace MyBlazorApp.BlazorClient.WebWindow;
+namespace MyBlazorApp.BlazorClient.Photino;
 
 public static class StartupExtensions
 {

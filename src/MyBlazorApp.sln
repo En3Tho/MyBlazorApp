@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.WebAssembly", "Hosting\MyBlazorApp.BlazorClient.WebAssembly\MyBlazorApp.BlazorClient.WebAssembly.csproj", "{49FABAE4-D73C-4462-8D0B-7FCC142201F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.WebWindow", "Hosting\MyBlazorApp.BlazorClient.WebWindow\MyBlazorApp.BlazorClient.WebWindow.csproj", "{0FAB6204-5C3E-49F3-8C6F-C4D0CDDE7FE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Photino", "Hosting\MyBlazorApp.BlazorClient.Photino\MyBlazorApp.BlazorClient.Photino.csproj", "{0FAB6204-5C3E-49F3-8C6F-C4D0CDDE7FE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.ComponentsAndPages", "Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj", "{F83F7613-257F-43F2-AA08-92709611418F}"
 EndProject

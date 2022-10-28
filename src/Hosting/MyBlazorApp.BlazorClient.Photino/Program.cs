@@ -1,7 +1,7 @@
 ﻿using System;
 using Photino.Blazor;
 
-namespace MyBlazorApp.BlazorClient.WebWindow;
+namespace MyBlazorApp.BlazorClient.Photino;
 
 public class Program
 {
