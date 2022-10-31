@@ -16,7 +16,7 @@ https://heropatterns.com/
 ```
 Components:
 ```
-https://tailwindui.com/components
+https://tailwindui.com/components   
 https://tailwindui.com/components/preview
 https://flowbite.com/docs/components/alerts/
 https://tailwind-elements.com/docs/standard/forms/checkbox/
