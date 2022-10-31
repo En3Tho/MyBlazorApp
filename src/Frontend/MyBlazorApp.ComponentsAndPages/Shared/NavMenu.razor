@@ -3,7 +3,7 @@
 @inject ILogger<NavMenu> Logger
 @inject ThemeSwitch ThemeSwitch
 
-<div class="navbar navbar-dark pl-4 top-row @ThemeSwitch.ThemeString">
+<div class="navbar navbar-dark pl-4 top-row @ThemeSwitch.ThemeString" @onclick="ToggleNavMenu">
     <div class="container-fluid">
         <a class="navbar-brand" href="">MyBlazorApp</a>
         <button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -37,7 +37,8 @@
             nameof(GridMadness),
             nameof(MobileFirstLayout),
             nameof(MozillaBalloons),
-            nameof(TailWindTestPage)
+            nameof(TailWindTestPage),
+            nameof(TailWindTestPage2)
         })
         {
             <li class="nav-item px-3">
