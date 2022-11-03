@@ -21,3 +21,11 @@ https://tailwindui.com/components/preview
 https://flowbite.com/docs/components/alerts/
 https://tailwind-elements.com/docs/standard/forms/checkbox/
 ```
+Tricks:
+```
+Applying a style to all children
+<nav class="[&>*]:cursor-pointer">
+  <a>...</a>
+  <a>...</a>
+</nav>
+```
