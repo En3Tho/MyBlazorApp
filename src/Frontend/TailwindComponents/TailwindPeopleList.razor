@@ -1,32 +1,30 @@
-<ExampleBlock>
-    <div class="max-w-md mx-auto bg-white shadow">
-        <ul role="list" class="p-6 divide-y divide-slate-200">
-            @foreach (var person in _people)
-            {
-                @Person(person)
-            }
-            @foreach (var person in People)
-            {
-                @person
-            }
-            @foreach (var person in _people)
-            {
-                <li class="flex py-4 first:pt-0 last:pb-0">
-                    <img class="h-10 w-10 rounded-full" src="@person.ImageUrl" alt=""/>
-                    <div class="ml-3 overflow-hidden">
-                        <p class="text-sm font-medium text-slate-900">@person.Name</p>
-                        <p class="text-sm text-slate-500 truncate">@person.Email</p>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-</ExampleBlock>
+<div class="max-w-md mx-auto bg-white shadow">
+    <ul role="list" class="p-6 divide-y divide-slate-200">
+        @foreach (var person in _people)
+        {
+            @Person(person)
+        }
+        @foreach (var person in People)
+        {
+            @person
+        }
+        @foreach (var person in _people)
+        {
+            <li class="flex py-4 first:pt-0 last:pb-0">
+                <img class="h-10 w-10 rounded-full" src="@person.ImageUrl" alt=""/>
+                <div class="ml-3 overflow-hidden">
+                    <p class="text-sm font-medium text-slate-900">@person.Name</p>
+                    <p class="text-sm text-slate-500 truncate">@person.Email</p>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 
 @code {
 
     private static RenderFragment<Person> Person = person =>
-        // Remove top/bottom padding when first/last child
+    // Remove top/bottom padding when first/last child
         @<li class="flex py-4 first:pt-0 last:pb-0">
             <img class="h-10 w-10 rounded-full" src="@person.ImageUrl" alt=""/>
             <div class="ml-3 overflow-hidden">

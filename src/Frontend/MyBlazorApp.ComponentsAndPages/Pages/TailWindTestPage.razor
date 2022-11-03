@@ -1,23 +1,22 @@
 @attribute [Route($"/{nameof(TailWindTestPage)}")]
 
-@* <TailwindTest/> *@
-<TailwindExample/>
-<br/>
-<TailwindPeopleList/>
-<br/>
-<ChitChat/>
-<br/>
-<GroupsExample/>
-<br/>
-<NestedGroups/>
-<br/>
-<Email/>
-<br/>
-<Annoyed/>
-<br/>
-<FileStyle/>
-<br/>
-<ComponentsPreview/>
+@foreach (var component in new RenderFragment[]
+{
+    @<TailwindExample/>,
+    @<TailwindPeopleList/>,
+    @<ChitChat/>,
+    @<GroupsExample/>,
+    @<NestedGroups/>,
+    @<Email/>,
+    @<Annoyed/>,
+    @<FileStyle/>,
+    @<ComponentsPreview/>
+})
+{
+    <ExampleBlock>
+        @component
+    </ExampleBlock>
+}
 
 @code {
 
