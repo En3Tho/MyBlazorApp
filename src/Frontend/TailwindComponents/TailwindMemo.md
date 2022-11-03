@@ -41,6 +41,7 @@ Possible usages:
 1. private const string Xxx = hover + shadowDeep;
 2. private const string Xxx = $"{hover}{shadowDeep}";
 3. @hover@shadowDeep
+4. @component@nameof(MyComponent)px-4 // ?
 small validation on const strings from html module
 This then can be moved to nuget package and reused in other projects
 ```

@@ -1,8 +1,15 @@
 @attribute [Route($"/{nameof(TailWindTestPage2)}")]
 
-<ExampleBlock>
-    <EmailForm/>
-</ExampleBlock>
+@foreach (var component in new RenderFragment[]
+{
+    @<EmailForm/>,
+    @<RadioButton/>
+})
+{
+    <ExampleBlock>
+        @component
+    </ExampleBlock>
+}
 
 @code {
 
