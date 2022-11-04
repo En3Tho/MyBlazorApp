@@ -1,18 +1,11 @@
 module.exports = {
     content: [
-        './**/*.html',
-        './**/*.razor',
-        './**/*.razor.css'
+        './**/*.{razor,html}',
     ],
     theme: {
         extend: {},
     },
     plugins: [],
-    safelist: [
-        // {
-        //     pattern: /.*/,
-        // },
-    ],
     colors: {
     }
 }

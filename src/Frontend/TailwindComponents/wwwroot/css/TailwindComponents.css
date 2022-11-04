@@ -591,14 +591,6 @@ video {
   margin-left: 0.75rem;
 }
 
-.box-border {
-  box-sizing: border-box;
-}
-
-.box-content {
-  box-sizing: content-box;
-}
-
 .block {
   display: block;
 }
@@ -919,10 +911,6 @@ video {
 .border-red-900 {
   --tw-border-opacity: 1;
   border-color: rgb(127 29 29 / var(--tw-border-opacity));
-}
-
-.border-\[2\] {
-  border-color: 2;
 }
 
 .bg-white {
