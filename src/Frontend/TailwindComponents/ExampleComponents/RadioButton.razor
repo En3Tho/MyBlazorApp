@@ -2,8 +2,9 @@
     @for (var index = 0; index < 5; index++)
     {
         var currentIndex = index;
+        void OnClick() => selected = currentIndex;
         <label>
-            <input type="radio" class="peer absolute w-0 h-0" @onclick="() => selected = currentIndex"/>
+            <input type="radio" class="peer absolute w-0 h-0" @onclick="OnClick"/>
             <span class="w-4 h-4 inline-block bg-white border-black border border-solid rounded-[50%]
                          @If(selected == currentIndex, "border-red-900 border-[5px]")">
             </span>
