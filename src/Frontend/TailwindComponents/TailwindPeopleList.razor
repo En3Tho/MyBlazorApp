@@ -2,7 +2,7 @@
     <ul role="list" class="p-6 divide-y divide-slate-200">
         @foreach (var person in _people)
         {
-            @Person(person)
+            @DrawPerson(person)
         }
         @foreach (var person in People)
         {
@@ -22,8 +22,9 @@
 </div>
 
 @code {
+    public record Person(string Name, string Email, string ImageUrl);
 
-    private static RenderFragment<Person> Person = person =>
+    private static RenderFragment<Person> DrawPerson = person =>
     // Remove top/bottom padding when first/last child
         @<li class="flex py-4 first:pt-0 last:pb-0">
             <img class="h-10 w-10 rounded-full" src="@person.ImageUrl" alt=""/>
@@ -33,7 +34,7 @@
             </div>
         </li>;
 
-    private RenderFragment[] People = _people.Select(p => Person(p)).ToArray();
+    private RenderFragment[] People = _people.Select(p => DrawPerson(p)).ToArray();
 
     static Person[] _people =
     {
