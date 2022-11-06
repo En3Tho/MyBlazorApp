@@ -4,31 +4,38 @@
         var currentIndex = index;
         void OnClick() => selected = currentIndex;
         <label>
-            <input type="radio" class="peer absolute w-0 h-0" @onclick="OnClick"/>
-            <div class="flex p-4 items-center justify-between h-12 inline-block bg-slate-100 border-black shadow-sm cursor-pointer rounded-md box-border
+            <input type="radio" name="radio" class="peer absolute w-0 h-0" @onclick="OnClick"/>
+            <div class="flex p-4 items-center justify-between h-12 inline-block bg-slate-100 shadow-sm cursor-pointer rounded-md box-border
                          @If(selected == currentIndex, "border-red-900 border-[1px]")">
                 <span class="ml-3 text-red-300 text-xl">@currentIndex</span>
-                <span class="mr-3 h-6 w-6 bg-violet-300 rounded-[50%] border-solid border border-black @If(selected == currentIndex, "bg-red-900")"></span>
+                <span class="mr-3 h-6 w-6 rounded-[50%] border-solid border border-black
+                             @If(selected == currentIndex, "bg-red-900", "bg-violet-300")"></span>
 
-                @foreach (var color in new[]
-                {
-                    "bg-violet-300",
-                    "bg-yellow-300",
-                    "bg-fuchsia-300",
-                    "bg-teal-300",
-                })
-                {
-                    // initialrem next rem
-                }
+                @{
+                    var colors = new[]
+                    {
+                        "bg-violet-300",
+                        "bg-yellow-300",
+                        "bg-fuchsia-300",
+                        "bg-teal-300",
+                    };
 
-                <div class="flex justify-center items-center h-8 w-8 bg-violet-300 rounded-[50%]">
-                    <div class="flex justify-center items-center h-5/6 w-5/6 bg-yellow-300 rounded-[50%]">
-                        <div class="flex justify-center items-center h-5/6 w-5/6 bg-fuchsia-300 rounded-[50%]">
-                            <div class="flex justify-center items-center h-5/6 w-5/6 bg-teal-300 rounded-[50%] @If(selected == currentIndex, "block", "hidden")">
-                            </div>
-                        </div>
+                    RenderFragment RenderColorFullDiv(int depth)
+                    {
+                        var isLast = depth == colors.Length - 1;
+                        if (depth == colors.Length || isLast && selected != currentIndex)
+                            return _ => { };
+
+                        return
+                            @<div class="flex justify-center items-center h-4/5 w-4/5 @colors[depth] rounded-[50%]">
+                                @RenderColorFullDiv(depth + 1)
+                            </div>;
+                    }
+
+                    <div class="flex justify-center items-center h-8 w-8 bg-violet-300 rounded-[50%]">
+                        @RenderColorFullDiv(0)
                     </div>
-                </div>
+                }
             </div>
         </label>
     }

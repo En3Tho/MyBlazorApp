@@ -30,7 +30,7 @@
             }.ToIndexable())
             {
                 <label>
-                    <input type="radio" class="peer absolute w-0 h-0" @onclick="() => _selected = currentIndex"/>
+                    <input type="radio" name="radio" class="peer absolute w-0 h-0" @onclick="() => _selected = currentIndex"/>
                     <div class="flex px-4 py-8 h-12 items-center justify-between shadow-sm cursor-pointer rounded-md bg-gray-300">
                         <span class="ml-3 font-medium text-xl">@title</span>
                         <span class="mr-3 h-6 w-6 rounded-[50%] bg-white border-solid border border-black
@@ -47,17 +47,20 @@
                 </svg>
             </span>
         </div>
-        <div class="flex p-4 bg-blue-300/20 rounded-md border border-blue-900 min-h-16 justify-between @If(!_showLiquidHelp, "hidden")">
-            <div class="flex flex-col gap-2">
-                <span class="text-xl @headingColor">What is Liquid Net Worth?</span>
-                <span>Your current cash, savings, emergency funds, etc.</span>
-            </div>
-            <div onclick="@HideHelp">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </div>
-        </div>
+
+        @If(_showLiquidHelp,
+            @<div class="flex p-4 bg-blue-300/20 rounded-md border border-blue-900 justify-between">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xl @headingColor">What is Liquid Net Worth?</span>
+                    <span>Your current cash, savings, emergency funds, etc.</span>
+                </div>
+                <div onclick="@HideHelp">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+            </div>)
+
         <input type="number" inputmode="decimal"
                class="h-8 px-4 rounded-md placeholder:italic placeholder:text-slate-400 border-slate-400 border-b focus:outline-none"
                placeholder="Amount"/>
