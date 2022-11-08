@@ -1,0 +1,6 @@
+<div @attributes="@AdditionalAttributes" class="h-4 w-4 block bg-black @AdditionalAttributes?.TryGetValueAsString("class")" ></div>
+
+@code {
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+}

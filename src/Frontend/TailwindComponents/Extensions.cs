@@ -2,6 +2,15 @@ using System.Collections;
 
 namespace TailwindComponents;
 
+public static class IDictionaryExtensions
+{
+    public static string? TryGetValueAsString(this IDictionary<string, object> dictionary, string key)
+    {
+        dictionary.TryGetValue(key, out var value);
+        return value as string;
+    }
+}
+
 public static class ArrayExtensions
 {
     public static IndexedArray<T> ToIndexable<T>(this T[] array) => new(array);
@@ -62,8 +71,7 @@ public static class RangeExtensions
 
         public bool MoveNext()
         {
-            bool result;
-            (result, _count, Current) = (_count < _length, _count + 1, Current + 1);
+            (var result, _count, Current) = (_count < _length, _count + 1, Current + 1);
             return result;
         }
 

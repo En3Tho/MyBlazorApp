@@ -19,7 +19,7 @@
                 <span aria-hidden="true" class="oi oi-home"></span> Home
             </NavLink>
         </li>
-        @foreach (var i in Enumerable.Range(1, 10)) // TODO: subnav
+        @foreach (var i in 1..11) // TODO: subnav
         {
             <li class="nav-item px-3">
                 <CounterNavLink href="@($"{nameof(Counter)}/{i}")" IncrementAmount="@i"/>
@@ -39,7 +39,8 @@
             nameof(MozillaBalloons),
             nameof(TailWindTestPage),
             nameof(TailWindTestPage2),
-            nameof(EasyCoinPage)
+            nameof(EasyCoinPage),
+            nameof(CodinGamePage)
         })
         {
             <li class="nav-item px-3">

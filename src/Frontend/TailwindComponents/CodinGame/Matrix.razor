@@ -1,0 +1,110 @@
+@using System.Diagnostics.CodeAnalysis
+<div class="flex flex-col gap-4">
+    <div class="flex flex-col p-4 rounded-md bg-violet-200 w-max">
+        <div class="flex justify-between gap-4 hover:bg-violet-300 rounded-md px-2">
+            @foreach (var i in ..Data.GetLength(0))
+            {
+                @If(i == 0,
+                    @<div class="w-4">
+                    </div>)
+                <span class="w-4 rounded-md font-semibold text-xl text-center text-red-500">
+                    @i
+                </span>
+            }
+        </div>
+        @foreach (var i in ..Data.GetLength(0))
+        {
+            <div class="flex justify-between gap-4 hover:bg-violet-300 rounded-md px-2">
+                <span class="w-4 rounded-md font-semibold text-xl text-center text-red-500">
+                    @i
+                </span>
+                @foreach (var j in ..Data.GetLength(1))
+                {
+                    var data = Data[i, j];
+                    <span class="w-4 font-semibold text-xl text-right @If(data == 0, "text-gray-100")">
+                        @data
+                    </span>
+                }
+            </div>
+        }
+    </div>
+    <div class="flex flex-col gap-2 w-fit">
+        <div class="flex-1 gap-4 bg-slate-100 rounded-md">
+            <input class="flex-1 p-4 bg-inherit w-full" @bind="_command" @onkeydown="OnKeyDown"/>
+        </div>
+        @If(_error is {},
+            @<div class="text-red-300">
+                @_error
+            </div>)
+        <div class="flex flex-wrap py-4">
+            @foreach (var item in _history)
+            {
+                <span class="shadow p-4 rounded-md hover:bg-sky-200" onclick="@(() => RunReverse(item))">
+                    @item
+                </span>
+            }
+        </div>
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public int[,] Data { get; init; } = default!;
+
+    private string? _command;
+    private string? _error;
+
+    private List<string> _history = new();
+
+    private void RunReverse(string rawCommand)
+    {
+        if (_history.LastIndexOf(rawCommand) is not -1 and var idx)
+        {
+            _history.RemoveAt(idx);
+            if (Command.TryParse(rawCommand, out var command))
+            {
+                command.Run(Data, true, out _error);
+            }
+            StateHasChanged();
+        }
+    }
+
+    private void Run()
+    {
+        if (_command is {} && Command.TryParse(_command, out var command)
+            && command.Run(Data, false, out _error))
+        {
+            _history.Add(command.ToString());
+            _command = null;
+            StateHasChanged();
+        }
+    }
+
+    private void OnKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Code == "Enter")
+        {
+            Run();
+        }
+    }
+
+    private RenderFragment Buttons { get; } =
+        @<div class="flex">
+            @foreach (var (label, callback) in new (string, Action)[]
+            {
+                ("+", () => { }),
+                ("-", () => { }),
+                ("*", () => { }),
+                ("/", () => { }),
+            })
+            {
+                <div class="flex first:rounded-l-md last:rounded-r-md h-4 w-4 bg-slate-100 items-center justify-center text-lg font-bold"
+                     onclick="@callback">
+                    @label
+                </div>
+            }
+        </div>;
+
+}

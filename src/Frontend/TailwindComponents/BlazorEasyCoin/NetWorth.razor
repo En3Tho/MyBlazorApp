@@ -1,5 +1,5 @@
 <div class="flex bg-white gap-2 justify-between items-center w-full border-b p-4">
-    <div class="h-[24px] w-[24px]">
+    <div class="@icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
         </svg>
@@ -16,12 +16,12 @@
             }
         </div>
     </div>
-    <div class="h-[24px] w-[24px] invisible">
+    <div class="@icon invisible">
     </div>
 </div>
 <div class="flex bg-gray-300 w-full min-h-full justify-center">
     <div class="flex flex-col gap-4 mt-4 mb-4 bg-white rounded w-3/4 p-8">
-        <span class="@headingColor text-xl font-bold">What's your total net worth?</span>
+        <span class="@heading text-xl font-bold">What's your total net worth?</span>
         <span>Add your savings and other investments, then subtract your debt.</span>
         <div class="py-8 flex flex-col gap-4">
             @foreach (var (currentIndex, title) in new[]
@@ -41,7 +41,7 @@
         </div>
         <div class="flex gap-4 items-center">
             <span class="text-xl">What's your liquid net worth?</span>
-            <span class="@headingColor w-[24px] h-[24px] stroke-[2]" onclick="@ShowHelp">
+            <span class="@heading @icon stroke-[2]" onclick="@ShowHelp">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/>
                 </svg>
@@ -51,7 +51,7 @@
         @If(_showLiquidHelp,
             @<div class="flex p-4 bg-blue-300/20 rounded-md border border-blue-900 justify-between">
                 <div class="flex flex-col gap-2">
-                    <span class="text-xl @headingColor">What is Liquid Net Worth?</span>
+                    <span class="text-xl @heading">What is Liquid Net Worth?</span>
                     <span>Your current cash, savings, emergency funds, etc.</span>
                 </div>
                 <div onclick="@HideHelp">
@@ -71,7 +71,8 @@
 </div>
 
 @code {
-        const string headingColor = "text-blue-800";
+        private const string heading = "text-blue-800";
+        private const string icon = "h-[24px] w-[24px]";
 
     private int _selected;
     private decimal _currentAmount;
