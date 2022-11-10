@@ -1,45 +1,60 @@
 @using System.Diagnostics.CodeAnalysis
-<div class="flex flex-col gap-4 w-max">
-    <div class="flex flex-col p-4 rounded-md bg-violet-200 w-max">
-        <div class="flex justify-between gap-4 hover:bg-violet-300 rounded-md px-2">
-            @foreach (var i in ..Data.GetLength(0))
-            {
-                @If(i == 0,
-                    @<div class="w-4">
-                    </div>)
-                <span class="w-4 rounded-md font-semibold text-xl text-center text-red-500">
-                    @i
-                </span>
-            }
-        </div>
-        @foreach (var i in ..Data.GetLength(0))
-        {
-            <div class="flex justify-between gap-4 hover:bg-violet-300 rounded-md px-2">
-                <span class="w-4 rounded-md font-semibold text-xl text-center text-red-500">
-                    @i
-                </span>
-                @foreach (var j in ..Data.GetLength(1))
+@using Microsoft.AspNetCore.Components.Forms
+<div class="flex flex-col gap-4 max-w-sm">
+    <div class="p-4 rounded-md bg-violet-200 w-max">
+        <table>
+            @{
+                const string tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
+                const string tableCell = "w-4 font-semibold text-xl text-end";
+
+                <tr class="@tableRow">
+                    <td class="@tableCell invisible">
+                        0
+                    </td>
+                    @foreach (var colIdx in ..(Data[0].Length - 1))
+                    {
+                        <td class="@tableCell text-red-500">
+                            @colIdx
+                        </td>
+                    }
+                    <td class="@tableCell text-blue-500">
+                        V
+                    </td>
+                </tr>
+
+                foreach (var colIdx in ..Data.Length)
                 {
-                    var data = Data[i, j];
-                    <span class="w-4 font-semibold text-xl text-right @If(data == 0, "text-gray-100")">
-                        @data
-                    </span>
+                    var row = Data[colIdx];
+
+                    <tr class="@tableRow">
+                        <td class="@tableCell text-red-500">
+                            @colIdx
+                        </td>
+                        @foreach (var rowIdx in ..row.Length)
+                        {
+                            var data = row[rowIdx];
+                            <td class="@tableCell @If(data == 0, "text-gray-100") last:text-blue-300">
+                                @data
+                            </td>
+                        }
+                    </tr>
                 }
-            </div>
-        }
+            }
+        </table>
     </div>
+
     <div class="flex flex-col gap-2 w-full">
         <div class="flex-1 gap-4 bg-slate-100 rounded-md">
-            <input class="flex-1 p-4 bg-inherit w-full" @bind="_command" @onkeydown="OnKeyDown"/>
+            <input class="flex-1 p-4 bg-inherit w-full" value="@_command" @oninput="OnInput" @onkeydown="OnKeyDown"/>
         </div>
         @If(_error is {},
-            @<div class="text-red-300">
+            @<div class="text-red-500">
                 @_error
             </div>)
-        <div class="flex flex-wrap py-4">
+        <div class="flex flex-wrap py-4 w-full">
             @foreach (var item in _history)
             {
-                <span class="shadow p-4 rounded-md hover:bg-sky-200">
+                <span class="w-[25%] bg-gray-100 text-center shadow p-4 rounded-md hover:bg-sky-200">
                     @item
                 </span>
             }
@@ -51,7 +66,7 @@
 @code {
 
     [Parameter, EditorRequired]
-    public int[,] Data { get; init; } = default!;
+    public int[][] Data { get; init; } = default!;
 
     private string? _command;
     private string? _error;
@@ -60,13 +75,17 @@
 
     private void Run()
     {
-        if (_command is {} && Command.TryParse(_command, out var command)
+        if (_command is {} && Command.TryParse(_command, out var command, out _error)
             && command.Run(Data, out _error))
         {
             _history.Add(command.ToString());
             _command = null;
         }
-        StateHasChanged();
+    }
+
+    private void OnInput(ChangeEventArgs args)
+    {
+        _command = args.Value as string;
     }
 
     private void OnKeyDown(KeyboardEventArgs args)
@@ -76,22 +95,4 @@
             Run();
         }
     }
-
-    private RenderFragment Buttons { get; } =
-        @<div class="flex">
-            @foreach (var (label, callback) in new (string, Action)[]
-            {
-                ("+", () => { }),
-                ("-", () => { }),
-                ("*", () => { }),
-                ("/", () => { }),
-            })
-            {
-                <div class="flex first:rounded-l-md last:rounded-r-md h-4 w-4 bg-slate-100 items-center justify-center text-lg font-bold"
-                     onclick="@callback">
-                    @label
-                </div>
-            }
-        </div>;
-
 }

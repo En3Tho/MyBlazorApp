@@ -1,26 +1,51 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace TailwindComponents.CodinGame;
 
 internal record struct Command(int idx1, int idx2, char op)
 {
-    public static bool TryParse(string value, out Command command)
-    {
-        var (success, parsedCommand) = value switch
-        {
-            ['$', var idx1, ' ', ('+' or '-' or '@') and var op, ' ', '$', var idx2] when
-                idx1 != idx2
-                && char.IsDigit(idx1)
-                && char.IsDigit(idx2) => (true, new Command(idx1 - '0', idx2 - '0', op)),
-            ['$', var idx1, ' ', ('*' or '/') and var op, ' ', var idx2] when
-                idx2 > 0
-                && char.IsDigit(idx1)
-                && char.IsDigit(idx2) => (true, new (idx1 - '0', idx2 - '0', op)),
-            _ => (false, new())
-        };
+    private static Regex TwoVars { get; } = new(@"^\$(\d+)\s*([+-@])\s*\$(\d+)\s*$", RegexOptions.Compiled);
+    private static Regex VarConst { get; } = new(@"^\$(\d+)\s*([*\/])\s*(-?\d+)\s*$", RegexOptions.Compiled);
 
-        command = parsedCommand;
-        return success;
+    private static Command? TryTwoVars(string value)
+    {
+        if (TwoVars.Match(value) is { Groups: [_, { ValueSpan: var lvar, }, { ValueSpan: var op }, { ValueSpan: var rvar }] })
+        {
+            return new(int.Parse(lvar),
+                int.Parse(rvar),
+                op[0]);
+        }
+
+        return default;
+    }
+
+    private static Command? TryVarCon(string value)
+    {
+        if (VarConst.Match(value) is { Groups: [_, { ValueSpan: var lvar }, { ValueSpan: var op }, { ValueSpan: var rconst }] })
+        {
+            return new(int.Parse(lvar),
+                int.Parse(rconst),
+                op[0]);
+        }
+
+        return default;
+    }
+
+    public static bool TryParse(string value, out Command command, [NotNullWhen(false)] out string? error)
+    {
+        if (
+            (TryTwoVars(value)
+            ?? TryVarCon(value)) is {} cmd)
+        {
+            command = cmd;
+            error = null;
+            return true;
+        }
+
+        error = "Unparsable command";
+        command = default;
+        return false;
     }
 
     public override string ToString()
@@ -50,27 +75,34 @@ internal record struct Command(int idx1, int idx2, char op)
         };
     }
 
-    private bool RunConst(int[,] values, [NotNullWhen(false)] out string? error)
+    private bool RunConst(int[][] values, [NotNullWhen(false)] out string? error)
     {
-        if ((uint) idx1 >= values.GetLength(0))
+        if ((uint) idx1 >= values.Length)
         {
             error = "Index out of range";
             return false;
         }
 
-        var constProcessor = GetConstProcessor();
-        for (var colIdx = 0; colIdx < values.GetLength(1); colIdx++)
+        if (idx2 == 0)
         {
-            values[idx1, colIdx] = constProcessor(values[idx1, colIdx], idx2);
+            error = "Division or multiplication by zero";
+            return false;
+        }
+
+        var row = values[idx1];
+        var constProcessor = GetConstProcessor();
+        for (var colIdx = 0; colIdx < row.Length; colIdx++)
+        {
+            row[colIdx] = constProcessor(row[colIdx], idx2);
         }
 
         error = null;
         return true;
     }
 
-    private bool RunRow(int[,] values, [NotNullWhen(false)] out string? error)
+    private bool RunRow(int[][] values, [NotNullWhen(false)] out string? error)
     {
-        if ((uint) idx1 >= values.GetLength(0) || (uint) idx2 >= values.GetLength(0))
+        if ((uint) idx1 >= values.Length || (uint) idx2 >= values.Length)
         {
             error = "Index out of range";
             return false;
@@ -78,11 +110,13 @@ internal record struct Command(int idx1, int idx2, char op)
 
         var rowProcessor = GetRowProcessor();
 
-        for (var colIdx = 0; colIdx < values.GetLength(1); colIdx++)
+        var row1 = values[idx1];
+        var row2 = values[idx2];
+        for (var colIdx = 0; colIdx < row2.Length; colIdx++)
         {
-            var (m1, m2) = rowProcessor(values[idx1, colIdx], values[idx2, colIdx]);
-            values[idx1, colIdx] = m1;
-            values[idx2, colIdx] = m2;
+            var (m1, m2) = rowProcessor(row1[colIdx], row2[colIdx]);
+            row1[colIdx] = m1;
+            row2[colIdx] = m2;
         }
 
         error = null;
@@ -90,12 +124,13 @@ internal record struct Command(int idx1, int idx2, char op)
     }
 
 
-    public bool Run(int[,] values, [NotNullWhen(false)] out string? error)
+    public bool Run(int[][] values, [NotNullWhen(false)] out string? error)
     {
         if (op is '+' or '-' or '@')
         {
             return RunRow(values, out error);
         }
+
         return RunConst(values, out error);
     }
 }
