@@ -1,0 +1,28 @@
+<div class="block h-12 w-36 bg-red-200">
+    <input class="bg-red-200" @bind="@_smallStringStrict.Raw" @bind:event="oninput"/>
+</div>
+<p class="w-full">@nameof(_smallStringStrict): @_smallStringStrict</p>
+
+<div class="block h-12 w-36 bg-red-200">
+    <input class="bg-red-200" type="number" @bind="@_smallNumStrict.Raw" @bind:event="oninput"/>
+</div>
+<p class="w-full">@nameof(_smallNumStrict): @_smallNumStrict</p>
+
+<div class="block h-12 w-36 bg-red-200">
+    <input class="bg-red-200" @bind="@_smallString.Raw" @bind:event="oninput"/>
+</div>
+<p class="w-full @If(!_smallString.IsValid, "text-red-500")">@nameof(_smallString): @_smallString</p>
+
+<div class="block h-12 w-36 bg-red-200">
+    <input class="bg-red-200" type="number" @bind="@_smallNum.Raw" @bind:event="oninput"/>
+</div>
+<p class="w-full @If(!_smallNum.IsValid, "text-red-500")">@nameof(_smallNum): @_smallNum</p>
+
+@code {
+
+    StrictIntInput<SmallNum> _smallNumStrict = new(SmallNum.Make(1));
+    StrictStringInput<SmallString> _smallStringStrict = new();
+
+    IntInput<SmallNum> _smallNum = new(SmallNum.Make(1));
+    StringInput<SmallString> _smallString = new();
+}
