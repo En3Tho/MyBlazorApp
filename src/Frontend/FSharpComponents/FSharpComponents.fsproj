@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.8" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="ComponentBuilder.fs" />
+      <Compile Include="FortressesCopy.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
+    </ItemGroup>
+
+</Project>

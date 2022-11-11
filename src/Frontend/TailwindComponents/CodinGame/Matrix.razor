@@ -3,42 +3,37 @@
 <div class="flex flex-col gap-4 max-w-sm">
     <div class="p-4 rounded-md bg-violet-200 w-max">
         <table>
-            @{
-                const string tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
-                const string tableCell = "w-4 font-semibold text-xl text-end";
+            <tr class="@tableRow">
+                <td class="@tableCell invisible">
+                    0
+                </td>
+                @foreach (var colIdx in ..(Data[0].Length - 1))
+                {
+                    <td class="@tableCell text-red-500">
+                        @colIdx
+                    </td>
+                }
+                <td class="@tableCell text-blue-500">
+                    V
+                </td>
+            </tr>
+
+            @foreach (var colIdx in ..Data.Length)
+            {
+                var row = Data[colIdx];
 
                 <tr class="@tableRow">
-                    <td class="@tableCell invisible">
-                        0
+                    <td class="@tableCell text-red-500">
+                        @colIdx
                     </td>
-                    @foreach (var colIdx in ..(Data[0].Length - 1))
+                    @foreach (var rowIdx in ..row.Length)
                     {
-                        <td class="@tableCell text-red-500">
-                            @colIdx
+                        var data = row[rowIdx];
+                        <td class="@tableCell @If(data == 0, "text-gray-100") last:text-blue-300">
+                            @data
                         </td>
                     }
-                    <td class="@tableCell text-blue-500">
-                        V
-                    </td>
                 </tr>
-
-                foreach (var colIdx in ..Data.Length)
-                {
-                    var row = Data[colIdx];
-
-                    <tr class="@tableRow">
-                        <td class="@tableCell text-red-500">
-                            @colIdx
-                        </td>
-                        @foreach (var rowIdx in ..row.Length)
-                        {
-                            var data = row[rowIdx];
-                            <td class="@tableCell @If(data == 0, "text-gray-100") last:text-blue-300">
-                                @data
-                            </td>
-                        }
-                    </tr>
-                }
             }
         </table>
     </div>
@@ -64,6 +59,9 @@
 </div>
 
 @code {
+
+        const string tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
+        const string tableCell = "w-4 font-semibold text-xl text-end";
 
     [Parameter, EditorRequired]
     public int[][] Data { get; init; } = default!;
@@ -95,4 +93,5 @@
             Run();
         }
     }
+
 }

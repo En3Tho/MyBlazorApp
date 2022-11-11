@@ -1,23 +1,14 @@
-@typeparam T
-
 @Main
-@If(ShowError && (Input.IsEmpty || !Input.IsValid), Error)
-
-@code {
-
-}
+@If(Validator(), Error)
 
 @code {
 
     [Parameter, EditorRequired]
-    public RenderFragment Main { get; init; } = default!;
+    public required RenderFragment Main { get; init; } = default!;
 
     [Parameter, EditorRequired]
-    public RenderFragment Error { get; init; } = default!;
+    public required RenderFragment Error { get; init; } = default!;
 
     [Parameter, EditorRequired]
-    public IInput<T> Input { get; init; } = default!;
-
-    [Parameter, EditorRequired]
-    public bool ShowError { get; init; }
+    public required Func<bool> Validator { get; init; } = default!;
 }

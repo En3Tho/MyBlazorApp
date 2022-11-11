@@ -18,12 +18,12 @@
 </div>
 <p class="w-full @If(!_smallNum.IsValid, "text-red-500")">@nameof(_smallNum): @_smallNum</p>
 
-<Required Input="@_smallNum" ShowError="@_showError">
+<Required Validator="() => _showError">
     <Main>
         <div class="block h-12 w-36 bg-red-200">
-                <input class="bg-red-200" type="number" @bind="@_smallNum.Raw" @bind:event="oninput"/>
-            </div>
-            <p class="w-full @If(!_smallNum.IsValid, "text-red-500")">@nameof(_smallNum): @_smallNum</p>
+            <input class="bg-red-200" type="number" @bind="@_smallNum.Raw" @bind:event="oninput"/>
+        </div>
+        <p class="w-full @If(!_smallNum.IsValid, "text-red-500")">@nameof(_smallNum): @_smallNum</p>
     </Main>
     <Error>
         <div class="text-red-500">
