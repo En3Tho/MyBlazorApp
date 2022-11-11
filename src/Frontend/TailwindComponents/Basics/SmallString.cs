@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace TailwindComponents.Basics;
 
-internal readonly struct SmallString : IValidatable<SmallString, string>, IEquatable<SmallString>
+public readonly struct SmallString : IValidatable<SmallString, string>, IEquatable<SmallString>
 {
 #if DEBUG
     // use box in debug to generate an exception if value was not set correctly

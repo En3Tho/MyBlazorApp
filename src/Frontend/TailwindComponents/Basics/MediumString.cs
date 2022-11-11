@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace TailwindComponents.Basics;
 
 [Validatable<string>] // part to implement
-internal readonly partial struct MediumString
+public readonly partial struct MediumString
 {
     public static bool Validate([NotNullWhen(true)] string? value)
     {
@@ -18,7 +18,7 @@ internal readonly partial struct MediumString
 }
 
 // Source generated
-internal readonly partial struct MediumString : IValidatable<MediumString, string>, IValidator<string>,
+public readonly partial struct MediumString : IValidatable<MediumString, string>, IValidator<string>,
     IEquatable<MediumString>, IEquatable<string>
 {
 #if DEBUG

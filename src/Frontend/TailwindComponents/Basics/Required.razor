@@ -1,0 +1,23 @@
+@typeparam T
+
+@Main
+@If(ShowError && (Input.IsEmpty || !Input.IsValid), Error)
+
+@code {
+
+}
+
+@code {
+
+    [Parameter, EditorRequired]
+    public RenderFragment Main { get; init; } = default!;
+
+    [Parameter, EditorRequired]
+    public RenderFragment Error { get; init; } = default!;
+
+    [Parameter, EditorRequired]
+    public IInput<T> Input { get; init; } = default!;
+
+    [Parameter, EditorRequired]
+    public bool ShowError { get; init; }
+}

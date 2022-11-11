@@ -1,6 +1,6 @@
 namespace TailwindComponents.Basics;
 
-internal readonly struct Box<T> : IEquatable<Box<T>>
+public readonly struct Box<T> : IEquatable<Box<T>>
 {
     private readonly T _value;
 
@@ -33,5 +33,15 @@ internal readonly struct Box<T> : IEquatable<Box<T>>
     public override int GetHashCode()
     {
         return HashCode.Combine(_value, HasValue);
+    }
+
+    public static bool operator ==(Box<T> left, Box<T> right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Box<T> left, Box<T> right)
+    {
+        return !(left == right);
     }
 }

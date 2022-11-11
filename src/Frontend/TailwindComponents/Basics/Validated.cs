@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace TailwindComponents.Basics;
 
-internal interface IValidator<T>
+public interface IValidator<T>
 {
     static abstract bool Validate([NotNullWhen(true)] T? value);
 
@@ -11,7 +11,7 @@ internal interface IValidator<T>
         [CallerArgumentExpression(nameof(value))] string argumentName = null!);
 }
 
-internal interface IValidatable<TSelf, TData>
+public interface IValidatable<TSelf, TData>
 {
     static abstract bool Try([NotNullWhen(true)] TData? value, [MaybeNullWhen(false)] out TSelf result);
     static abstract TSelf Make(TData value, [CallerArgumentExpression(nameof(value))] string argumentName = null!);

@@ -1,6 +1,17 @@
 namespace TailwindComponents.Basics;
 
-internal abstract class StrictInput<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Strict>
+public interface IInput<T>
+{
+    T Value { get; }
+    bool IsEmpty { get; }
+    bool IsValid { get; }
+    string? Raw { get; set; }
+    public Action<T>? OnValueChange { get; init; }
+    public Action<string?>? OnRawChange { get; init; }
+}
+
+public abstract class
+    StrictInput<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Strict>
     where TValidatable : IValidatable<TValidatable, TData> where TParser : struct, IInputParser<TData>
 {
     protected StrictInput() : base()
@@ -12,7 +23,7 @@ internal abstract class StrictInput<TValidatable, TData, TParser> : InputBase<TV
     }
 }
 
-internal abstract class Input<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Loose>
+public abstract class Input<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Loose>
     where TValidatable : IValidatable<TValidatable, TData> where TParser : struct, IInputParser<TData>
 {
     protected Input() : base()
@@ -24,28 +35,30 @@ internal abstract class Input<TValidatable, TData, TParser> : InputBase<TValidat
     }
 }
 
-internal interface IInputMode
+public interface IInputMode
 {
 }
 
-internal static class InputMode
+public static class InputMode
 {
-    internal struct Strict : IInputMode
+    public struct Strict : IInputMode
     {
     }
 
-    internal struct Loose : IInputMode
+    public struct Loose : IInputMode
     {
     }
 }
 
-internal abstract class InputBase<TValidatable, TData, TParser, TInputMode>
+public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInput<Box<TValidatable>>
     where TValidatable : IValidatable<TValidatable, TData>
     where TParser : struct, IInputParser<TData>
     where TInputMode : struct, IInputMode
 {
     private string? _rawString = "";
     public Box<TValidatable> Value { get; private set; }
+    public Action<Box<TValidatable>>? OnValueChange { get; init; }
+    public Action<string?>? OnRawChange { get; init; }
 
     protected InputBase()
     {
@@ -61,10 +74,56 @@ internal abstract class InputBase<TValidatable, TData, TParser, TInputMode>
         return _rawString ?? "";
     }
 
-    public void SetValue(TValidatable value)
+    private void SetValue(Box<TValidatable> value, string? raw = null)
     {
+        var rawString = raw ?? value.ToString();
         Value = value;
-        _rawString = Value.ToString();
+        _rawString = rawString;
+        OnRawChange?.Invoke(rawString);
+        OnValueChange?.Invoke(value);
+    }
+
+    private void Clear()
+    {
+        Value = default;
+        _rawString = "";
+        OnRawChange?.Invoke("");
+        OnValueChange?.Invoke(default);
+    }
+
+    public string? Raw
+    {
+        get => _rawString;
+        set
+        {
+            if (typeof(TInputMode) == typeof(InputMode.Strict))
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    Clear();
+                }
+                else
+                {
+                    if (TParser.TryParse(value, null, out var parsed)
+                        && TValidatable.Try(parsed, out var result))
+                    {
+                        SetValue(result, value);
+                    }
+                }
+            }
+            else
+            {
+                // in non strict mode we need to save raw string but clear value if it is invalid
+                // to make sure is valid check works correctly
+                var result =
+                    string.IsNullOrEmpty(value)
+                    && TParser.TryParse(value, null, out var parsed)
+                    && TValidatable.Try(parsed, out var validated)
+                        ? new Box<TValidatable>(validated)
+                        : default;
+                SetValue(result, value);
+            }
+        }
     }
 
     public bool IsEmpty => string.IsNullOrEmpty(_rawString);
@@ -79,54 +138,6 @@ internal abstract class InputBase<TValidatable, TData, TParser, TInputMode>
             }
 
             return IsEmpty || Value.HasValue;
-        }
-    }
-
-    public string? Raw
-    {
-        get => _rawString;
-        set
-        {
-            if (typeof(TInputMode) == typeof(InputMode.Strict))
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    Value = default;
-                    _rawString = "";
-                }
-                else
-                {
-                    if (TParser.TryParse(value, null, out var parsed)
-                        && TValidatable.Try(parsed, out var result))
-                    {
-                        Value = result;
-                        _rawString = value;
-                    }
-                }
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    Value = default;
-                }
-                else
-                {
-                    // in non strict mode we need to save raw string but clear value if it is invalid
-                    // to make sure is valid check works correctly
-                    if (TParser.TryParse(value, null, out var parsed)
-                        && TValidatable.Try(parsed, out var result))
-                    {
-                        Value = result;
-                    }
-                    else
-                    {
-                        Value = default;
-                    }
-                }
-
-                _rawString = value;
-            }
         }
     }
 }

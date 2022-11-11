@@ -2,13 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace TailwindComponents.Basics;
 
-internal interface IInputParser<T>
+public interface IInputParser<T>
 {
     static abstract bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider,
         [MaybeNullWhen(false)] out T result);
 }
 
-internal struct StringParser : IInputParser<string>
+public struct StringParser : IInputParser<string>
 {
     public static bool TryParse(string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out string result)
     {
@@ -23,7 +23,7 @@ internal struct StringParser : IInputParser<string>
     }
 }
 
-internal struct ParsableParser<T> : IInputParser<T>
+public struct ParsableParser<T> : IInputParser<T>
     where T : IParsable<T>
 {
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider,

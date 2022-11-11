@@ -1,6 +1,6 @@
 namespace TailwindComponents.Basics;
 
-internal sealed class StringInput<TValidatable> : Input<TValidatable, string, StringParser>
+public sealed class StringInput<TValidatable> : Input<TValidatable, string, StringParser>
     where TValidatable : IValidatable<TValidatable, string>
 {
     public StringInput() : base()
@@ -12,7 +12,7 @@ internal sealed class StringInput<TValidatable> : Input<TValidatable, string, St
     }
 }
 
-internal sealed class IntInput<TValidatable> : Input<TValidatable, int, ParsableParser<int>>
+public sealed class IntInput<TValidatable> : Input<TValidatable, int, ParsableParser<int>>
     where TValidatable : IValidatable<TValidatable, int>
 {
     public IntInput() : base()
