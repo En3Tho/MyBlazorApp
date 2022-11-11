@@ -2,7 +2,6 @@ namespace FSharpComponents
 
 open System
 open Microsoft.AspNetCore.Components
-open Microsoft.AspNetCore.Components.CompilerServices
 open TailwindComponents.CodinGame
 open En3Tho.FSharp.ComputationExpressions.ComponentBuilder
 
@@ -34,6 +33,7 @@ type Fortresses() =
 
 type Fortresses2() =
     inherit ComponentBase()
+
     member val MatrixData = [|
         [| 1; 1; 1; 1; 0; 0; 1; 0; 0; 3 |]
         [| 1; 1; 1; 0; 1; 0; 0; 1; 0; 2 |]
@@ -45,28 +45,44 @@ type Fortresses2() =
         [| 0; 1; 0; 0; 1; 0; 1; 1; 1; 2 |]
         [| 0; 0; 1; 0; 0; 1; 1; 1; 1; 3 |]
     |]
+
     override this.BuildRenderTree(builder) =
         let matrix = Unchecked.defaultof<Matrix>
-        html builder {
+        let mutable x = 0
+        let iterateColor() =
+            x <- x + 1
+            if x % 2 = 1 then "bg-violet-200" else "bg-violet-300"
+
+        let divClass = "block h-4 "
+        let renderFragment = fragment { span { "renderFragment: 123" } }
+        let codeBlock = span { "codeBlock: 123" }
+        let constant = "constant: 123"
+        let template (value: string) = span { "template: "; value }
+
+        builder |>
+        html {
             div {
-                class' => "h4"
-                "123"
+                class' => divClass + iterateColor()
+                renderFragment
                 div {
-                    class' => "h4"
-                    "123"
+                    class' => divClass + iterateColor()
+                    codeBlock
                 }
             }
             h3 {
+                class' => divClass + iterateColor()
                 "Fortresses"
+                if Random.Shared.Next(0, 2) = 1 then
+                    span { "Random span: 123" }
             }
             div {
-                class' => "h4"
-                "123"
+                class' => divClass + iterateColor()
+                constant
                 div {
-                    class' => "h4"
-                    "123"
+                    class' => divClass + iterateColor()
+                    template "123"
                     div {
-                        class' => "h4"
+                        class' => divClass + iterateColor()
                         c<Matrix> {
                             attr(nameof(matrix.Data), this.MatrixData)
                         }

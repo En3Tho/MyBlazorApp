@@ -11,17 +11,19 @@ module rec ComponentBuilderImpl =
     type ComponentBuilder(builder: RenderTreeBuilder) =
         let mutable sequenceCount = 0
 
+        member _.Builder = builder
+
         member this.AddMarkup(content: string) =
             builder.AddMarkupContent(sequenceCount, content)
             sequenceCount <- sequenceCount + 1
 
         member _.OpenComponent<'a>() =
             builder.OpenComponent(sequenceCount, typeof<'a>)
-            sequenceCount <- sequenceCount + 1 // when to close?
+            sequenceCount <- sequenceCount + 1
 
         member _.OpenElement(name: string) =
             builder.OpenElement(sequenceCount, name)
-            sequenceCount <- sequenceCount + 1 // when to close?
+            sequenceCount <- sequenceCount + 1
 
         member _.AddAttribute(name: string, value: obj) =
             builder.AddAttribute(sequenceCount, name, value)
@@ -43,12 +45,16 @@ module rec ComponentBuilderImpl =
 
     type ComponentBuilderCode = ComponentBuilder -> unit
 
-    type ComponentBlockBase() =
+    type RenderBlockBase() =
         inherit UnitBuilderBase<ComponentBuilder>()
 
         member inline _.Yield([<InlineIfLambda>] codeBuilderCode: ComponentBuilderCode) : ComponentBuilderCode =
             fun builder ->
                 codeBuilderCode builder
+
+        member inline _.Yield(codeBuilderCode: RenderFragment) : ComponentBuilderCode =
+            fun builder ->
+                codeBuilderCode.Invoke(builder.Builder)
 
         member inline _.Yield(markup) : ComponentBuilderCode =
             fun builder ->
@@ -73,30 +79,26 @@ module rec ComponentBuilderImpl =
                 builder.CloseElement()
 
     [<Sealed>]
-    type ComponentBuilderRunner(builder: RenderTreeBuilder) =
+    type ComponentBuilderRunner() =
 
-        inherit ComponentBlockBase()
+        inherit RenderBlockBase()
         member inline this.Run([<InlineIfLambda>] runExpr: ComponentBuilderCode) =
-            let builder = ComponentBuilder(builder)
-            runExpr builder
-
-    // TODO: Fragment
-
-    type AttributeBlock() =
-
-        member inline _.Zero() : ComponentBuilderCode = fun _ -> ()
-
-        member inline _.Yield((data, value: 'a)) : ComponentBuilderCode =
             fun builder ->
-                builder.AddAttribute(data, value)
-
-        member inline this.Run([<InlineIfLambda>] runExpr: ComponentBuilderCode) : ComponentBuilderCode =
-            fun builder ->
+                let builder = ComponentBuilder(builder)
                 runExpr builder
 
     [<Sealed>]
+    type RenderFragmentRunner() =
+
+        inherit RenderBlockBase()
+        member inline this.Run([<InlineIfLambda>] runExpr: ComponentBuilderCode) : RenderFragment =
+            RenderFragment(fun builder -> runExpr (ComponentBuilder(builder)))
+
+    [<Sealed>]
     type ComponentBlock<'a when 'a :> ComponentBase>() =
-        inherit ComponentBlockBase()
+        inherit RenderBlockBase()
+
+        static member val Instance = ComponentBlock<'a>()
 
         member inline this.Run([<InlineIfLambda>] runExpr: ComponentBuilderCode) : ComponentBuilderCode =
             fun builder ->
@@ -104,13 +106,9 @@ module rec ComponentBuilderImpl =
                 runExpr builder
                 builder.CloseComponent()
 
-    [<AbstractClass; Sealed>]
-    type ComponentCodeCache<'a when 'a :> ComponentBase>() =
-        static member val Instance = ComponentBlock<'a>()
-
     [<AbstractClass>]
     type ElementBlockBase() =
-        inherit ComponentBlockBase()
+        inherit RenderBlockBase()
 
         abstract member Name: string
 
@@ -126,21 +124,214 @@ module rec ComponentBuilderImpl =
         override this.Name = "div"
 
     [<Sealed>]
+    type Span() =
+        inherit ElementBlockBase()
+        override this.Name = "span"
+
+    [<Sealed>]
+    type H1() =
+        inherit ElementBlockBase()
+        override this.Name = "h3"
+
+    [<Sealed>]
+    type H2() =
+        inherit ElementBlockBase()
+        override this.Name = "h3"
+
+    [<Sealed>]
     type H3() =
         inherit ElementBlockBase()
         override this.Name = "h3"
+
+    [<Sealed>]
+    type H4() =
+        inherit ElementBlockBase()
+        override this.Name = "h4"
+
+    [<Sealed>]
+    type H5() =
+        inherit ElementBlockBase()
+        override this.Name = "h5"
+
+    [<Sealed>]
+    type H6() =
+        inherit ElementBlockBase()
+        override this.Name = "h6"
+
+    [<Sealed>]
+    type P() =
+        inherit ElementBlockBase()
+        override this.Name = "p"
+
+    [<Sealed>]
+    type Ul() =
+        inherit ElementBlockBase()
+        override this.Name = "ul"
+
+    [<Sealed>]
+    type Ol() =
+        inherit ElementBlockBase()
+        override this.Name = "ol"
+
+    [<Sealed>]
+    type Li() =
+        inherit ElementBlockBase()
+        override this.Name = "li"
+
+    [<Sealed>]
+    type A() =
+        inherit ElementBlockBase()
+        override this.Name = "a"
+
+    [<Sealed>]
+    type Img() =
+        inherit ElementBlockBase()
+        override this.Name = "img"
+
+    [<Sealed>]
+    type Table() =
+        inherit ElementBlockBase()
+        override this.Name = "table"
+
+    [<Sealed>]
+    type THead() =
+        inherit ElementBlockBase()
+        override this.Name = "thead"
+
+    [<Sealed>]
+    type TBody() =
+        inherit ElementBlockBase()
+        override this.Name = "tbody"
+
+    [<Sealed>]
+    type TFoot() =
+        inherit ElementBlockBase()
+        override this.Name = "tfoot"
+
+    [<Sealed>]
+    type Tr() =
+        inherit ElementBlockBase()
+        override this.Name = "tr"
+
+    [<Sealed>]
+    type Th() =
+        inherit ElementBlockBase()
+        override this.Name = "th"
+
+    [<Sealed>]
+    type Td() =
+        inherit ElementBlockBase()
+        override this.Name = "td"
+
+    [<Sealed>]
+    type Form() =
+        inherit ElementBlockBase()
+        override this.Name = "form"
+
+    [<Sealed>]
+    type Input() =
+        inherit ElementBlockBase()
+        override this.Name = "input"
+
+    [<Sealed>]
+    type Label() =
+        inherit ElementBlockBase()
+        override this.Name = "label"
+
+    [<Sealed>]
+    type Button() =
+        inherit ElementBlockBase()
+        override this.Name = "button"
+
+    [<Sealed>]
+    type Select() =
+        inherit ElementBlockBase()
+        override this.Name = "select"
+
+    [<Sealed>]
+    type Option() =
+        inherit ElementBlockBase()
+        override this.Name = "option"
+
+    [<Sealed>]
+    type TextArea() =
+        inherit ElementBlockBase()
+        override this.Name = "textarea"
+
+    [<Sealed>]
+    type FieldSet() =
+        inherit ElementBlockBase()
+        override this.Name = "fieldset"
+
+    [<Sealed>]
+    type Legend() =
+        inherit ElementBlockBase()
+        override this.Name = "legend"
+
+    [<Sealed>]
+    type Dl() =
+        inherit ElementBlockBase()
+        override this.Name = "dl"
+
+    [<Sealed>]
+    type Dt() =
+        inherit ElementBlockBase()
+        override this.Name = "dt"
+
+    [<Sealed>]
+    type Dd() =
+        inherit ElementBlockBase()
+        override this.Name = "dd"
 
 [<AutoOpen>]
 module ComponentBuilder =
     open ComponentBuilderImpl
 
-    let (=.) (attr: string) (value: 'a) = Attribute<'a>(attr, value)
-
-    let html builder = ComponentBuilderRunner(builder)
+    let html = ComponentBuilderRunner()
+    let fragment = RenderFragmentRunner()
+    let c<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
     let div = Div()
+    let span = Span()
+    let h1 = H1()
+    let h2 = H2()
     let h3 = H3()
-    let c<'a when 'a :> ComponentBase> = ComponentCodeCache<'a>.Instance
+    let h4 = H4()
+    let h5 = H5()
+    let h6 = H6()
+    let p = P()
+    let ul = Ul()
+    let ol = Ol()
+    let li = Li()
+    let a = A()
+    let img = Img()
+    let table = Table()
+    let thead = THead()
+    let tbody = TBody()
+    let tfoot = TFoot()
+    let tr = Tr()
+    let th = Th()
+    let td = Td()
+    let form = Form()
+    let input = Input()
+    let label = Label()
+    let button = Button()
+    let select = Select()
+    let option = Option()
+    let textarea = TextArea()
+    let fieldset = FieldSet()
+    let legend = Legend()
+    let dl = Dl()
+    let dt = Dt()
+    let dd = Dd()
+
     let attr(name, value) = Attribute(name, value)
-    let style = AttributeName<string>("style")
+    let style' = AttributeName<string>("style")
     let class' = AttributeName<string>("class")
     let type' = AttributeName<string>("type")
+    let id' = AttributeName<string>("id")
+    let name' = AttributeName<string>("name")
+    let value' = AttributeName<string>("value")
+    let placeholder' = AttributeName<string>("placeholder")
+    let href' = AttributeName<string>("href")
+    let src' = AttributeName<string>("src")
+    let alt' = AttributeName<string>("alt")

@@ -37,7 +37,7 @@
     <!--    </Target>-->
 
     <Target Name="BuildCSS" AfterTargets="PostBuildEvent">
-        <Exec Command="npx postcss $(ProjectDir)obj\$(ConfigurationName)\net6.0\scopedcss\projectbundle\$(ProjectName).bundle.scp.css -r" />
+        <Exec Command="npx postcss $(ProjectDir)obj/$(ConfigurationName)/$(TargetFramework)/scopedcss/projectbundle/$(ProjectName).bundle.scp.css -r" />
     </Target>
 
 </Project>
