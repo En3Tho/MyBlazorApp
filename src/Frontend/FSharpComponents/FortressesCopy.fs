@@ -2,8 +2,10 @@ namespace FSharpComponents
 
 open System
 open Microsoft.AspNetCore.Components
+open Microsoft.AspNetCore.Components.Web
 open TailwindComponents.CodinGame
 open En3Tho.FSharp.ComputationExpressions.ComponentBuilder
+open En3Tho.FSharp.Extensions
 
 type Fortresses() =
     inherit ComponentBase()
@@ -30,6 +32,27 @@ type Fortresses() =
         builder.CloseElement();
         builder.CloseElement();
         builder.CloseElement()
+
+type Counter2() =
+    inherit ComponentBase()
+    let mutable clicks = 0
+    member _.OnClick() = clicks <- clicks + 1
+    override this.BuildRenderTree(builder) =
+
+        html {
+            h1 {
+                $"Counter: {clicks}"
+            }
+            button {
+                attributes {
+                    class' "h-12 w-12 bg-blue-500 text-white rounded-full"
+                    onClick' (this, this.OnClick)
+                }
+
+                "Click me"
+            }
+        } <| builder
+
 
 type Fortresses2() =
     inherit ComponentBase()
@@ -59,34 +82,52 @@ type Fortresses2() =
         let constant = "constant: 123"
         let template (value: string) = span { "template: "; value }
 
-        builder |>
         html {
             div {
-                class' => divClass + iterateColor()
+                attributes {
+                    class' ^ divClass + iterateColor()
+                }
+
                 renderFragment
                 div {
-                    class' => divClass + iterateColor()
+                    attributes {
+                        class' ^ divClass + iterateColor()
+                    }
                     codeBlock
                 }
             }
             h3 {
-                class' => divClass + iterateColor()
+                attributes {
+                    class' ^ divClass + iterateColor()
+                }
+
                 "Fortresses"
                 if Random.Shared.Next(0, 2) = 1 then
                     span { "Random span: 123" }
             }
             div {
-                class' => divClass + iterateColor()
+                attributes {
+                    class' ^ divClass + iterateColor()
+                }
+
                 constant
                 div {
-                    class' => divClass + iterateColor()
+                    attributes {
+                        class' ^ divClass + iterateColor()
+                    }
+
                     template "123"
                     div {
-                        class' => divClass + iterateColor()
+                        attributes {
+                            class' ^ divClass + iterateColor()
+                        }
+
                         c<Matrix> {
-                            attr(nameof(matrix.Data), this.MatrixData)
+                            attributes {
+                                attr(nameof(matrix.Data), this.MatrixData)
+                            }
                         }
                     }
                 }
             }
-        }
+        } ^ builder

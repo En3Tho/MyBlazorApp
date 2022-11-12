@@ -1,9 +1,12 @@
 namespace En3Tho.FSharp.ComputationExpressions.ComponentBuilder
 
+open System
 open System.Runtime.CompilerServices
+open System.Threading.Tasks
 open En3Tho.FSharp.Extensions.GenericBuilderBase
 open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Rendering
+open Microsoft.AspNetCore.Components.Web
 open Microsoft.FSharp.Core
 
 module rec ComponentBuilderImpl =
@@ -13,7 +16,15 @@ module rec ComponentBuilderImpl =
 
         member _.Builder = builder
 
-        member this.AddMarkup(content: string) =
+        member this.AddContent(content: string) =
+            builder.AddContent(sequenceCount, content)
+            sequenceCount <- sequenceCount + 1
+
+        member this.AddContent(content: RenderFragment) =
+            builder.AddContent(sequenceCount, content)
+            sequenceCount <- sequenceCount + 1
+
+        member this.AddMarkupContent(content: string) =
             builder.AddMarkupContent(sequenceCount, content)
             sequenceCount <- sequenceCount + 1
 
@@ -52,13 +63,17 @@ module rec ComponentBuilderImpl =
             fun builder ->
                 codeBuilderCode builder
 
-        member inline _.Yield(codeBuilderCode: RenderFragment) : ComponentBuilderCode =
+        member inline _.Yield(fragment: RenderFragment) : ComponentBuilderCode =
             fun builder ->
-                codeBuilderCode.Invoke(builder.Builder)
+                builder.AddContent(fragment)
 
-        member inline _.Yield(markup) : ComponentBuilderCode =
+        member inline _.Yield(content: string) : ComponentBuilderCode =
             fun builder ->
-                builder.AddMarkup(markup)
+                builder.AddContent(content: string)
+
+        member inline _.Yield(markup: MarkupString) : ComponentBuilderCode =
+            fun builder ->
+                builder.AddMarkupContent(markup.Value)
 
         member inline _.Yield(data, value: 'a) : ComponentBuilderCode =
             fun builder ->
@@ -68,10 +83,6 @@ module rec ComponentBuilderImpl =
             fun builder ->
                 builder.OpenComponent<'a>()
                 builder.CloseComponent()
-
-        member inline _.Yield(attr: Attribute<'a>) : ComponentBuilderCode =
-            fun builder ->
-                builder.AddAttribute(attr.Name, attr.Value)
 
         member inline _.Yield(value: ElementBlockBase) : ComponentBuilderCode =
             fun builder ->
@@ -105,6 +116,18 @@ module rec ComponentBuilderImpl =
                 builder.OpenComponent<'a>()
                 runExpr builder
                 builder.CloseComponent()
+
+    [<Sealed>]
+    type AttributeBlock() =
+        inherit UnitBuilderBase<ComponentBuilder>()
+
+        member inline _.Yield(attr: Attribute<'a>) : ComponentBuilderCode =
+            fun builder ->
+                builder.AddAttribute(attr.Name, attr.Value)
+
+        member inline this.Run([<InlineIfLambda>] runExpr: ComponentBuilderCode) : ComponentBuilderCode =
+            fun builder ->
+                runExpr builder
 
     [<AbstractClass>]
     type ElementBlockBase() =
@@ -289,6 +312,8 @@ module ComponentBuilder =
 
     let html = ComponentBuilderRunner()
     let fragment = RenderFragmentRunner()
+    let attributes = AttributeBlock()
+    let markup markupString = MarkupString(markupString)
     let c<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
 
     // Todo: these should actually be defined in CSharp library to utilize static readonly fields?
@@ -328,14 +353,47 @@ module ComponentBuilder =
     let dt = Dt()
     let dd = Dd()
 
-    let attr(name, value) = Attribute(name, value)
-    let style' = AttributeName<string>("style")
-    let class' = AttributeName<string>("class")
-    let type' = AttributeName<string>("type")
-    let id' = AttributeName<string>("id")
-    let name' = AttributeName<string>("name")
-    let value' = AttributeName<string>("value")
-    let placeholder' = AttributeName<string>("placeholder")
-    let href' = AttributeName<string>("href")
-    let src' = AttributeName<string>("src")
-    let alt' = AttributeName<string>("alt")
+    [<AbstractClass; Sealed; AutoOpen>]
+    type Attributes() =
+
+        static member attr<'a>(name, value) = Attribute<'a>(name, value)
+        static member style' (value: string) = attr("style", value)
+        static member class' (value: string) = attr("class", value)
+        static member type' (value: string) = attr("type", value)
+        static member id' (value: string) = attr("id", value)
+        static member href' (value: string) = attr("href", value)
+        static member src' (value: string) = attr("src", value)
+        static member alt' (value: string) = attr("alt", value)
+        static member title' (value: string) = attr("title", value)
+        static member value' (value: string) = attr("value", value)
+        static member placeholder' (value: string) = attr("placeholder", value)
+        static member name' (value: string) = attr("name", value)
+        static member for' (value: string) = attr("for", value)
+
+        static member onClick' (receiver, value: Action) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member onClick' (receiver, value: Action<MouseEventArgs>) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member onClick' (receiver, value: EventCallback) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member onClick' (receiver, value: EventCallback<MouseEventArgs>) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member onClick' (receiver, value: Func<Task>) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member onClick' (receiver, value: Func<MouseEventArgs, Task>) =
+            attr("onclick", EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
+
+        static member checked' = attr("checked", true)
+        static member disabled' = attr("disabled", true)
+        static member autofocus' = attr("autofocus", true)
+        static member required' = attr("required", true)
+        static member multiple' = attr("multiple", true)
+        static member selected' = attr("selected", true)
+        static member readonly' = attr("readonly", true)
+        static member novalidate' = attr("novalidate", true)
+        static member hidden' = attr("hidden", true)
