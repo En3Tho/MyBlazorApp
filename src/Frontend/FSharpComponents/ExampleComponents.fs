@@ -6,7 +6,7 @@ open TailwindComponents.CodinGame
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 open En3Tho.FSharp.Extensions
 
-type Counter3() =
+type HelloWorld() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
          builder.Render(blazor {
@@ -17,9 +17,9 @@ type Counter3() =
 
 type Counter2() =
     inherit ComponentBase()
-    let mutable clicks = 0
-    let mutable incrementAmount = 1
-    member this.OnClick() = clicks <- clicks + incrementAmount
+    let mutable clicks = 0 // maybe if these are properties it will get faster?
+    member val IncrementAmount = 1 with get, set
+    member this.OnClick() = clicks <- clicks + this.IncrementAmount
 
      override this.BuildRenderTree(builder) =
          builder.Render(blazor {
@@ -38,22 +38,12 @@ type Counter2() =
                  attributes {
                      class' "h-12 w-12 bg-blue-500 text-red-500"
                      type' "number"
-                     bind' (this, incrementAmount, fun value -> incrementAmount <- value)
+                     bind' (this, this.IncrementAmount, this.set_IncrementAmount)
                  }
              }
          })
 
     member this.Test(builder) = this.BuildRenderTree(builder)
-
-type Q() =
-    inherit ComponentBase()
-    member val Kek = "" with get, set
-    override this.BuildRenderTree(builder) =
-        builder.OpenElement(0, "input");
-        builder.AddAttribute(1, "value", BindConverter.FormatValue(this.Kek));
-        builder.AddAttribute(2, "onchange", EventCallback.Factory.CreateBinder(this, (fun __value -> this.Kek <- __value), this.Kek));
-        builder.SetUpdatesAttributeName("value");
-        builder.CloseElement();
 
 type Fortresses2() =
     inherit ComponentBase()
