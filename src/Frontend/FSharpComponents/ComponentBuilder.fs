@@ -310,6 +310,10 @@ module rec ComponentBuilderImpl =
 module ComponentBuilder =
     open ComponentBuilderImpl
 
+    type RenderTreeBuilder with
+        member inline this.Render([<InlineIfLambda>] runExpr) =
+            runExpr this
+
     let html = ComponentBuilderRunner()
     let fragment = RenderFragmentRunner()
     let attributes = AttributeBlock()

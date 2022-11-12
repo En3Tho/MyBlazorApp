@@ -39,7 +39,7 @@ type Counter2() =
     member _.OnClick() = clicks <- clicks + 1
     override this.BuildRenderTree(builder) =
 
-        html {
+        builder.Render(html {
             h1 {
                 $"Counter: {clicks}"
             }
@@ -51,7 +51,7 @@ type Counter2() =
 
                 "Click me"
             }
-        } <| builder
+        })
 
 
 type Fortresses2() =
