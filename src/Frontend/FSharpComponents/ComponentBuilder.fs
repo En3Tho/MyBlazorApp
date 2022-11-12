@@ -290,6 +290,10 @@ module ComponentBuilder =
     let html = ComponentBuilderRunner()
     let fragment = RenderFragmentRunner()
     let c<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
+
+    // Todo: these should actually be defined in CSharp library to utilize static readonly fields?
+    // or a completely different mechanism?
+
     let div = Div()
     let span = Span()
     let h1 = H1()
