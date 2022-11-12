@@ -2,12 +2,20 @@ namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 
 open System
 open System.Globalization
+open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 open System.Threading.Tasks
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownAttributes
 open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Web
+
+type [<Struct; IsReadOnly>] BindAttribute(initialValue: obj, callback: EventCallback<ChangeEventArgs>) =
+    interface IAttribute with
+        member _.RenderTo(builder) =
+            builder.AddAttribute("value", initialValue)
+            builder.AddAttribute("onchange", callback)
+            builder.Builder.SetUpdatesAttributeName("value")
 
 [<AbstractClass; Sealed; AutoOpen>]
 type CallbackAttributes() =
@@ -51,28 +59,18 @@ type CallbackAttributes() =
     static member onChange' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
         mk<OnChange, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
 
-    // TODO: SetUpdatesAttributeName
-    // Bind can be a special struct I guess?
     static member bind' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        struct (
-            Attribute<Value,_>(BindConverter.FormatValue<'a>(existingValue, culture)),
-            mk<OnChange, _>(EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
-        )
+        BindAttribute(BindConverter.FormatValue<'a>(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
     static member bind' (receiver: obj, existingValue, onChange: Func<'a, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        struct (
-            Attribute<Value,_>(BindConverter.FormatValue<'a>(existingValue, culture)),
-            mk<OnChange, _>(EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
-        )
+        BindAttribute(BindConverter.FormatValue<'a>(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
     static member bind' (receiver: obj, existingValue: int, onChange: Action<int>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        struct (
-            Attribute<Value,_>(BindConverter.FormatValue(existingValue, culture)),
-            mk<OnChange, _>(EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
-        )
+        BindAttribute(BindConverter.FormatValue(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
     static member bind' (receiver: obj, existingValue: int, onChange: Func<int, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        struct (
-            Attribute<Value,_>(BindConverter.FormatValue(existingValue, culture)),
-            mk<OnChange, _>(EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
-        )
+        BindAttribute(BindConverter.FormatValue(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))

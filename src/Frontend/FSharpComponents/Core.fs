@@ -34,6 +34,22 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
         builder.AddAttribute(sequenceCount, name, value)
         sequenceCount <- sequenceCount + 1
 
+    member _.AddAttribute(name: string, value: bool) =
+        builder.AddAttribute(sequenceCount, name, value)
+        sequenceCount <- sequenceCount + 1
+
+    member _.AddAttribute(name: string, value: string) =
+        builder.AddAttribute(sequenceCount, name, value)
+        sequenceCount <- sequenceCount + 1
+
+    member _.AddAttribute(name: string, value: EventCallback) =
+        builder.AddAttribute(sequenceCount, name, value)
+        sequenceCount <- sequenceCount + 1
+
+    member _.AddAttribute(name: string, value: EventCallback<'a>) =
+        builder.AddAttribute(sequenceCount, name, value)
+        sequenceCount <- sequenceCount + 1
+
     member _.CloseElement() =
         builder.CloseElement()
 
@@ -101,6 +117,9 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
             runExpr builder
             builder.CloseComponent()
 
+type IAttribute =
+    abstract RenderTo: builder: BlazorBuilderCore -> unit
+
 type IAttributeName = // TODO: static
     abstract Name: string
 
@@ -108,26 +127,23 @@ type [<Struct; IsReadOnly>] Attribute<'name, 'value when 'name: struct and 'name
     member _.Name = Unchecked.defaultof<'name>.Name
     member _.Value = value
 
+    interface IAttribute with
+        member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
+
 type [<Struct; IsReadOnly>] CustomAttribute<'a>(name: string, value: 'a) =
     member _.Name = name
     member _.Value = value
+
+    interface IAttribute with
+        member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
 
 [<Sealed>]
 type AttributeBlock() =
     inherit UnitBuilderBase<BlazorBuilderCore>()
 
-    member inline _.Yield(attr: Attribute<'name, 'value>) : BlazorBuilderCode =
+    member inline _.Yield<'attr when 'attr: struct and 'attr :> IAttribute>(attr: 'attr) : BlazorBuilderCode =
         fun builder ->
-            builder.AddAttribute(attr.Name, attr.Value)
-
-    member inline _.Yield(attr: CustomAttribute<'a>) : BlazorBuilderCode =
-        fun builder ->
-            builder.AddAttribute(attr.Name, attr.Value)
-
-    member inline _.Yield(struct (attr: Attribute<'name1, 'a>, attr2: Attribute<'name2, 'b>)) : BlazorBuilderCode =
-        fun builder ->
-            builder.AddAttribute(attr.Name, attr.Value)
-            builder.AddAttribute(attr2.Name, attr2.Value)
+            attr.RenderTo builder
 
     member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorBuilderCode =
         fun builder ->
