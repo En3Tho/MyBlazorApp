@@ -10,8 +10,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="ComponentBuilder.fs" />
-      <Compile Include="FortressesCopy.fs" />
+      <Compile Include="Core.fs" />
+      <Compile Include="Runner.fs" />
+      <Compile Include="KnownElements.fs" />
+      <Compile Include="KnownAttributes.fs" />
+      <Compile Include="StringAttributes.fs" />
+      <Compile Include="BoolAttributes.fs" />
+      <Compile Include="CallbackAttributes.fs" />
+      <Compile Include="Elements.fs" />
+      <Compile Include="ExampleComponents.fs" />
     </ItemGroup>
 
     <ItemGroup>

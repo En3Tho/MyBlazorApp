@@ -2,57 +2,58 @@ namespace FSharpComponents
 
 open System
 open Microsoft.AspNetCore.Components
-open Microsoft.AspNetCore.Components.Web
 open TailwindComponents.CodinGame
-open En3Tho.FSharp.ComputationExpressions.ComponentBuilder
+open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 open En3Tho.FSharp.Extensions
 
-type Fortresses() =
+type Counter3() =
     inherit ComponentBase()
-    member val MatrixData = Array.zeroCreate 0
     override this.BuildRenderTree(builder) =
-        // builder {
-            // div {
-            // }
-        // }
-
-        builder.AddMarkupContent(0, "<div class=\"h4\">\r\n    123\r\n    <div class=\"h4\">\r\n        123\r\n    </div></div>\r\n");
-        builder.AddMarkupContent(1, "<h3>Fortresses</h3>\r\n");
-        builder.OpenElement(2, "div");
-        builder.AddAttribute(3, "class", "h4");
-        builder.AddMarkupContent(4, "\r\n    123\r\n    ");
-        builder.OpenElement(5, "div");
-        builder.AddAttribute(6, "class", "h4");
-        builder.AddMarkupContent(7, "\r\n        123\r\n        ");
-        builder.OpenElement(8, "div");
-        builder.AddAttribute(9, "class", "h4")
-        builder.OpenComponent<Matrix>(10)
-        builder.AddAttribute(11, "Data", this.MatrixData);
-        builder.CloseComponent();
-        builder.CloseElement();
-        builder.CloseElement();
-        builder.CloseElement()
+         builder.Render(blazor {
+             h1 {
+                 "Hello world!"
+             }
+        })
 
 type Counter2() =
     inherit ComponentBase()
     let mutable clicks = 0
-    member _.OnClick() = clicks <- clicks + 1
+    let mutable incrementAmount = 1
+    member this.OnClick() = clicks <- clicks + incrementAmount
+
+     override this.BuildRenderTree(builder) =
+         builder.Render(blazor {
+             h1 {
+                 "Counter: " + clicks.ToString() // benchmark: do not change to interpolation (+90-100 ns)
+             }
+             button {
+                 attributes {
+                     class' "h-12 w-12 bg-blue-500 text-white rounded-full"
+                     onClick' (this, this.OnClick)
+                 }
+
+                 "Click me"
+             }
+             input {
+                 attributes {
+                     class' "h-12 w-12 bg-blue-500 text-red-500"
+                     type' "number"
+                     bind' (this, incrementAmount, fun value -> incrementAmount <- value)
+                 }
+             }
+         })
+
+    member this.Test(builder) = this.BuildRenderTree(builder)
+
+type Q() =
+    inherit ComponentBase()
+    member val Kek = "" with get, set
     override this.BuildRenderTree(builder) =
-
-        builder.Render(html {
-            h1 {
-                $"Counter: {clicks}"
-            }
-            button {
-                attributes {
-                    class' "h-12 w-12 bg-blue-500 text-white rounded-full"
-                    onClick' (this, this.OnClick)
-                }
-
-                "Click me"
-            }
-        })
-
+        builder.OpenElement(0, "input");
+        builder.AddAttribute(1, "value", BindConverter.FormatValue(this.Kek));
+        builder.AddAttribute(2, "onchange", EventCallback.Factory.CreateBinder(this, (fun __value -> this.Kek <- __value), this.Kek));
+        builder.SetUpdatesAttributeName("value");
+        builder.CloseElement();
 
 type Fortresses2() =
     inherit ComponentBase()
@@ -70,7 +71,6 @@ type Fortresses2() =
     |]
 
     override this.BuildRenderTree(builder) =
-        let matrix = Unchecked.defaultof<Matrix>
         let mutable x = 0
         let iterateColor() =
             x <- x + 1
@@ -82,7 +82,7 @@ type Fortresses2() =
         let constant = "constant: 123"
         let template (value: string) = span { "template: "; value }
 
-        html {
+        builder.Render(blazor {
             div {
                 attributes {
                     class' ^ divClass + iterateColor()
@@ -122,12 +122,13 @@ type Fortresses2() =
                             class' ^ divClass + iterateColor()
                         }
 
+                        let matrix = Unchecked.defaultof<Matrix>
                         c<Matrix> {
                             attributes {
-                                attr(nameof(matrix.Data), this.MatrixData)
+                                nameof(matrix.Data) => this.MatrixData
                             }
                         }
                     }
                 }
             }
-        } ^ builder
+        })
