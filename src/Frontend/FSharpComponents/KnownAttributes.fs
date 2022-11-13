@@ -23,3 +23,7 @@ type [<Struct>] OnClick =
 type [<Struct>] OnChange =
     interface IAttributeName with
         member _.Name = "onchange"
+
+type [<Struct>] ChildContent =
+    interface IAttributeName with
+        member _.Name = "ChildContent"

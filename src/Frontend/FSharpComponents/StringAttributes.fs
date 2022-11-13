@@ -2,6 +2,7 @@ namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownAttributes
+open Microsoft.AspNetCore.Components
 
 [<AbstractClass; Sealed; AutoOpen>]
 type StringAttributes() =
@@ -19,3 +20,5 @@ type StringAttributes() =
     static member placeholder' (value: string) = attr("placeholder", value)
     static member name' (value: string) = attr("name", value)
     static member for' (value: string) = attr("for", value)
+    static member ChildContent' (value: RenderFragment) = Attribute<ChildContent, _>(value)
+    static member ChildContent' (value: RenderFragment<'a>) = Attribute<ChildContent, _>(value)

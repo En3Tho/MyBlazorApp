@@ -1,5 +1,7 @@
 namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 
+// TODO: are they really bool or just plain string?
+
 [<AbstractClass; Sealed; AutoOpen>]
 type BoolAttributes() =
     static member checked' = attr("checked", true)

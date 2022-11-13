@@ -10,6 +10,9 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
 
     member _.Builder = builder
 
+    member _.Advance() =
+        sequenceCount <- sequenceCount + 1
+
     member this.AddContent(content: string) =
         builder.AddContent(sequenceCount, content)
         sequenceCount <- sequenceCount + 1
@@ -57,13 +60,25 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
         builder.CloseComponent()
 
 type BlazorBuilderCode = BlazorBuilderCore -> unit
+type BlazorBuilderAttributeCode = BlazorBuilderCore -> unit -> unit // erm
 
 type RenderTreeBlockBase() =
     inherit UnitBuilderBase<BlazorBuilderCore>()
 
+    // This is needed to preserve correct sequence counts in RenderTreeBuilder in case of non-yield operations (eg if ... then ...)
+    // I'm not sure how does this work with while or for
+    // maybe this isn't really needed? Need to check out diff mechanism
+    member inline _.Zero() : BlazorBuilderCode =
+        fun builder ->
+            builder.Advance()
+
     member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderCode) : BlazorBuilderCode =
         fun builder ->
             codeBuilderCode builder
+
+    member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderAttributeCode) : BlazorBuilderCode =
+        fun builder ->
+            codeBuilderCode builder ()
 
     member inline _.Yield(fragment: RenderFragment) : BlazorBuilderCode =
         fun builder ->
@@ -105,18 +120,6 @@ type ElementBlockBase<'name when 'name :> IElementName and 'name: struct>() =
             runExpr builder
             builder.CloseElement()
 
-[<Sealed>]
-type ComponentBlock<'a when 'a :> ComponentBase>() =
-    inherit RenderTreeBlockBase()
-
-    static member val Instance = ComponentBlock<'a>()
-
-    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorBuilderCode =
-        fun builder ->
-            builder.OpenComponent<'a>()
-            runExpr builder
-            builder.CloseComponent()
-
 type IAttribute =
     abstract RenderTo: builder: BlazorBuilderCore -> unit
 
@@ -145,9 +148,29 @@ type AttributeBlock() =
         fun builder ->
             attr.RenderTo builder
 
+    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorBuilderAttributeCode =
+        fun builder _ ->
+            runExpr builder
+
+[<Sealed>]
+type ComponentBlock<'a when 'a :> ComponentBase>() =
+    inherit UnitBuilderBase<BlazorBuilderCore>()
+
+    member inline _.Yield<'attr when 'attr: struct and 'attr :> IAttribute>(attr: 'attr) : BlazorBuilderCode =
+        fun builder ->
+            attr.RenderTo builder
+
+    member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderAttributeCode) : BlazorBuilderCode =
+        fun builder ->
+            codeBuilderCode builder () // check if this is inlined
+
+    static member val Instance = ComponentBlock<'a>()
+
     member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorBuilderCode =
         fun builder ->
+            builder.OpenComponent<'a>()
             runExpr builder
+            builder.CloseComponent()
 
 [<Sealed>]
 type BlazorBuilderRunner() =

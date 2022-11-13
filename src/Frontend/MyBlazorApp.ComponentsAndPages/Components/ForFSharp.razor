@@ -1,18 +1,4 @@
-@using Microsoft.AspNetCore.Components.Rendering
-<h1>
-    Counter: @clicks
-</h1>
-<button class="h-12 w-12 bg-blue-500 text-white rounded-full" @onclick="@OnClick"></button>
-<input class="h-12 w-12 bg-blue-500 text-red-500" @bind="@incrementAmount" type="number"/>
-
+<h3>ForFSharp</h3>
 @code {
-    int clicks = 0;
-    int incrementAmount = 1;
 
-    void OnClick ()
-    {
-        clicks += incrementAmount;
-    }
-
-    public void Test(RenderTreeBuilder builder) => BuildRenderTree(builder);
 }

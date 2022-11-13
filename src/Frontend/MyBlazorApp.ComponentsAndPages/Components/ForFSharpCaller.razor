@@ -1,0 +1,17 @@
+<h3>ForFSharpCaller</h3>
+<ForFSharp>
+    @Xxx
+</ForFSharp>
+@code {
+    public RenderFragment Xxx =
+        @<div class="h-12 w-12 bg-black">
+            @if (Random.Shared.Next() == 0)
+            {
+                @Random.Shared.Next();
+            }
+            @if (Random.Shared.Next() == 0)
+            {
+                @Random.Shared.Next();
+            }
+        </div>;
+}
