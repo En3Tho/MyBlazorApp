@@ -33,6 +33,10 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
         builder.OpenElement(sequenceCount, name)
         sequenceCount <- sequenceCount + 1
 
+    member _.AddAttribute(name: string) =
+        builder.AddAttribute(sequenceCount, name)
+        sequenceCount <- sequenceCount + 1
+
     member _.AddAttribute(name: string, value: obj) =
         builder.AddAttribute(sequenceCount, name, value)
         sequenceCount <- sequenceCount + 1
@@ -126,12 +130,24 @@ type IAttribute =
 type IAttributeName = // TODO: static
     abstract Name: string
 
+type [<Struct; IsReadOnly>] Attribute<'name when 'name: struct and 'name :> IAttributeName> =
+    member _.Name = Unchecked.defaultof<'name>.Name
+
+    interface IAttribute with
+        member this.RenderTo(builder) = builder.AddAttribute(this.Name)
+
 type [<Struct; IsReadOnly>] Attribute<'name, 'value when 'name: struct and 'name :> IAttributeName>(value: 'value) =
     member _.Name = Unchecked.defaultof<'name>.Name
     member _.Value = value
 
     interface IAttribute with
         member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
+
+type [<Struct; IsReadOnly>] CustomAttribute(name: string) =
+    member _.Name = name
+
+    interface IAttribute with
+        member this.RenderTo(builder) = builder.AddAttribute(this.Name)
 
 type [<Struct; IsReadOnly>] CustomAttribute<'a>(name: string, value: 'a) =
     member _.Name = name
@@ -159,10 +175,6 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
     member inline _.Yield<'attr when 'attr: struct and 'attr :> IAttribute>(attr: 'attr) : BlazorBuilderCode =
         fun builder ->
             attr.RenderTo builder
-
-    member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderAttributeCode) : BlazorBuilderCode =
-        fun builder ->
-            codeBuilderCode builder () // check if this is inlined
 
     static member val Instance = ComponentBlock<'a>()
 

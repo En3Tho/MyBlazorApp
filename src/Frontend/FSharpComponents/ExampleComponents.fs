@@ -10,10 +10,17 @@ open En3Tho.FSharp.Extensions
 
 type HelloWorld() =
     inherit ComponentBase()
+
+    [<Parameter; EditorRequired>]
+    member val Name = "" with get, set
+
+    [<Parameter>]
+    member val Name2 = "F#" with get, set
+
     override this.BuildRenderTree(builder) =
          builder.Render(blazor {
              h1 {
-                 "Hello world!"
+                 $"Hello, {this.Name} and {this.Name2}!"
              }
         })
 
@@ -114,15 +121,9 @@ type Fortresses2() =
                             class' ^ divClass + iterateColor()
                         }
 
-                        // yield! fun builder -> Matrix(builder, Data = this.MatrixData) // interesting but this required a wrapper
-                        // it's a struct with 1 field which can be ignored later?
-                        // fun b -> SomeComponent(b, Data = this.MatrixData, ChildContent = fragment { ... })
-                        // or just SomeComponent(Data = ..., ChildContent = ...)
                         let matrix = Unchecked.defaultof<Matrix>
                         c<Matrix> {
-                            attributes {
-                                nameof(matrix.Data) => this.MatrixData
-                            }
+                            nameof(matrix.Data) => this.MatrixData
                         }
                     }
                 }

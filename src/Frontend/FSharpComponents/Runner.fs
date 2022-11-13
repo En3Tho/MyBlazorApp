@@ -13,7 +13,12 @@ let blazor = BlazorBuilderRunner()
 let fragment = RenderFragmentRunner()
 let attributes = AttributeBlock()
 let attrs = attributes
-let attr<'a>(name, value) = CustomAttribute<'a>(name, value)
+
+[<AutoOpen; AbstractClass; Sealed>]
+type AttributeFunctions =
+    static member attr<'a>(name, value) = CustomAttribute<'a>(name, value)
+    static member attr(name) = CustomAttribute(name)
+
 let (=>) (name: string) (value: 'a) = CustomAttribute<'a>(name, value)
 let markup markupString = MarkupString(markupString)
 let component<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
