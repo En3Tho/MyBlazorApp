@@ -55,17 +55,19 @@ type CounterFSharp() =
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            h1 { () } {
+            h1 { class' "block" } {
                 "Counter: "; clicks.ToString()
             }
-            button { class' "h-12 w-12 bg-blue-500 text-white rounded-full"
-                     onClick' (this, this.OnClick) } {
+            div { class' "flex gap-2" } {
+                button { class' "block p-4 h-12 w-12 bg-blue-500 text-white rounded-full"
+                         onClick' (this, this.OnClick) } {
                 "Click me"
-            }
-            input {
-                class' "h-12 w-12 bg-blue-500 text-red-500"
-                typeNumber'
-                bindChange' (this, this.IncrementAmount, this.set_IncrementAmount)
+                }
+                input {
+                    class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
+                    typeNumber'
+                    bindChange' (this, this.IncrementAmount, this.set_IncrementAmount)
+                }
             }
         })
 
