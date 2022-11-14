@@ -1,4 +1,4 @@
-module [<Microsoft.FSharp.Core.AutoOpen>] En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Runner
+module [<Microsoft.FSharp.Core.AutoOpen>] En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Runners
 
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components

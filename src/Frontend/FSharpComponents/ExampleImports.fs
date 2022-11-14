@@ -1,5 +1,6 @@
 module FSharpComponents.ExampleImports
 
+open System.Runtime.CompilerServices
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 open Microsoft.AspNetCore.Components
@@ -7,11 +8,13 @@ open Microsoft.AspNetCore.Components
 // Auto-generated
 // Let this be a class for now, whatever
 // let it have special attribute or whatever?
-type HelloWorldImport(builder: BlazorBuilderCore) =
+type [<Struct; IsReadOnly>] HelloWorldImport(builder: BlazorBuilderCore) =
+
     member this.Name2 with set(value: string) =
         builder.AddAttribute("Name2", value)
 
-    member _.Close() = builder.CloseComponent()
+    interface IComponentImport with
+        member _.Builder = builder
 
 type HelloWorld with
     static member inline Render(builder: BlazorBuilderCore, name: string) =
@@ -22,6 +25,9 @@ type HelloWorld with
 type Importer() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
+
         builder.Render(blazor {
-            fun b -> HelloWorld.Render(b, "C#", Name2 = "VB").Close()
+            fun b -> HelloWorld.Render(b, "C#", Name2 = "VB") {
+                class' "lol"
+            }
         })
