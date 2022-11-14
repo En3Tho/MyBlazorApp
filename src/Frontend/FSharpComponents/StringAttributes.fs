@@ -1,5 +1,6 @@
 namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 
+open System
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownAttributes
 open Microsoft.AspNetCore.Components
@@ -10,6 +11,8 @@ type StringAttributes() =
 
     static member style' (value: string) = mk<Style>(value)
     static member class' (value: string) = mk<Class>(value)
+    static member class' (value: string, value2: string) = mk<Class>(String.Concat(value, " ", value2))
+    // TODO: class' 3-4-5 overloads
     static member type' (value: string) = mk<Type>(value)
     static member typeNumber' = mk<Type>("number") // TODO: more of these
     static member id' (value: string) = attr("id", value)

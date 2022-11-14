@@ -41,6 +41,7 @@ type CallbackAttributes() =
     static member onClick' (receiver: obj, value: Func<MouseEventArgs, Task>) =
         mk<OnClick, _>(EventCallback.Factory.Create<MouseEventArgs>(receiver, value))
 
+
     static member onChange' (receiver: obj, value: Action) =
         mk<OnChange, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
 
@@ -58,9 +59,8 @@ type CallbackAttributes() =
 
     static member onChange' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
         mk<OnChange, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
-    
-    
-    
+
+
     static member onInput' (receiver: obj, value: Action) =
         mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
 
@@ -78,8 +78,8 @@ type CallbackAttributes() =
 
     static member onInput' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
         mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
-    
-    
+
+
     static member onKeyDown' (receiver: obj, value: Action) =
         mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
 
@@ -97,7 +97,8 @@ type CallbackAttributes() =
 
     static member onKeyDown' (receiver: obj, value: Func<KeyboardEventArgs, Task>) =
         mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
-    
+
+
     static member bindChange' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
         BindAttribute<OnChange>(BindConverter.FormatValue<'a>(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
@@ -113,6 +114,7 @@ type CallbackAttributes() =
     static member bindChange' (receiver: obj, existingValue: int, onChange: Func<int, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
         BindAttribute<OnChange>(BindConverter.FormatValue(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
+
 
     static member bindInput' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
         BindAttribute<OnInput>(BindConverter.FormatValue<'a>(existingValue, culture),

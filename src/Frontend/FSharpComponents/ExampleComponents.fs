@@ -69,11 +69,11 @@ type MatrixFSharp() =
                 div { class' "p-4 rounded-md bg-violet-200 w-max" } {
                     table { () } {
                         tr { class' tableRow } {
-                            td { class' (tableCell + "invisible") } {
+                            td { class' (tableCell, "invisible") } {
                                 "0"
                             }
                             for colIdx = 0 to this.Data[0].Length - 1 do
-                                td { class' (tableCell + "text-red-500") } {
+                                td { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
                                 }
                         }
@@ -81,13 +81,13 @@ type MatrixFSharp() =
                         for colIdx = 0 to this.Data.Length - 1 do
                             let row = this.Data.[colIdx]
                             tr { class' tableRow } {
-                                td { class' (tableCell + "text-red-500") } {
+                                td { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
                                 }
 
                                 for rowIdx = 0 to row.Length - 1 do
                                     let data = row[rowIdx]
-                                    td { class' (tableCell + "last:text-blue-300 " + if data = 0 then "text-gray-100" else "") } {
+                                    td { class' (tableCell + "last:text-blue-300" + if data = 0 then "text-gray-100" else "") } {
                                         data.ToString()
                                     }
                             }
@@ -114,5 +114,4 @@ type MatrixFSharp() =
                     }
                 }
             }
-
         })
