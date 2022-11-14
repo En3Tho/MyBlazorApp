@@ -1,6 +1,5 @@
 module [<AutoOpen>] En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Elements
 
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownElements
 
 let div = ElementBlockBase<Div>()

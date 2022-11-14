@@ -1,14 +1,10 @@
 module FSharpComponents.ExampleImports
 
 open System
-open System.Runtime.CompilerServices
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
-
-
 
 open Imports
 
@@ -17,6 +13,7 @@ type OldWay() =
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
             let helloWorld = Unchecked.defaultof<HelloWorld>
+
             c<HelloWorld> {
                 nameof(helloWorld.Name) => "C#"
                 nameof(helloWorld.Name2) => "VB"
@@ -51,7 +48,6 @@ type MyRequiredImport() =
 
         let error = fragment {
             div { class' "text-red-500" } {
-
                 "This field is required"
             }
         }

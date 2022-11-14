@@ -12,8 +12,6 @@ type RenderTreeBuilder with
 
 let blazor = BlazorBuilderRunner()
 let fragment = RenderFragmentRunner()
-let attributes = AttributeBlock()
-let attrs = attributes
 
 [<AutoOpen; AbstractClass; Sealed>]
 type AttributeFunctions =
