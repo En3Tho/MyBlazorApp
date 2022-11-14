@@ -224,7 +224,8 @@ type BlazorBuilderCodeBlock() =
     [<Extension>]
     static member inline Yield([<InlineIfLambda>] this: BlazorBuilderCode, [<InlineIfLambda>] codeBuilderCode: BlazorBuilderCode) : BlazorBuilderCode =
         BlazorBuilderCode(fun builder ->
-            codeBuilderCode.Invoke builder)
+            codeBuilderCode.Invoke builder
+            builder.CloseElement())
 
     [<Extension>]
     static member inline Yield([<InlineIfLambda>] this: BlazorBuilderCode, [<InlineIfLambda>] codeBuilderCode: ComponentImportCode<_>) : BlazorBuilderCode =
