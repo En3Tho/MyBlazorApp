@@ -59,6 +59,27 @@ type CallbackAttributes() =
     static member onChange' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
         mk<OnChange, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
     
+    
+    
+    static member onInput' (receiver: obj, value: Action) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+
+    static member onInput' (receiver: obj, value: Action<ChangeEventArgs>) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+
+    static member onInput' (receiver: obj, value: EventCallback) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+
+    static member onInput' (receiver: obj, value: EventCallback<ChangeEventArgs>) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+
+    static member onInput' (receiver: obj, value: Func<Task>) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+
+    static member onInput' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
+        mk<OnInput, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+    
+    
     static member onKeyDown' (receiver: obj, value: Action) =
         mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
 

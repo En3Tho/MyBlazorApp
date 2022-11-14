@@ -8,8 +8,8 @@ open MyBlazorApp.ComponentsAndPages.Components
 
 // |   Method |     Mean |   Error |  StdDev | Code Size |   Gen0 | Allocated |
 // |--------- |---------:|--------:|--------:|----------:|-------:|----------:|
-// | RenderFS | 289.4 ns | 1.64 ns | 1.54 ns |     314 B | 0.0315 |     528 B |
-// | RenderCS | 216.9 ns | 1.28 ns | 1.14 ns |   1,948 B | 0.0243 |     408 B |
+// | RenderFS | 264.7 ns | 1.24 ns | 1.10 ns |     248 B | 0.0315 |     528 B |
+// | RenderCS | 217.4 ns | 1.14 ns | 1.01 ns |   1,951 B | 0.0243 |     408 B |
 
 [<MemoryDiagnoser; DisassemblyDiagnoser(filters = [||])>]
 type RenderTreeBuilderBenchmark() =

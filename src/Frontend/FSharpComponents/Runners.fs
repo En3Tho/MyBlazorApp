@@ -6,11 +6,9 @@ open Microsoft.AspNetCore.Components.Rendering
 open Microsoft.FSharp.Core
 
 type RenderTreeBuilder with
-    member inline this.Render([<InlineIfLambda>] runExpr) =
-        runExpr this
 
     member inline this.Render([<InlineIfLambda>] runExpr) =
-        runExpr (BlazorBuilderCore this) |> ignore
+        runExpr this
 
 let blazor = BlazorBuilderRunner()
 let fragment = RenderFragmentRunner()

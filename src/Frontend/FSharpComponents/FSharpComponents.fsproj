@@ -20,6 +20,7 @@
       <Compile Include="CallbackAttributes.fs" />
       <Compile Include="Elements.fs" />
       <Compile Include="ExampleComponents.fs" />
+      <Compile Include="Imports.fs" />
       <Compile Include="ExampleImports.fs" />
     </ItemGroup>
 

@@ -11,6 +11,7 @@ type StringAttributes() =
     static member style' (value: string) = mk<Style>(value)
     static member class' (value: string) = mk<Class>(value)
     static member type' (value: string) = mk<Type>(value)
+    static member typeNumber' = mk<Type>("number") // TODO: more of these
     static member id' (value: string) = attr("id", value)
     static member href' (value: string) = attr("href", value)
     static member src' (value: string) = attr("src", value)
