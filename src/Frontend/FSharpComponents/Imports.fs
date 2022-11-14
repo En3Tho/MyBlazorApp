@@ -19,7 +19,7 @@ type Matrix with
         builder.AddAttribute("Data", data)
         MatrixImport(builder)
 
-type [<Struct; IsReadOnly>] HelloWorldImport(builder: BlazorBuilderCore) =
+type [<Struct; IsReadOnly>] HelloWorldFSharpImport(builder: BlazorBuilderCore) =
 
     member this.Name2 with set(value: string) =
         builder.AddAttribute("Name2", value)
@@ -27,11 +27,11 @@ type [<Struct; IsReadOnly>] HelloWorldImport(builder: BlazorBuilderCore) =
     interface IComponentImport with
         member _.Builder = builder
 
-type HelloWorld with
+type HelloWorldFSharp with
     static member inline Render(builder: BlazorBuilderCore, name: string) =
-        builder.OpenComponent<HelloWorld>()
+        builder.OpenComponent<HelloWorldFSharp>()
         builder.AddAttribute("Name", name)
-        HelloWorldImport(builder)
+        HelloWorldFSharpImport(builder)
 
 type [<Struct; IsReadOnly>] RequiredImport(builder: BlazorBuilderCore) =
 

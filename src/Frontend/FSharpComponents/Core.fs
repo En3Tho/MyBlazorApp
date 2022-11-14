@@ -12,6 +12,14 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
         builder
 
     [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
+    member _.GetSequenceCountForWhileExpression() =
+        sequenceCount
+
+    [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
+    member _.ResumeSequenceAtStartOfWhileExpression(value) =
+        sequenceCount <- value
+
+    [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
     member _.Advance() =
         sequenceCount <- sequenceCount + 1
 

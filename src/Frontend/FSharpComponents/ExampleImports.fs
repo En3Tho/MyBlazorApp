@@ -1,7 +1,8 @@
-module FSharpComponents.ExampleImports
+namespace FSharpComponents.ExampleImports
 
 open System
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+open FSharpComponents
 open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
@@ -12,9 +13,9 @@ type OldWay() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            let helloWorld = Unchecked.defaultof<HelloWorld>
+            let helloWorld = Unchecked.defaultof<HelloWorldFSharp>
 
-            c<HelloWorld> {
+            c<HelloWorldFSharp> {
                 nameof(helloWorld.Name) => "C#"
                 nameof(helloWorld.Name2) => "VB"
                 class' "lol"
@@ -26,12 +27,12 @@ type Importer() =
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
             fun b ->
-                HelloWorld.Render(b, "C#", Name2 = "VB") {
+                HelloWorldFSharp.Render(b, "C#", Name2 = "VB") {
                     class' "lol"
                 }
         })
 
-type MyRequiredImport() =
+type RequiredImportFSharp() =
     inherit ComponentBase()
 
     let smallNum = IntInput<SmallNum>()
@@ -56,7 +57,7 @@ type MyRequiredImport() =
             fun b -> Required.Render(b, error, main, Func<bool>(fun () -> smallNum.IsValid))
         })
 
-type FSharpComplexComponent() =
+type ComplexComponentFSharp() =
     inherit ComponentBase()
 
     member val MatrixData = [|

@@ -1,4 +1,10 @@
-<h3>ForFSharp</h3>
+@for (var i = 0; i < 100; i++)
+{
+    <div>
+        @Random.Shared.Next(1, 100)
+    </div>
+}
+
 @code {
     [Parameter]
     public RenderFragment[] Column { get; init; } = default!;

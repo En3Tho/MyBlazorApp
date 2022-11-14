@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.8" />
+      <PackageReference Include="En3Tho.FSharp.ComputationExpressions" Version="1.1.8" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.9" />
       <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
     </ItemGroup>
 

@@ -5,7 +5,7 @@ open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 open Microsoft.AspNetCore.Components.Web
 
-type HelloWorld() =
+type HelloWorldFSharp() =
     inherit ComponentBase()
 
     [<Parameter; EditorRequired>]
@@ -17,8 +17,34 @@ type HelloWorld() =
     override this.BuildRenderTree(builder) =
          builder.Render(blazor {
              h1 { () } {
-                 $"Hello, {this.Name} and {this.Name2}!"
+                 $"Hello, {this.Name} from {this.Name2}!"
              }
+        })
+
+type ComponentWithLoopFSharp() =
+    inherit ComponentBase()
+
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor {
+            for i in 1..10 do
+                h1 { () } {
+                    $"Hello, {i}!"
+                }
+        })
+
+type ProblemComponent() =
+    inherit ComponentBase()
+
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor {
+            h1 { () } {
+                div { () } {
+                    "Hello"
+                }
+                div { () } {
+                    "Hello"
+                }
+            }
         })
 
 type CounterFSharp() =
