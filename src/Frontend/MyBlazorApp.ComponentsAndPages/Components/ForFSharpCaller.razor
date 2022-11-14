@@ -1,17 +1,32 @@
 <h3>ForFSharpCaller</h3>
 <ForFSharp>
-    @Xxx
+    <Column>
+        123
+    </Column>
+    <Column>
+        456
+    </Column>
+    <Column>
+        789
+    </Column>
 </ForFSharp>
+
+
+
 @code {
+
     public RenderFragment Xxx =
         @<div class="h-12 w-12 bg-black">
             @if (Random.Shared.Next() == 0)
             {
-                @Random.Shared.Next();
+                @Random.Shared.Next()
+                ;
             }
             @if (Random.Shared.Next() == 0)
             {
-                @Random.Shared.Next();
+                @Random.Shared.Next()
+                ;
             }
         </div>;
+
 }

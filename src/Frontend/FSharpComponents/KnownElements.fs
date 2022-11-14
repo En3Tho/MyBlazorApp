@@ -16,6 +16,18 @@ type [<Struct>] Input =
     interface IElementName with
         member _.Name = "input"
 
+type [<Struct>] Table =
+    interface IElementName with
+        member _.Name = "table"
+
+type [<Struct>] Tr =
+    interface IElementName with
+        member _.Name = "tr"
+
+type [<Struct>] Td =
+    interface IElementName with
+        member _.Name = "td"
+
 type [<Struct>] H1 =
     interface IElementName with
         member _.Name = "h1"

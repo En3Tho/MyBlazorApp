@@ -1,10 +1,9 @@
 namespace FSharpComponents
 
-open System
 open Microsoft.AspNetCore.Components
-open TailwindComponents.CodinGame
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
 open En3Tho.FSharp.Extensions
+open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+open Microsoft.AspNetCore.Components.Web
 
 type HelloWorld() =
     inherit ComponentBase()
@@ -31,7 +30,7 @@ type CounterFSharp() =
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
             h1 {
-                "Counter: " + clicks.ToString() // benchmark: do not change to interpolation (+90-100 ns)
+                "Counter: "; clicks.ToString() // benchmark: do not change to interpolation (+90-100 ns)
             }
             button {
                 attributes {
@@ -45,85 +44,127 @@ type CounterFSharp() =
                 attributes {
                     class' "h-12 w-12 bg-blue-500 text-red-500"
                     type' "number"
-                    bind' (this, this.IncrementAmount, this.set_IncrementAmount)
+                    bindChange' (this, this.IncrementAmount, this.set_IncrementAmount)
                 }
             }
         })
 
-    member this.Test(builder) = this.BuildRenderTree(builder)
+    static member Test(builder) =
+        let counter = CounterFSharp()
+        counter.BuildRenderTree(builder)
 
-type Fortresses2() =
+type MatrixFSharp() =
     inherit ComponentBase()
 
-    member val MatrixData = [|
-        [| 1; 1; 1; 1; 0; 0; 1; 0; 0; 3 |]
-        [| 1; 1; 1; 0; 1; 0; 0; 1; 0; 2 |]
-        [| 1; 1; 1; 0; 0; 1; 0; 0; 1; 1 |]
-        [| 1; 0; 0; 1; 1; 1; 1; 0; 0; 2 |]
-        [| 0; 1; 0; 1; 1; 1; 0; 1; 0; 2 |]
-        [| 0; 0; 1; 1; 1; 1; 0; 0; 1; 2 |]
-        [| 1; 0; 0; 1; 0; 0; 1; 1; 1; 3 |]
-        [| 0; 1; 0; 0; 1; 0; 1; 1; 1; 2 |]
-        [| 0; 0; 1; 0; 0; 1; 1; 1; 1; 3 |]
-    |]
+    [<Parameter; EditorRequired>]
+    member val Data: int[][] = null with get, set
+    member private _.Run() = ()
+    member private _.OnInput(args: ChangeEventArgs) = ()
+    member private _.OnKeyDown(args: KeyboardEventArgs) = ()
+
 
     override this.BuildRenderTree(builder) =
-        let mutable x = 0
-        let iterateColor() =
-            x <- x + 1
-            if x % 2 = 1 then "bg-violet-200" else "bg-violet-300"
-
-        let divClass = "block h-4 "
-        let renderFragment = fragment { span { "renderFragment: 123" } }
-        let codeBlock = span { "codeBlock: 123" }
-        let constant = "constant: 123"
-        let template (value: string) = span { "template: "; value }
+        let tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2 ";
+        let tableCell = "w-4 font-semibold text-xl text-end ";
 
         builder.Render(blazor {
             div {
                 attributes {
-                    class' ^ divClass + iterateColor()
+                    class' "flex flex-col gap-4 max-w-sm"
                 }
 
-                renderFragment
                 div {
                     attributes {
-                        class' ^ divClass + iterateColor()
-                    }
-                    codeBlock
-                }
-            }
-            h3 {
-                attributes {
-                    class' ^ divClass + iterateColor()
-                }
-
-                "Fortresses"
-                if Random.Shared.Next(0, 2) = 1 then
-                    span { "Random span: 123" }
-            }
-            div {
-                attributes {
-                    class' ^ divClass + iterateColor()
-                }
-
-                constant
-                div {
-                    attributes {
-                        class' ^ divClass + iterateColor()
+                        class' "p-4 rounded-md bg-violet-200 w-max"
                     }
 
-                    template "123"
-                    div {
-                        attributes {
-                            class' ^ divClass + iterateColor()
+                    table {
+                        tr {
+                            attributes {
+                                class' tableRow
+                            }
+
+                            td {
+                                attributes {
+                                    class' (tableCell + "invisible")
+                                }
+
+                                "0"
+                            }
+
+                            for colIdx = 0 to this.Data[0].Length - 1 do
+                                td {
+                                    attributes {
+                                        class' (tableCell + "text-red-500")
+                                    }
+
+                                    colIdx.ToString()
+                                }
                         }
 
-                        let matrix = Unchecked.defaultof<Matrix>
-                        c<Matrix> {
-                            nameof(matrix.Data) => this.MatrixData
-                        }
+                        for colIdx = 0 to this.Data.Length - 1 do
+                            let row = this.Data.[colIdx]
+                            tr {
+                                attributes {
+                                    class' tableRow
+                                }
+
+                                td {
+                                    attributes {
+                                        class' (tableCell + "text-red-500")
+                                    }
+
+                                    colIdx.ToString()
+                                }
+
+                                for rowIdx = 0 to row.Length - 1 do
+                                    let data = row[rowIdx]
+                                    td {
+                                        attributes {
+                                            class' (tableCell + "last:text-blue-300 " + if data = 0 then "text-gray-100" else "")
+                                        }
+
+                                        data.ToString()
+                                    }
+                            }
                     }
                 }
+
             }
         })
+
+        // TODO: this is neat
+        // builder.Render(blazor {
+        //     div { class' "flex flex-col gap-4 max-w-sm"; type' "number"; } {
+        //       div { class' "p-4 rounded-md bg-violet-200 w-max"; } {
+        //       }
+        // }
+        //         div { class' "p-4 rounded-md bg-violet-200 w-max"
+        //             table {
+        //                 tr { class' tableRow
+        //                     td { class' (tableCell + "invisible")
+        //                         "0"
+        //                     }
+        //                     for colIdx = 0 to this.Data[0].Length - 1 do
+        //                         td { class' (tableCell + "text-red-500")
+        //                             colIdx.ToString()
+        //                         }
+        //                 }
+        //
+        //                 for colIdx = 0 to this.Data.Length - 1 do
+        //                     let row = this.Data.[colIdx]
+        //                     tr { class' tableRow
+        //                         td { class' (tableCell + "text-red-500")
+        //                             colIdx.ToString()
+        //                         }
+        //                         for rowIdx = 0 to row.Length - 1 do
+        //                             let data = row[rowIdx]
+        //                             td { class' (tableCell + "last:text-blue-300 " + if data = 0 then "text-gray-100" else "")
+        //                                 data.ToString()
+        //                          }
+        //                  }
+        //             }
+        //         }
+        //
+        //     }
+        // })

@@ -9,6 +9,9 @@ type RenderTreeBuilder with
     member inline this.Render([<InlineIfLambda>] runExpr) =
         runExpr this
 
+    member inline this.Render([<InlineIfLambda>] runExpr) =
+        runExpr (BlazorBuilderCore this) |> ignore
+
 let blazor = BlazorBuilderRunner()
 let fragment = RenderFragmentRunner()
 let attributes = AttributeBlock()

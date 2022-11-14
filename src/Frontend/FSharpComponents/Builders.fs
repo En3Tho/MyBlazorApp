@@ -98,9 +98,6 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
             runExpr builder
             builder.CloseComponent()
 
-
-
-
 [<AbstractClass; Sealed; Extension>]
 type ComponentImportBlock() =
 

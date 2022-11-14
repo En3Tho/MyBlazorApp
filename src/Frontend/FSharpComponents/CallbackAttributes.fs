@@ -10,11 +10,11 @@ open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownAttributes
 open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Web
 
-type [<Struct; IsReadOnly>] BindAttribute(initialValue: obj, callback: EventCallback<ChangeEventArgs>) =
+type [<Struct; IsReadOnly>] BindAttribute<'attrName when 'attrName: struct and 'attrName :> IAttributeName>(initialValue: obj, callback: EventCallback<ChangeEventArgs>) =
     interface IAttribute with
         member _.RenderTo(builder) =
             builder.AddAttribute("value", initialValue)
-            builder.AddAttribute("onchange", callback)
+            builder.AddAttribute(Unchecked.defaultof<'attrName>.Name, callback)
             builder.Builder.SetUpdatesAttributeName("value")
 
 [<AbstractClass; Sealed; AutoOpen>]
@@ -58,19 +58,53 @@ type CallbackAttributes() =
 
     static member onChange' (receiver: obj, value: Func<ChangeEventArgs, Task>) =
         mk<OnChange, _>(EventCallback.Factory.Create<ChangeEventArgs>(receiver, value))
+    
+    static member onKeyDown' (receiver: obj, value: Action) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
 
-    static member bind' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        BindAttribute(BindConverter.FormatValue<'a>(existingValue, culture),
+    static member onKeyDown' (receiver: obj, value: Action<KeyboardEventArgs>) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
+
+    static member onKeyDown' (receiver: obj, value: EventCallback) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
+
+    static member onKeyDown' (receiver: obj, value: EventCallback<KeyboardEventArgs>) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
+
+    static member onKeyDown' (receiver: obj, value: Func<Task>) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
+
+    static member onKeyDown' (receiver: obj, value: Func<KeyboardEventArgs, Task>) =
+        mk<OnKeyDown, _>(EventCallback.Factory.Create<KeyboardEventArgs>(receiver, value))
+    
+    static member bindChange' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnChange>(BindConverter.FormatValue<'a>(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
-    static member bind' (receiver: obj, existingValue, onChange: Func<'a, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        BindAttribute(BindConverter.FormatValue<'a>(existingValue, culture),
+    static member bindChange' (receiver: obj, existingValue, onChange: Func<'a, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnChange>(BindConverter.FormatValue<'a>(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
-    static member bind' (receiver: obj, existingValue: int, onChange: Action<int>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        BindAttribute(BindConverter.FormatValue(existingValue, culture),
+    static member bindChange' (receiver: obj, existingValue: int, onChange: Action<int>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnChange>(BindConverter.FormatValue(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
 
-    static member bind' (receiver: obj, existingValue: int, onChange: Func<int, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
-        BindAttribute(BindConverter.FormatValue(existingValue, culture),
+    static member bindChange' (receiver: obj, existingValue: int, onChange: Func<int, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnChange>(BindConverter.FormatValue(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
+
+    static member bindInput' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnInput>(BindConverter.FormatValue<'a>(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
+
+    static member bindInput' (receiver: obj, existingValue, onChange: Func<'a, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnInput>(BindConverter.FormatValue<'a>(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
+
+    static member bindInput' (receiver: obj, existingValue: int, onChange: Action<int>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnInput>(BindConverter.FormatValue(existingValue, culture),
+                      EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))
+
+    static member bindInput' (receiver: obj, existingValue: int, onChange: Func<int, Task>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
+        BindAttribute<OnInput>(BindConverter.FormatValue(existingValue, culture),
                       EventCallback.Factory.CreateBinder(receiver, onChange, existingValue, culture))

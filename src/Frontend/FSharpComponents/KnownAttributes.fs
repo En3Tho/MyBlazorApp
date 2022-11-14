@@ -24,6 +24,14 @@ type [<Struct>] OnChange =
     interface IAttributeName with
         member _.Name = "onchange"
 
+type [<Struct>] OnInput =
+    interface IAttributeName with
+        member _.Name = "oninput"
+
+type [<Struct>] OnKeyDown =
+    interface IAttributeName with
+        member _.Name = "onkeydown"
+
 type [<Struct>] ChildContent =
     interface IAttributeName with
         member _.Name = "ChildContent"
