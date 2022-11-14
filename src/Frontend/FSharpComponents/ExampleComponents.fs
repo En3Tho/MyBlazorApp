@@ -32,7 +32,7 @@ type ComponentWithLoopFSharp() =
                 }
         })
 
-type ProblemComponent() =
+type NestedComponentFSharp() =
     inherit ComponentBase()
 
     override this.BuildRenderTree(builder) =

@@ -103,6 +103,10 @@ type IAttributeName = // TODO: static
 type IComponentImport =
     abstract Builder: BlazorBuilderCore
 
+type BlazorBuilderCode = delegate of BlazorBuilderCore -> unit
+type BlazorBuilderComponentCode = BlazorBuilderCore -> unit -> unit
+type ComponentImportCode<'a when 'a: struct and 'a :> IComponentImport> = BlazorBuilderCore -> 'a
+
 type [<Struct; IsReadOnly>] Attribute<'name when 'name: struct and 'name :> IAttributeName> =
     member _.Name = Unchecked.defaultof<'name>.Name
 
@@ -128,4 +132,3 @@ type [<Struct; IsReadOnly>] CustomAttribute<'a>(name: string, value: 'a) =
 
     interface IAttribute with
         member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
-

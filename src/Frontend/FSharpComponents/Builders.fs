@@ -6,17 +6,6 @@ open System.Runtime.CompilerServices
 open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 
-type ComponentEndMarker = struct end
-type ElementEndMarker = struct end
-
-type BlazorBuilderCode = delegate of BlazorBuilderCore -> unit
-type BlazorBuilderComponentCode = BlazorBuilderCore -> unit -> unit
-
-// type BlazorBuilderComponentCode = BlazorBuilderCore -> ComponentEndMarker
-// type BlazorBuilderElementCode = BlazorBuilderCore -> ElementEndMarker
-
-type ComponentImportCode<'a when 'a: struct and 'a :> IComponentImport> = BlazorBuilderCore -> 'a
-
 type BlazorBuilderBase() =
 
     member inline this.Combine([<InlineIfLambda>] first: BlazorBuilderCode, [<InlineIfLambda>] second: BlazorBuilderCode) : BlazorBuilderCode =
