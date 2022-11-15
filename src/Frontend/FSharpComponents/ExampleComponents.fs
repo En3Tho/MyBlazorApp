@@ -89,8 +89,8 @@ type MatrixFSharp() =
     member private _.OnKeyDown(args: KeyboardEventArgs) = ()
 
     override this.BuildRenderTree(builder) =
-        let tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2 ";
-        let tableCell = "w-4 font-semibold text-xl text-end ";
+        let tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
+        let tableCell = "w-4 font-semibold text-xl text-end";
 
         builder.Render(blazor {
             div { class' "flex flex-col gap-4 max-w-sm" } {
@@ -115,7 +115,7 @@ type MatrixFSharp() =
 
                                 for rowIdx = 0 to row.Length - 1 do
                                     let data = row[rowIdx]
-                                    td { class' (tableCell + "last:text-blue-300" + if data = 0 then "text-gray-100" else "") } {
+                                    td { class' (tableCell, "last:text-blue-300", if data = 0 then "text-gray-100" else "") } {
                                         data.ToString()
                                     }
                             }

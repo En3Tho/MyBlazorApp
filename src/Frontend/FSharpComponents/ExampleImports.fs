@@ -78,29 +78,29 @@ type ComplexComponentFSharp() =
             x <- x + 1
             if x % 2 = 1 then "bg-violet-200" else "bg-violet-300"
 
-        let divClass = "block h-4 "
+        let block = "block h-4"
         let renderFragment = fragment { span { () } { "renderFragment: 123" } }
         let codeBlock = span { () } { "codeBlock: 123" }
         let constant = "constant: 123"
         let template (value: string) = span { () } { "template: "; value }
 
         builder.Render(blazor {
-            div { class' (divClass + iterateColor()) } {
+            div { class' (block, iterateColor()) } {
                 renderFragment
-                div { class' (divClass + iterateColor()) } {
+                div { class' (block, iterateColor()) } {
                     codeBlock
                 }
             }
-            h3 { class' (divClass + iterateColor()) } {
+            h3 { class' (block, iterateColor()) } {
                 "Fortresses"
                 if Random.Shared.Next(0, 2) = 1 then
                     span { () } { "Random span: 123" }
             }
-            div { class' (divClass + iterateColor()) } {
+            div { class' (block, iterateColor()) } {
                 constant
-                div { class' (divClass + iterateColor()) } {
+                div { class' (block, iterateColor()) } {
                     template "123"
-                    div { class' (divClass + iterateColor()) } {
+                    div { class' (block, iterateColor()) } {
                         fun b ->
                             Matrix.Render(b, this.MatrixData)
                     }
