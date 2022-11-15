@@ -54,7 +54,7 @@ type RequiredImportFSharp() =
         }
 
         builder.Render(blazor {
-            fun b -> Required.Render(b, error, main, Func<bool>(fun () -> smallNum.IsValid))
+            fun b -> Required.Render(b, error, main, fun () -> smallNum.IsValid)
         })
 
 type ComplexComponentFSharp() =
