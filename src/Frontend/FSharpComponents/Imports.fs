@@ -2,7 +2,7 @@ module FSharpComponents.Imports
 
 open System
 open System.Runtime.CompilerServices
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
+open En3Tho.FSharp.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame

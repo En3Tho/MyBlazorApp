@@ -2,7 +2,7 @@ namespace FSharpComponents
 
 open System.Collections.Generic
 open Microsoft.AspNetCore.Components
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+open En3Tho.FSharp.BlazorBuilder
 open Microsoft.AspNetCore.Components.Web
 
 type HelloWorldFSharp() =

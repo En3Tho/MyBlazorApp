@@ -1,4 +1,4 @@
-namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+namespace En3Tho.FSharp.BlazorBuilder
 
 // TODO: are they really bool or just plain string?
 

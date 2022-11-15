@@ -1,4 +1,4 @@
-module En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownElements
+module En3Tho.FSharp.BlazorBuilder.Core.KnownElements
 
 type [<Struct>] Div =
     interface IElementName with

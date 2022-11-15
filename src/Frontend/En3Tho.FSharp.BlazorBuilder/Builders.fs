@@ -1,9 +1,9 @@
-namespace rec En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+namespace rec En3Tho.FSharp.BlazorBuilder
 
 open System
 open System.Collections.Generic
 open System.Runtime.CompilerServices
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
+open En3Tho.FSharp.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 
 type BlazorBuilderBase() =

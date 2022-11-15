@@ -1,4 +1,4 @@
-namespace En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core
+namespace En3Tho.FSharp.BlazorBuilder.Core
 
 open System
 open System.Runtime.CompilerServices

@@ -11,21 +11,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="Core.fs" />
-      <Compile Include="Builders.fs" />
-      <Compile Include="Runners.fs" />
-      <Compile Include="KnownElements.fs" />
-      <Compile Include="KnownAttributes.fs" />
-      <Compile Include="StringAttributes.fs" />
-      <Compile Include="BoolAttributes.fs" />
-      <Compile Include="CallbackAttributes.fs" />
-      <Compile Include="Elements.fs" />
       <Compile Include="ExampleComponents.fs" />
       <Compile Include="Imports.fs" />
       <Compile Include="ExampleImports.fs" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
       <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
     </ItemGroup>
 

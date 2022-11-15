@@ -1,7 +1,7 @@
 namespace FSharpComponents.ExampleImports
 
 open System
-open En3Tho.FSharp.ComputationExpressions.BlazorBuilder
+open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
 open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics

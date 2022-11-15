@@ -1,4 +1,4 @@
-module En3Tho.FSharp.ComputationExpressions.BlazorBuilder.Core.KnownAttributes
+module En3Tho.FSharp.BlazorBuilder.Core.KnownAttributes
 
 type [<Struct>] Style =
     interface IAttributeName with
