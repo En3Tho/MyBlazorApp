@@ -39,3 +39,11 @@ type [<Struct>] H2 =
 type [<Struct>] H3 =
     interface IElementName with
         member _.Name = "h3"
+
+type [<Struct>] Colgroup =
+    interface IElementName with
+        member _.Name = "colgroup"
+
+type [<Struct>] Col =
+    interface IElementName with
+        member _.Name = "col"
