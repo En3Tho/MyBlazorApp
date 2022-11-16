@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Code.fs" />
+        <Compile Include="ImportGenerator.fs" />
+        <Compile Include="ElementGenerator.fs" />
+        <Compile Include="AttributeGenerator.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
+      <ProjectReference Include="..\FSharpComponents\FSharpComponents.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="En3Tho.FSharp.ComputationExpressions" Version="1.1.8" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.9" />
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Components.Web">
+        <HintPath>..\..\..\..\..\..\Nuget\packages\microsoft.aspnetcore.components.web\7.0.0\lib\net7.0\Microsoft.AspNetCore.Components.Web.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

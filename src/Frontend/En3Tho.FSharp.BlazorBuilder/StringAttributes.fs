@@ -46,7 +46,6 @@ type StringAttributes() =
         value4.CopyTo(span.Slice(value.Length + 1 + value2.Length + 1 + value3.Length + 1))
         mk<Class>(str)
 
-    // TODO: class' 3-4-5 overloads
     static member type' (value: string) = mk<Type>(value)
     static member id' (value: string) = attr("id", value)
     static member href' (value: string) = attr("href", value)

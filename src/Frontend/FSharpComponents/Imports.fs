@@ -7,6 +7,25 @@ open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
 
+// namespace TailwindComponents.CodinGame
+
+// module ImportStubs =
+    // open ... ?
+    // type [<Struct; IsReadOnly>] MatrixImport(builder: BlazorBuilderCore) =
+    //
+    // interface IComponentImport with
+    //     member _.Builder = builder
+
+    // type Matrix with
+    //     static member inline Render(builder: BlazorBuilderCore, data: int[][]) =
+    //         builder.OpenComponent<Matrix>()
+    //         builder.AddAttribute("Data", data)
+    //         MatrixImport(builder)
+
+// [<AbstractClass; Sealed; AutoOpen>]
+// type Imports() =
+    //static member inline Matrix'(builder, data) = Matrix.Render(builder, data)
+
 // Ideally this should be Auto-generated
 type [<Struct; IsReadOnly>] MatrixImport(builder: BlazorBuilderCore) =
 

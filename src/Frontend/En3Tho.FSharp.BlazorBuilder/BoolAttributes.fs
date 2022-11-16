@@ -1,15 +1,17 @@
 namespace En3Tho.FSharp.BlazorBuilder
 
-// TODO: are they really bool or just plain string?
+open En3Tho.FSharp.BlazorBuilder.Core
+open En3Tho.FSharp.BlazorBuilder.Core.KnownAttributes
 
 [<AbstractClass; Sealed; AutoOpen>]
 type BoolAttributes() =
-    static member checked' = attr("checked", true)
-    static member disabled' = attr("disabled", true)
-    static member autofocus' = attr("autofocus", true)
-    static member required' = attr("required", true)
-    static member multiple' = attr("multiple", true)
-    static member selected' = attr("selected", true)
-    static member readonly' = attr("readonly", true)
-    static member novalidate' = attr("novalidate", true)
-    static member hidden' = attr("hidden", true)
+    static member checked' = attr("checked")
+    static member disabled' = attr("disabled")
+    static member autofocus' = attr("autofocus")
+    static member required' = attr("required")
+    static member multiple' = attr("multiple")
+    static member selected' = attr("selected")
+    static member readonly' = attr("readonly")
+    static member novalidate' = attr("novalidate")
+    static member hidden' = attr("hidden")
+    static member typeNumber' = Attribute<Type, _>("number") // TODO: more of these

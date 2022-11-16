@@ -13,7 +13,6 @@
         <Compile Include="KnownAttributes.fs" />
         <Compile Include="StringAttributes.fs" />
         <Compile Include="BoolAttributes.fs" />
-        <Compile Include="FlagAttributes.fs" />
         <Compile Include="CallbackAttributes.fs" />
         <Compile Include="BindAttributes.fs" />
         <Compile Include="Elements.fs" />
