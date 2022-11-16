@@ -4,13 +4,15 @@ open En3Tho.FSharp.ComputationExpressions.CodeBuilder
 open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Web
 
-// IAvailableTo interface ?
+// IAvailableOn interface ?
 // Any
 // KnownElements?
 
+// input for example should yield IAvailableOn<Input> | IAvailableOn<Any>
+
 let genLowercasedAttributeName (name: string) =
     let name = name.Replace("-", "")
-    $"{name[0..1].ToLower()}{name[1..]}'"
+    $"{Char.ToLower(name[0])}{name[1..]}'"
 
 let genKnownAttributeName (name: string) =
     name.Replace("-", "")
@@ -22,7 +24,7 @@ let genKnownAttribute (attr: string) = code {
     indent {
         "interface IAttributeName with"
         indent {
-            $"member _.Name = {attrName.ToLower()}"
+            $"member _.Name = \"{attrName.ToLower()}\""
         }
     }
 }

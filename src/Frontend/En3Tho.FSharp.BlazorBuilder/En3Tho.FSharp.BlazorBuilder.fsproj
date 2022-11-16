@@ -14,6 +14,7 @@
         <Compile Include="StringAttributes.fs" />
         <Compile Include="BoolAttributes.fs" />
         <Compile Include="CallbackAttributes.fs" />
+        <Compile Include="SpecialAttributes.fs" />
         <Compile Include="BindAttributes.fs" />
         <Compile Include="Elements.fs" />
     </ItemGroup>

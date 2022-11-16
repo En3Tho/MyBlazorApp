@@ -1,7 +1,4 @@
 module En3Tho.FSharp.BlazorBuilder.CodeGeneration.ElementGenerator
-open System.IO
-open En3Tho.FSharp.Extensions
-open En3Tho.FSharp.ComputationExpressions
 open En3Tho.FSharp.ComputationExpressions.CodeBuilder
 
 let genKnownElement (elementName: string) = code {
@@ -9,7 +6,7 @@ let genKnownElement (elementName: string) = code {
     indent {
         "interface IElementName with"
         indent {
-            $"member _.Name = {elementName.ToLower()}"
+            $"member _.Name = \"{elementName.ToLower()}\""
         }
     }
 }

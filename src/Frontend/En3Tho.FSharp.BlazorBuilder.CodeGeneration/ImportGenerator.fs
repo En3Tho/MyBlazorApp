@@ -55,47 +55,45 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
     let annotatedParameters =
         required
         |> Seq.map (fun prop -> $"{prop.Name.ToLower()}: {prop.PropertyType.Name}")
+        |> Seq.append [| "builder: BlazorBuilderCore" |]
         |> String.concat ", "
 
     let parameters =
         required
         |> Seq.map (fun prop -> prop.Name.ToLower())
+        |> Seq.append [| "builder" |]
         |> String.concat ", "
 
     let importStubCode = code {
+        $"type [<Struct; IsReadOnly>] {type'.Name}Import(builder: BlazorBuilderCore) ="
         indent {
-            $"type [<Struct; IsReadOnly>] {type'.Name}Import(builder: BlazorBuilderCore) ="
-            indent {
+            for optionalProperty in optional do
                 ""
-                for optionalProperty in optional do
-                    nsCache.Add(optionalProperty.PropertyType.Namespace)
-
-                    $"member this.{optionalProperty.Name} with set(value: {optionalProperty.PropertyType.Name}) ="
-                    indent {
-                        $"builder.AddAttribute({optionalProperty.Name}, value)"
-                    }
-
-                "interface IComponentImport with"
+                $"member this.{optionalProperty.Name} with set(value: {optionalProperty.PropertyType.Name}) ="
                 indent {
-                    "member _.Builder = builder"
+                    $"builder.AddAttribute({optionalProperty.Name}, value)"
                 }
-            }
             ""
-            $"type {type'.Name} with"
+            "interface IComponentImport with"
             indent {
-                $"static member inline Render(builder: BlazorBuilderCore, {annotatedParameters}) ="
-                indent {
-                    $"builder.OpenComponent<{type'.Name}>()"
-                    for requiredProperty in required do
-                        $"builder.AddAttribute({requiredProperty.Name}, {requiredProperty.Name.ToLower()})"
-                    $"{type'.Name}Import(builder)"
-                }
+                "member _.Builder = builder"
+            }
+        }
+        ""
+        $"type {type'.Name} with"
+        indent {
+            $"static member inline Render({annotatedParameters}) ="
+            indent {
+                $"builder.OpenComponent<{type'.Name}>()"
+                for requiredProperty in required do
+                    $"builder.AddAttribute({requiredProperty.Name}, {requiredProperty.Name.ToLower()})"
+                $"{type'.Name}Import(builder)"
             }
         }
     }
 
     let callerCode = code {
-        $"static member inline {type'.Name}'(builder, {parameters}) = {type'.Name}.Render(builder, {parameters})"
+        $"static member inline {type'.Name}'({parameters}) = {type'.Name}.Render({parameters})"
     }
 
     importStubCode, callerCode
@@ -103,18 +101,19 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
 let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
     let callers = List()
     code {
-        rootNamespace
-        "module Imports ="
-        indent {
+        $"namespace {rootNamespace}"
+        for type' in types do
             let nsCache = HashSet<string>()
-            for type' in types do
-                let importStubCode, callerCode = genImportStubAndCaller nsCache type'
-                callers.Add(callerCode)
+            let importStubCode, callerCode = genImportStubAndCaller nsCache type'
+            callers.Add(callerCode)
+            ""
+            $"module {type'.Name}Stubs ="
+            indent {
                 for ns in nsCache do
                     $"open {ns}"
                 ""
                 importStubCode
-        }
+            }
         ""
         "[<AbstractClass; Sealed; AutoOpen>]"
         "type Imports() ="
@@ -133,7 +132,7 @@ let genImportsForAssembly (rootNamespace: string) (assembly: Assembly) =
         assembly.GetTypes()
         |> Seq.filter (fun type' ->
             not type'.IsAbstract
-            && type'.IsAssignableFrom(typeof<ComponentBase>)
+            && type'.IsAssignableTo(typeof<ComponentBase>)
             && type'.Namespace.Equals(rootNamespace))
         |> Seq.toArray
 

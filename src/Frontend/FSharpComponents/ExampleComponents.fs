@@ -110,7 +110,7 @@ type MatrixFSharp() =
                         }
 
                         for colIdx = 0 to this.Data.Length - 1 do
-                            let row = this.Data.[colIdx]
+                            let row = this.Data[colIdx]
                             tr { class' tableRow } {
                                 td { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
