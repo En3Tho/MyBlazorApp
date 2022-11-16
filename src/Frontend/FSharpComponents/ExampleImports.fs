@@ -18,7 +18,6 @@ type OldWay() =
             c<HelloWorldFSharp> {
                 nameof(helloWorld.Name) => "C#"
                 nameof(helloWorld.Name2) => "VB"
-                class' "lol"
             }
         })
 
@@ -26,10 +25,7 @@ type Importer() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            fun b ->
-                HelloWorldFSharp.Render(b, "C#", Name2 = "VB") {
-                    class' "lol"
-                }
+            fun b -> HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
         })
 
 type RequiredImportFSharp() =
