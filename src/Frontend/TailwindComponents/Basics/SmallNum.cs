@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace TailwindComponents.Basics;
 
-[Validatable<int>]
+//[Validatable<int>]
 public record struct SmallNum(int Value) : IValidatable<SmallNum, int>, IValidator<int>
 {
     public static bool Try(int value, out SmallNum result)

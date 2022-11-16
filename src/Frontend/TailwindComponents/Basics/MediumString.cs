@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace TailwindComponents.Basics;
 
-[Validatable<string>] // part to implement
+//[Validatable<string>] // part to implement
 public readonly partial struct MediumString
 {
     public static bool Validate([NotNullWhen(true)] string? value)

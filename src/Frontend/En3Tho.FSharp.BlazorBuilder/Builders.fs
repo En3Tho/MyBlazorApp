@@ -16,9 +16,7 @@ type BlazorBuilderBase() =
     // This is needed to preserve correct sequence counts in RenderTreeBuilder in case of non-yield operations (eg if ... then ...)
     // I'm not sure how does this work with while or for
     // maybe this isn't really needed? Need to check out diff mechanism
-    member inline _.Zero() : BlazorBuilderCode =
-        BlazorBuilderCode(fun builder ->
-            builder.Advance())
+    member inline _.Zero() : BlazorBuilderCode = BlazorBuilderCode(fun builder -> builder.Advance())
 
     member inline this.Delay([<InlineIfLambda>] delay: unit -> BlazorBuilderCode) : BlazorBuilderCode =
         BlazorBuilderCode(fun (builder) -> (delay()).Invoke(builder))
