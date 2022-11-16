@@ -22,6 +22,8 @@ type StringAttributes() =
         mk<Class>(String.Concat(value, " ", value2))
 
     // TODO: test these
+    // What if string is empty? We do not need to allocate that
+    // Reuse logic from Concat here I guess
     static member class' (value: string, value2: string, value3: string) =
         let str = String(char 0, 2 + value.Length + value2.Length + value3.Length)
         let span = (# "" (str.AsSpan()): Span<char> #)

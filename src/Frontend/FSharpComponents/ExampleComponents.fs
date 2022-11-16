@@ -96,7 +96,7 @@ type MatrixFSharp() =
             div { class' "flex flex-col gap-4 max-w-sm" } {
                 div { class' "p-4 rounded-md bg-violet-200 w-max" } {
                     table { () } {
-                        colgroup {()} {
+                        colgroup { () } {
                             col { class' "hover:bg-violet-300" }
                         }
                         tr { class' tableRow } {
