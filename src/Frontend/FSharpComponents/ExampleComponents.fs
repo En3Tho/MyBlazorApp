@@ -37,6 +37,13 @@ type NestedComponentFSharp() =
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
+            // TODO: explore overload-based CE's here to skip {()} part?
+            // At start yield can yield both attribute or child content
+            // But attribute leads to a attribute code type
+            // and child content leads to a content code type
+            // running attribute code type will lead to a content code type
+            // explore same idea with components so there can be a "natural" way to set child content
+            // note that opening component should give a "fragment" ce, not be a part of overall blazor ce
             h1 { () } {
                 div { () } {
                     "Hello"

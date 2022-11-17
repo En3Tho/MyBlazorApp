@@ -151,7 +151,9 @@ type QuickGridImportFSharp() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            // TODO: explore let! bindings
+            // TODO: explore let! yield! do! bindings
+            // This probably requires (lol) "Required" properties
+            // The idea is to bind new struct with builder and then assign properties after constructor has been called
             // let! grid = QuickGridImport'()
             // grid.Set(ChildContent = ..., ..., ...)
             fun b -> QuickGrid'(b, Items = data, ChildContent = cols)
