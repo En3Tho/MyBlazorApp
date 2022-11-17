@@ -20,5 +20,4 @@ type AttributeFunctions =
 
 let (=>) (name: string) (value: 'a) = CustomAttribute<'a>(name, value)
 let markup markupString = MarkupString(markupString)
-let component<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
-let c<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
+let render<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance

@@ -19,7 +19,7 @@ type OldWay() =
         builder.Render(blazor {
             let helloWorld = Unchecked.defaultof<HelloWorldFSharp>
 
-            c<HelloWorldFSharp> {
+            render<HelloWorldFSharp> {
                 nameof(helloWorld.Name) => "C#"
                 nameof(helloWorld.Name2) => "VB"
             }
@@ -122,7 +122,7 @@ type QuickGridImportFromCSharp() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            c<QuickGridTest> {
+            render<QuickGridTest> {
                 "Data" => [|
                     Person("John", "Doe", "email")
                     Person("Jane", "Doe", "email")
@@ -151,10 +151,5 @@ type QuickGridImportFSharp() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            // TODO: explore let! yield! do! bindings
-            // This probably requires (lol) "Required" properties
-            // The idea is to bind new struct with builder and then assign properties after constructor has been called
-            // let! grid = QuickGridImport'()
-            // grid.Set(ChildContent = ..., ..., ...)
             fun b -> QuickGrid'(b, Items = data, ChildContent = cols)
         })
