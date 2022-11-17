@@ -13,6 +13,7 @@
     <ItemGroup>
       <Compile Include="ExampleComponents.fs" />
       <Compile Include="FSharpComponents.Imports.fs" />
+      <Compile Include="MicrosoftAspNetCoreComponentsQuickGrid.Imports.fs" />
       <Compile Include="Imports.fs" />
       <Compile Include="ExampleImports.fs" />
     </ItemGroup>

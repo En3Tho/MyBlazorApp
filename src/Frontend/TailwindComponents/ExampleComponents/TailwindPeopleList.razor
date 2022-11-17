@@ -1,3 +1,4 @@
+@using TailwindComponents.Data
 <div class="max-w-md mx-auto bg-white shadow">
     <ul role="list" class="p-6 divide-y divide-slate-200">
         @foreach (var person in _people)
@@ -22,8 +23,6 @@
 </div>
 
 @code {
-    public record Person(string Name, string Email, string ImageUrl);
-
     private static RenderFragment<Person> DrawPerson = person =>
     // Remove top/bottom padding when first/last child
         @<li class="flex py-4 first:pt-0 last:pb-0">

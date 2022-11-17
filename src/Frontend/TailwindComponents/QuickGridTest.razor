@@ -1,14 +1,13 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
-@typeparam T
+@using TailwindComponents.Data
 
 <QuickGrid Items="@Data">
     <PropertyColumn Property="@(p => p.Name)"/>
-    <PropertyColumn Property="@(p => p.Age)"/>
+    <PropertyColumn Property="@(p => p.Email)"/>
+    <PropertyColumn Property="@(p => p.ImageUrl)"/>
 </QuickGrid>
 
 @code {
-
-    public record Person(string Name, int Age);
 
     [Parameter, EditorRequired]
     public IQueryable<Person> Data { get; init; } = default!;

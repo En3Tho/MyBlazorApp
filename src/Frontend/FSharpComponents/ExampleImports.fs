@@ -5,9 +5,13 @@ open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
 open type ImportsAsMembers
 open Microsoft.AspNetCore.Components
+open TailwindComponents
+open TailwindComponents.Data
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
 open TailwindComponentsImports
+open Microsoft.AspNetCore.Components.QuickGrid.GeneratedImports
+open System.Linq
 
 type OldWay() =
     inherit ComponentBase()
@@ -102,4 +106,53 @@ type ComplexComponentFSharp() =
                     }
                 }
             }
+        })
+
+type UsesRef() =
+    inherit ComponentBase()
+    member val Ref = Unchecked.defaultof<HelloWorldFSharp> with get, set
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor {
+            fun b -> HelloWorldFSharp'(b, "Blazor") {
+                ref' this.set_Ref
+            }
+        })
+
+type QuickGridImportFromCSharp() =
+    inherit ComponentBase()
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor {
+            c<QuickGridTest> {
+                "Data" => [|
+                    Person("John", "Doe", "email")
+                    Person("Jane", "Doe", "email")
+                    Person("John", "Smith", "email")
+                    Person("Jane", "Smith", "email")
+                |].AsQueryable()
+            }
+        })
+
+type QuickGridImportFSharp() =
+    inherit ComponentBase()
+    override this.BuildRenderTree(builder) =
+
+        let cols = fragment {
+            fun b -> PropertyColumn'(b, fun (p: Person) -> p.Name)
+            fun b -> PropertyColumn'(b, fun (p: Person) -> p.Email)
+            fun b -> PropertyColumn'(b, fun (p: Person) -> p.ImageUrl)
+        }
+
+        let data =
+            [|
+                Person("John", "Doe", "email")
+                Person("Jane", "Doe", "email")
+                Person("John", "Smith", "email")
+                Person("Jane", "Smith", "email")
+            |].AsQueryable()
+
+        builder.Render(blazor {
+            // TODO: explore let! bindings
+            // let! grid = QuickGridImport'()
+            // grid.Set(ChildContent = ..., ..., ...)
+            fun b -> QuickGrid'(b, Items = data, ChildContent = cols)
         })

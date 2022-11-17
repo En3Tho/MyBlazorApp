@@ -84,6 +84,11 @@ type BlazorBuilderCore(builder: RenderTreeBuilder) =
         sequenceCount <- sequenceCount + 1
 
     [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
+    member _.AddComponentReferenceCapture(value: Action<obj>) =
+        builder.AddComponentReferenceCapture(sequenceCount, value)
+        sequenceCount <- sequenceCount + 1
+
+    [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
     member _.CloseElement() =
         builder.CloseElement()
 

@@ -1,10 +1,16 @@
 namespace En3Tho.FSharp.BlazorBuilder
 
 open System
+open System.Runtime.CompilerServices
 open En3Tho.FSharp.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 
 #nowarn "42"
+
+type [<Struct; IsReadOnly>] RefAttribute(action: Action<obj>) =
+    interface IAttribute with
+        member this.RenderTo(builder) =
+            builder.AddComponentReferenceCapture(action)
 
 [<AbstractClass; Sealed; AutoOpen>]
 type SpecialAttributes() =
@@ -41,3 +47,5 @@ type SpecialAttributes() =
 
     static member ChildContent' (value: RenderFragment) = Attribute<KnownAttributes.ChildContent, _>(value)
     static member ChildContent' (value: RenderFragment<'a>) = Attribute<KnownAttributes.ChildContent, _>(value)
+    static member inline ref' ([<InlineIfLambda>] action: 'T -> unit) = RefAttribute(fun obj -> action (obj :?> 'T))
+    static member ref' (action: Action<obj>) = RefAttribute(action)
