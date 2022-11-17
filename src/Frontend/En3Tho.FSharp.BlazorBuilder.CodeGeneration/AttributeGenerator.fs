@@ -42,15 +42,15 @@ let genCallbackAttribute (name: string) (argsName: string) = code {
 
     for param in [|
         "Action"
-        "Action<MouseEventArgs>"
+        $"Action<{argsName}>"
         "EventCallback"
-        "EventCallback<MouseEventArgs>"
+        $"EventCallback<{argsName}>"
         "Func<Task>"
-        "Func<MouseEventArgs, Task>"
+        $"Func<{argsName}, Task>"
     |] do
-        $"static member {memberName}' (receiver: obj, value: {param}) ="
+        $"static member {memberName} (receiver: obj, value: {param}) ="
         indent {
-            $"Attribute<{attrName}, _>(EventCallback.Factory.Create<{argsName}>(receiver, value))"
+            $"Attribute<KnownAttributes.{attrName}, _>(EventCallback.Factory.Create<{argsName}>(receiver, value))"
         }
         ""
 }
@@ -61,7 +61,6 @@ let genCallbackAttributeModule (attributesAndArgNames: (string * string) seq) = 
     "open System"
     "open System.Threading.Tasks"
     "open En3Tho.FSharp.BlazorBuilder.Core"
-    "open En3Tho.FSharp.BlazorBuilder.Core.KnownAttributes"
     "open Microsoft.AspNetCore.Components"
     "open Microsoft.AspNetCore.Components.Web"
     ""
@@ -69,28 +68,32 @@ let genCallbackAttributeModule (attributesAndArgNames: (string * string) seq) = 
     "type CallbackAttributes() ="
     indent {
         for attr, argName in attributesAndArgNames do
-        ""
-        genCallbackAttribute attr argName
+            ""
+            genCallbackAttribute attr argName
     }
 }
 
 let genStringAttribute (name: string) = code {
     let memberName = genLowercasedAttributeName name
     let attrName = genKnownAttributeName name
-    $"static member {memberName} (value: string) = Attribute<{attrName}, _>(value)"
+    $"static member {memberName} (value: string) = Attribute<KnownAttributes.{attrName}, _>(value)"
 }
 
 let genBoolAttribute (name: string) = code {
     let memberName = genLowercasedAttributeName name
     let attrName = genKnownAttributeName name
-    $"static member {memberName} = Attribute<{attrName}>()"
+    $"static member {memberName} = Attribute<KnownAttributes.{attrName}>()"
+}
+
+let genInputTypeAttribute (name: string) = code {
+    let attrName = genKnownAttributeName name
+    $"static member type{attrName}' = Attribute<KnownAttributes.Type, _>(\"{name.ToLower()}\")"
 }
 
 let genStringAttributeModule (attributes: string seq) = code {
     "namespace En3Tho.FSharp.BlazorBuilder"
     ""
     "open En3Tho.FSharp.BlazorBuilder.Core"
-    "open En3Tho.FSharp.BlazorBuilder.Core.KnownAttributes"
     ""
     "[<AbstractClass; Sealed; AutoOpen>]"
     "type StringAttributes() ="
@@ -105,7 +108,6 @@ let genBoolAttributeModule (attributes: string seq) = code {
     "namespace En3Tho.FSharp.BlazorBuilder"
     ""
     "open En3Tho.FSharp.BlazorBuilder.Core"
-    "open En3Tho.FSharp.BlazorBuilder.Core.KnownAttributes"
     ""
     "[<AbstractClass; Sealed; AutoOpen>]"
     "type BoolAttributes() ="
@@ -116,7 +118,21 @@ let genBoolAttributeModule (attributes: string seq) = code {
     }
 }
 
-let InputTypes = [
+let getInputTypesModule (inputTypes: string seq) = code {
+    "namespace En3Tho.FSharp.BlazorBuilder"
+    ""
+    "open En3Tho.FSharp.BlazorBuilder.Core"
+    ""
+    "[<AbstractClass; Sealed; AutoOpen>]"
+    "type InputTypes() ="
+    indent {
+        for inputType in inputTypes do
+            ""
+            genInputTypeAttribute inputType
+    }
+}
+
+let inputTypes = [
     "Hidden"
     "Search"
     "Text"
@@ -242,13 +258,11 @@ let htmlStringAttributes = [
     "ReferrerPolicy"
     "Rel"
     "Render"
-    "Required"
     "Role"
     "Rows"
     "RowSpan"
     "Scope"
     "Scoped"
-    "Selected"
     "Shape"
     "Size"
     "Sizes"
@@ -261,6 +275,7 @@ let htmlStringAttributes = [
     "SrcSet"
     "Start"
     "Step"
+    "Style"
     "Summary"
     "TabIndex"
     "Target"
@@ -372,11 +387,12 @@ let callbackAttributesAndArgNames = [
 ]
 
 let getKnownAttributes() =
-    genKnownAttributeModule [
+    genKnownAttributeModule (List.sort [
         yield! (callbackAttributesAndArgNames |> Seq.map fst)
         yield! htmlStringAttributes
         yield! htmlBoolAttributes
-    ]
+        "ChildContent"
+    ])
     |> Code.writeToFile "KnownAttributes.fs"
 
 let genCallbackAttributes() =
@@ -384,15 +400,20 @@ let genCallbackAttributes() =
     |> Code.writeToFile "CallbackAttributes.fs"
 
 let genStringAttributes() =
-    genStringAttributeModule htmlStringAttributes
+    genStringAttributeModule (htmlStringAttributes |> List.except [ "Class" ]) // special case class
     |> Code.writeToFile "StringAttributes.fs"
 
 let genBoolAttributes() =
     genBoolAttributeModule htmlBoolAttributes
     |> Code.writeToFile "BoolAttributes.fs"
 
+let genInputTypes() =
+    getInputTypesModule inputTypes
+    |> Code.writeToFile "InputTypes.fs"
+
 let run() =
     getKnownAttributes()
     genCallbackAttributes()
     genStringAttributes()
     genBoolAttributes()
+    genInputTypes()

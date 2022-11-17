@@ -16,6 +16,7 @@
         <Compile Include="CallbackAttributes.fs" />
         <Compile Include="SpecialAttributes.fs" />
         <Compile Include="BindAttributes.fs" />
+        <Compile Include="InputTypes.fs" />
         <Compile Include="Elements.fs" />
     </ItemGroup>
 

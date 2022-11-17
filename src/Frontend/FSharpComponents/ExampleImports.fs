@@ -3,11 +3,11 @@ namespace FSharpComponents.ExampleImports
 open System
 open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
+open type ImportsAsMembers
 open Microsoft.AspNetCore.Components
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
-
-open Imports
+open TailwindComponentsImports
 
 type OldWay() =
     inherit ComponentBase()
@@ -25,7 +25,7 @@ type Importer() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            fun b -> HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
+            fun b -> HelloWorldFSharp'(b, "C#", Name2 = "VB")
         })
 
 type RequiredImportFSharp() =

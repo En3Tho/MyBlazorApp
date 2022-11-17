@@ -52,7 +52,7 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
                 ""
                 $"member this.{optionalProperty.Name} with set(value: {optionalProperty.PropertyType.Name}) ="
                 indent {
-                    $"builder.AddAttribute({optionalProperty.Name}, value)"
+                    $"builder.AddAttribute(\"{optionalProperty.Name}\", value)"
                 }
             ""
             "interface IComponentImport with"
@@ -67,7 +67,7 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
             indent {
                 $"builder.OpenComponent<{type'.Name}>()"
                 for requiredProperty in required do
-                    $"builder.AddAttribute({requiredProperty.Name}, {requiredProperty.Name.ToLower()})"
+                    $"builder.AddAttribute(\"{requiredProperty.Name}\", {requiredProperty.Name.ToLower()})"
                 $"{type'.Name}Import(builder)"
             }
         }
@@ -81,14 +81,20 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
 
 let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
     let callers = List()
+    let modulesToOpen = List()
     code {
-        $"namespace {rootNamespace}"
+        $"namespace {rootNamespace}.GeneratedImports"
+        "open System.Runtime.CompilerServices"
+        "open En3Tho.FSharp.BlazorBuilder.Core"
         for type' in types do
             let nsCache = HashSet<string>()
             let importStubCode, callerCode = genImportStubAndCaller nsCache type'
+            let moduleToOpen = $"{type'.Name}Import"
             callers.Add(callerCode)
+            modulesToOpen.Add(moduleToOpen)
+
             ""
-            $"module {type'.Name}Stubs ="
+            $"module {moduleToOpen} ="
             indent {
                 for ns in nsCache do
                     $"open {ns}"
@@ -96,8 +102,11 @@ let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
                 importStubCode
             }
         ""
+        for moduleToOpen in modulesToOpen do
+            $"open {moduleToOpen}"
+        ""
         "[<AbstractClass; Sealed; AutoOpen>]"
-        "type Imports() ="
+        "type ImportsAsMembers() ="
         indent {
             for caller in callers do
                 ""
@@ -121,4 +130,4 @@ let genImportsForAssembly (rootNamespace: string) (assembly: Assembly) =
 
 let run() =
     genImportsForAssembly typeof<HelloWorldFSharp>.Namespace typeof<HelloWorldFSharp>.Assembly
-    |> Code.writeToFile (typeof<HelloWorldFSharp>.Namespace.Replace(".", "") + ".fs")
+    |> Code.writeToFile (typeof<HelloWorldFSharp>.Namespace.Replace(".", "") + ".Imports.fs")
