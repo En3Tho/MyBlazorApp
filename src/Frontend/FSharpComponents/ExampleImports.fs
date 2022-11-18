@@ -152,3 +152,25 @@ type QuickGridImportFSharp() =
         builder.Render(blazor {
             fun b -> QuickGrid.Render(b, Items = data, ChildContent = cols)
         })
+
+type QuickGridImportFSharp2() =
+    inherit ComponentBase()
+    override this.BuildRenderTree(builder) =
+
+        let data =
+            [|
+                Person("John", "Doe", "email")
+                Person("Jane", "Doe", "email")
+                Person("John", "Smith", "email")
+                Person("Jane", "Smith", "email")
+            |].AsQueryable()
+
+        builder.Render(blazor {
+            fun b -> QuickGrid.Render(b, Items = data, ChildContent = fragment {
+                fun b -> TemplateColumn.Render(b, ChildContent = fun (_: Person) -> fragment {
+                    fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Name)
+                })
+                fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Email)
+                fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.ImageUrl)
+            })
+        })

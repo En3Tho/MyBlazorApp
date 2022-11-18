@@ -18,32 +18,56 @@ type SpecialAttributes() =
         Attribute<KnownAttributes.Class, _>(value)
 
     static member class' (value: string, value2: string) =
-        Attribute<KnownAttributes.Class, _>(String.Concat(value, " ", value2))
+        if String.IsNullOrEmpty value then SpecialAttributes.class' value2
+        elif String.IsNullOrEmpty value2 then SpecialAttributes.class' value
+        else Attribute<KnownAttributes.Class, _>(String.Concat(value, " ", value2))
 
     // TODO: test these
     // What if string is empty? We do not need to allocate that
     // Reuse logic from Concat here I guess
     static member class' (value: string, value2: string, value3: string) =
-        let str = String(char 0, 2 + value.Length + value2.Length + value3.Length)
-        let span = (# "" (str.AsSpan()): Span<char> #)
-        value.CopyTo(span)
-        span[value.Length] <- ' '
-        value2.CopyTo(span.Slice(value.Length + 1))
-        span[value.Length + 1 + value2.Length] <- ' '
-        value3.CopyTo(span.Slice(value.Length + 1 + value2.Length + 1))
-        Attribute<KnownAttributes.Class, _>(str)
+        if String.IsNullOrEmpty value then SpecialAttributes.class'(value2, value3)
+        elif String.IsNullOrEmpty value2 then SpecialAttributes.class'(value, value3)
+        elif String.IsNullOrEmpty value3 then SpecialAttributes.class'(value, value2)
+        else
+            let str = String(char 0, 2 + value.Length + value2.Length + value3.Length)
+            let mutable span = (# "" (str.AsSpan()): Span<char> #)
+            // TODO: unsafe span
+            value.CopyTo(span)
+            span <- span.Slice(0, value.Length)
+            span[0] <- ' '
+            span <- span.Slice(0, 1)
+            value2.CopyTo(span)
+            span <- span.Slice(0, value2.Length)
+            span[0] <- ' '
+            span <- span.Slice(0, 1)
+            value3.CopyTo(span)
+            span <- span.Slice(0, value3.Length)
+            Attribute<KnownAttributes.Class, _>(str)
 
     static member class' (value: string, value2: string, value3: string, value4: string) =
-        let str = String(char 0, 3 + value.Length + value2.Length + value3.Length + value4.Length)
-        let span = (# "" (str.AsSpan()): Span<char> #)
-        value.CopyTo(span)
-        span[value.Length] <- ' '
-        value2.CopyTo(span.Slice(value.Length + 1))
-        span[value.Length + 1 + value2.Length] <- ' '
-        value3.CopyTo(span.Slice(value.Length + 1 + value2.Length + 1))
-        span[value.Length + 1 + value2.Length + 1 + value3.Length] <- ' '
-        value4.CopyTo(span.Slice(value.Length + 1 + value2.Length + 1 + value3.Length + 1))
-        Attribute<KnownAttributes.Class, _>(str)
+        if String.IsNullOrEmpty value then SpecialAttributes.class'(value2, value3, value4)
+        elif String.IsNullOrEmpty value2 then SpecialAttributes.class'(value, value3, value4)
+        elif String.IsNullOrEmpty value3 then SpecialAttributes.class'(value, value2, value4)
+        elif String.IsNullOrEmpty value4 then SpecialAttributes.class'(value, value2, value3)
+        else
+            let str = String(char 0, 3 + value.Length + value2.Length + value3.Length + value4.Length)
+            let mutable span = (# "" (str.AsSpan()): Span<char> #)
+
+            value.CopyTo(span)
+            span <- span.Slice(0, value.Length)
+            span[0] <- ' '
+            span <- span.Slice(0, 1)
+            value2.CopyTo(span)
+            span <- span.Slice(0, value2.Length)
+            span[0] <- ' '
+            span <- span.Slice(0, 1)
+            value3.CopyTo(span)
+            span <- span.Slice(0, value3.Length)
+            span[0] <- ' '
+            span <- span.Slice(0, 1)
+            value4.CopyTo(span)
+            Attribute<KnownAttributes.Class, _>(str)
 
     static member ChildContent' (value: RenderFragment) = Attribute<KnownAttributes.ChildContent, _>(value)
     static member ChildContent' (value: RenderFragment<'a>) = Attribute<KnownAttributes.ChildContent, _>(value)
