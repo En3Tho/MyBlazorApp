@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{349DE1BC-196D-4F69-8B8C-785E427C04D9}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{06A318D3-76DA-4B53-B2F5-6AB35914A41F}"

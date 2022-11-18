@@ -113,27 +113,31 @@ type BlazorBuilderComponentCode = BlazorBuilderCore -> unit -> unit
 type ComponentImportCode<'a when 'a: struct and 'a :> IComponentImport> = BlazorBuilderCore -> 'a
 
 type [<Struct; IsReadOnly>] Attribute<'name when 'name: struct and 'name :> IAttributeName> =
-    member _.Name = Unchecked.defaultof<'name>.Name
+    member _.Name with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = Unchecked.defaultof<'name>.Name
 
     interface IAttribute with
+        [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
         member this.RenderTo(builder) = builder.AddAttribute(this.Name)
 
 type [<Struct; IsReadOnly>] Attribute<'name, 'value when 'name: struct and 'name :> IAttributeName>(value: 'value) =
-    member _.Name = Unchecked.defaultof<'name>.Name
-    member _.Value = value
+    member _.Name with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = Unchecked.defaultof<'name>.Name
+    member _.Value with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = value
 
     interface IAttribute with
+        [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
         member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
 
 type [<Struct; IsReadOnly>] CustomAttribute(name: string) =
-    member _.Name = name
+    member _.Name with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = name
 
     interface IAttribute with
+        [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
         member this.RenderTo(builder) = builder.AddAttribute(this.Name)
 
 type [<Struct; IsReadOnly>] CustomAttribute<'a>(name: string, value: 'a) =
-    member _.Name = name
-    member _.Value = value
+    member _.Name with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = name
+    member _.Value with [<MethodImpl(MethodImplOptions.AggressiveInlining)>] get() = value
 
     interface IAttribute with
+        [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
         member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
