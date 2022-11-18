@@ -30,18 +30,18 @@ module ImportHelper =
 
     let genImportModuleName (type': Type) =
         let rawTypeName = genRawTypeName type'
-        let genericParameters = type'.GetGenericArguments()
-        let typeName = if type'.IsGenericType then $"{rawTypeName}__{genericParameters.Length}" else rawTypeName
+        let genericArguments = type'.GetGenericArguments()
+        let typeName = if type'.IsGenericType then $"{rawTypeName}__{genericArguments.Length}" else rawTypeName
         $"{typeName}__Import"
 
     let genImportTypeName (type': Type) =
         if type'.IsGenericType then
-            let genericParameters = type'.GetGenericArguments()
+            let genericArguments = type'.GetGenericArguments()
             let rawTypeName = genRawTypeName type'
-            let genericParameters = genericParameters |> Seq.map genTypeName |> String.concat ", "
-            $"{rawTypeName}Import<{genericParameters}>"
+            let genericArgumentsString = genericArguments |> Seq.map genTypeName |> String.concat ", "
+            $"{rawTypeName}__{genericArguments.Length}__Import<{genericArgumentsString}>"
         else
-            $"{type'.Name}Import"
+            $"{type'.Name}__Import"
 
     let rec collectNamespacesForType (nsCache: HashSet<string>) (type': Type) =
         if type'.IsGenericParameter then
@@ -54,13 +54,15 @@ module ImportHelper =
             nsCache.Add type'.Namespace |> ignore
 
 
-let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
+let genImportsModule (type': Type) =
 
     let isParameter (prop: PropertyInfo) =
         prop.GetCustomAttribute<ParameterAttribute>() <> null
 
     let isRequired (prop: PropertyInfo) =
         prop.GetCustomAttribute<EditorRequiredAttribute>() <> null
+
+    let nsCache = HashSet<string>()
 
     nsCache.Add(type'.Namespace) |> ignore
     let parameters =
@@ -95,80 +97,52 @@ let genImportStubAndCaller (nsCache: HashSet<string>) (type': Type) =
 
     let importTypeName = ImportHelper.genImportTypeName type'
     let typeName = ImportHelper.genTypeName type'
+    let moduleToOpen = ImportHelper.genImportModuleName type'
 
-    let importStubCode = code {
-        $"type [<Struct; IsReadOnly>] {importTypeName}(builder: BlazorBuilderCore) ="
+    code {
+        "[<AutoOpen>]"
+        $"module {moduleToOpen} ="
         indent {
-            for optionalProperty in optional do
-                ""
-                $"member this.{optionalProperty.Name} with set(value: {ImportHelper.genTypeName optionalProperty.PropertyType}) ="
-                indent {
-                    $"builder.AddAttribute(\"{optionalProperty.Name}\", value)"
-                }
+            for ns in nsCache do
+                $"open {ns}"
             ""
-            "interface IComponentImport with"
+            $"type [<Struct; IsReadOnly>] {importTypeName}(builder: BlazorBuilderCore) ="
             indent {
-                "member _.Builder = builder"
+                for optionalProperty in optional do
+                    ""
+                    $"member this.{optionalProperty.Name} with set(value: {ImportHelper.genTypeName optionalProperty.PropertyType}) ="
+                    indent {
+                        $"builder.AddAttribute(\"{optionalProperty.Name}\", value)"
+                    }
+                ""
+                "interface IComponentImport with"
+                indent {
+                    "member _.Builder = builder"
+                }
             }
-        }
-        ""
-        $"type {typeName} with"
-        indent {
-            $"static member inline Render({annotatedParameters}) ="
+            ""
+            $"type {typeName} with"
             indent {
-                $"builder.OpenComponent<{typeName}>()"
-                for requiredProperty in required do
-                    $"builder.AddAttribute(\"{requiredProperty.Name}\", {requiredProperty.Name.ToLower()})"
-                $"{importTypeName}(builder)"
+                $"static member inline Render({annotatedParameters}) ="
+                indent {
+                    $"builder.OpenComponent<{typeName}>()"
+                    for requiredProperty in required do
+                        $"builder.AddAttribute(\"{requiredProperty.Name}\", {requiredProperty.Name.ToLower()})"
+                    $"{importTypeName}(builder)"
+                }
             }
         }
     }
-
-    let callerCode = code {
-        $"static member inline {ImportHelper.genRawTypeName type'}'({parameters}) = {typeName}.Render({parameters})"
-    }
-
-    importStubCode, callerCode
 
 let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
-    let callers = List()
-    let modulesToOpen = List()
     code {
-        $"namespace {rootNamespace}.GeneratedImports"
+        $"namespace {rootNamespace}"
         "open System.Runtime.CompilerServices"
         "open En3Tho.FSharp.BlazorBuilder.Core"
         for type' in types do
-            let nsCache = HashSet<string>()
-            let importStubCode, callerCode = genImportStubAndCaller nsCache type'
-            let moduleToOpen = ImportHelper.genImportModuleName type'
-            callers.Add(callerCode)
-            modulesToOpen.Add(moduleToOpen)
-
             ""
-            $"module {moduleToOpen} ="
-            indent {
-                for ns in nsCache do
-                    $"open {ns}"
-                ""
-                importStubCode
-            }
-        ""
-        $"open {rootNamespace}"
-        for moduleToOpen in modulesToOpen do
-            $"open {moduleToOpen}"
-        ""
-        "[<AbstractClass; Sealed; AutoOpen>]"
-        "type ImportsAsMembers() ="
-        indent {
-            for caller in callers do
-                ""
-                caller
-        }
+            genImportsModule type'
     }
-
-// TODO: generics
-
-// TODO: can generate to different files etc
 
 let genImportsForAssembly (rootNamespace: string) (assembly: Assembly) =
     let nsCache = HashSet<string>()

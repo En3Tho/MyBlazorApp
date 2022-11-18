@@ -3,14 +3,13 @@ namespace FSharpComponents.ExampleImports
 open System
 open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
-open type ImportsAsMembers
 open Microsoft.AspNetCore.Components
 open TailwindComponents
 open TailwindComponents.Data
 open TailwindComponents.Basics
 open TailwindComponents.CodinGame
 open TailwindComponentsImports
-open Microsoft.AspNetCore.Components.QuickGrid.GeneratedImports
+open Microsoft.AspNetCore.Components.QuickGrid
 open System.Linq
 
 type OldWay() =
@@ -29,7 +28,7 @@ type Importer() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            fun b -> HelloWorldFSharp'(b, "C#", Name2 = "VB")
+            fun b -> HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
         })
 
 type RequiredImportFSharp() =
@@ -54,7 +53,7 @@ type RequiredImportFSharp() =
         }
 
         builder.Render(blazor {
-            fun b -> Required.Render(b, error, main, fun () -> smallNum.IsValid)
+            fun b -> Required.Render(b, error, main, fun () -> smallNum.IsEmpty || smallNum.IsValid)
         })
 
 type ComplexComponentFSharp() =
@@ -113,7 +112,7 @@ type UsesRef() =
     member val Ref = Unchecked.defaultof<HelloWorldFSharp> with get, set
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            fun b -> HelloWorldFSharp'(b, "Blazor") {
+            fun b -> HelloWorldFSharp.Render(b, "Blazor") {
                 ref' this.set_Ref
             }
         })
@@ -137,9 +136,9 @@ type QuickGridImportFSharp() =
     override this.BuildRenderTree(builder) =
 
         let cols = fragment {
-            fun b -> PropertyColumn'(b, fun (p: Person) -> p.Name)
-            fun b -> PropertyColumn'(b, fun (p: Person) -> p.Email)
-            fun b -> PropertyColumn'(b, fun (p: Person) -> p.ImageUrl)
+            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Name)
+            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Email)
+            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.ImageUrl)
         }
 
         let data =
@@ -151,5 +150,5 @@ type QuickGridImportFSharp() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            fun b -> QuickGrid'(b, Items = data, ChildContent = cols)
+            fun b -> QuickGrid.Render(b, Items = data, ChildContent = cols)
         })

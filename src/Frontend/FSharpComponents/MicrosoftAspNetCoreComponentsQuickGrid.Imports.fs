@@ -1,8 +1,9 @@
 // Auto-generated
-namespace Microsoft.AspNetCore.Components.QuickGrid.GeneratedImports
+namespace Microsoft.AspNetCore.Components.QuickGrid
 open System.Runtime.CompilerServices
 open En3Tho.FSharp.BlazorBuilder.Core
 
+[<AutoOpen>]
 module PropertyColumn__2__Import =
     open Microsoft.AspNetCore.Components.QuickGrid
     open System
@@ -10,7 +11,7 @@ module PropertyColumn__2__Import =
     open Microsoft.AspNetCore.Components
     open Microsoft.AspNetCore.Components.Web.Virtualization
 
-    type [<Struct; IsReadOnly>] PropertyColumnImport<'TGridItem, 'TProp>(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] PropertyColumn__2__Import<'TGridItem, 'TProp>(builder: BlazorBuilderCore) =
 
         member this.Format with set(value: String) =
             builder.AddAttribute("Format", value)
@@ -46,15 +47,16 @@ module PropertyColumn__2__Import =
         static member inline Render(builder: BlazorBuilderCore, property: Expression<Func<'TGridItem, 'TProp>>) =
             builder.OpenComponent<PropertyColumn<'TGridItem, 'TProp>>()
             builder.AddAttribute("Property", property)
-            PropertyColumnImport<'TGridItem, 'TProp>(builder)
+            PropertyColumn__2__Import<'TGridItem, 'TProp>(builder)
 
+[<AutoOpen>]
 module TemplateColumn__1__Import =
     open Microsoft.AspNetCore.Components.QuickGrid
     open Microsoft.AspNetCore.Components
     open System
     open Microsoft.AspNetCore.Components.Web.Virtualization
 
-    type [<Struct; IsReadOnly>] TemplateColumnImport<'TGridItem>(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] TemplateColumn__1__Import<'TGridItem>(builder: BlazorBuilderCore) =
 
         member this.ChildContent with set(value: RenderFragment<'TGridItem>) =
             builder.AddAttribute("ChildContent", value)
@@ -92,13 +94,14 @@ module TemplateColumn__1__Import =
     type TemplateColumn<'TGridItem> with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<TemplateColumn<'TGridItem>>()
-            TemplateColumnImport<'TGridItem>(builder)
+            TemplateColumn__1__Import<'TGridItem>(builder)
 
+[<AutoOpen>]
 module Paginator__Import =
     open Microsoft.AspNetCore.Components.QuickGrid
     open Microsoft.AspNetCore.Components
 
-    type [<Struct; IsReadOnly>] PaginatorImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] Paginator__Import(builder: BlazorBuilderCore) =
 
         member this.SummaryTemplate with set(value: RenderFragment) =
             builder.AddAttribute("SummaryTemplate", value)
@@ -110,15 +113,16 @@ module Paginator__Import =
         static member inline Render(builder: BlazorBuilderCore, value: PaginationState) =
             builder.OpenComponent<Paginator>()
             builder.AddAttribute("Value", value)
-            PaginatorImport(builder)
+            Paginator__Import(builder)
 
+[<AutoOpen>]
 module QuickGrid__1__Import =
     open Microsoft.AspNetCore.Components.QuickGrid
     open System.Linq
     open System
     open Microsoft.AspNetCore.Components
 
-    type [<Struct; IsReadOnly>] QuickGridImport<'TGridItem>(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] QuickGrid__1__Import<'TGridItem>(builder: BlazorBuilderCore) =
 
         member this.Items with set(value: IQueryable<'TGridItem>) =
             builder.AddAttribute("Items", value)
@@ -156,12 +160,13 @@ module QuickGrid__1__Import =
     type QuickGrid<'TGridItem> with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<QuickGrid<'TGridItem>>()
-            QuickGridImport<'TGridItem>(builder)
+            QuickGrid__1__Import<'TGridItem>(builder)
 
+[<AutoOpen>]
 module _Imports__Import =
     open Microsoft.AspNetCore.Components.QuickGrid
 
-    type [<Struct; IsReadOnly>] _ImportsImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] _Imports__Import(builder: BlazorBuilderCore) =
 
         interface IComponentImport with
             member _.Builder = builder
@@ -169,24 +174,4 @@ module _Imports__Import =
     type _Imports with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<_Imports>()
-            _ImportsImport(builder)
-
-open Microsoft.AspNetCore.Components.QuickGrid
-open PropertyColumn__2__Import
-open TemplateColumn__1__Import
-open Paginator__Import
-open QuickGrid__1__Import
-open _Imports__Import
-
-[<AbstractClass; Sealed; AutoOpen>]
-type ImportsAsMembers() =
-
-    static member inline PropertyColumn'(builder, property) = PropertyColumn<'TGridItem, 'TProp>.Render(builder, property)
-
-    static member inline TemplateColumn'(builder) = TemplateColumn<'TGridItem>.Render(builder)
-
-    static member inline Paginator'(builder, value) = Paginator.Render(builder, value)
-
-    static member inline QuickGrid'(builder) = QuickGrid<'TGridItem>.Render(builder)
-
-    static member inline _Imports'(builder) = _Imports.Render(builder)
+            _Imports__Import(builder)

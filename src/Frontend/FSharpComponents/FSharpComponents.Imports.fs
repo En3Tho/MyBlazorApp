@@ -3,10 +3,12 @@ namespace FSharpComponents
 open System.Runtime.CompilerServices
 open En3Tho.FSharp.BlazorBuilder.Core
 
-module HelloWorldFSharpImport =
+[<AutoOpen>]
+module HelloWorldFSharp__Import =
+    open FSharpComponents
     open System
 
-    type [<Struct; IsReadOnly>] HelloWorldFSharpImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] HelloWorldFSharp__Import(builder: BlazorBuilderCore) =
 
         member this.Name2 with set(value: String) =
             builder.AddAttribute("Name2", value)
@@ -18,11 +20,13 @@ module HelloWorldFSharpImport =
         static member inline Render(builder: BlazorBuilderCore, name: String) =
             builder.OpenComponent<HelloWorldFSharp>()
             builder.AddAttribute("Name", name)
-            HelloWorldFSharpImport(builder)
+            HelloWorldFSharp__Import(builder)
 
-module ComponentWithLoopFSharpImport =
+[<AutoOpen>]
+module ComponentWithLoopFSharp__Import =
+    open FSharpComponents
 
-    type [<Struct; IsReadOnly>] ComponentWithLoopFSharpImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] ComponentWithLoopFSharp__Import(builder: BlazorBuilderCore) =
 
         interface IComponentImport with
             member _.Builder = builder
@@ -30,11 +34,13 @@ module ComponentWithLoopFSharpImport =
     type ComponentWithLoopFSharp with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<ComponentWithLoopFSharp>()
-            ComponentWithLoopFSharpImport(builder)
+            ComponentWithLoopFSharp__Import(builder)
 
-module NestedComponentFSharpImport =
+[<AutoOpen>]
+module NestedComponentFSharp__Import =
+    open FSharpComponents
 
-    type [<Struct; IsReadOnly>] NestedComponentFSharpImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] NestedComponentFSharp__Import(builder: BlazorBuilderCore) =
 
         interface IComponentImport with
             member _.Builder = builder
@@ -42,11 +48,13 @@ module NestedComponentFSharpImport =
     type NestedComponentFSharp with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<NestedComponentFSharp>()
-            NestedComponentFSharpImport(builder)
+            NestedComponentFSharp__Import(builder)
 
-module CounterFSharpImport =
+[<AutoOpen>]
+module CounterFSharp__Import =
+    open FSharpComponents
 
-    type [<Struct; IsReadOnly>] CounterFSharpImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] CounterFSharp__Import(builder: BlazorBuilderCore) =
 
         interface IComponentImport with
             member _.Builder = builder
@@ -54,12 +62,14 @@ module CounterFSharpImport =
     type CounterFSharp with
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<CounterFSharp>()
-            CounterFSharpImport(builder)
+            CounterFSharp__Import(builder)
 
-module MatrixFSharpImport =
+[<AutoOpen>]
+module MatrixFSharp__Import =
+    open FSharpComponents
     open System
 
-    type [<Struct; IsReadOnly>] MatrixFSharpImport(builder: BlazorBuilderCore) =
+    type [<Struct; IsReadOnly>] MatrixFSharp__Import(builder: BlazorBuilderCore) =
 
         interface IComponentImport with
             member _.Builder = builder
@@ -68,23 +78,4 @@ module MatrixFSharpImport =
         static member inline Render(builder: BlazorBuilderCore, data: Int32[][]) =
             builder.OpenComponent<MatrixFSharp>()
             builder.AddAttribute("Data", data)
-            MatrixFSharpImport(builder)
-
-open HelloWorldFSharpImport
-open ComponentWithLoopFSharpImport
-open NestedComponentFSharpImport
-open CounterFSharpImport
-open MatrixFSharpImport
-
-[<AbstractClass; Sealed>]
-type ImportsAsMembers() =
-
-    static member inline HelloWorldFSharp'(builder, name) = HelloWorldFSharp.Render(builder, name)
-
-    static member inline ComponentWithLoopFSharp'(builder) = ComponentWithLoopFSharp.Render(builder)
-
-    static member inline NestedComponentFSharp'(builder) = NestedComponentFSharp.Render(builder)
-
-    static member inline CounterFSharp'(builder) = CounterFSharp.Render(builder)
-
-    static member inline MatrixFSharp'(builder, data) = MatrixFSharp.Render(builder, data)
+            MatrixFSharp__Import(builder)
