@@ -21,12 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Components">
-        <HintPath>..\..\..\..\..\..\Nuget\packages\microsoft.aspnetcore.components\7.0.0\lib\net7.0\Microsoft.AspNetCore.Components.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.AspNetCore.Components.Web">
-        <HintPath>..\..\..\..\..\..\Nuget\packages\microsoft.aspnetcore.components.web\7.0.0\lib\net7.0\Microsoft.AspNetCore.Components.Web.dll</HintPath>
-      </Reference>
+      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

@@ -15,13 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Components">
-        <HintPath>..\..\..\..\..\Nuget\packages\microsoft.aspnetcore.components\7.0.0\lib\net7.0\Microsoft.AspNetCore.Components.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
