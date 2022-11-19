@@ -40,7 +40,7 @@ let knownElements = [
     "Aside"
     "Audio"
     "B"
-    "Base"
+    "Base'" // special case base as it's an F# keyword
     "Bdi"
     "Bdo"
     "Blockquote"
