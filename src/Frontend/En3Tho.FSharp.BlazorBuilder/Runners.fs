@@ -5,6 +5,10 @@ open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Rendering
 open Microsoft.FSharp.Core
 
+// TODO: move this to FSharpExtensions repo. Nuget.
+// TODO: implement both elem { attr } { markup } and elem { markup } syntax
+// TODO: implement comp { attr } { childContent } and comp { childContent } syntax
+
 type RenderTreeBuilder with
 
     member inline this.Render([<InlineIfLambda>] runExpr) =

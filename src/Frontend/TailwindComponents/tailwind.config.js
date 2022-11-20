@@ -1,7 +1,7 @@
 module.exports = {
     content: [
         './**/*.{razor,html,cshtml}',
-        '../FSharpComponents/**/*.fs',
+        './../FSharpComponents/**/*.fs',
     ],
     theme: {
         extend: {},

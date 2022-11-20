@@ -1,3 +1,4 @@
+@using FSharpComponents
 @inherits SubscribingComponentBase
 
 @inject ILogger<NavMenu> Logger
@@ -42,7 +43,8 @@
             nameof(EasyCoinPage),
             nameof(CodinGamePage),
             nameof(Inputs),
-            nameof(FSharpFun)
+            nameof(FSharpFun),
+            nameof(FullyFSharpPage)
         })
         {
             <li class="nav-item px-3">
