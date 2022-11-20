@@ -66,9 +66,9 @@ type RenderTreeBlockBase() =
             codeBuilderCode.Invoke builder
             builder.CloseElement())
 
-    member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderComponentCode) : BlazorBuilderCode =
+    member inline _.Yield([<InlineIfLambda>] codeBuilderCode: BlazorComponentCode) : BlazorBuilderCode =
         BlazorBuilderCode(fun builder ->
-            codeBuilderCode builder ())
+            codeBuilderCode.Invoke builder)
 
     member inline _.Yield([<InlineIfLambda>] codeBuilderCode: ComponentImportCode<_>) : BlazorBuilderCode =
         BlazorBuilderCode(fun builder ->

@@ -16,19 +16,15 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
 
     static member val Instance = ComponentBlock<'a>()
 
-    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorBuilderComponentCode =
-        fun builder _ ->
+    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderCode) : BlazorComponentCode =
+        BlazorComponentCode(fun builder ->
             builder.OpenComponent<'a>()
             runExpr.Invoke builder
-            builder.CloseComponent()
+            builder.CloseComponent())
 
 type ElementBlockBase<'name when 'name :> IElementName and 'name: struct>() =
     inherit BlazorBuilderBase()
     member _.Name = Unchecked.defaultof<'name>.Name
-
-    member inline this.Yield<'attr, 'import when 'attr: struct and 'attr :> IAttribute and 'import :> IComponentImport>(_: 'import, attr: 'attr) =
-        fun builder ->
-            attr.RenderTo builder
 
     member inline _.Yield<'attr when 'attr: struct and 'attr :> IAttribute>(attr: 'attr) : BlazorBuilderCode =
         BlazorBuilderCode(fun builder ->
