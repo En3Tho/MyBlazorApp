@@ -65,6 +65,9 @@ type NestedComponentFSharp() =
                     "Hello"
                 }
             }
+            h1 { class' "bg-gray-300" } {
+                "Wow"
+            }
         })
 
 type CounterFSharp() =

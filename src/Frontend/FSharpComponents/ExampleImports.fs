@@ -1,6 +1,7 @@
 namespace FSharpComponents.ExampleImports
 
 open System
+open System.Linq.Expressions
 open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
 open Microsoft.AspNetCore.Components
@@ -131,6 +132,7 @@ type QuickGridImportFromCSharp() =
             }
         })
 
+// can builder be hidden under static variable or smth?
 type QuickGridImportFSharp() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
@@ -176,3 +178,32 @@ type QuickGridImportFSharp() =
 //                 PropertyColumn'(fun (p: Person) -> p.ImageUrl)
 //             })
 //         })
+
+// TODO: test this
+type QuickGridImportFSharp3() =
+    inherit ComponentBase()
+    override this.BuildRenderTree(builder) =
+
+        let expr (f: 'a -> 'b) : Expression<Func<'a, 'b>> = f
+
+        let data =
+            [|
+                Person("John", "Doe", "email")
+                Person("Jane", "Doe", "email")
+                Person("John", "Smith", "email")
+                Person("Jane", "Smith", "email")
+            |].AsQueryable()
+
+        builder.Render(blazor {
+            render<QuickGrid<_>> { "Items" => data } {
+                render<PropertyColumn<Person, string>> {
+                    "Property" => expr(fun (p: Person) -> p.Name)
+                }
+                render<PropertyColumn<Person, string>> {
+                    "Property" => expr(fun (p: Person) -> p.Email)
+                }
+                render<PropertyColumn<Person, string>> {
+                    "Property" => expr(fun (p: Person) -> p.ImageUrl)
+                }
+            }
+        })

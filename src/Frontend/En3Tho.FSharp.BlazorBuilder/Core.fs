@@ -123,6 +123,9 @@ type BlazorBuilderComponentCode = delegate of BlazorBuilderCore -> unit
 // div { ... } // Run()
 type BlazorBuilderElementCode = delegate of BlazorBuilderCore -> unit
 
+// div { markup }
+type BlazorBuilderChildContentCode = delegate of BlazorBuilderCore -> unit
+
 // blazor { ... } // Run()
 type BlazorBuilderBlazorCode = delegate of BlazorBuilderCore -> unit
 
