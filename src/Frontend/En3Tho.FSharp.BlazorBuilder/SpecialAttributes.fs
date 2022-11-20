@@ -37,11 +37,11 @@ type SpecialAttributes() =
             value.CopyTo(span)
             span <- span.Slice(value.Length)
             span[0] <- ' '
-            span <- span.Slice(0, 1)
+            span <- span.Slice(1)
             value2.CopyTo(span)
             span <- span.Slice(value2.Length)
             span[0] <- ' '
-            span <- span.Slice(0, 1)
+            span <- span.Slice(1)
             value3.CopyTo(span)
             Attribute<KnownAttributes.Class, _>(str)
 
@@ -57,15 +57,15 @@ type SpecialAttributes() =
             value.CopyTo(span)
             span <- span.Slice(value.Length)
             span[0] <- ' '
-            span <- span.Slice(0, 1)
+            span <- span.Slice(1)
             value2.CopyTo(span)
             span <- span.Slice(value2.Length)
             span[0] <- ' '
-            span <- span.Slice(0, 1)
+            span <- span.Slice(1)
             value3.CopyTo(span)
             span <- span.Slice(value3.Length)
             span[0] <- ' '
-            span <- span.Slice(0, 1)
+            span <- span.Slice(1)
             value4.CopyTo(span)
             Attribute<KnownAttributes.Class, _>(str)
 
