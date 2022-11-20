@@ -33,15 +33,13 @@ type SpecialAttributes() =
             // TODO: unsafe span via C# and magic extensions in F# :D
             let str = String(char 0, 2 + value.Length + value2.Length + value3.Length)
             let mutable span = (# "" (str.AsSpan()): Span<char> #)
-            // TODO: unsafe span
+
             value.CopyTo(span)
-            span <- span.Slice(value.Length)
-            span[0] <- ' '
-            span <- span.Slice(1)
+            span[value.Length] <- ' '
+            span <- span.Slice(value.Length + 1)
             value2.CopyTo(span)
-            span <- span.Slice(value2.Length)
-            span[0] <- ' '
-            span <- span.Slice(1)
+            span[value2.Length] <- ' '
+            span <- span.Slice(value2.Length + 1)
             value3.CopyTo(span)
             Attribute<KnownAttributes.Class, _>(str)
 
@@ -55,17 +53,14 @@ type SpecialAttributes() =
             let mutable span = (# "" (str.AsSpan()): Span<char> #)
 
             value.CopyTo(span)
-            span <- span.Slice(value.Length)
-            span[0] <- ' '
-            span <- span.Slice(1)
+            span[value.Length] <- ' '
+            span <- span.Slice(value.Length + 1)
             value2.CopyTo(span)
-            span <- span.Slice(value2.Length)
-            span[0] <- ' '
-            span <- span.Slice(1)
+            span[value2.Length] <- ' '
+            span <- span.Slice(value2.Length + 1)
             value3.CopyTo(span)
-            span <- span.Slice(value3.Length)
-            span[0] <- ' '
-            span <- span.Slice(1)
+            span[value3.Length] <- ' '
+            span <- span.Slice(value3.Length + 1)
             value4.CopyTo(span)
             Attribute<KnownAttributes.Class, _>(str)
 
