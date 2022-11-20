@@ -30,19 +30,19 @@ type SpecialAttributes() =
         elif String.IsNullOrEmpty value2 then SpecialAttributes.class'(value, value3)
         elif String.IsNullOrEmpty value3 then SpecialAttributes.class'(value, value2)
         else
+            // TODO: unsafe span via C# and magic extensions in F# :D
             let str = String(char 0, 2 + value.Length + value2.Length + value3.Length)
             let mutable span = (# "" (str.AsSpan()): Span<char> #)
             // TODO: unsafe span
             value.CopyTo(span)
-            span <- span.Slice(0, value.Length)
+            span <- span.Slice(value.Length)
             span[0] <- ' '
             span <- span.Slice(0, 1)
             value2.CopyTo(span)
-            span <- span.Slice(0, value2.Length)
+            span <- span.Slice(value2.Length)
             span[0] <- ' '
             span <- span.Slice(0, 1)
             value3.CopyTo(span)
-            span <- span.Slice(0, value3.Length)
             Attribute<KnownAttributes.Class, _>(str)
 
     static member class' (value: string, value2: string, value3: string, value4: string) =
@@ -55,15 +55,15 @@ type SpecialAttributes() =
             let mutable span = (# "" (str.AsSpan()): Span<char> #)
 
             value.CopyTo(span)
-            span <- span.Slice(0, value.Length)
+            span <- span.Slice(value.Length)
             span[0] <- ' '
             span <- span.Slice(0, 1)
             value2.CopyTo(span)
-            span <- span.Slice(0, value2.Length)
+            span <- span.Slice(value2.Length)
             span[0] <- ' '
             span <- span.Slice(0, 1)
             value3.CopyTo(span)
-            span <- span.Slice(0, value3.Length)
+            span <- span.Slice(value3.Length)
             span[0] <- ' '
             span <- span.Slice(0, 1)
             value4.CopyTo(span)
