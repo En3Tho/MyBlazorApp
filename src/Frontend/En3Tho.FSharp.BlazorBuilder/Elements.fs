@@ -3,224 +3,224 @@ module [<AutoOpen>] En3Tho.FSharp.BlazorBuilder.Elements
 
 open En3Tho.FSharp.BlazorBuilder.Core.KnownElements
 
-let a = ElementBlockBase<A>()
+let a = ElementBlock<A>()
 
-let abbr = ElementBlockBase<Abbr>()
+let abbr = ElementBlock<Abbr>()
 
-let address = ElementBlockBase<Address>()
+let address = ElementBlock<Address>()
 
-let area = ElementBlockBase<Area>()
+let area = ElementBlock<Area>()
 
-let article = ElementBlockBase<Article>()
+let article = ElementBlock<Article>()
 
-let aside = ElementBlockBase<Aside>()
+let aside = ElementBlock<Aside>()
 
-let audio = ElementBlockBase<Audio>()
+let audio = ElementBlock<Audio>()
 
-let b = ElementBlockBase<B>()
+let b = ElementBlock<B>()
 
-let base' = ElementBlockBase<Base>()
+let base' = ElementBlock<Base>()
 
-let bdi = ElementBlockBase<Bdi>()
+let bdi = ElementBlock<Bdi>()
 
-let bdo = ElementBlockBase<Bdo>()
+let bdo = ElementBlock<Bdo>()
 
-let blockquote = ElementBlockBase<Blockquote>()
+let blockquote = ElementBlock<Blockquote>()
 
-let body = ElementBlockBase<Body>()
+let body = ElementBlock<Body>()
 
-let br = ElementBlockBase<Br>()
+let br = ElementBlock<Br>()
 
-let button = ElementBlockBase<Button>()
+let button = ElementBlock<Button>()
 
-let canvas = ElementBlockBase<Canvas>()
+let canvas = ElementBlock<Canvas>()
 
-let caption = ElementBlockBase<Caption>()
+let caption = ElementBlock<Caption>()
 
-let cite = ElementBlockBase<Cite>()
+let cite = ElementBlock<Cite>()
 
-let code = ElementBlockBase<Code>()
+let code = ElementBlock<Code>()
 
-let col = ElementBlockBase<Col>()
+let col = ElementBlock<Col>()
 
-let colgroup = ElementBlockBase<Colgroup>()
+let colgroup = ElementBlock<Colgroup>()
 
-let data = ElementBlockBase<Data>()
+let data = ElementBlock<Data>()
 
-let datalist = ElementBlockBase<Datalist>()
+let datalist = ElementBlock<Datalist>()
 
-let dd = ElementBlockBase<Dd>()
+let dd = ElementBlock<Dd>()
 
-let del = ElementBlockBase<Del>()
+let del = ElementBlock<Del>()
 
-let details = ElementBlockBase<Details>()
+let details = ElementBlock<Details>()
 
-let dfn = ElementBlockBase<Dfn>()
+let dfn = ElementBlock<Dfn>()
 
-let dialog = ElementBlockBase<Dialog>()
+let dialog = ElementBlock<Dialog>()
 
-let div = ElementBlockBase<Div>()
+let div = ElementBlock<Div>()
 
-let dl = ElementBlockBase<Dl>()
+let dl = ElementBlock<Dl>()
 
-let dt = ElementBlockBase<Dt>()
+let dt = ElementBlock<Dt>()
 
-let em = ElementBlockBase<Em>()
+let em = ElementBlock<Em>()
 
-let embed = ElementBlockBase<Embed>()
+let embed = ElementBlock<Embed>()
 
-let fieldset = ElementBlockBase<Fieldset>()
+let fieldset = ElementBlock<Fieldset>()
 
-let figcaption = ElementBlockBase<Figcaption>()
+let figcaption = ElementBlock<Figcaption>()
 
-let figure = ElementBlockBase<Figure>()
+let figure = ElementBlock<Figure>()
 
-let footer = ElementBlockBase<Footer>()
+let footer = ElementBlock<Footer>()
 
-let form = ElementBlockBase<Form>()
+let form = ElementBlock<Form>()
 
-let h1 = ElementBlockBase<H1>()
+let h1 = ElementBlock<H1>()
 
-let h2 = ElementBlockBase<H2>()
+let h2 = ElementBlock<H2>()
 
-let h3 = ElementBlockBase<H3>()
+let h3 = ElementBlock<H3>()
 
-let h4 = ElementBlockBase<H4>()
+let h4 = ElementBlock<H4>()
 
-let h5 = ElementBlockBase<H5>()
+let h5 = ElementBlock<H5>()
 
-let h6 = ElementBlockBase<H6>()
+let h6 = ElementBlock<H6>()
 
-let head = ElementBlockBase<Head>()
+let head = ElementBlock<Head>()
 
-let header = ElementBlockBase<Header>()
+let header = ElementBlock<Header>()
 
-let hgroup = ElementBlockBase<Hgroup>()
+let hgroup = ElementBlock<Hgroup>()
 
-let hr = ElementBlockBase<Hr>()
+let hr = ElementBlock<Hr>()
 
-let html = ElementBlockBase<Html>()
+let html = ElementBlock<Html>()
 
-let i = ElementBlockBase<I>()
+let i = ElementBlock<I>()
 
-let iframe = ElementBlockBase<Iframe>()
+let iframe = ElementBlock<Iframe>()
 
-let img = ElementBlockBase<Img>()
+let img = ElementBlock<Img>()
 
-let input = ElementBlockBase<Input>()
+let input = ElementBlock<Input>()
 
-let ins = ElementBlockBase<Ins>()
+let ins = ElementBlock<Ins>()
 
-let kbd = ElementBlockBase<Kbd>()
+let kbd = ElementBlock<Kbd>()
 
-let label = ElementBlockBase<Label>()
+let label = ElementBlock<Label>()
 
-let legend = ElementBlockBase<Legend>()
+let legend = ElementBlock<Legend>()
 
-let li = ElementBlockBase<Li>()
+let li = ElementBlock<Li>()
 
-let link = ElementBlockBase<Link>()
+let link = ElementBlock<Link>()
 
-let main = ElementBlockBase<Main>()
+let main = ElementBlock<Main>()
 
-let map = ElementBlockBase<Map>()
+let map = ElementBlock<Map>()
 
-let mark = ElementBlockBase<Mark>()
+let mark = ElementBlock<Mark>()
 
-let menu = ElementBlockBase<Menu>()
+let menu = ElementBlock<Menu>()
 
-let meta = ElementBlockBase<Meta>()
+let meta = ElementBlock<Meta>()
 
-let meter = ElementBlockBase<Meter>()
+let meter = ElementBlock<Meter>()
 
-let nav = ElementBlockBase<Nav>()
+let nav = ElementBlock<Nav>()
 
-let noscript = ElementBlockBase<Noscript>()
+let noscript = ElementBlock<Noscript>()
 
-let object = ElementBlockBase<Object>()
+let object = ElementBlock<Object>()
 
-let ol = ElementBlockBase<Ol>()
+let ol = ElementBlock<Ol>()
 
-let optgroup = ElementBlockBase<Optgroup>()
+let optgroup = ElementBlock<Optgroup>()
 
-let option = ElementBlockBase<Option>()
+let option = ElementBlock<Option>()
 
-let output = ElementBlockBase<Output>()
+let output = ElementBlock<Output>()
 
-let p = ElementBlockBase<P>()
+let p = ElementBlock<P>()
 
-let picture = ElementBlockBase<Picture>()
+let picture = ElementBlock<Picture>()
 
-let pre = ElementBlockBase<Pre>()
+let pre = ElementBlock<Pre>()
 
-let progress = ElementBlockBase<Progress>()
+let progress = ElementBlock<Progress>()
 
-let q = ElementBlockBase<Q>()
+let q = ElementBlock<Q>()
 
-let rp = ElementBlockBase<Rp>()
+let rp = ElementBlock<Rp>()
 
-let rt = ElementBlockBase<Rt>()
+let rt = ElementBlock<Rt>()
 
-let ruby = ElementBlockBase<Ruby>()
+let ruby = ElementBlock<Ruby>()
 
-let s = ElementBlockBase<S>()
+let s = ElementBlock<S>()
 
-let samp = ElementBlockBase<Samp>()
+let samp = ElementBlock<Samp>()
 
-let script = ElementBlockBase<Script>()
+let script = ElementBlock<Script>()
 
-let section = ElementBlockBase<Section>()
+let section = ElementBlock<Section>()
 
-let select = ElementBlockBase<Select>()
+let select = ElementBlock<Select>()
 
-let slot = ElementBlockBase<Slot>()
+let slot = ElementBlock<Slot>()
 
-let small = ElementBlockBase<Small>()
+let small = ElementBlock<Small>()
 
-let source = ElementBlockBase<Source>()
+let source = ElementBlock<Source>()
 
-let span = ElementBlockBase<Span>()
+let span = ElementBlock<Span>()
 
-let strong = ElementBlockBase<Strong>()
+let strong = ElementBlock<Strong>()
 
-let style = ElementBlockBase<Style>()
+let style = ElementBlock<Style>()
 
-let sub = ElementBlockBase<Sub>()
+let sub = ElementBlock<Sub>()
 
-let summary = ElementBlockBase<Summary>()
+let summary = ElementBlock<Summary>()
 
-let sup = ElementBlockBase<Sup>()
+let sup = ElementBlock<Sup>()
 
-let table = ElementBlockBase<Table>()
+let table = ElementBlock<Table>()
 
-let tbody = ElementBlockBase<Tbody>()
+let tbody = ElementBlock<Tbody>()
 
-let td = ElementBlockBase<Td>()
+let td = ElementBlock<Td>()
 
-let template = ElementBlockBase<Template>()
+let template = ElementBlock<Template>()
 
-let textarea = ElementBlockBase<Textarea>()
+let textarea = ElementBlock<Textarea>()
 
-let tfoot = ElementBlockBase<Tfoot>()
+let tfoot = ElementBlock<Tfoot>()
 
-let th = ElementBlockBase<Th>()
+let th = ElementBlock<Th>()
 
-let thead = ElementBlockBase<Thead>()
+let thead = ElementBlock<Thead>()
 
-let time = ElementBlockBase<Time>()
+let time = ElementBlock<Time>()
 
-let title = ElementBlockBase<Title>()
+let title = ElementBlock<Title>()
 
-let tr = ElementBlockBase<Tr>()
+let tr = ElementBlock<Tr>()
 
-let track = ElementBlockBase<Track>()
+let track = ElementBlock<Track>()
 
-let u = ElementBlockBase<U>()
+let u = ElementBlock<U>()
 
-let ul = ElementBlockBase<Ul>()
+let ul = ElementBlock<Ul>()
 
-let var = ElementBlockBase<Var>()
+let var = ElementBlock<Var>()
 
-let video = ElementBlockBase<Video>()
+let video = ElementBlock<Video>()
 
-let wbr = ElementBlockBase<Wbr>()
+let wbr = ElementBlock<Wbr>()

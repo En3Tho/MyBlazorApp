@@ -108,23 +108,23 @@ type IAttributeName = // TODO: static
 type IComponentImport =
     abstract Builder: BlazorBuilderCore
 
-// general code like div { ... }
-type BlazorBuilderCode = delegate of BlazorBuilderCore -> unit
+// user for Builder.Advance calls
+type BlazorBuilderZeroCode = delegate of BlazorBuilderCore -> unit
+
+// div { markup }
+type BlazorBuilderMarkupCode = delegate of BlazorBuilderCore -> unit
 
 // div { attrs }
-type ElementAttributeCode = delegate of BlazorBuilderCore -> unit
+type BlazorBuilderAttributeCode = delegate of BlazorBuilderCore -> unit
 
-// div { markup } or div { attrs } { markup }
-type ElementMarkupCode = delegate of BlazorBuilderCore -> unit
+// render<'comp> { ... } // Run()
+type BlazorBuilderComponentCode = delegate of BlazorBuilderCore -> unit
 
-// render<'comp> { ... }
-type BlazorComponentCode = delegate of BlazorBuilderCore -> unit
+// div { ... } // Run()
+type BlazorBuilderElementCode = delegate of BlazorBuilderCore -> unit
 
-// render<'comp> { attrs }
-type ComponentAttributeCode = delegate of BlazorBuilderCore -> unit
-
-// render<'comp> { childContent } or render<'comp> { attrs } { childContent }
-type ComponentChildContentCode = delegate of BlazorBuilderCore -> unit
+// blazor { ... } // Run()
+type BlazorBuilderBlazorCode = delegate of BlazorBuilderCore -> unit
 
 // this is explicitly not a delegate because F# doesn't inline generic delegates
 type ComponentImportCode<'a when 'a: struct and 'a :> IComponentImport> = BlazorBuilderCore -> 'a

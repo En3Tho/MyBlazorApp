@@ -16,7 +16,7 @@ type HelloWorldFSharp() =
 
     override this.BuildRenderTree(builder) =
          builder.Render(blazor {
-             h1 { () } {
+             h1 {
                  $"Hello, {this.Name} from {this.Name2}!"
              }
         })
@@ -27,8 +27,21 @@ type ComponentWithLoopFSharp() =
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
             for i in 1..10 do
-                h1 { () } {
+                h1 {
                     $"Hello, {i}!"
+                }
+        })
+
+type ComponentWithLoopFSharp2() =
+    inherit ComponentBase()
+
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor {
+            for i in 1..10 do
+                h1 {
+                    div {
+                        $"Hello, {i}!"
+                    }
                 }
         })
 
@@ -44,11 +57,11 @@ type NestedComponentFSharp() =
             // running attribute code type will lead to a content code type
             // explore same idea with components so there can be a "natural" way to set child content
             // note that opening component should give a "fragment" ce, not be a part of overall blazor ce
-            h1 { () } {
-                div { () } {
+            h1 {
+                div {
                     "Hello"
                 }
-                div { () } {
+                div {
                     "Hello"
                 }
             }
@@ -61,6 +74,7 @@ type CounterFSharp() =
     member this.OnClick() = clicks <- clicks + this.IncrementAmount
 
     override this.BuildRenderTree(builder) =
+
         builder.Render(blazor {
             h1 { class' "block" } {
                 "Counter: "; clicks.ToString()
@@ -102,8 +116,8 @@ type MatrixFSharp() =
         builder.Render(blazor {
             div { class' "flex flex-col gap-4 max-w-sm" } {
                 div { class' "p-4 rounded-md bg-violet-200 w-max" } {
-                    table { () } {
-                        colgroup { () } {
+                    table {
+                        colgroup {
                             col { class' "hover:bg-violet-300" }
                         }
                         tr { class' tableRow } {

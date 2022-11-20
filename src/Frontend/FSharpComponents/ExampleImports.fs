@@ -78,10 +78,10 @@ type ComplexComponentFSharp() =
             if x % 2 = 1 then "bg-violet-200" else "bg-violet-300"
 
         let block = "block h-4"
-        let renderFragment = fragment { span { () } { "renderFragment: 123" } }
-        let codeBlock = span { () } { "codeBlock: 123" }
+        let renderFragment = fragment { span { "renderFragment: 123" } }
+        let codeBlock = span { "codeBlock: 123" }
         let constant = "constant: 123"
-        let template (value: string) = span { () } { "template: "; value }
+        let template (value: string) = span { "template: "; value }
 
         builder.Render(blazor {
             div { class' (block, iterateColor()) } {
@@ -93,7 +93,7 @@ type ComplexComponentFSharp() =
             h3 { class' (block, iterateColor()) } {
                 "Fortresses"
                 if Random.Shared.Next(0, 2) = 1 then
-                    span { () } { "Random span: 123" }
+                    span { "Random span: 123" }
             }
             div { class' (block, iterateColor()) } {
                 constant
