@@ -1,6 +1,5 @@
 namespace FSharpComponents
 
-open System
 open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.BlazorBuilder
 
@@ -13,7 +12,7 @@ type FullyFSharpPage() =
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            h1 { class' "text-center" } {
+            h1 { class' "text-center text-xl text-red-500" } {
                 "Hello from F#!"
             }
         })
