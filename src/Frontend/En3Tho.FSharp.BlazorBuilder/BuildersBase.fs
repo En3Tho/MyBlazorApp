@@ -5,6 +5,8 @@ open System.Collections.Generic
 open En3Tho.FSharp.BlazorBuilder.Core
 open Microsoft.AspNetCore.Components
 
+// It's interesting to note that such overload complexity is actually a compiler benchmark
+// Maybe it's worth being passed to compiler team or something
 type BlazorElementOrComponentBuilderBase() =
     member inline this.Combine([<InlineIfLambda>] first: BlazorBuilderMarkupCode, [<InlineIfLambda>] second: BlazorBuilderMarkupCode) : BlazorBuilderMarkupCode =
         BlazorBuilderMarkupCode(fun(builder) ->

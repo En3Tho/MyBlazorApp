@@ -5,10 +5,6 @@ open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Rendering
 open Microsoft.FSharp.Core
 
-// TODO: move this to FSharpExtensions repo. Nuget.
-// TODO: implement both elem { attr } { markup } and elem { markup } syntax
-// TODO: implement comp { attr } { childContent } and comp { childContent } syntax
-
 type RenderTreeBuilder with
 
     member inline this.Render([<InlineIfLambda>] runExpr) =
@@ -24,4 +20,7 @@ type AttributeFunctions =
 
 let (=>) (name: string) (value: 'a) = CustomAttribute<'a>(name, value)
 let markup markupString = MarkupString(markupString)
+
+// TODO: component block -> struct
+// this will create a struct instread
 let render<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance

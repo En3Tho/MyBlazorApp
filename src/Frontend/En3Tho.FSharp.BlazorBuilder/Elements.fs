@@ -3,6 +3,8 @@ module [<AutoOpen>] En3Tho.FSharp.BlazorBuilder.Elements
 
 open En3Tho.FSharp.BlazorBuilder.Core.KnownElements
 
+// TODO: element block => struct
+// a, abbr etc -> members
 let a = ElementBlock<A>()
 
 let abbr = ElementBlock<Abbr>()

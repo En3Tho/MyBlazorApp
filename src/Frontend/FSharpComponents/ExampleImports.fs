@@ -182,9 +182,10 @@ type QuickGridImportFSharp() =
 // TODO: test this
 type QuickGridImportFSharp3() =
     inherit ComponentBase()
-    override this.BuildRenderTree(builder) =
 
-        let expr (f: 'a -> 'b) : Expression<Func<'a, 'b>> = f
+    member _.Quote(f: Expression<Func<'a, 'b>>) = f
+
+    override this.BuildRenderTree(builder) =
 
         let data =
             [|
@@ -195,15 +196,15 @@ type QuickGridImportFSharp3() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            render<QuickGrid<_>> { "Items" => data } {
+            render<QuickGrid<Person>> { "Items" => data } {
                 render<PropertyColumn<Person, string>> {
-                    "Property" => expr(fun (p: Person) -> p.Name)
+                "Property" => this.Quote(fun (p: Person) -> p.Name)
                 }
                 render<PropertyColumn<Person, string>> {
-                    "Property" => expr(fun (p: Person) -> p.Email)
+                    "Property" => this.Quote(fun (p: Person) -> p.Email)
                 }
                 render<PropertyColumn<Person, string>> {
-                    "Property" => expr(fun (p: Person) -> p.ImageUrl)
+                    "Property" => this.Quote(fun (p: Person) -> p.ImageUrl)
                 }
             }
         })
