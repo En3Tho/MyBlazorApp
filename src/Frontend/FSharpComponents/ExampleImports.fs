@@ -132,7 +132,6 @@ type QuickGridImportFromCSharp() =
             }
         })
 
-// can builder be hidden under static variable or smth?
 type QuickGridImportFSharp() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
@@ -155,9 +154,8 @@ type QuickGridImportFSharp() =
             fun b -> QuickGrid.Render(b, Items = data, ChildContent = cols)
         })
 
-
 // TODO: how to make this syntax work?
-// type QuickGridImportFSharp2() =
+// type QuickGridImportFSharpX() =
 //     inherit ComponentBase()
 //     override this.BuildRenderTree(builder) =
 //
@@ -179,7 +177,6 @@ type QuickGridImportFSharp() =
 //             })
 //         })
 
-// TODO: test this
 type QuickGridImportFSharp3() =
     inherit ComponentBase()
 
@@ -196,9 +193,11 @@ type QuickGridImportFSharp3() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            render<QuickGrid<Person>> { "Items" => data } {
+            render<QuickGrid<Person>> {
+                "Items" => data // If only these things could be typed :/
+            } {
                 render<PropertyColumn<Person, string>> {
-                "Property" => this.Quote(fun (p: Person) -> p.Name)
+                    "Property" => this.Quote(fun (p: Person) -> p.Name)
                 }
                 render<PropertyColumn<Person, string>> {
                     "Property" => this.Quote(fun (p: Person) -> p.Email)

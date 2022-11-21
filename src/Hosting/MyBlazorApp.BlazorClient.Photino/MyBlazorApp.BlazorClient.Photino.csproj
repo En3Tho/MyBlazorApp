@@ -18,7 +18,6 @@
     <Content Update="wwwroot\appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
     <ItemGroup>
@@ -26,10 +25,6 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
       <PackageReference Include="Photino.Blazor" Version="2.4.0" />
       <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\wwwroot\css\**" Link="wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
     </ItemGroup>
 
     <ItemGroup>

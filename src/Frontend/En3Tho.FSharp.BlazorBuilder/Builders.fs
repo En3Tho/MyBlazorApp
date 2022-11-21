@@ -25,7 +25,7 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
         BlazorBuilderChildContentCode(fun builder ->
             codeBuilderCode.Invoke builder)
 
-    member inline this.Yield([<InlineIfLambda>] codeBuilderCode: ComponentImportCode<_>) : BlazorBuilderChildContentCode=
+    member inline this.Yield([<InlineIfLambda>] codeBuilderCode: ComponentImportCode<_>) : BlazorBuilderChildContentCode =
         BlazorBuilderChildContentCode(fun builder ->
             codeBuilderCode builder |> ignore
             builder.CloseComponent())

@@ -16,4 +16,8 @@
         <Content Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\wwwroot\css\**" Link="wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
 </Project>
