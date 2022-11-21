@@ -6,6 +6,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AVirtualize_002Ecs_002Fl_003AC_0021_003FUsers_003FRZRL_003FAppData_003FRoaming_003FJetBrains_003FRider2021_002E3_003Fresharper_002Dhost_003FSourcesCache_003F3adca9b755a44ff6874cc418d9a03411e22ed12ff69fc387a19ca3c0f4b49_003FVirtualize_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=AAB7B8F2_002D81EF_002D4AD2_002DB8E4_002DB5C14BC1B355_002Ff_003Apackage_002Dlock_002Ejson/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=AB78B5A2_002D1F5A_002D4350_002DB85B_002D23629413808B_002Ff_003ACallbackAttributes_002Efs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=D8E89B42_002D2151_002D4942_002D8232_002D7538745BBDD7_002Ff_003AFullyFSharpPage_002Efs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E5E39DF1_002D52E2_002D4108_002D8726_002D52A04BB0D852_002Fd_003APages_002Ff_003AError_002Ecshtml_002Fz_003A2_002D0/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">VISIBLE_FILES</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;

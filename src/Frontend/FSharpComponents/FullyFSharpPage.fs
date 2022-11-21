@@ -12,7 +12,12 @@ type FullyFSharpPage() =
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            h1 { class' "text-center text-xl text-red-500" } {
-                "Hello from F#!"
+            div { class' "h-full flex flex-col justify-between" } {
+                h1 { class' "text-center text-xl text-red-500" } {
+                    "Hello from F#!"
+                }
+                div { class' "mt-auto" } {
+                    "Div at the bottom?"
+                }
             }
         })
