@@ -32,6 +32,28 @@ type ComponentWithLoopFSharp() =
                 }
         })
 
+// <svg class="stroke-[3] @If(!_checked, "hidden")" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+// </svg>)
+
+// TODO: svg
+type ComponentWithSvg() =
+    inherit ComponentBase()
+
+    override this.BuildRenderTree(builder) =
+        builder.Render(blazor { ()
+//            svg { class' "stroke-[3]"
+//                  xmlns' "http://www.w3.org/2000/svg"
+//                  fill' "none"
+//                  viewBox' "0 0 24 24"
+//                  stroke' "currentColor" } {
+//                 path { strokeLinecap' "round"
+//                        stokeLinejoin' "round"
+//                        d' "M4.5 12.75l6 6 9-13.5"
+//                 }
+//             }
+        })
+
 type ComponentWithLoopFSharp2() =
     inherit ComponentBase()
 
@@ -50,13 +72,6 @@ type NestedComponentFSharp() =
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            // TODO: explore overload-based CE's here to skip {()} part?
-            // At start yield can yield both attribute or child content
-            // But attribute leads to a attribute code type
-            // and child content leads to a content code type
-            // running attribute code type will lead to a content code type
-            // explore same idea with components so there can be a "natural" way to set child content
-            // note that opening component should give a "fragment" ce, not be a part of overall blazor ce
             h1 {
                 div {
                     "Hello"
@@ -85,7 +100,7 @@ type CounterFSharp() =
             div { class' "flex gap-2" } {
                 button { class' "block p-4 h-12 w-12 bg-blue-500 text-white rounded-full"
                          onClick' (this, this.OnClick) } {
-                "Click me"
+                    "Click me"
                 }
                 input {
                     class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
