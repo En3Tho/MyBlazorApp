@@ -1,29 +1,29 @@
 <div class="flex flex-col gap-4 max-w-sm">
-    <div class="p-4 rounded-md bg-violet-200 w-max">
-        <table>
+    <div class="p-4 lg:p-4 rounded-md bg-violet-200">
+        <table class="w-full">
             <tr class="@tableRow">
-                <td class="@tableCell invisible">
+                <th class="@tableCell invisible">
                     0
-                </td>
+                </th>
                 @foreach (var colIdx in ..(Data[0].Length - 1))
                 {
-                    <td class="@tableCell text-red-500">
+                    <th class="@tableCell text-red-500">
                         @colIdx
-                    </td>
+                    </th>
                 }
-                <td class="@tableCell text-blue-500">
+                <th class="@tableCell text-blue-500">
                     V
-                </td>
+                </th>
             </tr>
 
             @foreach (var colIdx in ..Data.Length)
             {
                 var row = Data[colIdx];
 
-                <tr class="@tableRow">
-                    <td class="@tableCell text-red-500">
+                <tr class="@tableRow hover:bg-violet-300">
+                    <th class="@tableCell text-red-500">
                         @colIdx
-                    </td>
+                    </th>
                     @foreach (var rowIdx in ..row.Length)
                     {
                         var data = row[rowIdx];
@@ -37,8 +37,8 @@
     </div>
 
     <div class="flex flex-col gap-2 w-full">
-        <div class="flex-1 gap-4 bg-slate-100 rounded-md">
-            <input class="flex-1 p-4 bg-inherit w-full" value="@_command" @oninput="OnInput" @onkeydown="OnKeyDown"/>
+        <div class="bg-slate-100 rounded-md">
+            <input class="flex-1 p-4 bg-inherit w-full rounded-md" value="@_command" @oninput="OnInput" @onkeydown="OnKeyDown"/>
         </div>
         @If(_error is {},
             @<div class="text-red-500">
@@ -47,7 +47,7 @@
         <div class="flex flex-wrap py-4 w-full">
             @foreach (var item in _history)
             {
-                <span class="w-[25%] bg-gray-100 text-center shadow p-4 rounded-md hover:bg-sky-200">
+                <span class="p-2 w-[25%] bg-gray-100 text-center shadow rounded-md hover:bg-sky-200">
                     @item
                 </span>
             }
@@ -58,7 +58,7 @@
 
 @code {
 
-        const string tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
+        const string tableRow = "flex gap-2 rounded-md justify-between";
         const string tableCell = "w-4 font-semibold text-xl text-end";
 
     [Parameter, EditorRequired]
@@ -71,7 +71,8 @@
 
     private void Run()
     {
-        if (_command is {} && Command.TryParse(_command, out var command, out _error)
+        if (_command is {}
+            && Command.TryParse(_command, out _error) is {} command
             && command.Run(Data, out _error))
         {
             _history.Add(command.ToString());

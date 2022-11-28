@@ -3,134 +3,164 @@ using System.Text.RegularExpressions;
 
 namespace TailwindComponents.CodinGame;
 
-internal record struct Command(int idx1, int idx2, char op)
+internal abstract record Command(int idx1, int idx2, char op)
 {
+    protected abstract (int, int) PerformOperation(int a, int b);
+    protected abstract bool Validate(int[][] matrix, [NotNullWhen(false)] out string? error);
+
+    private abstract record RowOperation(int idx1, int idx2, char op) : Command(idx1, idx2, op)
+    {
+        protected override bool Validate(int[][] matrix, [NotNullWhen(false)] out string? error)
+        {
+            if ((uint) idx1 >= matrix.Length || (uint) idx2 >= matrix.Length)
+            {
+                error = "Index out of range";
+                return false;
+            }
+
+            error = default;
+            return true;
+        }
+
+        public sealed override string ToString()
+        {
+            return $"${idx1} {op} ${idx2}";
+        }
+    }
+
+    private sealed record AddRows(int idx1, int idx2, char op) : RowOperation(idx1, idx2, op)
+    {
+        protected override (int, int) PerformOperation(int a, int b)
+        {
+            return (a + b, b);
+        }
+    }
+
+    private sealed record SubRows(int idx1, int idx2, char op) : RowOperation(idx1, idx2, op)
+    {
+        protected override (int, int) PerformOperation(int a, int b)
+        {
+            return (a - b, b);
+        }
+    }
+
+    private sealed record SwapRows(int idx1, int idx2, char op) : RowOperation(idx1, idx2, op)
+    {
+        protected override (int, int) PerformOperation(int a, int b)
+        {
+            return (b, a);
+        }
+    }
+
+    private abstract record ConstOperation(int idx1, int idx2, char op) : Command(idx1, idx2, op)
+    {
+        protected override bool Validate(int[][] matrix, [NotNullWhen(false)] out string? error)
+        {
+            if ((uint) idx1 >= matrix.Length)
+            {
+                error = "Index out of range";
+                return false;
+            }
+
+            error = default;
+            return true;
+        }
+
+        public sealed override string ToString()
+        {
+            return $"${idx1} {op} {idx2}";
+        }
+    }
+
+    private sealed record MulConst(int idx1, int idx2, char op) : ConstOperation(idx1, idx2, op)
+    {
+        protected override (int, int) PerformOperation(int a, int b)
+        {
+            return (a * b, b);
+        }
+    }
+
+    private sealed record DivConst(int idx1, int idx2, char op) : ConstOperation(idx1, idx2, op)
+    {
+        protected override (int, int) PerformOperation(int a, int b)
+        {
+            return (a / b, b);
+        }
+    }
+
+    public bool Run(int[][] matrix, [NotNullWhen(false)] out string? error)
+    {
+        if (!Validate(matrix, out error))
+        {
+            return false;
+        }
+
+        var row1 = matrix[idx1];
+        var row2 = matrix[idx2];
+        for (var colIdx = 0; colIdx < row2.Length; colIdx++)
+        {
+            var (m1, m2) = PerformOperation(row1[colIdx], row2[colIdx]);
+            row1[colIdx] = m1;
+            row2[colIdx] = m2;
+        }
+
+        return true;
+    }
+
     private static Regex TwoVars { get; } = new(@"^\$(\d+)\s*([+-@])\s*\$(\d+)\s*$", RegexOptions.Compiled);
     private static Regex VarConst { get; } = new(@"^\$(\d+)\s*([*\/])\s*(-?\d+)\s*$", RegexOptions.Compiled);
 
     private static Command? TryTwoVars(string value)
     {
-        if (TwoVars.Match(value) is { Groups: [_, { ValueSpan: var lvar, }, { ValueSpan: var op }, { ValueSpan: var rvar }] })
+        if (TwoVars.Match(value) is
+            { Groups: [_, { ValueSpan: var lvar, }, { ValueSpan: [var op] }, { ValueSpan: var rvar }] })
         {
-            return new(int.Parse(lvar),
-                int.Parse(rvar),
-                op[0]);
+            if (int.TryParse(lvar, out var idx1)
+                && int.TryParse(rvar, out var idx2))
+            {
+                return op switch
+                {
+                    '+' => new AddRows(idx1, idx2, op),
+                    '-' => new SubRows(idx1, idx2, op),
+                    '@' => new SwapRows(idx1, idx2, op),
+                    _ => default
+                };
+            }
         }
 
         return default;
     }
 
-    private static Command? TryVarCon(string value)
+    private static Command? TryVarConst(string value)
     {
-        if (VarConst.Match(value) is { Groups: [_, { ValueSpan: var lvar }, { ValueSpan: var op }, { ValueSpan: var rconst }] })
+        if (VarConst.Match(value) is { Groups: [_, { ValueSpan: var lvar }, { ValueSpan: [var op] }, { ValueSpan: var rvar }] })
         {
-            return new(int.Parse(lvar),
-                int.Parse(rconst),
-                op[0]);
+            if (int.TryParse(lvar, out var idx1)
+                && int.TryParse(rvar, out var rconst)
+                && rconst is not 0)
+            {
+                return op switch
+                {
+                    '/' => new DivConst(idx1, rconst, op),
+                    '*' => new MulConst(idx1, rconst, op),
+                    _ => default
+                };
+            }
         }
 
         return default;
     }
 
-    public static bool TryParse(string value, out Command command, [NotNullWhen(false)] out string? error)
+    public static Command? TryParse(string value, [NotNullWhen(false)] out string? error)
     {
-        if (
-            (TryTwoVars(value)
-            ?? TryVarCon(value)) is {} cmd)
+        var cmd = TryTwoVars(value) ?? TryVarConst(value);
+        if (cmd is null)
         {
-            command = cmd;
-            error = null;
-            return true;
-        }
-
-        error = "Unparsable command";
-        command = default;
-        return false;
-    }
-
-    public override string ToString()
-    {
-        var ch = op is '*' or '/' ? "" : "$";
-        return $"${idx1} {op} {ch}{idx2}";
-    }
-
-    Func<int, int, (int, int)> GetRowProcessor()
-    {
-        return op switch
-        {
-            '+' => (a, b) => (a + b, b),
-            '-' => (a, b) => (a - b, b),
-            '@' => (a, b) => (b, a),
-            _ => throw new ArgumentOutOfRangeException(nameof(op))
-        };
-    }
-
-    Func<int, int, int> GetConstProcessor()
-    {
-        return op switch
-        {
-            '*' => (a, b) => a * b,
-            '/' => (a, b) => a / b,
-            _ => throw new ArgumentOutOfRangeException(nameof(op))
-        };
-    }
-
-    private bool RunConst(int[][] values, [NotNullWhen(false)] out string? error)
-    {
-        if ((uint) idx1 >= values.Length)
-        {
-            error = "Index out of range";
-            return false;
-        }
-
-        if (idx2 == 0)
-        {
-            error = "Division or multiplication by zero";
-            return false;
-        }
-
-        var row = values[idx1];
-        var constProcessor = GetConstProcessor();
-        for (var colIdx = 0; colIdx < row.Length; colIdx++)
-        {
-            row[colIdx] = constProcessor(row[colIdx], idx2);
+            error = "Invalid command";
+            return default;
         }
 
         error = null;
-        return true;
-    }
-
-    private bool RunRow(int[][] values, [NotNullWhen(false)] out string? error)
-    {
-        if ((uint) idx1 >= values.Length || (uint) idx2 >= values.Length)
-        {
-            error = "Index out of range";
-            return false;
-        }
-
-        var rowProcessor = GetRowProcessor();
-
-        var row1 = values[idx1];
-        var row2 = values[idx2];
-        for (var colIdx = 0; colIdx < row2.Length; colIdx++)
-        {
-            var (m1, m2) = rowProcessor(row1[colIdx], row2[colIdx]);
-            row1[colIdx] = m1;
-            row2[colIdx] = m2;
-        }
-
-        error = null;
-        return true;
-    }
-
-
-    public bool Run(int[][] values, [NotNullWhen(false)] out string? error)
-    {
-        if (op is '+' or '-' or '@')
-        {
-            return RunRow(values, out error);
-        }
-
-        return RunConst(values, out error);
+        return cmd;
     }
 }
