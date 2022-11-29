@@ -18,6 +18,7 @@ type [<Struct; IsReadOnly>] BindAttribute<'attrName when 'attrName: struct and '
 
 [<AbstractClass; Sealed; AutoOpen>]
 type BindAttributes() =
+    // TODO: more of these?
 
     static member bindChange' (receiver: obj, existingValue, onChange: Action<'a>, [<Optional; DefaultParameterValue(null: CultureInfo)>] culture) =
         BindAttribute<OnChange>(BindConverter.FormatValue<'a>(existingValue, culture),

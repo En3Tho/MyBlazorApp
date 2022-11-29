@@ -35,7 +35,7 @@
 @code {
     bool _showError = true;
 
-    Required Req { get; set; }
+    Required Req { get; set; } = default!;
 
     StrictIntInput<SmallNum> _smallNumStrict = new(SmallNum.Make(1));
     StrictStringInput<SmallString> _smallStringStrict = new();
