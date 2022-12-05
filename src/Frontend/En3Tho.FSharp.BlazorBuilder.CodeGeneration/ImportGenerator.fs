@@ -62,14 +62,14 @@ let genImportsModule (type': Type) =
     let isRequired (prop: PropertyInfo) =
         prop.GetCustomAttribute<EditorRequiredAttribute>() <> null
 
-    let nsCache = HashSet<string>()
+    let namespacesToOpen = HashSet()
 
-    nsCache.Add(type'.Namespace) |> ignore
+    namespacesToOpen.Add(type'.Namespace) |> ignore
     let parameters =
         type'.GetProperties(BindingFlags.Public ||| BindingFlags.Instance)
         |> Seq.where isParameter
         |> Seq.map (fun param ->
-            ImportHelper.collectNamespacesForType nsCache param.PropertyType
+            ImportHelper.collectNamespacesForType namespacesToOpen param.PropertyType
             param)
         |> Seq.toArray
 
@@ -103,7 +103,7 @@ let genImportsModule (type': Type) =
         "[<AutoOpen>]"
         $"module {moduleToOpen} ="
         indent {
-            for ns in nsCache do
+            for ns in namespacesToOpen do
                 $"open {ns}"
             ""
             $"type [<Struct; IsReadOnly>] {importTypeName}(builder: BlazorBuilderCore) ="
@@ -144,8 +144,7 @@ let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
             genImportsModule type'
     }
 
-let genImportsForAssembly (rootNamespace: string) (assembly: Assembly) =
-    let nsCache = HashSet<string>()
+let genImportsForAssembly rootNamespace (assembly: Assembly) =
     let componentTypes =
         assembly.GetTypes()
         |> Seq.filter (fun type' ->
