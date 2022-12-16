@@ -139,11 +139,11 @@ type MatrixFSharp() =
                             col { class' "hover:bg-violet-300" }
                         }
                         tr { class' tableRow } {
-                            td { class' (tableCell, "invisible") } {
+                            th { class' (tableCell, "invisible") } {
                                 "0"
                             }
                             for colIdx = 0 to this.Data[0].Length - 1 do
-                                td { class' (tableCell, "text-red-500") } {
+                                th { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
                                 }
                         }
@@ -151,7 +151,7 @@ type MatrixFSharp() =
                         for colIdx = 0 to this.Data.Length - 1 do
                             let row = this.Data[colIdx]
                             tr { class' tableRow } {
-                                td { class' (tableCell, "text-red-500") } {
+                                th { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
                                 }
 
