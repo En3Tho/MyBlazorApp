@@ -5,8 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    animatedSettings: {
+    }
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animatecss'),
+  ],
   colors: {
   }
 }
