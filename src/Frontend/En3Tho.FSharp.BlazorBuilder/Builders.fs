@@ -408,6 +408,14 @@ module Extensions =
                 builder.OpenElement(element.Name)
                 builder.CloseElement())
 
+        member inline _.Yield<'import when 'import: struct and 'import :> IComponentImport>(_: 'import) : BlazorBuilderMarkupCode =
+            BlazorBuilderMarkupCode(fun builder ->
+                builder.CloseComponent())
+
+        member inline _.Bind(_: GetBuilderIntrinsic, [<InlineIfLambda>] builderCode: BlazorBuilderCore -> BlazorBuilderMarkupCode) : BlazorBuilderMarkupCode =
+            BlazorBuilderMarkupCode(fun builder ->
+                builderCode(builder).Invoke(builder))
+
 [<Sealed>]
 type BlazorBuilderRunner() =
 

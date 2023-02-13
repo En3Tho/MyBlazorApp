@@ -161,3 +161,5 @@ type [<Struct; IsReadOnly>] CustomAttribute<'a>(name: string, value: 'a) =
     interface IAttribute with
         [<MethodImpl(MethodImplOptions.AggressiveInlining)>]
         member this.RenderTo(builder) = builder.AddAttribute(this.Name, this.Value)
+
+type [<Struct; IsReadOnly>] GetBuilderIntrinsic = struct end

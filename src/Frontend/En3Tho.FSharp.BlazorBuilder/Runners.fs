@@ -24,3 +24,4 @@ let markup markupString = MarkupString(markupString)
 // TODO: component block -> struct
 // this will create a struct instread
 let render<'a when 'a :> ComponentBase> = ComponentBlock<'a>.Instance
+let inline getBuilder() = GetBuilderIntrinsic()

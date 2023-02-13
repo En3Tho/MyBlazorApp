@@ -29,7 +29,8 @@ type Importer() =
     inherit ComponentBase()
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
-            fun b -> HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
+            let! b = getBuilder()
+            HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
         })
 
 type RequiredImportFSharp() =
@@ -137,9 +138,10 @@ type QuickGridImportFSharp() =
     override this.BuildRenderTree(builder) =
 
         let cols = fragment {
-            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Name)
-            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.Email)
-            fun b -> PropertyColumn.Render(b, fun (p: Person) -> p.ImageUrl)
+            let! b = getBuilder()
+            PropertyColumn.Render(b, fun (p: Person) -> p.Name)
+            PropertyColumn.Render(b, fun (p: Person) -> p.Email)
+            PropertyColumn.Render(b, fun (p: Person) -> p.ImageUrl)
         }
 
         let data =
@@ -151,10 +153,8 @@ type QuickGridImportFSharp() =
             |].AsQueryable()
 
         builder.Render(blazor {
-            // let b! = Blazor.Builder
-            // QuickGrid.Render(b, Items = data, ChildContent = cols) ... ?
-            // b.QuickGrid(Items = data, ChildContent = cols) ... ?
-            fun b -> QuickGrid.Render(b, Items = data, ChildContent = cols)
+            let! b = getBuilder()
+            QuickGrid.Render(b, Items = data, ChildContent = cols)
         })
 
 // TODO: how to make this syntax work?
@@ -197,7 +197,7 @@ type QuickGridImportFSharp3() =
 
         builder.Render(blazor {
             render<QuickGrid<Person>> {
-                "Items" => data // If only these things could be typed :/
+                "Items" => data
             } {
                 render<PropertyColumn<Person, string>> {
                     "Property" => this.Quote(fun (p: Person) -> p.Name)
