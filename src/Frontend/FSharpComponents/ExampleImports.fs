@@ -151,6 +151,9 @@ type QuickGridImportFSharp() =
             |].AsQueryable()
 
         builder.Render(blazor {
+            // let b! = Blazor.Builder
+            // QuickGrid.Render(b, Items = data, ChildContent = cols) ... ?
+            // b.QuickGrid(Items = data, ChildContent = cols) ... ?
             fun b -> QuickGrid.Render(b, Items = data, ChildContent = cols)
         })
 

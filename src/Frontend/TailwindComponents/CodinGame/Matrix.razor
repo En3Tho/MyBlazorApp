@@ -53,13 +53,12 @@
             }
         </div>
     </div>
-
 </div>
 
 @code {
 
-        const string tableRow = "flex gap-2 rounded-md justify-between";
-        const string tableCell = "w-4 font-semibold text-xl text-end";
+    const string tableRow = "flex gap-2 rounded-md justify-between";
+    const string tableCell = "w-4 font-semibold text-xl text-end";
 
     [Parameter, EditorRequired]
     public int[][] Data { get; init; } = default!;

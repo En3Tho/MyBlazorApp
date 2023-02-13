@@ -48,8 +48,9 @@
             </span>
         </div>
 
-        @If(_showLiquidHelp,
-            @<div class="flex p-4 bg-blue-300/20 rounded-md border border-blue-900 justify-between">
+        @if (_showLiquidHelp)
+        {
+            <div class="flex p-4 bg-blue-300/20 rounded-md border border-blue-900 justify-between">
                 <div class="flex flex-col gap-2">
                     <span class="text-xl @heading">What is Liquid Net Worth?</span>
                     <span>Your current cash, savings, emergency funds, etc.</span>
@@ -59,7 +60,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </div>
-            </div>)
+            </div>
+        }
 
         <input type="number" inputmode="decimal"
                class="h-8 px-4 rounded-md placeholder:italic placeholder:text-slate-400 border-slate-400 border-b focus:outline-none"

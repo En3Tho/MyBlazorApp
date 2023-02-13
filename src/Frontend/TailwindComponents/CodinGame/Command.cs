@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TailwindComponents.CodinGame;
 
-internal abstract record Command(int idx1, int idx2, char op)
+internal abstract partial record Command(int idx1, int idx2, char op)
 {
     protected abstract (int, int) PerformOperation(int a, int b);
     protected abstract bool Validate(int[][] matrix, [NotNullWhen(false)] out string? error);
@@ -107,12 +107,9 @@ internal abstract record Command(int idx1, int idx2, char op)
         return true;
     }
 
-    private static Regex TwoVars { get; } = new(@"^\$(\d+)\s*([+-@])\s*\$(\d+)\s*$", RegexOptions.Compiled);
-    private static Regex VarConst { get; } = new(@"^\$(\d+)\s*([*\/])\s*(-?\d+)\s*$", RegexOptions.Compiled);
-
     private static Command? TryTwoVars(string value)
     {
-        if (TwoVars.Match(value) is
+        if (TwoVarsRegex().Match(value) is
             { Groups: [_, { ValueSpan: var lvar, }, { ValueSpan: [var op] }, { ValueSpan: var rvar }] })
         {
             if (int.TryParse(lvar, out var idx1)
@@ -133,7 +130,7 @@ internal abstract record Command(int idx1, int idx2, char op)
 
     private static Command? TryVarConst(string value)
     {
-        if (VarConst.Match(value) is { Groups: [_, { ValueSpan: var lvar }, { ValueSpan: [var op] }, { ValueSpan: var rvar }] })
+        if (VarConstRegex().Match(value) is { Groups: [_, { ValueSpan: var lvar }, { ValueSpan: [var op] }, { ValueSpan: var rvar }] })
         {
             if (int.TryParse(lvar, out var idx1)
                 && int.TryParse(rvar, out var rconst)
@@ -163,4 +160,10 @@ internal abstract record Command(int idx1, int idx2, char op)
         error = null;
         return cmd;
     }
+
+    [GeneratedRegex("^\\$(\\d+)\\s*([*\\/])\\s*(-?\\d+)\\s*$", RegexOptions.Compiled)]
+    private static partial Regex VarConstRegex();
+
+    [GeneratedRegex("^\\$(\\d+)\\s*([+-@])\\s*\\$(\\d+)\\s*$", RegexOptions.Compiled)]
+    private static partial Regex TwoVarsRegex();
 }
