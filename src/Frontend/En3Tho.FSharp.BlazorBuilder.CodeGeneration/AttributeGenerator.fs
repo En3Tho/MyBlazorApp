@@ -1,14 +1,9 @@
 module En3Tho.FSharp.BlazorBuilder.CodeGeneration.AttributeGenerator
 open System
+open System.Collections.Generic
 open En3Tho.FSharp.ComputationExpressions.CodeBuilder
 open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Web
-
-// IAvailableOn interface ?
-// Any
-// KnownElements?
-
-// input for example should yield IAvailableOn<Input> | IAvailableOn<Any>
 
 let genLowercasedAttributeName (name: string) =
     let name = name.Replace("-", "")
@@ -55,7 +50,7 @@ let genCallbackAttribute (name: string) (argsName: string) = code {
         ""
 }
 
-let genCallbackAttributeModule (attributesAndArgNames: (string * string) seq) = code {
+let genCallbackAttributeModule (attributesAndArgNames: (string * Type) seq) = code {
     "namespace En3Tho.FSharp.BlazorBuilder"
 
     "open System"
@@ -69,7 +64,7 @@ let genCallbackAttributeModule (attributesAndArgNames: (string * string) seq) = 
     indent {
         for attr, argName in attributesAndArgNames do
             ""
-            genCallbackAttribute attr argName
+            genCallbackAttribute attr argName.Name
     }
 }
 
@@ -184,7 +179,7 @@ let htmlBoolAttributes = [
     "Selected"
 ]
 
-let htmlStringAttributes = [
+let htmlStringAttributes = [ // Maybe generate those for components that explicitly accept them? Like IHtmlElementAttribute, IDivAttribute, IInputAttribute, etc.
     "Accept"
     "AcceptCharset"
     "AccessKey"
@@ -288,107 +283,141 @@ let htmlStringAttributes = [
     "Wrap"
 ]
 
-let callbackAttributesAndArgNames = [
-    "OnAbort", typeof<ProgressEventArgs>.Name
-    "OnActivate", typeof<EventArgs>.Name
-    "OnBeforeActivate", typeof<EventArgs>.Name
-    "OnBeforeCopy", typeof<EventArgs>.Name
-    "OnBeforeCut", typeof<EventArgs>.Name
-    "OnBeforeDeactivate", typeof<EventArgs>.Name
-    "OnBeforePaste", typeof<EventArgs>.Name
-    "OnBlur", typeof<FocusEventArgs>.Name
-    "OnCanPlay", typeof<EventArgs>.Name
-    "OnCanPlayThrough", typeof<EventArgs>.Name
-    "OnChange", typeof<ChangeEventArgs>.Name
-    "OnClick", typeof<MouseEventArgs>.Name
-    "OnContextMenu", typeof<MouseEventArgs>.Name
-    "OnCopy", typeof<ClipboardEventArgs>.Name
-    "OnCueChange", typeof<EventArgs>.Name
-    "OnCut", typeof<ClipboardEventArgs>.Name
-    "OnDblClick", typeof<MouseEventArgs>.Name
-    "OnDeactivate", typeof<EventArgs>.Name
-    "OnDrag", typeof<DragEventArgs>.Name
-    "OnDragEnd", typeof<DragEventArgs>.Name
-    "OnDragEnter", typeof<DragEventArgs>.Name
-    "OnDragExit", typeof<DragEventArgs>.Name
-    "OnDragLeave", typeof<DragEventArgs>.Name
-    "OnDragOver", typeof<DragEventArgs>.Name
-    "OnDragStart", typeof<DragEventArgs>.Name
-    "OnDrop", typeof<DragEventArgs>.Name
-    "OnDurationChange", typeof<EventArgs>.Name
-    "OnEmptied", typeof<EventArgs>.Name
-    "OnEnded", typeof<EventArgs>.Name
-    "OnError", typeof<ErrorEventArgs>.Name
-    "OnFocus", typeof<FocusEventArgs>.Name
-    "OnFocusIn", typeof<FocusEventArgs>.Name
-    "OnFocusOut", typeof<FocusEventArgs>.Name
-    "OnFullscreenChange", typeof<EventArgs>.Name
-    "OnFullscreenError", typeof<EventArgs>.Name
-    "OnGotPointerCapture", typeof<PointerEventArgs>.Name
-    "OnInput", typeof<ChangeEventArgs>.Name
-    "OnInvalid", typeof<EventArgs>.Name
-    "OnKeyDown", typeof<KeyboardEventArgs>.Name
-    "OnKeyPress", typeof<KeyboardEventArgs>.Name
-    "OnKeyUp", typeof<KeyboardEventArgs>.Name
-    "OnLoad", typeof<ProgressEventArgs>.Name
-    "OnLoadedData", typeof<EventArgs>.Name
-    "OnLoadedMetadata", typeof<EventArgs>.Name
-    "OnLoadEnd", typeof<ProgressEventArgs>.Name
-    "OnLoadStart", typeof<ProgressEventArgs>.Name
-    "OnLostPointerCapture", typeof<PointerEventArgs>.Name
-    "OnMouseDown", typeof<MouseEventArgs>.Name
-    "OnMouseEnter", typeof<MouseEventArgs>.Name
-    "OnMouseLeave", typeof<MouseEventArgs>.Name
-    "OnMouseMove", typeof<MouseEventArgs>.Name
-    "OnMouseOut", typeof<MouseEventArgs>.Name
-    "OnMouseOver", typeof<MouseEventArgs>.Name
-    "OnMouseUp", typeof<MouseEventArgs>.Name
-    "OnMouseWheel", typeof<WheelEventArgs>.Name
-    "OnPaste", typeof<ClipboardEventArgs>.Name
-    "OnPause", typeof<EventArgs>.Name
-    "OnPlay", typeof<EventArgs>.Name
-    "OnPlaying", typeof<EventArgs>.Name
-    "OnPointerCancel", typeof<PointerEventArgs>.Name
-    "OnPointerDown", typeof<PointerEventArgs>.Name
-    "OnPointerEnter", typeof<PointerEventArgs>.Name
-    "OnPointerLeave", typeof<PointerEventArgs>.Name
-    "OnPointerLockChange", typeof<EventArgs>.Name
-    "OnPointerLockError", typeof<EventArgs>.Name
-    "OnPointerMove", typeof<PointerEventArgs>.Name
-    "OnPointerOut", typeof<PointerEventArgs>.Name
-    "OnPointerOver", typeof<PointerEventArgs>.Name
-    "OnPointerUp", typeof<PointerEventArgs>.Name
-    "OnProgress", typeof<ProgressEventArgs>.Name
-    "OnRateChange", typeof<EventArgs>.Name
-    "OnReadyStateChange", typeof<EventArgs>.Name
-    "OnReset", typeof<EventArgs>.Name
-    "OnScroll", typeof<EventArgs>.Name
-    "OnSeeked", typeof<EventArgs>.Name
-    "OnSeeking", typeof<EventArgs>.Name
-    "OnSelect", typeof<EventArgs>.Name
-    "OnSelectionChange", typeof<EventArgs>.Name
-    "OnSelectStart", typeof<EventArgs>.Name
-    "OnStalled", typeof<EventArgs>.Name
-    "OnStop", typeof<EventArgs>.Name
-    "OnSubmit", typeof<EventArgs>.Name
-    "OnSuspend", typeof<EventArgs>.Name
-    "OnTimeout", typeof<EventArgs>.Name
-    "OnTimeUpdate", typeof<EventArgs>.Name
-    "OnToggle", typeof<EventArgs>.Name
-    "OnTouchCancel", typeof<TouchEventArgs>.Name
-    "OnTouchEnd", typeof<TouchEventArgs>.Name
-    "OnTouchEnter", typeof<TouchEventArgs>.Name
-    "OnTouchLeave", typeof<TouchEventArgs>.Name
-    "OnTouchMove", typeof<TouchEventArgs>.Name
-    "OnTouchStart", typeof<TouchEventArgs>.Name
-    "OnVolumeChange", typeof<EventArgs>.Name
-    "OnWaiting", typeof<EventArgs>.Name
-    "OnWheel", typeof<WheelEventArgs>.Name
-]
-
+let argsTypeToCallbackNames = Dictionary (seq {
+    KeyValuePair(typeof<ProgressEventArgs>, [|
+        "OnAbort"
+        "OnLoad"
+        "OnLoadEnd"
+        "OnLoadStart"
+        "OnProgress"
+    |])
+    
+    KeyValuePair(typeof<FocusEventArgs>, [|
+        "OnBlur"
+        "OnFocus"
+        "OnFocusIn"
+        "OnFocusOut"
+    |])
+    
+    KeyValuePair(typeof<ChangeEventArgs>, [|
+        "OnInput"
+        "OnChange"
+    |])
+    
+    KeyValuePair(typeof<MouseEventArgs>, [|
+        "OnClick"
+        "OnContextMenu"
+        "OnMouseDown"
+        "OnMouseEnter"
+        "OnMouseLeave"
+        "OnMouseMove"
+        "OnMouseOut"
+        "OnMouseOver"
+        "OnMouseUp"
+        "OnDblClick"
+    |])
+    
+    KeyValuePair(typeof<ClipboardEventArgs>, [|
+        "OnCopy"
+        "OnCut"
+        "OnPaste"
+    |])
+    
+    KeyValuePair(typeof<DragEventArgs>, [|
+        "OnDrag"
+        "OnDragEnd"
+        "OnDragEnter"
+        "OnDragExit"
+        "OnDragLeave"
+        "OnDragOver"
+        "OnDragStart"
+        "OnDrop"
+    |])
+    
+    KeyValuePair(typeof<PointerEventArgs>, [|
+        "OnGotPointerCapture"
+        "OnLostPointerCapture"
+        "OnPointerCancel"
+        "OnPointerDown"
+        "OnPointerEnter"
+        "OnPointerLeave"
+        "OnPointerMove"
+        "OnPointerOut"
+        "OnPointerOver"
+        "OnPointerUp"
+    |])
+    
+    KeyValuePair(typeof<KeyboardEventArgs>, [|
+        "OnKeyDown"
+        "OnKeyPress"
+        "OnKeyUp"
+    |])
+    
+    KeyValuePair(typeof<TouchEventArgs>, [|
+        "OnTouchCancel"
+        "OnTouchEnd"
+        "OnTouchEnter"
+        "OnTouchLeave"
+        "OnTouchMove"
+        "OnTouchStart"
+    |])
+    
+    KeyValuePair(typeof<ErrorEventArgs>, [|
+        "OnError"
+    |])
+    
+    KeyValuePair(typeof<WheelEventArgs>, [|
+        "OnLoadedMetadata"
+        "OnMouseWheel"
+        "OnWheel"
+    |])
+    
+    KeyValuePair(typeof<EventArgs>, [|
+        "OnActivate"
+        "OnBeforeActivate"
+        "OnBeforeCopy"
+        "OnBeforeCut"
+        "OnBeforeDeactivate"
+        "OnBeforePaste"
+        "OnCanPlay"
+        "OnCanPlayThrough"
+        "OnCueChange"
+        "OnDeactivate"
+        "OnDurationChange"
+        "OnEmptied"
+        "OnEnded"
+        "OnFullscreenChange"
+        "OnFullscreenError"
+        "OnInvalid"
+        "OnLoadedData"
+        "OnPause"
+        "OnPlay"
+        "OnPlaying"
+        "OnPointerLockChange"
+        "OnPointerLockError"
+        "OnRateChange"
+        "OnReadyStateChange"
+        "OnReset"
+        "OnScroll"
+        "OnSeeked"
+        "OnSeeking"
+        "OnSelect"
+        "OnSelectionChange"
+        "OnSelectStart"
+        "OnStalled"
+        "OnStop"
+        "OnSubmit"
+        "OnSuspend"
+        "OnTimeout"
+        "OnTimeUpdate"
+        "OnToggle"
+        "OnVolumeChange"
+        "OnWaiting"
+    |])
+})
 let getKnownAttributes() =
     genKnownAttributeModule (List.sort [
-        yield! (callbackAttributesAndArgNames |> Seq.map fst)
+        yield! (argsTypeToCallbackNames.Values |> Seq.concat)
         yield! htmlStringAttributes
         yield! htmlBoolAttributes
         "ChildContent"
@@ -396,7 +425,7 @@ let getKnownAttributes() =
     |> Code.writeToFile "KnownAttributes.fs"
 
 let genCallbackAttributes() =
-    genCallbackAttributeModule callbackAttributesAndArgNames
+    genCallbackAttributeModule (argsTypeToCallbackNames |> Seq.map (fun kvp -> kvp.Value |> Seq.map (fun value -> value, kvp.Key)) |> Seq.concat)
     |> Code.writeToFile "CallbackAttributes.fs"
 
 let genStringAttributes() =
