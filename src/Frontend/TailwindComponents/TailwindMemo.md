@@ -44,4 +44,10 @@ Possible usages:
 4. @component@nameof(MyComponent)px-4 // ?
 small validation on const strings from html module
 This then can be moved to nuget package and reused in other projects
+
+[Tailwind]
+// const string str = md:[...] ... ?
+
+Include source generated documents via env var? ...\AppData\Local\Temp\SourceGeneratedDocuments
+
 ```
