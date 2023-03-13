@@ -17,7 +17,7 @@
       <Compile Include="MicrosoftAspNetCoreComponentsQuickGrid.Imports.fs" />
       <Compile Include="Imports.fs" />
       <Compile Include="ExampleImports.fs" />
-      <Compile Include="FullyFSharpPage.fs" />
+      <Compile Include="FSharpPage.fs" />
     </ItemGroup>
 
     <ItemGroup>

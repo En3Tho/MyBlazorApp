@@ -3,8 +3,6 @@
 open System
 open System.Collections.Generic
 open System.Runtime.InteropServices
-open Microsoft.AspNetCore.Components
-open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open MyBlazorApp.Utility.FSharpHelpers

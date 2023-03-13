@@ -89,12 +89,6 @@ let genImportsModule (type': Type) =
         |> Seq.append [| "builder: BlazorBuilderCore" |]
         |> String.concat ", "
 
-    let parameters =
-        required
-        |> Seq.map (fun prop -> prop.Name.ToLower())
-        |> Seq.append [| "builder" |]
-        |> String.concat ", "
-
     let importTypeName = ImportHelper.genImportTypeName type'
     let typeName = ImportHelper.genTypeName type'
     let moduleToOpen = ImportHelper.genImportModuleName type'

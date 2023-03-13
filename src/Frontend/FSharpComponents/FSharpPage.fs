@@ -3,12 +3,9 @@ namespace FSharpComponents
 open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.BlazorBuilder
 
-[<Route("FullyFSharpPage")>]
-type FullyFSharpPage() =
+[<Route("FSharpPage")>]
+type FSharpPage() =
     inherit ComponentBase()
-
-    // TODO: implement a custom mobile / desktop layout
-    // only with F# components and markup
 
     override this.BuildRenderTree(builder) =
         builder.Render(blazor {
