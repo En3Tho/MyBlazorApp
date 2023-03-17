@@ -10,8 +10,7 @@ public interface IInput<T>
     public Action<string?>? OnRawChange { get; init; }
 }
 
-public abstract class
-    StrictInput<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Strict>
+public abstract class StrictInput<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Strict>
     where TValidatable : IValidatable<TValidatable, TData> where TParser : struct, IInputParser<TData>
 {
     protected StrictInput() : base()
@@ -50,14 +49,14 @@ public static class InputMode
     }
 }
 
-public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInput<Box<TValidatable>>
+public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInput<SafeBox<TValidatable>>
     where TValidatable : IValidatable<TValidatable, TData>
     where TParser : struct, IInputParser<TData>
     where TInputMode : struct, IInputMode
 {
     private string? _rawString = "";
-    public Box<TValidatable> Value { get; private set; }
-    public Action<Box<TValidatable>>? OnValueChange { get; init; }
+    public SafeBox<TValidatable> Value { get; private set; }
+    public Action<SafeBox<TValidatable>>? OnValueChange { get; init; }
     public Action<string?>? OnRawChange { get; init; }
 
     protected InputBase()
@@ -74,7 +73,7 @@ public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInp
         return _rawString ?? "";
     }
 
-    private void SetValue(Box<TValidatable> value, string? raw = null)
+    private void SetValue(SafeBox<TValidatable> value, string? raw = null)
     {
         var rawString = raw ?? value.ToString();
         Value = value;
@@ -119,7 +118,7 @@ public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInp
                     string.IsNullOrEmpty(value)
                     && TParser.TryParse(value, null, out var parsed)
                     && TValidatable.Try(parsed, out var validated)
-                        ? new Box<TValidatable>(validated)
+                        ? new SafeBox<TValidatable>(validated)
                         : default;
                 SetValue(result, value);
             }

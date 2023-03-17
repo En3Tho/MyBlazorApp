@@ -40,10 +40,12 @@
         <div class="bg-slate-100 rounded-md">
             <input class="flex-1 p-4 bg-inherit w-full rounded-md" value="@_command" @oninput="OnInput" @onkeydown="OnKeyDown"/>
         </div>
-        @If(_error is {},
-            @<div class="text-red-500">
+        @if (_error is {})
+        {
+            <div class="text-red-500">
                 @_error
-            </div>)
+            </div>
+        }
         <div class="flex flex-wrap py-4 w-full">
             @foreach (var item in _history)
             {
