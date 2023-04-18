@@ -83,7 +83,7 @@ let genImportsModule (type': Type) =
         |> Seq.filter (not << isRequired)
         |> Seq.toArray
 
-    let annotatedParameters =
+    let requiredParameters =
         required
         |> Seq.map (fun prop -> $"{prop.Name.ToLower()}: {ImportHelper.genTypeName prop.PropertyType}")
         |> Seq.append [| "builder: BlazorBuilderCore" |]
@@ -117,7 +117,7 @@ let genImportsModule (type': Type) =
             ""
             $"type {typeName} with"
             indent {
-                $"static member inline Render({annotatedParameters}) ="
+                $"static member inline Render({requiredParameters}) ="
                 indent {
                     $"builder.OpenComponent<{typeName}>()"
                     for requiredProperty in required do

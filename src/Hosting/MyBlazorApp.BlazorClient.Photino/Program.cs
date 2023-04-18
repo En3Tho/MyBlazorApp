@@ -13,7 +13,6 @@ public class Program
         builder.RootComponents.Add<App>("app");
         builder.Services.AddServices();
         var app = builder.Build();
-        app.MainWindow.StartUrl = "index.html";
         app.Run();
     }
 }
