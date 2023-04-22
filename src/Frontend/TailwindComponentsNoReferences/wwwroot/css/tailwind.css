@@ -2040,6 +2040,10 @@ video {
   animation-duration: 2000ms;
 }
 
+.\!slow {
+  animation-duration: 2000ms !important;
+}
+
 .heartBeat {
   animation-name: heartBeat;
   animation-duration: 1000ms;

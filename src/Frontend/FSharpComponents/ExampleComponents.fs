@@ -98,11 +98,9 @@ type CounterFSharp() =
                          onClick' (this, this.OnClick) } {
                     "Click me"
                 }
-                input {
-                    class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
-                    typeNumber'
-                    bindChange' (this, this.IncrementAmount, this.set_IncrementAmount)
-                }
+                input { class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
+                        typeNumber'
+                        bindChange' (this, this.IncrementAmount, this.set_IncrementAmount) }
             }
         })
 
@@ -142,6 +140,12 @@ type MatrixFSharp() =
                                 th { class' (tableCell, "text-red-500") } {
                                     colIdx.ToString()
                                 }
+                            div { class' "wow" } {
+                                "Abc"
+                                div { class' "wow2" } {
+                                    "Bcd"
+                                }
+                            }
                         }
 
                         for colIdx = 0 to this.Data.Length - 1 do
