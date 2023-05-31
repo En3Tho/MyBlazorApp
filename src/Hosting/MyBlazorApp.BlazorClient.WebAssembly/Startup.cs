@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using En3Tho.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Components;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
