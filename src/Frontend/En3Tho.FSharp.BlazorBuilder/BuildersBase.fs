@@ -58,11 +58,9 @@ type BlazorElementOrComponentBuilderBase() =
     member inline this.Delay([<InlineIfLambda>] delay: unit -> BlazorBuilderZeroCode) : BlazorBuilderZeroCode =
         BlazorBuilderZeroCode(fun (builder) -> (delay()).Invoke(builder))
 
-
     member inline _.Yield<'attr when 'attr: struct and 'attr :> IAttribute>(attr: 'attr) : BlazorBuilderAttributeCode =
         BlazorBuilderAttributeCode(fun builder ->
             attr.RenderTo builder)
-
 
     member inline this.While([<InlineIfLambda>] moveNext: unit -> bool, [<InlineIfLambda>] whileExpr: BlazorBuilderMarkupCode) : BlazorBuilderMarkupCode =
         BlazorBuilderMarkupCode(fun builder ->

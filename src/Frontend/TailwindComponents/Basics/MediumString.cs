@@ -22,7 +22,7 @@ public readonly partial struct MediumString : IValidatable<MediumString, string>
     IEquatable<MediumString>, IEquatable<string>
 {
 #if DEBUG
-    private readonly Box<string> _value;
+    private readonly SafeBox<string> _value;
 #else
     private readonly string _value;
 #endif

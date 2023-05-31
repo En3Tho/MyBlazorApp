@@ -3,6 +3,7 @@ module En3Tho.FSharp.BlazorBuilder.CodeGeneration.ImportGenerator
 open System
 open System.Collections.Generic
 open System.Reflection
+open En3Tho.FSharp.Extensions
 open En3Tho.FSharp.ComputationExpressions.CodeBuilder
 open FSharpComponents
 open Microsoft.AspNetCore.Components
@@ -53,7 +54,6 @@ module ImportHelper =
         else
             nsCache.Add type'.Namespace |> ignore
 
-
 let genImportsModule (type': Type) =
 
     let isParameter (prop: PropertyInfo) =
@@ -68,9 +68,9 @@ let genImportsModule (type': Type) =
     let parameters =
         type'.GetProperties(BindingFlags.Public ||| BindingFlags.Instance)
         |> Seq.where isParameter
-        |> Seq.map (fun param ->
+        |> Seq.map ^ fun param ->
             ImportHelper.collectNamespacesForType namespacesToOpen param.PropertyType
-            param)
+            param
         |> Seq.toArray
 
     let required =
@@ -141,10 +141,10 @@ let genImportsForNamespace (rootNamespace: string) (types: Type[]) =
 let genImportsForAssembly rootNamespace (assembly: Assembly) =
     let componentTypes =
         assembly.GetTypes()
-        |> Seq.filter (fun type' ->
+        |> Seq.filter ^ fun type' ->
             type'.IsPublic && not type'.IsAbstract
             && type'.IsAssignableTo(typeof<ComponentBase>)
-            && type'.Namespace.Equals(rootNamespace))
+            && type'.Namespace.Equals(rootNamespace)
         |> Seq.toArray
 
     genImportsForNamespace rootNamespace componentTypes

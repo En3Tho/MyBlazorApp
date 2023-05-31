@@ -12,11 +12,6 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
 
     static member val Instance = ComponentBlock<'a>()
 
-    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderAttributeCode) : BlazorBuilderChildContentCode =
-        BlazorBuilderChildContentCode(fun builder ->
-            builder.OpenComponent<'a>()
-            runExpr.Invoke builder)
-
     member inline this.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderComponentCode) : BlazorBuilderChildContentCode =
         BlazorBuilderChildContentCode(fun builder ->
             codeBuilderCode.Invoke builder)
@@ -56,6 +51,11 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
             builder.OpenElement(element.Name)
             builder.CloseElement())
 
+    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderAttributeCode) : BlazorBuilderChildContentCode =
+        BlazorBuilderChildContentCode(fun builder ->
+            builder.OpenComponent<'a>()
+            runExpr.Invoke builder)
+
     member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderChildContentCode) : BlazorBuilderComponentCode =
         BlazorBuilderComponentCode(fun builder ->
             builder.OpenComponent<'a>()
@@ -66,11 +66,6 @@ type ComponentBlock<'a when 'a :> ComponentBase>() =
 type ElementBlock<'name when 'name :> IElementName and 'name: struct>() =
     inherit BlazorElementOrComponentBuilderBase()
     member _.Name = Unchecked.defaultof<'name>.Name
-
-    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderAttributeCode) : BlazorBuilderMarkupCode =
-        BlazorBuilderMarkupCode(fun builder ->
-            builder.OpenElement(this.Name)
-            runExpr.Invoke builder)
 
     member inline this.Yield([<InlineIfLambda>] codeBuilderCode: BlazorBuilderMarkupCode) : BlazorBuilderMarkupCode =
         BlazorBuilderMarkupCode(fun builder ->
@@ -115,6 +110,11 @@ type ElementBlock<'name when 'name :> IElementName and 'name: struct>() =
         BlazorBuilderMarkupCode(fun builder ->
             builder.OpenElement(element.Name)
             builder.CloseElement())
+
+        member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderAttributeCode) : BlazorBuilderMarkupCode =
+        BlazorBuilderMarkupCode(fun builder ->
+            builder.OpenElement(this.Name)
+            runExpr.Invoke builder)
 
     member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderMarkupCode) : BlazorBuilderElementCode =
         BlazorBuilderElementCode(fun builder ->
