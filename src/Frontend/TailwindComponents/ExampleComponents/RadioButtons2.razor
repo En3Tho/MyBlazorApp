@@ -5,7 +5,7 @@
         void OnClick() => selected = currentIndex;
         <label>
             <input type="radio" name="radio" class="peer absolute w-0 h-0" @onclick="OnClick"/>
-            <div class="flex p-4 items-center justify-between h-12 inline-block bg-slate-100 shadow-sm cursor-pointer rounded-md box-border
+            <div class="flex p-4 items-center justify-between h-12 bg-slate-100 shadow-sm cursor-pointer rounded-md box-border
                          @If(selected == currentIndex, "border-red-900 border-[1px]")">
                 <span class="ml-3 text-red-300 text-xl">@currentIndex</span>
                 <span class="mr-3 h-6 w-6 rounded-[50%] border-solid border border-black

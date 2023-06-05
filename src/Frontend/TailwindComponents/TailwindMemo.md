@@ -2,6 +2,7 @@ Command:
 ```
 npx tailwindcss -i ./Styles/TailwindComponents.css -o ./wwwroot/css/TailwindComponents.css --watch
 ```
+Docs:
 ```
 https://tailwindcss.com/docs/installation
 https://tailwindcss.com/docs/customizing-colors
