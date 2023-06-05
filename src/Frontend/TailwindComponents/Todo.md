@@ -19,4 +19,7 @@ blazor inputs, forms and validation
 ### TODO: ###
 build custom inputs
 
+### TODO: ###
+Make ThemeSelector work with tailwind instead of using custom styles
+
 // no-scrollbar utility?

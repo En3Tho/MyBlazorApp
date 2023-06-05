@@ -18,6 +18,7 @@ public class Program
         builder.Services.AddServices(configurationManager);
         builder.Services.AddSingleton(configurationManager);
         var app = builder.Build();
+        app.MainWindow.SetLogVerbosity(0);
         app.Run();
     }
 }
