@@ -1,6 +1,7 @@
 <Project>
     <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
         <Tailcalls>false</Tailcalls>
+        <OtherFlags>$(OtherFlags) --reflectionfree</OtherFlags>
         <NoWarn>
             <!--Unverifiable IL--> 9,
             <!--explicit new IDisposable--> 0760,

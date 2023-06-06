@@ -13,32 +13,34 @@ open TailwindComponentsImports
 open Microsoft.AspNetCore.Components.QuickGrid
 open System.Linq
 
+[<Sealed>]
 type OldWay() =
-    inherit ComponentBase()
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+    inherit FSharpComponentBase()
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             let helloWorld = Unchecked.defaultof<HelloWorldFSharp>
 
             render<HelloWorldFSharp> {
                 nameof(helloWorld.Name) => "C#"
                 nameof(helloWorld.Name2) => "VB"
             }
-        })
+        }
 
+[<Sealed>]
 type Importer() =
-    inherit ComponentBase()
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
-            let! b = getBuilder()
-            HelloWorldFSharp.Render(b, "C#", Name2 = "VB")
-        })
+    inherit FSharpComponentBase()
+    override this.BuildRenderTreeCore(builder) =
+        builder {
+            HelloWorldFSharp.Render(builder, "C#", Name2 = "VB")
+        }
 
+[<Sealed>]
 type RequiredImportFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
     let smallNum = IntInput<SmallNum>()
 
-    override this.BuildRenderTree(builder) =
+    override this.BuildRenderTreeCore(builder) =
 
         let main = fragment {
             div { class' "block h-12 w-36 bg-red-200" } {
@@ -54,12 +56,13 @@ type RequiredImportFSharp() =
             }
         }
 
-        builder.Render(blazor {
-            fun b -> Required.Render(b, error, main, fun () -> smallNum.IsEmpty || smallNum.IsValid)
-        })
+        builder {
+            Required.Render(builder, error, main, fun () -> smallNum.IsEmpty || smallNum.IsValid)
+        }
 
+[<Sealed>]
 type ComplexComponentFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
     member val MatrixData = [|
         [| 1; 1; 1; 1; 0; 0; 1; 0; 0; 3 |]
@@ -73,7 +76,7 @@ type ComplexComponentFSharp() =
         [| 0; 0; 1; 0; 0; 1; 1; 1; 1; 3 |]
     |]
 
-    override this.BuildRenderTree(builder) =
+    override this.BuildRenderTreeCore(builder) =
         let mutable x = 0
         let iterateColor() =
             x <- x + 1
@@ -83,9 +86,10 @@ type ComplexComponentFSharp() =
         let renderFragment = fragment { span { "renderFragment: 123" } }
         let codeBlock = span { "codeBlock: 123" }
         let constant = "constant: 123"
-        let template (value: string) = span { "template: "; value }
+        // this is inlined unlike RenderFragment
+        let inline template (value: string) = span { "template: "; value }
 
-        builder.Render(blazor {
+        builder {
             div { class' (block, iterateColor()) } {
                 renderFragment
                 div { class' (block, iterateColor()) } {
@@ -102,27 +106,28 @@ type ComplexComponentFSharp() =
                 div { class' (block, iterateColor()) } {
                     template "123"
                     div { class' (block, iterateColor()) } {
-                        fun b ->
-                            Matrix.Render(b, this.MatrixData)
+                        Matrix.Render(builder, this.MatrixData)
                     }
                 }
             }
-        })
+        }
 
+[<Sealed>]
 type UsesRef() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
     member val Ref = Unchecked.defaultof<HelloWorldFSharp> with get, set
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
-            fun b -> HelloWorldFSharp.Render(b, "Blazor") {
+    override this.BuildRenderTreeCore(builder) =
+        builder {
+            HelloWorldFSharp.Render(builder, "Blazor") {
                 ref' this.set_Ref
             }
-        })
+        }
 
+[<Sealed>]
 type QuickGridImportFromCSharp() =
-    inherit ComponentBase()
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+    inherit FSharpComponentBase()
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             render<QuickGridTest> {
                 "Data" => [|
                     Person("John", "Doe", "email")
@@ -131,17 +136,17 @@ type QuickGridImportFromCSharp() =
                     Person("Jane", "Smith", "email")
                 |].AsQueryable()
             }
-        })
+        }
 
+[<Sealed>]
 type QuickGridImportFSharp() =
-    inherit ComponentBase()
-    override this.BuildRenderTree(builder) =
+    inherit FSharpComponentBase()
+    override this.BuildRenderTreeCore(builder) =
 
         let cols = fragment {
-            let! b = getBuilder()
-            PropertyColumn.Render(b, fun (p: Person) -> p.Name)
-            PropertyColumn.Render(b, fun (p: Person) -> p.Email)
-            PropertyColumn.Render(b, fun (p: Person) -> p.ImageUrl)
+            PropertyColumn.Render(builder, fun (p: Person) -> p.Name)
+            PropertyColumn.Render(builder, fun (p: Person) -> p.Email)
+            PropertyColumn.Render(builder, fun (p: Person) -> p.ImageUrl)
         }
 
         let data =
@@ -152,10 +157,9 @@ type QuickGridImportFSharp() =
                 Person("Jane", "Smith", "email")
             |].AsQueryable()
 
-        builder.Render(blazor {
-            let! b = getBuilder()
-            QuickGrid.Render(b, Items = data, ChildContent = cols)
-        })
+        builder {
+            QuickGrid.Render(builder, Items = data, ChildContent = cols)
+        }
 
 // TODO: how to make this syntax work?
 // type QuickGridImportFSharpX() =
@@ -180,12 +184,13 @@ type QuickGridImportFSharp() =
 //             })
 //         })
 
+[<Sealed>]
 type QuickGridImportFSharp3() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
     member _.Quote(f: Expression<Func<'a, 'b>>) = f
 
-    override this.BuildRenderTree(builder) =
+    override this.BuildRenderTreeCore(builder) =
 
         let data =
             [|
@@ -195,7 +200,7 @@ type QuickGridImportFSharp3() =
                 Person("Jane", "Smith", "email")
             |].AsQueryable()
 
-        builder.Render(blazor {
+        builder {
             render<QuickGrid<Person>> {
                 "Items" => data
             } {
@@ -209,4 +214,4 @@ type QuickGridImportFSharp3() =
                     "Property" => this.Quote(fun (p: Person) -> p.ImageUrl)
                 }
             }
-        })
+        }

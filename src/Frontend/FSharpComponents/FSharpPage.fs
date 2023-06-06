@@ -3,12 +3,13 @@ namespace FSharpComponents
 open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.BlazorBuilder
 
-[<Route("FSharpPage")>]
-type FSharpPage() =
-    inherit ComponentBase()
 
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+[<Route("FSharpPage"); Sealed>]
+type FSharpPage() =
+    inherit FSharpComponentBase()
+
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             div { class' "h-full flex flex-col gap-1" } {
                 h1 { class' "text-center text-xl text-red-500" } {
                     "Hello from F#!"
@@ -22,4 +23,4 @@ type FSharpPage() =
                     "Div at the bottom?"
                 }
             }
-        })
+        }

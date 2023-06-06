@@ -5,10 +5,22 @@ open Microsoft.AspNetCore.Components
 open Microsoft.AspNetCore.Components.Rendering
 open Microsoft.FSharp.Core
 
-type RenderTreeBuilder with
+[<AbstractClass>]
+type FSharpComponentBase() =
+    inherit ComponentBase()
 
+    abstract member BuildRenderTreeCore: builder: BlazorBuilderCore -> unit
+
+    override this.BuildRenderTree(builder: RenderTreeBuilder) =
+        this.BuildRenderTreeCore(BlazorBuilderCore(builder))
+
+type RenderTreeBuilder with
     member inline this.Render([<InlineIfLambda>] runExpr) =
         runExpr this
+
+type BlazorBuilderCore with
+    member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderMarkupCode) =
+        runExpr.Invoke this
 
 let blazor = BlazorBuilderRunner()
 let fragment = RenderFragmentRunner()

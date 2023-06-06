@@ -422,7 +422,6 @@ type BlazorBuilderRunner() =
     inherit RenderTreeBlockBase()
     member inline this.Run([<InlineIfLambda>] runExpr: BlazorBuilderMarkupCode) =
         fun builder ->
-            let builder = BlazorBuilderCore(builder)
             runExpr.Invoke builder
 
 [<Sealed>]

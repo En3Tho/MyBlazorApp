@@ -5,8 +5,9 @@ open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.BlazorBuilder
 open Microsoft.AspNetCore.Components.Web
 
+[<Sealed>]
 type HelloWorldFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
     [<Parameter; EditorRequired>]
     member val Name = "" with get, set
@@ -14,30 +15,32 @@ type HelloWorldFSharp() =
     [<Parameter>]
     member val Name2 = "F#" with get, set
 
-    override this.BuildRenderTree(builder) =
-         builder.Render(blazor {
+    override this.BuildRenderTreeCore(builder) =
+         builder {
              h1 {
                  $"Hello, {this.Name} from {this.Name2}!"
              }
-        })
+        }
 
+[<Sealed>]
 type ComponentWithLoopFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             for i in 1..10 do
                 h1 {
                     $"Hello, {i}!"
                 }
-        })
+        }
 
 // TODO: svg
+[<Sealed>]
 type ComponentWithSvg() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor { ()
+    override this.BuildRenderTreeCore(builder) =
+        builder { ()
 //            svg { class' "stroke-[3]"
 //                  xmlns' "http://www.w3.org/2000/svg"
 //                  fill' "none"
@@ -48,26 +51,28 @@ type ComponentWithSvg() =
 //                         d' "M4.5 12.75l6 6 9-13.5"
 //                  }
 //             }
-        })
+        }
 
+[<Sealed>]
 type ComponentWithLoopFSharp2() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             for i in 1..10 do
                 h1 {
                     div {
                         $"Hello, {i}!"
                     }
                 }
-        })
+        }
 
+[<Sealed>]
 type NestedComponentFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
-    override this.BuildRenderTree(builder) =
-        builder.Render(blazor {
+    override this.BuildRenderTreeCore(builder) =
+        builder {
             h1 {
                 div {
                     "Hello"
@@ -79,17 +84,18 @@ type NestedComponentFSharp() =
             h1 { class' "bg-gray-300" } {
                 "Wow"
             }
-        })
+        }
 
+[<Sealed>]
 type CounterFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
     let mutable clicks = 0
     member val IncrementAmount = 1 with get, set
     member this.OnClick() = clicks <- clicks + this.IncrementAmount
 
-    override this.BuildRenderTree(builder) =
+    override this.BuildRenderTreeCore(builder) =
 
-        builder.Render(blazor {
+        builder {
             h1 { class' "block" } {
                 "Counter: "; clicks.ToString()
             }
@@ -102,14 +108,15 @@ type CounterFSharp() =
                         typeNumber'
                         bindChange' (this, this.IncrementAmount, this.set_IncrementAmount) }
             }
-        })
+        }
 
     static member Test(builder) =
         let counter = CounterFSharp()
         counter.BuildRenderTree(builder)
 
+[<Sealed>]
 type MatrixFSharp() =
-    inherit ComponentBase()
+    inherit FSharpComponentBase()
 
     let mutable command: string = null
     let mutable error: string = null
@@ -121,11 +128,11 @@ type MatrixFSharp() =
     member private _.OnInput(args: ChangeEventArgs) = ()
     member private _.OnKeyDown(args: KeyboardEventArgs) = ()
 
-    override this.BuildRenderTree(builder) =
+    override this.BuildRenderTreeCore(builder) =
         let tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
         let tableCell = "w-4 font-semibold text-xl text-end";
 
-        builder.Render(blazor {
+        builder {
             div { class' "flex flex-col gap-4 max-w-sm" } {
                 div { class' "p-4 rounded-md bg-violet-200 w-max" } {
                     table {
@@ -184,4 +191,4 @@ type MatrixFSharp() =
                     }
                 }
             }
-        })
+        }

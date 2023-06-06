@@ -2,8 +2,13 @@
 <h1>
     Counter: @clicks
 </h1>
-<button class="h-12 w-12 bg-blue-500 text-white rounded-full" @onclick="@OnClick"></button>
-<input class="h-12 w-12 bg-blue-500 text-red-500" @bind="@incrementAmount" type="number"/>
+<div class="flex gap-2">
+    <button class="h-12 w-12 bg-blue-500 text-white rounded-full" @onclick="@OnClick">
+        Click me
+    </button>
+    <input class="h-12 w-12 bg-blue-500 text-red-500" @bind="@incrementAmount" type="number"/>
+</div>
+
 
 @code {
     int clicks = 0;
