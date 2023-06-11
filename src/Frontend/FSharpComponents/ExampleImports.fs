@@ -16,23 +16,21 @@ open System.Linq
 [<Sealed>]
 type OldWay() =
     inherit FSharpComponentBase()
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            let helloWorld = Unchecked.defaultof<HelloWorldFSharp>
+    override this.BuildRenderTreeCore(builder) = builder {
+        let helloWorld = Unchecked.defaultof<HelloWorldFSharp>
 
-            render<HelloWorldFSharp> {
-                nameof(helloWorld.Name) => "C#"
-                nameof(helloWorld.Name2) => "VB"
-            }
+        render<HelloWorldFSharp> {
+            nameof(helloWorld.Name) => "C#"
+            nameof(helloWorld.Name2) => "VB"
         }
+    }
 
 [<Sealed>]
 type Importer() =
     inherit FSharpComponentBase()
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            HelloWorldFSharp.Render(builder, "C#", Name2 = "VB")
-        }
+    override this.BuildRenderTreeCore(builder) = builder {
+        HelloWorldFSharp.Render(builder, "C#", Name2 = "VB")
+    }
 
 [<Sealed>]
 type RequiredImportFSharp() =
@@ -116,27 +114,25 @@ type ComplexComponentFSharp() =
 type UsesRef() =
     inherit FSharpComponentBase()
     member val Ref = Unchecked.defaultof<HelloWorldFSharp> with get, set
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            HelloWorldFSharp.Render(builder, "Blazor") {
-                ref' this.set_Ref
-            }
+    override this.BuildRenderTreeCore(builder) = builder {
+        HelloWorldFSharp.Render(builder, "Blazor") {
+            ref' this.set_Ref
         }
+    }
 
 [<Sealed>]
 type QuickGridImportFromCSharp() =
     inherit FSharpComponentBase()
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            render<QuickGridTest> {
-                "Data" => [|
-                    Person("John", "Doe", "email")
-                    Person("Jane", "Doe", "email")
-                    Person("John", "Smith", "email")
-                    Person("Jane", "Smith", "email")
-                |].AsQueryable()
-            }
+    override this.BuildRenderTreeCore(builder) = builder {
+        render<QuickGridTest> {
+            "Data" => [|
+                Person("John", "Doe", "email")
+                Person("Jane", "Doe", "email")
+                Person("John", "Smith", "email")
+                Person("Jane", "Smith", "email")
+            |].AsQueryable()
         }
+    }
 
 [<Sealed>]
 type QuickGridImportFSharp() =

@@ -15,32 +15,30 @@ type HelloWorldFSharp() =
     [<Parameter>]
     member val Name2 = "F#" with get, set
 
-    override this.BuildRenderTreeCore(builder) =
-         builder {
-             h1 {
-                 $"Hello, {this.Name} from {this.Name2}!"
-             }
-        }
+    override this.BuildRenderTreeCore(builder) = builder {
+         h1 {
+             $"Hello, {this.Name} from {this.Name2}!"
+         }
+    }
 
 [<Sealed>]
 type ComponentWithLoopFSharp() =
     inherit FSharpComponentBase()
 
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            for i in 1..10 do
-                h1 {
-                    $"Hello, {i}!"
-                }
-        }
+    override this.BuildRenderTreeCore(builder) = builder {
+        for i in 1..10 do
+            h1 {
+                $"Hello, {i}!"
+            }
+    }
 
 // TODO: svg
 [<Sealed>]
 type ComponentWithSvg() =
     inherit FSharpComponentBase()
 
-    override this.BuildRenderTreeCore(builder) =
-        builder { ()
+    override this.BuildRenderTreeCore(builder) = builder {
+        ()
 //            svg { class' "stroke-[3]"
 //                  xmlns' "http://www.w3.org/2000/svg"
 //                  fill' "none"
@@ -51,40 +49,38 @@ type ComponentWithSvg() =
 //                         d' "M4.5 12.75l6 6 9-13.5"
 //                  }
 //             }
-        }
+    }
 
 [<Sealed>]
 type ComponentWithLoopFSharp2() =
     inherit FSharpComponentBase()
 
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            for i in 1..10 do
-                h1 {
-                    div {
-                        $"Hello, {i}!"
-                    }
+    override this.BuildRenderTreeCore(builder) = builder {
+        for i in 1..10 do
+            h1 {
+                div {
+                    $"Hello, {i}!"
                 }
-        }
+            }
+    }
 
 [<Sealed>]
 type NestedComponentFSharp() =
     inherit FSharpComponentBase()
 
-    override this.BuildRenderTreeCore(builder) =
-        builder {
-            h1 {
-                div {
-                    "Hello"
-                }
-                div {
-                    "Hello"
-                }
+    override this.BuildRenderTreeCore(builder) = builder {
+        h1 {
+            div {
+                "Hello"
             }
-            h1 { class' "bg-gray-300" } {
-                "Wow"
+            div {
+                "Hello"
             }
         }
+        h1 { class' "bg-gray-300" } {
+            "Wow"
+        }
+    }
 
 [<Sealed>]
 type CounterFSharp() =
@@ -93,22 +89,20 @@ type CounterFSharp() =
     member val IncrementAmount = 1 with get, set
     member this.OnClick() = clicks <- clicks + this.IncrementAmount
 
-    override this.BuildRenderTreeCore(builder) =
-
-        builder {
-            h1 { class' "block" } {
-                "Counter: "; clicks.ToString()
-            }
-            div { class' "flex gap-2" } {
-                button { class' "block p-4 h-12 w-12 bg-blue-500 text-white rounded-full"
-                         onClick' (this, this.OnClick) } {
-                    "Click me"
-                }
-                input { class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
-                        typeNumber'
-                        bindChange' (this, this.IncrementAmount, this.set_IncrementAmount) }
-            }
+    override this.BuildRenderTreeCore(builder) = builder {
+        h1 { class' "block" } {
+            "Current count: "; clicks.ToString()
         }
+        div { class' "flex gap-2" } {
+            button { class' "block p-4 h-12 w-12 bg-blue-500 text-white rounded-full"
+                     onClick' (this, this.OnClick) } {
+                "Click me"
+            }
+            input { class' "flex p-4 h-12 w-12 bg-blue-500 text-red-500 text-lg"
+                    typeNumber'
+                    bindChange' (this, this.IncrementAmount, this.set_IncrementAmount) }
+        }
+    }
 
     static member Test(builder) =
         let counter = CounterFSharp()
@@ -125,8 +119,8 @@ type MatrixFSharp() =
     [<Parameter; EditorRequired>]
     member val Data: int[][] = null with get, set
     member private _.Run() = ()
-    member private _.OnInput(args: ChangeEventArgs) = ()
-    member private _.OnKeyDown(args: KeyboardEventArgs) = ()
+    member private _.OnInput(_: ChangeEventArgs) = ()
+    member private _.OnKeyDown(_: KeyboardEventArgs) = ()
 
     override this.BuildRenderTreeCore(builder) =
         let tableRow = "flex gap-4 hover:bg-violet-300 rounded-md px-2";
