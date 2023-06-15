@@ -13,14 +13,25 @@ type Logger(logger: ILogger, logLevel: LogLevel) =
 [<AbstractClass; Sealed>]
 type ILoggerExtensions() =
     [<Extension>]
-    static member Debug(logger: ILogger) = if logger.IsEnabled LogLevel.Debug then Nullable(Logger(logger, LogLevel.Debug)) else Nullable()
+    static member Debug(logger: ILogger) =
+        if logger.IsEnabled LogLevel.Debug then Nullable(Logger(logger, LogLevel.Debug)) else Nullable()
+
     [<Extension>]
-    static member Error(logger: ILogger) = if logger.IsEnabled LogLevel.Error then Nullable(Logger(logger, LogLevel.Error)) else Nullable()
+    static member Error(logger: ILogger) =
+        if logger.IsEnabled LogLevel.Error then Nullable(Logger(logger, LogLevel.Error)) else Nullable()
+
     [<Extension>]
-    static member Information(logger: ILogger) = if logger.IsEnabled LogLevel.Information then Nullable(Logger(logger, LogLevel.Information)) else Nullable()
+    static member Information(logger: ILogger) =
+        if logger.IsEnabled LogLevel.Information then Nullable(Logger(logger, LogLevel.Information)) else Nullable()
+
     [<Extension>]
-    static member None(logger: ILogger) = if logger.IsEnabled LogLevel.None then Nullable(Logger(logger, LogLevel.None)) else Nullable()
+    static member None(logger: ILogger) =
+        if logger.IsEnabled LogLevel.None then Nullable(Logger(logger, LogLevel.None)) else Nullable()
+
     [<Extension>]
-    static member Trace(logger: ILogger) = if logger.IsEnabled LogLevel.Trace then Nullable(Logger(logger, LogLevel.Trace)) else Nullable()
+    static member Trace(logger: ILogger) =
+        if logger.IsEnabled LogLevel.Trace then Nullable(Logger(logger, LogLevel.Trace)) else Nullable()
+
     [<Extension>]
-    static member Warning(logger: ILogger) = if logger.IsEnabled LogLevel.Warning then Nullable(Logger(logger, LogLevel.Warning)) else Nullable()
+    static member Warning(logger: ILogger) =
+        if logger.IsEnabled LogLevel.Warning then Nullable(Logger(logger, LogLevel.Warning)) else Nullable()

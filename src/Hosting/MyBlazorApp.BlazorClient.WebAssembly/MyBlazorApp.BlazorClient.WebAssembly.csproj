@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+    <ProjectReference Include="..\MyBlazorApp.BlazorClient.Shared\MyBlazorApp.BlazorClient.Shared.csproj" />
   </ItemGroup>
   
   <ItemGroup>

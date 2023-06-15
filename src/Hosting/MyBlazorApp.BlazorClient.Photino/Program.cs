@@ -1,10 +1,14 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MyBlazorApp.BlazorClient.Shared;
 using MyBlazorApp.ComponentsAndPages.Shared;
 using Photino.Blazor;
 
 namespace MyBlazorApp.BlazorClient.Photino;
+
+record LoggingBuilder(IServiceCollection Services) : ILoggingBuilder;
 
 public class Program
 {
@@ -15,9 +19,14 @@ public class Program
         configurationManager.AddJsonFile("wwwroot/appsettings.json");
 
         var builder = PhotinoBlazorAppBuilder.CreateDefault(args);
+
+        var loggingBuilder = new LoggingBuilder(builder.Services);
+        loggingBuilder.ConfigureLogging(configurationManager);
+
+        builder.Services.AddAppClient(configurationManager);
+        builder.Services.AddSingleton<IConfiguration>(_ => configurationManager);
+
         builder.RootComponents.Add<App>("app");
-        builder.Services.AddServices(configurationManager);
-        builder.Services.AddSingleton(configurationManager);
 
         var app = builder.Build();
         app.MainWindow.SetLogVerbosity(0);

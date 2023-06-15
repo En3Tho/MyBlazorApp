@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MyBlazorApp.BlazorClient.Shared;
 
 namespace MyBlazorApp.BlazorClient.Maui;
 
@@ -14,10 +15,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
+        builder.Logging.ConfigureLogging(builder.Configuration);
+        builder.Configuration.ConfigureOptions();
         builder.Configuration.AddJsonStream(await FileSystem.OpenAppPackageFileAsync("wwwroot/appsettings.json"));
 
         builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddServices(builder.Configuration);
+        builder.Services.AddAppClient(builder.Configuration);
 
         return builder.Build();
     }

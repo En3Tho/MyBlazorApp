@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>My Blazor App</title>
-    <base href="/"/>
-    <link href="css/app.css" rel="stylesheet"/>
-    <link href="_content/MyBlazorApp.ComponentsAndPages/css/shared.css" rel="stylesheet" />
-    <link href="_content/TailwindComponents/css/TailwindComponents.css" rel="stylesheet"/>
-</head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <title>MyBlazorApp</title>
+        <base href="/"/>
+        <link href="MyBlazorApp.BlazorClient.Maui.styles.css" rel="stylesheet">
+        <link href="_content/TailwindComponents/css/TailwindComponents.css" rel="stylesheet"/>
+        <link href="_content/MyBlazorApp.ComponentsAndPages/css/shared.css" rel="stylesheet"/>
+        <link href="manifest.json" rel="manifest"/>
+    </head>
 
-<body>
-    <app class="h-full" id="app">Loading...</app>
+    <body>
+        <app class="h-full" id="app">Loading...</app>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+        <div id="blazor-error-ui">
+            An unhandled error has occurred.
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
 
-    <script src="_framework/blazor.webview.js" autostart="false"></script>
-</body>
-
+        <script src="_framework/blazor.webview.js" autostart="false"></script>
+    </body>
 </html>
