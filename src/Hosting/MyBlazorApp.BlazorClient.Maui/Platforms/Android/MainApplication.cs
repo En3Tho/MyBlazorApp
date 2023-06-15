@@ -1,8 +1,5 @@
 ﻿using Android.App;
 using Android.Runtime;
-using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
-using System;
 
 namespace MyBlazorApp.BlazorClient.Maui;
 
@@ -14,5 +11,5 @@ public class MainApplication : MauiApplication
     {
     }
 
-    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp().Result;
 }
