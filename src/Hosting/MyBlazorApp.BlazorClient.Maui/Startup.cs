@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
@@ -17,7 +16,7 @@ public static class Startup
            .AddSingleton(new ThemeSwitch(Theme.Red))
 
            .AddWeatherForecastsHttpClient(configuration)
-           .AddDiscriminatedUnionsHttpClient(configuration); // load theme from user config or smth?
+           .AddDiscriminatedUnionsHttpClient(configuration);
 
         return services;
     }

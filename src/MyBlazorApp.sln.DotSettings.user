@@ -13,13 +13,11 @@
   &lt;Assembly Path="H:\source\repos\En3Tho\MyBlazorApp\src\MyBlazorApp.Services.DiscriminatedUnions.Clients\bin\Debug\net6.0\MyBlazorApp.Services.DiscriminatedUnions.Clients.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\6.0.0\ref\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\7.0.5\System.Net.Http.Json.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.Maui.Core.Ref.android\7.0.86\ref\net7.0-android30.0\Microsoft.Maui.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b979fcf_002D7c28_002D491a_002Db811_002D9b19f50b07b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CounterCSharpTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="G:\source\repos\En3Tho\MyBlazorApp\src\Frontend\ComponentsTests" Presentation="&amp;lt;Frontend&amp;gt;\&amp;lt;ComponentsTests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	
-	
-	
 	
 	</wpf:ResourceDictionary>
