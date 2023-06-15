@@ -24,7 +24,7 @@ class ConsoleLoggerProvider : ILoggerProvider
     {
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
-            Console.WriteLine($"{CategoryName} {logLevel} {eventId} {formatter(state, exception)}");
+            Console.WriteLine($"{DateTime.Now} {logLevel} {CategoryName} {eventId} {formatter(state, exception)}");
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -49,14 +49,14 @@ public static class HostBuilderExtensions
             .AddSingleton(new ThemeSwitch(Theme.Red))
 
             .AddWeatherForecastsHttpClient(configuration)
-            .AddDiscriminatedUnionsHttpClient(configuration)
-            .AddLogging();
+            .AddDiscriminatedUnionsHttpClient(configuration);
 
         return services;
     }
 
     public static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder, IConfiguration configuration)
     {
+        builder.Services.AddLogging();
         builder.AddConfiguration();
         builder.AddProvider(new ConsoleLoggerProvider());
         builder.AddConfiguration(configuration.GetSection("Logging"));
