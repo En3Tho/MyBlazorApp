@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Configuration;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
@@ -9,7 +8,7 @@ using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.Shared;
 
-class ConsoleLoggerProvider : ILoggerProvider
+class ConsoleWriteLineLoggerProvider : ILoggerProvider
 {
     public void Dispose()
     {
@@ -17,10 +16,10 @@ class ConsoleLoggerProvider : ILoggerProvider
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new ConsoleLogger(categoryName);
+        return new ConsoleWriteLineLogger(categoryName);
     }
 
-    record ConsoleLogger(string CategoryName) : ILogger
+    record ConsoleWriteLineLogger(string CategoryName) : ILogger
     {
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
@@ -57,9 +56,8 @@ public static class HostBuilderExtensions
     public static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder, IConfiguration configuration)
     {
         builder.Services.AddLogging();
-        builder.AddConfiguration();
-        builder.AddProvider(new ConsoleLoggerProvider());
         builder.AddConfiguration(configuration.GetSection("Logging"));
+        builder.AddProvider(new ConsoleWriteLineLoggerProvider());
         builder.Configure(options =>
             options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
                                               | ActivityTrackingOptions.SpanId
