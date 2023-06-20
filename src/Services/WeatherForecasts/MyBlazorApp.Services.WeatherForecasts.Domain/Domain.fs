@@ -5,7 +5,6 @@ open Microsoft.Extensions.Logging
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open En3Tho.FSharp.Extensions
 
-[<CLIMutable>]
 type WeatherForecast = {
     Date: DateTime
     TemperatureC: int
@@ -25,7 +24,7 @@ module WeatherForecastsService =
             for index in 0..count - 1 do {
                 Date = now.AddDays(float index)
                 TemperatureC = rng.Next(-20, 55)
-                Summary = Summaries.[rng.Next Summaries.Length]
+                Summary = Summaries[rng.Next Summaries.Length]
             }
         |]
         result

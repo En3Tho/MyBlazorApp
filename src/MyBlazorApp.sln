@@ -41,13 +41,13 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.Discri
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Domain", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Domain\MyBlazorApp.Services.DiscriminatedUnions.Domain.fsproj", "{BA6D56F5-AD88-4BA3-B402-677A698BF046}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Implementation", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Implementation\MyBlazorApp.Services.DiscriminatedUnions.Implementation.fsproj", "{31B6DD84-E423-4226-A4B2-109B4AFF7873}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Hosting", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Hosting\MyBlazorApp.Services.DiscriminatedUnions.Hosting.fsproj", "{31B6DD84-E423-4226-A4B2-109B4AFF7873}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Contracts", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj", "{07E90C3A-7976-4E71-9873-87C1512F750F}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Domain", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj", "{E64D47D9-941F-4DA3-BA57-565D813569E1}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Implementation", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Implementation\MyBlazorApp.Services.WeatherForecasts.Implementation.fsproj", "{74131212-47FA-4A6C-A607-CFE5305C6AD1}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Hosting", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Hosting\MyBlazorApp.Services.WeatherForecasts.Hosting.fsproj", "{74131212-47FA-4A6C-A607-CFE5305C6AD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TailwindComponents", "Frontend\TailwindComponents\TailwindComponents.csproj", "{AAB7B8F2-81EF-4AD2-B8E4-B5C14BC1B355}"
 EndProject

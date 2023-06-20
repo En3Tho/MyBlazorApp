@@ -19,11 +19,12 @@ type DiscriminatedUnionsServiceConnectionSettings = {
     Uri: string
 }
 
-type DiscriminatedUnionsServiceVersion1HttpClient(logger: DiscriminatedUnionsServiceVersion1HttpClient ILogger,
-                                                  settings: DiscriminatedUnionsServiceConnectionSettings IOptions,
+type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsServiceV1HttpClient>,
+                                                  settings: IOptions<DiscriminatedUnionsServiceConnectionSettings>,
                                                   httpClient: HttpClient,
                                                   jsonSerializerOptions: JsonSerializerOptions) =
 
+    // TODO this vs IOptions?
     do httpClient.BaseAddress <- Uri settings.Value.Uri
 
     member this.GetRandomImportantData() = task {
@@ -32,7 +33,7 @@ type DiscriminatedUnionsServiceVersion1HttpClient(logger: DiscriminatedUnionsSer
         return! httpClient.GetFromJsonAsync<ImportantDataDto>(endPoint, jsonSerializerOptions).ConfigureAwait false
     }
 
-    interface IDiscriminatedUnionsService with
+    interface IDiscriminatedUnionsServiceV1 with
         member this.GetRandomImportantData() = ValueTask<_>(task = this.GetRandomImportantData())
 
 [<Extension; AbstractClass>]
@@ -41,5 +42,5 @@ type DependencyInjectionExtensions() =
     [<Extension>]
     static member AddDiscriminatedUnionsHttpClient(services: IServiceCollection, configuration: IConfiguration) =
         services.Configure<DiscriminatedUnionsServiceConnectionSettings>(configuration.GetSection(nameof(DiscriminatedUnionsServiceConnectionSettings)))
-                .AddHttpClient<IDiscriminatedUnionsService, DiscriminatedUnionsServiceVersion1HttpClient>() |> ignore
+                .AddHttpClient<IDiscriminatedUnionsServiceV1, DiscriminatedUnionsServiceV1HttpClient>() |> ignore
         services

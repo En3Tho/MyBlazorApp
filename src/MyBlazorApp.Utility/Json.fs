@@ -3,17 +3,17 @@
 open System.Text.Json
 open System.Text.Json.Serialization
 
-[<CompiledName("UpdateExistingOptions")>]
-let updateExistingOptions (options: JsonSerializerOptions) =
+[<CompiledName("AddFSharpConverters")>]
+let addFSharpConverters (options: JsonSerializerOptions) =
     options.PropertyNameCaseInsensitive <- true
     options.PropertyNamingPolicy <- JsonNamingPolicy.CamelCase
     options.Converters.Add(JsonFSharpConverter(JsonUnionEncoding.UnwrapSingleFieldCases
                                            ||| JsonUnionEncoding.UnwrapSingleCaseUnions
                                            ||| JsonUnionEncoding.UnwrapFieldlessTags
                                            ||| JsonUnionEncoding.UnwrapOption))
+    options
 
 [<CompiledName("CreateDefaultOptions")>]
 let createDefaultOptions() =
     let options = JsonSerializerOptions()
-    updateExistingOptions options
-    options
+    addFSharpConverters options

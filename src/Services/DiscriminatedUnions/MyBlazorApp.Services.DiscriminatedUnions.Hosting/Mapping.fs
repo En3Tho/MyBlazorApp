@@ -1,4 +1,4 @@
-﻿namespace MyBlazorApp.Services.DiscriminatedUnions.CrossCutting
+﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Hosting
 
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.Version1
 open MyBlazorApp.Services.DiscriminatedUnions.Domain

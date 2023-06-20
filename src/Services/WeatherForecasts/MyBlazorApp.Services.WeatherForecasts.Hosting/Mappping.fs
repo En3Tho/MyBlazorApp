@@ -1,4 +1,4 @@
-﻿namespace MyBlazorApp.Services.WeatherForecasts.CrossCutting
+﻿namespace MyBlazorApp.Services.WeatherForecasts.Hosting
 
 open MyBlazorApp.Services.WeatherForecasts.Contracts.Version1
 open MyBlazorApp.Services.WeatherForecasts.Domain

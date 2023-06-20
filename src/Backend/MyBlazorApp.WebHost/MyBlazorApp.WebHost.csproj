@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Implementation\MyBlazorApp.Services.DiscriminatedUnions.Implementation.fsproj" />
-    <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Implementation\MyBlazorApp.Services.WeatherForecasts.Implementation.fsproj" />
+    <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Hosting\MyBlazorApp.Services.DiscriminatedUnions.Hosting.fsproj" />
+    <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Hosting\MyBlazorApp.Services.WeatherForecasts.Hosting.fsproj" />
     <ProjectReference Include="..\..\Hosting\MyBlazorApp.BlazorClient.WebAssembly\MyBlazorApp.BlazorClient.WebAssembly.csproj" />
   </ItemGroup>
 

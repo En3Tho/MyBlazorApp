@@ -20,8 +20,8 @@ type WeatherForecastsServiceConnectionSettings = {
 }
 
 [<Sealed>]
-type WeatherForecastsApiVersion1HttpClient(logger: WeatherForecastsApiVersion1HttpClient ILogger,
-                                           settings: WeatherForecastsServiceConnectionSettings IOptions,
+type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVersion1HttpClient>,
+                                           settings: IOptions<WeatherForecastsServiceConnectionSettings>,
                                            httpClient: HttpClient,
                                            jsonSerializerOptions: JsonSerializerOptions) =
 
@@ -48,7 +48,7 @@ type WeatherForecastsApiVersion1HttpClient(logger: WeatherForecastsApiVersion1Ht
         return! httpClient.GetFromJsonAsync<WeatherForecastDto[]>(endPoint, jsonSerializerOptions).ConfigureAwait false
     }
 
-    interface IWeatherForecastsService with
+    interface IWeatherForecastsServiceV1 with
        member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts count)
        member this.GetSuperForecasts (count, superNumber) = ValueTask<_>(task = this.GetSuperForecasts count superNumber)
 
@@ -58,5 +58,5 @@ type DependencyInjectionExtensions() =
     [<Extension>]
     static member AddWeatherForecastsHttpClient(services: IServiceCollection, configuration: IConfiguration) =
         services.Configure<WeatherForecastsServiceConnectionSettings>(configuration.GetSection(nameof(WeatherForecastsServiceConnectionSettings)))
-                .AddHttpClient<IWeatherForecastsService, WeatherForecastsApiVersion1HttpClient>() |> ignore
+                .AddHttpClient<IWeatherForecastsServiceV1, WeatherForecastsApiVersion1HttpClient>() |> ignore
         services
