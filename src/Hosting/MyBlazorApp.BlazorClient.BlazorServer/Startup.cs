@@ -1,6 +1,6 @@
 ﻿using MyBlazorApp.BlazorClient.Backend.Models;
-using MyBlazorApp.Services.DiscriminatedUnions.DependencyInjection;
-using MyBlazorApp.Services.WeatherForecasts.Hosting.DependencyInjection;
+using MyBlazorApp.Services.DiscriminatedUnions.Hosting;
+using MyBlazorApp.Services.WeatherForecasts.Hosting;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.BlazorClient.BlazorServer;
