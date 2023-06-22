@@ -9,8 +9,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Contracts\MyBlazorApp.Services.DiscriminatedUnions.Contracts.fsproj" />
-      <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj" />
+      <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Client\MyBlazorApp.Services.DiscriminatedUnions.Client.fsproj" />
+      <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Client\MyBlazorApp.Services.WeatherForecasts.Client.fsproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>

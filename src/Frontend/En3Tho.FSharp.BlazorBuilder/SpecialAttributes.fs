@@ -14,7 +14,7 @@ type [<Struct; IsReadOnly>] RefAttribute(action: Action<obj>) =
 
 [<AbstractClass; Sealed; AutoOpen>]
 type SpecialAttributes() =
-    // TODO: StringSyntax css/tailwind when it is available
+    // TODO: StringSyntax CssClass when it is available
     static member class' (value: string) =
         Attribute<KnownAttributes.Class, _>(value)
 

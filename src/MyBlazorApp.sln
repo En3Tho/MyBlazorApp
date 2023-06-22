@@ -15,19 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{06A318D3-76DA-4B53-B2F5-6AB35914A41F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{84E0C3A6-D772-49B6-8274-60F67154C724}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.WebHost", "Backend\MyBlazorApp.WebHost\MyBlazorApp.WebHost.csproj", "{A1256171-A7A0-4FF6-8EB1-2FB30F8FD2E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.Server.WebAssemblyHost", "Backend\MyBlazorApp.Server.WebAssemblyHost\MyBlazorApp.Server.WebAssemblyHost.csproj", "{A1256171-A7A0-4FF6-8EB1-2FB30F8FD2E6}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.BlazorClient.Backend", "Frontend\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj", "{950DC7F2-B8B2-43FF-B3A0-DB306BD03762}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.BlazorServer", "Hosting\MyBlazorApp.BlazorClient.BlazorServer\MyBlazorApp.BlazorClient.BlazorServer.csproj", "{E5E39DF1-52E2-4108-8726-52A04BB0D852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.Server.BlazorServer", "Hosting\MyBlazorApp.Server.BlazorServer\MyBlazorApp.Server.BlazorServer.csproj", "{E5E39DF1-52E2-4108-8726-52A04BB0D852}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Maui", "Hosting\MyBlazorApp.BlazorClient.Maui\MyBlazorApp.BlazorClient.Maui.csproj", "{ADF166CF-7BE1-43EF-953D-B12D26A39DA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.Client.Maui", "Hosting\MyBlazorApp.Client.Maui\MyBlazorApp.Client.Maui.csproj", "{ADF166CF-7BE1-43EF-953D-B12D26A39DA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.WebAssembly", "Hosting\MyBlazorApp.BlazorClient.WebAssembly\MyBlazorApp.BlazorClient.WebAssembly.csproj", "{49FABAE4-D73C-4462-8D0B-7FCC142201F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.Client.WebAssembly", "Hosting\MyBlazorApp.Client.WebAssembly\MyBlazorApp.Client.WebAssembly.csproj", "{49FABAE4-D73C-4462-8D0B-7FCC142201F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.BlazorClient.Photino", "Hosting\MyBlazorApp.BlazorClient.Photino\MyBlazorApp.BlazorClient.Photino.csproj", "{0FAB6204-5C3E-49F3-8C6F-C4D0CDDE7FE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.Client.Photino", "Hosting\MyBlazorApp.Client.Photino\MyBlazorApp.Client.Photino.csproj", "{0FAB6204-5C3E-49F3-8C6F-C4D0CDDE7FE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorApp.ComponentsAndPages", "Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj", "{F83F7613-257F-43F2-AA08-92709611418F}"
 EndProject
@@ -37,17 +35,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DiscriminatedUnions", "Disc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeatherForecasts", "WeatherForecasts", "{0C1852BF-D119-4BDD-AF69-F6E5C843677D}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Contracts", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Contracts\MyBlazorApp.Services.DiscriminatedUnions.Contracts.fsproj", "{EFAD8991-9057-49EA-AA62-13BD35089BC6}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Client", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Client\MyBlazorApp.Services.DiscriminatedUnions.Client.fsproj", "{EFAD8991-9057-49EA-AA62-13BD35089BC6}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Domain", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Domain\MyBlazorApp.Services.DiscriminatedUnions.Domain.fsproj", "{BA6D56F5-AD88-4BA3-B402-677A698BF046}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Hosting", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Hosting\MyBlazorApp.Services.DiscriminatedUnions.Hosting.fsproj", "{31B6DD84-E423-4226-A4B2-109B4AFF7873}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.DiscriminatedUnions.Server", "Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Server\MyBlazorApp.Services.DiscriminatedUnions.Server.fsproj", "{31B6DD84-E423-4226-A4B2-109B4AFF7873}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Contracts", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Contracts\MyBlazorApp.Services.WeatherForecasts.Contracts.fsproj", "{07E90C3A-7976-4E71-9873-87C1512F750F}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Client", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Client\MyBlazorApp.Services.WeatherForecasts.Client.fsproj", "{07E90C3A-7976-4E71-9873-87C1512F750F}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Domain", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj", "{E64D47D9-941F-4DA3-BA57-565D813569E1}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Hosting", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Hosting\MyBlazorApp.Services.WeatherForecasts.Hosting.fsproj", "{74131212-47FA-4A6C-A607-CFE5305C6AD1}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MyBlazorApp.Services.WeatherForecasts.Server", "Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Server\MyBlazorApp.Services.WeatherForecasts.Server.fsproj", "{74131212-47FA-4A6C-A607-CFE5305C6AD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TailwindComponents", "Frontend\TailwindComponents\TailwindComponents.csproj", "{AAB7B8F2-81EF-4AD2-B8E4-B5C14BC1B355}"
 EndProject
@@ -63,7 +61,9 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "En3Tho.FSharp.BlazorBuilder
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsTests", "Frontend\ComponentsTests\ComponentsTests.csproj", "{9C5525D1-B7B4-4F40-BE17-B746FE420AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.BlazorClient.Shared", "Hosting\MyBlazorApp.BlazorClient.Shared\MyBlazorApp.BlazorClient.Shared.csproj", "{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.Client.Shared", "Hosting\MyBlazorApp.Client.Shared\MyBlazorApp.Client.Shared.csproj", "{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlazorApp.Server.Shared", "Hosting\MyBlazorApp.Server.Shared\MyBlazorApp.Server.Shared.csproj", "{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -436,12 +436,27 @@ Global
 		{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D}.Release|x64.Build.0 = Release|Any CPU
 		{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D}.Release|x86.ActiveCfg = Release|Any CPU
 		{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D}.Release|x86.Build.0 = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|arm64.Build.0 = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Debug|x86.Build.0 = Debug|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|arm64.ActiveCfg = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|arm64.Build.0 = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|x64.Build.0 = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|x86.ActiveCfg = Release|Any CPU
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A1256171-A7A0-4FF6-8EB1-2FB30F8FD2E6} = {84E0C3A6-D772-49B6-8274-60F67154C724}
 		{950DC7F2-B8B2-43FF-B3A0-DB306BD03762} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{F83F7613-257F-43F2-AA08-92709611418F} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{1F598ECE-9A9B-4917-8EF8-98B3EE42A906} = {B367165D-FB26-47A5-915B-35D1AC69A5B9}
@@ -462,6 +477,8 @@ Global
 		{D45B5BE7-D5EC-4DCB-A3AC-0B89E3AD666D} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{9C5525D1-B7B4-4F40-BE17-B746FE420AB8} = {06A318D3-76DA-4B53-B2F5-6AB35914A41F}
 		{3CDB1A34-B6FD-427A-88E1-EDAFBD2C798D} = {F26D4565-4EA5-4483-AE8E-641BA604D262}
+		{A1256171-A7A0-4FF6-8EB1-2FB30F8FD2E6} = {F26D4565-4EA5-4483-AE8E-641BA604D262}
+		{5B866D0E-10FC-4BE0-BCD0-157EE4DF6C50} = {F26D4565-4EA5-4483-AE8E-641BA604D262}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E88D22E3-F71A-4514-A666-011EE1B3AD94}
