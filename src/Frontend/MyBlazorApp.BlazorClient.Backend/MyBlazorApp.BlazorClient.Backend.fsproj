@@ -16,10 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="En3Tho.FSharp.ComputationExpressions" Version="1.1.8" />
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.1.9" />
-      <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0" />
-      <PackageReference Update="FSharp.Core" Version="7.0.0" />
+      <PackageReference Include="En3Tho.FSharp.ComputationExpressions" Version="1.2.1" />
+      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.2.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.8" />
+      <PackageReference Update="FSharp.Core" Version="7.0.300" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
     <PropertyGroup>
         <TargetFramework>net7.0-android</TargetFramework>
         <OutputType>Exe</OutputType>
@@ -30,6 +31,10 @@
       <ProjectReference Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
       <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
       <ProjectReference Include="..\MyBlazorApp.Client.Shared\MyBlazorApp.Client.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     </ItemGroup>
 
 </Project>
