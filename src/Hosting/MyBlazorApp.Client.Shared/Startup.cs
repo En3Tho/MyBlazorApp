@@ -5,6 +5,7 @@ using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Clients;
 using MyBlazorApp.Services.WeatherForecasts.Clients;
 using MyBlazorApp.Utility;
+using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -40,7 +41,7 @@ class ConsoleWriteLineLoggerProvider : ILoggerProvider
     }
 }
 
-public record OpenTelemetrySettings(bool IsEnabled, string ServiceName, string Endpoint);
+public record OpenTelemetrySettings(bool IsEnabled, string ServiceName, string Endpoint, string ExportType = "Batch");
 
 public static class HostBuilderExtensions
 {
@@ -67,13 +68,14 @@ public static class HostBuilderExtensions
                 .WithTracing(builder =>
                 {
                     builder
-                        .SetResourceBuilder(ResourceBuilder
-                            .CreateDefault()
-                            .AddService(settings.ServiceName)
-                            .AddTelemetrySdk())
+                        .SetResourceBuilder(
+                            ResourceBuilder
+                                .CreateDefault()
+                                .AddService(settings.ServiceName))
                         .AddHttpClientInstrumentation()
                         .AddOtlpExporter(options =>
                         {
+                            options.ExportProcessorType = Enum.Parse<ExportProcessorType>(settings.ExportType);
                             options.Endpoint = new(settings.Endpoint);
                         });
                 });
@@ -85,12 +87,14 @@ public static class HostBuilderExtensions
     public static ILoggingBuilder ConfigureLogging(this ILoggingBuilder builder, IConfiguration configuration)
     {
         builder.Services.AddLogging();
-        builder.AddConfiguration(configuration.GetSection("Logging"));
-        builder.AddProvider(new ConsoleWriteLineLoggerProvider());
-        builder.Configure(options =>
-            options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
-                                              | ActivityTrackingOptions.SpanId
-                                              | ActivityTrackingOptions.TraceId);
+        builder
+            .ClearProviders()
+            .AddConfiguration(configuration.GetSection("Logging"))
+            .AddProvider(new ConsoleWriteLineLoggerProvider())
+            .Configure(options =>
+                options.ActivityTrackingOptions = ActivityTrackingOptions.ParentId
+                                                  | ActivityTrackingOptions.SpanId
+                                                  | ActivityTrackingOptions.TraceId);
 
         return builder;
     }

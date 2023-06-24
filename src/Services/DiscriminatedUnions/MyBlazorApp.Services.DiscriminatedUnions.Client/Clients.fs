@@ -10,7 +10,7 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
-open MyBlazorApp.Services.DiscriminatedUnions.Client.Version1
+open MyBlazorApp.Services.DiscriminatedUnions.Client
 open MyBlazorApp.Utility.Logging
 open ILoggerExtensions
 
@@ -20,9 +20,9 @@ type DiscriminatedUnionsServiceConnectionSettings = {
 }
 
 type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsServiceV1HttpClient>,
-                                                  settings: IOptions<DiscriminatedUnionsServiceConnectionSettings>,
-                                                  httpClient: HttpClient,
-                                                  jsonSerializerOptions: JsonSerializerOptions) =
+                                            settings: IOptions<DiscriminatedUnionsServiceConnectionSettings>,
+                                            httpClient: HttpClient,
+                                            jsonSerializerOptions: JsonSerializerOptions) =
 
     // TODO this vs IOptions?
     do httpClient.BaseAddress <- Uri settings.Value.Uri

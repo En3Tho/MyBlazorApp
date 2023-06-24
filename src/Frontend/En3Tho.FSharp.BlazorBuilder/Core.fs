@@ -133,6 +133,7 @@ type BlazorBuilderChildContentCode = delegate of BlazorBuilderCore -> unit
 type BlazorBuilderBlazorCode = delegate of BlazorBuilderCore -> unit
 
 // this is explicitly not a delegate because F# doesn't inline generic delegates
+// https://github.com/dotnet/fsharp/issues/15326#issuecomment-1597485122
 type ComponentImportCode<'a when 'a: struct and 'a :> IComponentImport> = BlazorBuilderCore -> 'a
 
 type [<Struct; IsReadOnly>] Attribute<'name when 'name: struct and 'name :> IAttributeName> =

@@ -1,6 +1,6 @@
 ﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Server
 
-open MyBlazorApp.Services.DiscriminatedUnions.Client.Version1
+open MyBlazorApp.Services.DiscriminatedUnions.Client
 open MyBlazorApp.Services.DiscriminatedUnions.Domain
 
 module ImportantData =

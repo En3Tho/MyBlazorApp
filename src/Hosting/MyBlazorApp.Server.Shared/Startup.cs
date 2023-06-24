@@ -24,7 +24,19 @@ public static class HostBuilderExtensions
                             .AddService(settings.ServiceName)
                             .AddTelemetrySdk())
                         .AddHttpClientInstrumentation()
-                        .AddAspNetCoreInstrumentation()
+                        .AddAspNetCoreInstrumentation(options =>
+                        {
+                            options.Filter = context =>
+                            {
+                                if (context.Request.Path.Value is {} path)
+                                {
+                                    // This is for YARP proxy
+                                    return !path.Equals("/opentelemetry.proto.collector.trace.v1.TraceService/Export");
+                                }
+
+                                return true;
+                            };
+                        })
                         .AddOtlpExporter(options =>
                         {
                             options.Endpoint = new(settings.Endpoint);

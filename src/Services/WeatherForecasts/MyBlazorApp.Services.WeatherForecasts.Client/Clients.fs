@@ -9,7 +9,7 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
-open MyBlazorApp.Services.WeatherForecasts.Client.Version1
+open MyBlazorApp.Services.WeatherForecasts.Client
 open System.Net.Http.Json
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open MyBlazorApp.Utility.Http

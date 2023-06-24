@@ -6,7 +6,7 @@ open System.Threading.Tasks
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Services.WeatherForecasts.Client.Version1
+open MyBlazorApp.Services.WeatherForecasts.Client
 open MyBlazorApp.Services.WeatherForecasts.Domain
 open MyBlazorApp.Services.WeatherForecasts.Server
 

@@ -1,4 +1,5 @@
 using MyBlazorApp.Server.BlazorServer;
+using MyBlazorApp.Server.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddServices(builder.Configuration);
+
+builder.Logging.ConfigureLogging(builder.Configuration);
 
 var app = builder.Build();
 

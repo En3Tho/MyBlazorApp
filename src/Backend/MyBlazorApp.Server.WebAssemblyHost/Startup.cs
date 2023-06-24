@@ -12,7 +12,7 @@ namespace MyBlazorApp.Server.WebAssemblyHost;
 
 public static class Startup
 {
-    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMyBlazorAppServer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthorization();
         services.AddCors(o =>
