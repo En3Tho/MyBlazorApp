@@ -48,6 +48,7 @@ let genCallbackAttribute (name: string) (argsName: string) = code {
             $"Attribute<KnownAttributes.{attrName}, _>(EventCallback.Factory.Create<{argsName}>(receiver, value))"
         }
         ""
+    trimEnd()
 }
 
 let genCallbackAttributeModule (attributesAndArgNames: (string * Type) seq) = code {
