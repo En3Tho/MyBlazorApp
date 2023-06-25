@@ -140,6 +140,7 @@ type QuickGridImportFSharp() =
     override this.BuildRenderTreeCore(builder) =
 
         let cols = fragment {
+            let! builder = getBuilder()
             PropertyColumn.Render(builder, fun (p: Person) -> p.Name)
             PropertyColumn.Render(builder, fun (p: Person) -> p.Email)
             PropertyColumn.Render(builder, fun (p: Person) -> p.ImageUrl)
