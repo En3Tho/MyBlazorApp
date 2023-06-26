@@ -1,23 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
-
     <ItemGroup>
         <Compile Include="Program.fs" />
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\Frontend\FSharpComponents\FSharpComponents.fsproj" />
-      <ProjectReference Include="..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+        <ProjectReference Include="..\Frontend\FSharpComponents\FSharpComponents.fsproj" />
+        <ProjectReference Include="..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
     </ItemGroup>
-
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
-      <PackageReference Update="FSharp.Core" Version="7.0.300" />
+        <PackageReference Include="BenchmarkDotNet" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+        <PackageReference Update="FSharp.Core" Version="7.0.300" />
     </ItemGroup>
-
 </Project>

@@ -1,26 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
-
     <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
-
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="0.1.0-alpha.22351.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     </ItemGroup>
-
     <ItemGroup>
         <Folder Include="wwwroot\css" />
     </ItemGroup>
-
     <Target Name="BuildCSS" AfterTargets="PostBuildEvent">
         <Exec Command="npx postcss $(ProjectDir)obj/$(ConfigurationName)/$(TargetFramework)/scopedcss/projectbundle/$(ProjectName).bundle.scp.css -r" />
     </Target>
-
 </Project>

@@ -1,29 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Tailcalls>false</Tailcalls>
     </PropertyGroup>
-
     <ItemGroup>
-      <PackageReference Include="En3Tho.FSharp.ComputationExpressions" Version="1.2.1" />
-      <PackageReference Include="En3Tho.FSharp.Extensions" Version="1.2.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
-      <PackageReference Update="FSharp.Core" Version="7.0.300" />
+        <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
+        <PackageReference Include="En3Tho.FSharp.Extensions" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+        <PackageReference Update="FSharp.Core" Version="7.0.300" />
     </ItemGroup>
-
     <ItemGroup>
-      <Compile Include="ExampleComponents.fs" />
-      <Compile Include="FSharpComponents.Imports.fs" />
-      <Compile Include="MicrosoftAspNetCoreComponentsQuickGrid.Imports.fs" />
-      <Compile Include="Imports.fs" />
-      <Compile Include="ExampleImports.fs" />
-      <Compile Include="FSharpPage.fs" />
+        <Compile Include="ExampleComponents.fs" />
+        <Compile Include="FSharpComponents.Imports.fs" />
+        <Compile Include="MicrosoftAspNetCoreComponentsQuickGrid.Imports.fs" />
+        <Compile Include="Imports.fs" />
+        <Compile Include="ExampleImports.fs" />
+        <Compile Include="FSharpPage.fs" />
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
-      <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
+        <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
+        <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
     </ItemGroup>
-
 </Project>
