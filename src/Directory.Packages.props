@@ -1,43 +1,44 @@
 ﻿<Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="FSharp.Core" Version="7.0.300" />
-        <PackageVersion Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
-        <PackageVersion Include="En3Tho.FSharp.ComputationExpressions" Version="1.2.1" />
-        <PackageVersion Include="En3Tho.FSharp.Extensions" Version="1.2.1" />
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.Extensions.Http" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" Condition="'$(UseMaui)' != 'true'" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.8" />
-        <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.OpenApi" Version="1.6.5" />
-        <PackageVersion Include="Yarp.ReverseProxy" Version="2.0.1" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components" Version="7.0.8" />
-        <PackageVersion Include="En3Tho.Extensions.DependencyInjection" Version="1.1.3" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.8" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.8" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-        <PackageVersion Include="System.Net.Http.Json" Version="7.0.1" />
-        <PackageVersion Include="Photino.Blazor" Version="2.6.0" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
-        <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
-        <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" Condition="'$(UseMaui)' != 'true'" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.QuickGrid" Version="0.1.0-alpha.22351.1" />
-        <PackageVersion Include="BenchmarkDotNet" Version="0.13.5" />
-        <PackageVersion Include="bunit" Version="1.20.8" />
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
-        <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-        <PackageVersion Include="xunit" Version="2.4.2" />
-        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
-        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.5.0" />
-        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.5.0" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.0-beta.1" />
-        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="En3Tho.FSharp.Extensions.AspNetCore" Version="1.0.0" />
+    <PackageVersion Include="FSharp.Core" Version="7.0.300" />
+    <PackageVersion Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
+    <PackageVersion Include="En3Tho.FSharp.ComputationExpressions" Version="1.2.1" />
+    <PackageVersion Include="En3Tho.FSharp.Extensions" Version="1.2.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" Condition="'$(UseMaui)' != 'true'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.5" />
+    <PackageVersion Include="Yarp.ReverseProxy" Version="2.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="7.0.8" />
+    <PackageVersion Include="En3Tho.Extensions.DependencyInjection" Version="1.1.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageVersion Include="System.Net.Http.Json" Version="7.0.1" />
+    <PackageVersion Include="Photino.Blazor" Version="2.6.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" Condition="'$(UseMaui)' != 'true'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.QuickGrid" Version="0.1.0-alpha.22351.1" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.13.5" />
+    <PackageVersion Include="bunit" Version="1.20.8" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="xunit" Version="2.4.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.5.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.5.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.0-beta.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
+  </ItemGroup>
 </Project>

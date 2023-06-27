@@ -12,8 +12,9 @@
         <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="En3Tho.FSharp.Extensions.AspNetCore" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
-        <PackageReference Update="FSharp.Core" Version="7.0.300" />
+        <PackageReference Update="FSharp.Core"  />
     </ItemGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />

@@ -2,7 +2,6 @@ namespace MyBlazorApp.Services.DiscriminatedUnions.Clients
 
 open System
 open System.Net.Http
-open System.Net.Http.Json
 open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Threading.Tasks
@@ -12,6 +11,7 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open MyBlazorApp.Services.DiscriminatedUnions.Client
 open MyBlazorApp.Utility.Logging
+open En3Tho.FSharp.ComputationExpressions.HttpBuilder
 open ILoggerExtensions
 
 [<CLIMutable>]
@@ -30,7 +30,7 @@ type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsS
     member this.GetRandomImportantData() = task {
         let endPoint = Endpoints.GetRandomImportantData
         logger.Tracef $"{nameof this.GetRandomImportantData}. Sending message to: {httpClient.BaseAddress}{endPoint}"
-        return! httpClient.GetFromJsonAsync<ImportantDataDto>(endPoint, jsonSerializerOptions).ConfigureAwait false
+        return! httpClient.Get(endPoint).AsJson<ImportantDataDto>(jsonSerializerOptions)
     }
 
     interface IDiscriminatedUnionsServiceV1 with

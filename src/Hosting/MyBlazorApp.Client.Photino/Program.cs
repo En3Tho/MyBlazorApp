@@ -68,7 +68,7 @@ public class Program
         // TODO: just write a better photino builder based on consoleapp stuff
         foreach (var hostedService in hostedServices)
         {
-            hostedService.StartAsync(CancellationToken.None);
+            hostedService.StartAsync(CancellationToken.None).GetAwaiter().GetResult();
         }
         try
         {
@@ -78,7 +78,7 @@ public class Program
         {
             foreach (var hostedService in hostedServices)
             {
-                hostedService.StopAsync(CancellationToken.None);
+                hostedService.StopAsync(CancellationToken.None).GetAwaiter().GetResult();
             }
         }
     }

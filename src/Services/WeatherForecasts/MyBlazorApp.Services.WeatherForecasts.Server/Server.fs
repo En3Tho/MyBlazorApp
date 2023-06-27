@@ -1,6 +1,5 @@
 namespace MyBlazorApp.Services.WeatherForecasts.Server
 
-open System
 open System.Runtime.CompilerServices
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Builder
@@ -9,6 +8,7 @@ open Microsoft.Extensions.Logging
 open MyBlazorApp.Services.WeatherForecasts.Client
 open MyBlazorApp.Services.WeatherForecasts.Domain
 open MyBlazorApp.Services.WeatherForecasts.Server
+open En3Tho.FSharp.Extensions.AspNetCore
 
 type WeatherForecastServiceV1(logger: ILogger<WeatherForecastServiceV1>) =
 
@@ -31,11 +31,11 @@ type DependencyInjectionExtensions() = // can be generated automatically from ca
 
     [<Extension>]
     static member MapWeatherForecastsServiceEndpoints(webApplication: WebApplication) =
-        webApplication.MapGet(Endpoints.GetForecasts, Func<_, _, _>(fun (count: int) (service: IWeatherForecastsServiceV1) ->
+        webApplication.MapGet(Endpoints.GetForecasts, (fun (count: int) (service: IWeatherForecastsServiceV1) ->
             service.GetForecasts(count)
         )) |> ignore // can be configured automatically ?
 
-        webApplication.MapGet(Endpoints.GetSuperForecasts, Func<_, _, _, _>(fun (count: int) (superNumber: int) (service: IWeatherForecastsServiceV1) ->
+        webApplication.MapGet(Endpoints.GetSuperForecasts, (fun (count: int) (superNumber: int) (service: IWeatherForecastsServiceV1) ->
             service.GetSuperForecasts(count, superNumber)
         )) |> ignore
 

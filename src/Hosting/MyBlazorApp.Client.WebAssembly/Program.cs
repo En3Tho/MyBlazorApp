@@ -16,8 +16,6 @@ builder.Services.AddMyBlazorAppClient(builder.Configuration);
 builder.Logging.ConfigureLogging(builder.Configuration);
 builder.Configuration.ConfigureOptions();
 
-// TODO: it's better to build services locally here?
-
 var host = builder.Build();
 var hostedServices = host.Services.GetRequiredService<IEnumerable<IHostedService>>().ToArray();
 

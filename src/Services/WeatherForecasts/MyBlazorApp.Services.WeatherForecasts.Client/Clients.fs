@@ -9,8 +9,8 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
+open En3Tho.FSharp.ComputationExpressions.HttpBuilder
 open MyBlazorApp.Services.WeatherForecasts.Client
-open System.Net.Http.Json
 open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open MyBlazorApp.Utility.Http
 
@@ -34,7 +34,7 @@ type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVe
                 nameof count, count)
 
         logger.Tracef $"{nameof this.GetForecasts}. Sending message to: {httpClient.BaseAddress}{endPoint}"
-        return! httpClient.GetFromJsonAsync<WeatherForecastDto[]>(endPoint, jsonSerializerOptions).ConfigureAwait false
+        return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
     }
 
     member this.GetSuperForecasts (count: int) (superNumber: int) = task {
@@ -45,7 +45,7 @@ type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVe
                 nameof superNumber, superNumber)
 
         logger.Tracef $"{nameof this.GetSuperForecasts}. Sending message to: {httpClient.BaseAddress}{endPoint}"
-        return! httpClient.GetFromJsonAsync<WeatherForecastDto[]>(endPoint, jsonSerializerOptions).ConfigureAwait false
+        return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
     }
 
     interface IWeatherForecastsServiceV1 with
