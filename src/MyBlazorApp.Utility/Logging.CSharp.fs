@@ -5,9 +5,12 @@ open System.Runtime.CompilerServices
 open Microsoft.Extensions.Logging
 
 [<Struct>]
-type Logger(logger: ILogger, logLevel: LogLevel) =
+type Logger(logger: ILogger, logLevel: LogLevel) = // should this be like ILogger?
     member _.Log(message, [<ParamArray>] args) =
         logger.Log(logLevel, message, args)
+
+    member _.Log(exn: Exception, message, [<ParamArray>] args) =
+        logger.Log(logLevel, exn, message, args)
 
 [<Extension>]
 [<AbstractClass; Sealed>]

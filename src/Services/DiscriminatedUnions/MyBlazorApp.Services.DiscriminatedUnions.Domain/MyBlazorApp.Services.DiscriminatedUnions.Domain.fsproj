@@ -9,8 +9,9 @@
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
         <PackageReference Include="En3Tho.FSharp.Extensions" />
+        <PackageReference Include="En3Tho.FSharp.Extensions.Logging" />
         <PackageReference Include="Microsoft.Extensions.Logging" />
-        <PackageReference Update="FSharp.Core"  />
+        <PackageReference Update="FSharp.Core" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />

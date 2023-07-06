@@ -64,11 +64,30 @@ public class Program
         app.MainWindow.SetLogVerbosity(0);
 
         var hostedServices = app.Services.GetRequiredService<IEnumerable<IHostedService>>().ToArray();
+        var cts = new CancellationTokenSource();
+        app.MainWindow.WindowClosing += (_, _) =>
+        {
+            cts.Cancel();
+            return false; // or true?
+        };
 
         // TODO: just write a better photino builder based on consoleapp stuff
+        // Add that to EventLoop?
+        var startTasks = hostedServices.Select(service =>
+        {
+            var start = () => service.StartAsync(cts.Token);
+            return start;
+        });
+
+        var stopTasks = hostedServices.Select(service =>
+        {
+            var stop = () => service.StopAsync(cts.Token);
+            return stop;
+        });
+
         foreach (var hostedService in hostedServices)
         {
-            hostedService.StartAsync(CancellationToken.None).GetAwaiter().GetResult();
+            hostedService.StartAsync(cts.Token).GetAwaiter().GetResult();
         }
         try
         {
@@ -78,7 +97,7 @@ public class Program
         {
             foreach (var hostedService in hostedServices)
             {
-                hostedService.StopAsync(CancellationToken.None).GetAwaiter().GetResult();
+                hostedService.StopAsync(cts.Token).GetAwaiter().GetResult();
             }
         }
     }

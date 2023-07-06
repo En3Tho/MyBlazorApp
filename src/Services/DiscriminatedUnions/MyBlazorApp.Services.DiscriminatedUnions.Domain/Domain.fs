@@ -2,7 +2,6 @@
 
 open System
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open En3Tho.FSharp.Extensions
 
 type ImportantData =
@@ -13,7 +12,7 @@ type ImportantData =
 module rec DiscriminatedUnions =
 
     let getRandomImportantData (logger: ILogger) =
-        logger.Tracef $"{nameof getRandomImportantData} called"
+        logger.LogTrace("{methodName} called", nameof getRandomImportantData)
 
         let dt = DateTime.Now
         let rng = Random()

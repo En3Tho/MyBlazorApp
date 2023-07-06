@@ -11,7 +11,6 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open En3Tho.FSharp.ComputationExpressions.HttpBuilder
 open MyBlazorApp.Services.WeatherForecasts.Client
-open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open MyBlazorApp.Utility.Http
 
 [<CLIMutable>]
@@ -33,7 +32,7 @@ type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVe
                 Endpoints.GetForecasts,
                 nameof count, count)
 
-        logger.Tracef $"{nameof this.GetForecasts}. Sending message to: {httpClient.BaseAddress}{endPoint}"
+        logger.LogTrace("{methodName}. Sending message to: {baseAddress}{endPoint}", nameof this.GetForecasts, httpClient.BaseAddress, endPoint)
         return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
     }
 
@@ -44,7 +43,7 @@ type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVe
                 nameof count, count,
                 nameof superNumber, superNumber)
 
-        logger.Tracef $"{nameof this.GetSuperForecasts}. Sending message to: {httpClient.BaseAddress}{endPoint}"
+        logger.LogTrace("{methodName}. Sending message tto: {baseAddress}{endPoint}", nameof this.GetForecasts, httpClient.BaseAddress, endPoint)
         return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
     }
 

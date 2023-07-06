@@ -4,7 +4,6 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Http.fs" />
-        <Compile Include="Logging.fs" />
         <Compile Include="Logging.CSharp.fs" />
         <Compile Include="Json.fs" />
     </ItemGroup>
@@ -15,6 +14,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="Microsoft.Extensions.Http" />
         <PackageReference Include="Microsoft.Extensions.Logging" />
-        <PackageReference Update="FSharp.Core"  />
+        <PackageReference Update="FSharp.Core" />
     </ItemGroup>
 </Project>

@@ -16,12 +16,13 @@
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.Maui.Core.Ref.android\7.0.86\ref\net7.0-android30.0\Microsoft.Maui.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b979fcf_002D7c28_002D491a_002Db811_002D9b19f50b07b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CounterCSharpTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b979fcf_002D7c28_002D491a_002Db811_002D9b19f50b07b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CounterCSharpTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="G:\source\repos\En3Tho\MyBlazorApp\src\Frontend\ComponentsTests" Presentation="&amp;lt;Frontend&amp;gt;\&amp;lt;ComponentsTests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a093973f_002D194c_002D4ccc_002Da8c5_002D9d5a2ed45697/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestThatQuickGridImportFSharpRenders" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a093973f_002D194c_002D4ccc_002Da8c5_002D9d5a2ed45697/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestThatQuickGridImportFSharpRenders" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.FSharpFunTests.TestThatQuickGridImportFSharpRenders&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.CounterFSharpTests.Lul&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

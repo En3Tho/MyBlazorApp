@@ -2,7 +2,6 @@
 
 open System
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Utility.Logging.ILoggerExtensions
 open En3Tho.FSharp.Extensions
 
 type WeatherForecast = {
@@ -16,7 +15,7 @@ module WeatherForecastsService =
     let private Summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
 
     let getForecasts (logger: ILogger) count =
-        logger.Tracef $"{nameof getForecasts} called with parameters: {nameof count}={count}"
+        logger.LogTrace ("{methodName} called with parameters: {count}", nameof getForecasts, count)
 
         let now = DateTime.Now
         let rng = Random()
@@ -30,7 +29,7 @@ module WeatherForecastsService =
         result
 
     let getSuperForecasts (logger: ILogger) count superNumber =
-        logger.Tracef $"{nameof getSuperForecasts} called with parameters: {nameof count}={count}, {nameof superNumber}={superNumber}"
+        logger.LogTrace("{methodName} called with parameters: {count}, {superNumber}", nameof getSuperForecasts, count, superNumber)
 
         let forecasts = getForecasts logger count
         let forecasts = forecasts |> Array.map ^ fun forecast ->

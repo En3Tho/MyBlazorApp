@@ -10,9 +10,7 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open MyBlazorApp.Services.DiscriminatedUnions.Client
-open MyBlazorApp.Utility.Logging
 open En3Tho.FSharp.ComputationExpressions.HttpBuilder
-open ILoggerExtensions
 
 [<CLIMutable>]
 type DiscriminatedUnionsServiceConnectionSettings = {
@@ -29,7 +27,7 @@ type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsS
 
     member this.GetRandomImportantData() = task {
         let endPoint = Endpoints.GetRandomImportantData
-        logger.Tracef $"{nameof this.GetRandomImportantData}. Sending message to: {httpClient.BaseAddress}{endPoint}"
+        logger.LogTrace("{serviceName}. Sending message to: {baseAddress}{endPoint}", nameof this.GetRandomImportantData, httpClient.BaseAddress, endPoint)
         return! httpClient.Get(endPoint).AsJson<ImportantDataDto>(jsonSerializerOptions)
     }
 
