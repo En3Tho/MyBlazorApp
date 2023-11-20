@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
         <!--    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
-        <Nullable>enable</Nullable>
     </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="En3Tho.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
@@ -13,10 +13,12 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" />
         <PackageReference Include="System.Net.Http.Json" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
         <ProjectReference Include="..\MyBlazorApp.Client.Shared\MyBlazorApp.Client.Shared.csproj" />
     </ItemGroup>
+
     <ItemGroup>
         <Content Update="wwwroot\appsettings.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -29,4 +31,5 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
+
 </Project>

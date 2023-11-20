@@ -27,10 +27,10 @@ app.UseCors();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 
-app.UseBlazorFrameworkFiles();
+//app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
-app.MapRazorPages();
+//app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.MapReverseProxy();

@@ -225,6 +225,7 @@ type BlazorElementOrComponentBuilderBase() =
         BlazorBuilderAttributeCode(fun builder ->
             attr.RenderTo builder)
 
+    // from a razor compiler point of view this is still wrong because sequence numbers can't be correctly assigned
     member inline this.While([<InlineIfLambda>] moveNext: unit -> bool, [<InlineIfLambda>] whileExpr: BlazorBuilderMarkupCode) : BlazorBuilderMarkupCode =
         BlazorBuilderMarkupCode(fun builder ->
             let sequence = builder.GetSequenceCountForWhileExpression()

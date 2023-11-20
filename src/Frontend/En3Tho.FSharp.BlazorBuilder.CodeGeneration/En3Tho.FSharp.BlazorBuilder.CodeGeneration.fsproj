@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="Code.fs" />
         <Compile Include="ImportGenerator.fs" />
@@ -10,20 +11,18 @@
         <Compile Include="AttributeGenerator.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
         <ProjectReference Include="..\FSharpComponents\FSharpComponents.fsproj" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
         <PackageReference Include="En3Tho.FSharp.Extensions" />
         <PackageReference Include="Microsoft.AspNetCore.Components" />
         <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" />
-        <PackageReference Update="FSharp.Core"  />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     </ItemGroup>
-    <ItemGroup>
-        <Reference Include="Microsoft.AspNetCore.Components.Web">
-            <HintPath>..\..\..\..\..\..\Nuget\packages\microsoft.aspnetcore.components.web\7.0.0\lib\net7.0\Microsoft.AspNetCore.Components.Web.dll</HintPath>
-        </Reference>
-    </ItemGroup>
+
 </Project>

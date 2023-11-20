@@ -53,4 +53,14 @@ public readonly struct SmallString : IValidatable<SmallString, string>, IEquatab
     {
         return Value.GetHashCode();
     }
+
+    public static bool operator ==(SmallString left, SmallString right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(SmallString left, SmallString right)
+    {
+        return !(left == right);
+    }
 }

@@ -1,7 +1,9 @@
 ﻿<Project>
+
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageVersion Include="En3Tho.FSharp.Extensions.AspNetCore" Version="1.0.0" />
     <PackageVersion Include="En3Tho.FSharp.Extensions.Logging" Version="1.0.0" />
@@ -42,4 +44,9 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.282" />
+  </ItemGroup>
+
 </Project>

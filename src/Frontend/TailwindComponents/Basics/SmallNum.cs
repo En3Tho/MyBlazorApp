@@ -34,8 +34,7 @@ public record struct SmallNum(int Value) : IValidatable<SmallNum, int>, IValidat
         return value < 10;
     }
 
-    public static string GetErrorMessage(int value,
-        [CallerArgumentExpression(nameof(value))] string argumentName = null!)
+    public static string GetErrorMessage(int value, [CallerArgumentExpression(nameof(value))] string argumentName = null!)
     {
         return $"Value must be less than 10: {argumentName}";
     }

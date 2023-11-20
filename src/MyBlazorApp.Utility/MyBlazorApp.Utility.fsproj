@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-    </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="Http.fs" />
         <Compile Include="Logging.CSharp.fs" />
         <Compile Include="Json.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="CraftTalk.FSharp.SystemTextJson" />
         <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
@@ -14,6 +13,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="Microsoft.Extensions.Http" />
         <PackageReference Include="Microsoft.Extensions.Logging" />
-        <PackageReference Update="FSharp.Core" />
     </ItemGroup>
+
 </Project>

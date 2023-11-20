@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Tailcalls>false</Tailcalls>
-    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
         <PackageReference Include="En3Tho.FSharp.Extensions" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-        <PackageReference Update="FSharp.Core"  />
     </ItemGroup>
+
     <ItemGroup>
         <Compile Include="ExampleComponents.fs" />
         <Compile Include="FSharpComponents.Imports.fs" />
@@ -17,8 +14,10 @@
         <Compile Include="ExampleImports.fs" />
         <Compile Include="FSharpPage.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\En3Tho.FSharp.BlazorBuilder\En3Tho.FSharp.BlazorBuilder.fsproj" />
         <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
     </ItemGroup>
+
 </Project>

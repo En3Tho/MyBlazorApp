@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+
     <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\FSharpComponents\FSharpComponents.fsproj" />
         <ProjectReference Include="..\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
@@ -13,11 +11,14 @@
         <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
         <ProjectReference Include="..\TailwindComponents\TailwindComponents.csproj" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     </ItemGroup>
+
     <ItemGroup>
         <Content Include="..\Shared\**" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
     </ItemGroup>
+
 </Project>

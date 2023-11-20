@@ -3,7 +3,6 @@ namespace FSharpComponents
 open Microsoft.AspNetCore.Components
 open En3Tho.FSharp.BlazorBuilder
 
-
 [<Route("FSharpPage"); Sealed>]
 type FSharpPage() =
     inherit FSharpComponentBase()

@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="Mappping.fs" />
         <Compile Include="Server.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Client\MyBlazorApp.Services.WeatherForecasts.Client.fsproj" />
         <ProjectReference Include="..\MyBlazorApp.Services.WeatherForecasts.Domain\MyBlazorApp.Services.WeatherForecasts.Domain.fsproj" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.Extensions.AspNetCore" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
-        <PackageReference Update="FSharp.Core"  />
     </ItemGroup>
+
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
+
 </Project>

@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="Core.fs" />
         <Compile Include="Builders.fs" />
@@ -17,8 +14,9 @@
         <Compile Include="InputTypes.fs" />
         <Compile Include="Elements.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-        <PackageReference Update="FSharp.Core"  />
     </ItemGroup>
+
 </Project>

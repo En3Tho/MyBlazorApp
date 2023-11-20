@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-    </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="Models.fs" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Client\MyBlazorApp.Services.DiscriminatedUnions.Client.fsproj" />
         <ProjectReference Include="..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Client\MyBlazorApp.Services.WeatherForecasts.Client.fsproj" />
         <ProjectReference Include="..\..\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
         <ProjectReference Include="..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.ComputationExpressions" />
         <PackageReference Include="En3Tho.FSharp.Extensions" />
         <PackageReference Include="Microsoft.AspNetCore.Components" />
-        <PackageReference Update="FSharp.Core"  />
     </ItemGroup>
+
 </Project>
