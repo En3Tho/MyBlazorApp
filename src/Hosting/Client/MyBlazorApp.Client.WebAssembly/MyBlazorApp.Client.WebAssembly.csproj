@@ -15,8 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
-        <ProjectReference Include="..\MyBlazorApp.Client.Shared\MyBlazorApp.Client.Shared.csproj" />
+      <ProjectReference Include="..\..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
+      <ProjectReference Include="..\..\..\Frontend\TailwindComponents\TailwindComponents.csproj" />
+      <ProjectReference Include="..\MyBlazorApp.Client.Shared\MyBlazorApp.Client.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

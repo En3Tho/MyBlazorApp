@@ -6,7 +6,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+        <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
     </ItemGroup>
 
     <ItemGroup>

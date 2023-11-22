@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" />
+        <PackageReference Include="En3Tho.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.OpenApi" />
+        <PackageReference Include="Yarp.ReverseProxy" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Server\MyBlazorApp.Services.DiscriminatedUnions.Server.fsproj" />
+        <ProjectReference Include="..\..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Server\MyBlazorApp.Services.WeatherForecasts.Server.fsproj" />
+        <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
+        <ProjectReference Include="..\..\Client\MyBlazorApp.Client.WebAssembly\MyBlazorApp.Client.WebAssembly.csproj" />
+        <ProjectReference Include="..\MyBlazorApp.Server.Shared\MyBlazorApp.Server.Shared.csproj" />
+    </ItemGroup>
+
+</Project>
