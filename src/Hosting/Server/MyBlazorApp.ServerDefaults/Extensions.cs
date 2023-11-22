@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text.Json;
+using En3Tho.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MyBlazorApp.Utility;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -14,6 +19,13 @@ public static class Extensions
     public static IHostApplicationBuilder AddServerDefaults(this IHostApplicationBuilder builder)
     {
         builder.AddDefaultHealthChecks();
+
+        builder.Services.ConfigureHttpJsonOptions(options =>
+            Json.AddFSharpConverters(options.SerializerOptions));
+
+        builder.Services.AddOrReplaceSingleton<JsonSerializerOptions>(serviceProvider =>
+            serviceProvider.GetRequiredService<IOptions<JsonOptions>>().Value.SerializerOptions);
+
         return builder.AddServiceDefaults();
     }
 

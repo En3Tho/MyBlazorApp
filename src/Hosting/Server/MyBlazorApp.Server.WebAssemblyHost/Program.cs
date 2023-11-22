@@ -1,9 +1,4 @@
-﻿using System.Text.Json;
-using En3Tho.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http.Json;
-using MyBlazorApp.Utility;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServerDefaults();
 builder.ConfigureServerOpenTelemetry(new(ServiceName: "Wasm host"));
@@ -19,12 +14,6 @@ builder.Services.AddCors(o =>
             .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod()));
-
-builder.Services.ConfigureHttpJsonOptions(options =>
-    Json.AddFSharpConverters(options.SerializerOptions));
-
-builder.Services.AddOrReplaceSingleton<JsonSerializerOptions>(serviceProvider =>
-    serviceProvider.GetRequiredService<JsonOptions>().SerializerOptions);
 
 var app = builder.Build();
 

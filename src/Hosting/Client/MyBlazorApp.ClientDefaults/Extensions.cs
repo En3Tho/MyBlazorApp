@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json;
+using En3Tho.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Client.V1;
 using MyBlazorApp.Services.WeatherForecasts.Client.V1;
@@ -8,10 +11,15 @@ namespace Microsoft.Extensions.Hosting;
 
 public static class Extensions
 {
-    public static IHostApplicationBuilder AddMyBlazorAppClient(this IHostApplicationBuilder builder)
+    public static IHostApplicationBuilder AddClientDefaults(this IHostApplicationBuilder builder)
     {
+        builder.AddServiceDefaults();
+
         builder.Services
-            .AddSingleton(Json.CreateDefaultOptions())
+            .TryAddSingleton(new JsonSerializerOptions());
+
+        builder.Services
+            .Update<JsonSerializerOptions>(Json.AddFSharpConverters)
             .AddSingleton<StateStorage>()
             .AddSingleton(new ThemeSwitch(Theme.Red))
 

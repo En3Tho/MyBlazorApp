@@ -1,7 +1,6 @@
 using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Services.DiscriminatedUnions.Client.V1;
 using MyBlazorApp.Services.WeatherForecasts.Client.V1;
-using MyBlazorApp.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +10,6 @@ builder.ConfigureServerOpenTelemetry(new(ServiceName: "BlazorServer"));
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
-builder.Services
-    .AddSingleton(Json.CreateDefaultOptions());
 
 builder.Services
     .AddScoped<StateStorage>()

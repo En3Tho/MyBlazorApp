@@ -6,10 +6,12 @@
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="En3Tho.Extensions.DependencyInjection" />
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" /> 
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
       <ProjectReference Include="..\..\MyBlazorApp.ServiceDefaults\MyBlazorApp.ServiceDefaults.csproj" />
     </ItemGroup>
 

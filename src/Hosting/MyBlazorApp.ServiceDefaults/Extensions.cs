@@ -1,5 +1,9 @@
+using System.Text.Json;
+using En3Tho.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using MyBlazorApp.Utility;
 using OpenTelemetry;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -21,12 +25,6 @@ public record OpenTelemetryOptions(
 
 public static class Extensions
 {
-    public static IHostApplicationBuilder AddClientDefaults(this IHostApplicationBuilder builder)
-    {
-        builder.AddServiceDefaults();
-        return builder;
-    }
-
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
         builder.Services.AddServiceDiscovery();

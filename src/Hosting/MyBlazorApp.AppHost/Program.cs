@@ -13,7 +13,7 @@ builder.AddProject<MyBlazorApp_Server_BlazorServer>("blazorserver")
 builder.AddProject<MyBlazorApp_Client_Photino>("photino")
     .WithReferences(backend);
 
-builder.AddProject<MyBlazorApp_Server_WebAssemblyHost>("wasmhost")
+builder.AddProject<MyBlazorApp_Client_WebAssembly>("wasm")
     .WithReferences(backend);
 
 builder.Build().Run();

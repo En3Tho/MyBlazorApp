@@ -12,7 +12,6 @@ public class Program
     {
         var builder = new PhotinoHostApplicationBuilder(args);
 
-        builder.AddMyBlazorAppClient();
         builder.AddClientDefaults();
         builder.ConfigureClientOpenTelemetry(new(ServiceName: "Photino"));
 

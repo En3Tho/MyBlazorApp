@@ -1,9 +1,8 @@
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting;
 
 var builder = new WebAssemblyHostApplicationBuilder(args);
 
-builder.AddMyBlazorAppClient();
+builder.AddServiceDefaults();
 builder.AddClientDefaults();
 builder.ConfigureClientOpenTelemetry(new (ServiceName: "WebAssembly"));
 

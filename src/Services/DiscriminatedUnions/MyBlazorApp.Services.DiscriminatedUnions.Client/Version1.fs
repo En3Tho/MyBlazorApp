@@ -3,9 +3,10 @@
 open System.Threading.Tasks
 
 module Endpoints =
-    let [<Literal>] ServiceName = "discriminated-unions/v1"
+
+    let [<Literal>] ServiceName = "discriminated-unions"
     let [<Literal>] ServiceDiscoveryUrl = "http://" + ServiceName
-    let [<Literal>] GetRandomImportantData = ServiceName + "/" + "get-random-important-data"
+    let [<Literal>] GetRandomImportantData = ServiceName + "/v1/" + "get-random-important-data"
 
 type ImportantDataDto =
     | NameAndAge of Name: string * Age: int
