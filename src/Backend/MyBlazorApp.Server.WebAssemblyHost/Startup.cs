@@ -1,11 +1,9 @@
 using System.Text.Json;
 using En3Tho.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http.Json;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using MyBlazorApp.Server.Shared;
-using MyBlazorApp.Services.DiscriminatedUnions.Server;
-using MyBlazorApp.Services.WeatherForecasts.Server;
+using MyBlazorApp.Services.DiscriminatedUnions.Server.V1;
+using MyBlazorApp.Services.WeatherForecasts.Server.V1;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.Server.WebAssemblyHost;

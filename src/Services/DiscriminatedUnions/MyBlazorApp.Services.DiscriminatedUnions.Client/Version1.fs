@@ -1,18 +1,11 @@
-﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Client
+﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
 
 open System.Threading.Tasks
 
-[<AutoOpen>]
-module Version1 =
-
-    let [<Literal>] Version = "v1"
-
-    module Routes =
-        let [<Literal>] ServiceName = "discriminated-unions" + "/" + Version + "/"
-        let [<Literal>] GetRandomImportantData = "get-random-important-data"
-
-    module Endpoints =
-        let [<Literal>] GetRandomImportantData = Routes.ServiceName + Routes.GetRandomImportantData
+module Endpoints =
+    let [<Literal>] ServiceName = "discriminated-unions/v1"
+    let [<Literal>] ServiceDiscoveryUrl = "http://" + ServiceName
+    let [<Literal>] GetRandomImportantData = ServiceName + "/" + "get-random-important-data"
 
 type ImportantDataDto =
     | NameAndAge of Name: string * Age: int

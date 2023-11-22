@@ -1,35 +1,22 @@
-namespace MyBlazorApp.Services.DiscriminatedUnions.Clients
+namespace MyBlazorApp.Services.DiscriminatedUnions.Client.V1
 
 open System
 open System.Net.Http
 open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Threading.Tasks
-open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
-open Microsoft.Extensions.Logging
-open Microsoft.Extensions.Options
-open MyBlazorApp.Services.DiscriminatedUnions.Client
+open MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
 open En3Tho.FSharp.ComputationExpressions.HttpBuilder
 
-[<CLIMutable>]
-type DiscriminatedUnionsServiceConnectionSettings = {
-    Uri: string
-}
-
-type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsServiceV1HttpClient>,
-                                            settings: IOptions<DiscriminatedUnionsServiceConnectionSettings>,
-                                            httpClient: HttpClient,
+type DiscriminatedUnionsServiceV1HttpClient(httpClient: HttpClient,
                                             jsonSerializerOptions: JsonSerializerOptions) =
 
-    // TODO this vs IOptions?
-    do httpClient.BaseAddress <- Uri settings.Value.Uri
-
-    member this.GetRandomImportantData() = task {
-        let endPoint = Endpoints.GetRandomImportantData
-        logger.LogTrace("{serviceName}. Sending message to: {baseAddress}{endPoint}", nameof this.GetRandomImportantData, httpClient.BaseAddress, endPoint)
-        return! httpClient.Get(endPoint).AsJson<ImportantDataDto>(jsonSerializerOptions)
-    }
+    member this.GetRandomImportantData() =
+        httpClient
+            .Get(Endpoints.GetRandomImportantData)
+            .AsJson<ImportantDataDto>(jsonSerializerOptions)
+            .SendRequest()
 
     interface IDiscriminatedUnionsServiceV1 with
         member this.GetRandomImportantData() = ValueTask<_>(task = this.GetRandomImportantData())
@@ -38,7 +25,7 @@ type DiscriminatedUnionsServiceV1HttpClient(logger: ILogger<DiscriminatedUnionsS
 type DependencyInjectionExtensions() =
 
     [<Extension>]
-    static member AddDiscriminatedUnionsHttpClient(services: IServiceCollection, configuration: IConfiguration) =
-        services.Configure<DiscriminatedUnionsServiceConnectionSettings>(configuration.GetSection(nameof(DiscriminatedUnionsServiceConnectionSettings)))
-                .AddHttpClient<IDiscriminatedUnionsServiceV1, DiscriminatedUnionsServiceV1HttpClient>() |> ignore
+    static member AddDiscriminatedUnionsHttpClient(services: IServiceCollection) =
+        services.AddHttpClient<IDiscriminatedUnionsServiceV1, DiscriminatedUnionsServiceV1HttpClient>(
+            fun client -> client.BaseAddress <- Uri Endpoints.ServiceDiscoveryUrl) |> ignore
         services

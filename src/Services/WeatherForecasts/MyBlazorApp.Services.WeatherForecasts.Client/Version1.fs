@@ -1,21 +1,13 @@
-﻿namespace MyBlazorApp.Services.WeatherForecasts.Client
+﻿namespace MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 
 open System
 open System.Threading.Tasks
 
-[<AutoOpen>]
-module Version1 =
-
-    let [<Literal>] Version = "v1"
-
-    module Routes =
-        let [<Literal>] ServiceName = "weather-forecasts" + "/" + Version + "/"
-        let [<Literal>] GetForecasts = "forecasts"
-        let [<Literal>] GetSuperForecasts = "super-forecasts"
-
-    module Endpoints =
-        let [<Literal>] GetForecasts = Routes.ServiceName + Routes.GetForecasts
-        let [<Literal>] GetSuperForecasts = Routes.ServiceName + Routes.GetSuperForecasts
+module Endpoints =
+    let [<Literal>] ServiceName = "weather-forecasts/v1"
+    let [<Literal>] ServiceDiscoveryUrl = "http://" + ServiceName
+    let [<Literal>] GetForecasts = ServiceName + "/" + "forecasts"
+    let [<Literal>] GetSuperForecasts = ServiceName + "/" + "super-forecasts"
 
 type WeatherForecastDto = {
     Date: DateTime

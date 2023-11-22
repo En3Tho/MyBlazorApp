@@ -3,8 +3,8 @@
 open System
 open System.Collections.Generic
 open System.Runtime.InteropServices
-open MyBlazorApp.Services.DiscriminatedUnions.Client
-open MyBlazorApp.Services.WeatherForecasts.Client
+open MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
+open MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 open MyBlazorApp.Utility.FSharpHelpers
 open En3Tho.FSharp.Extensions
 

@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyBlazorApp.ComponentsAndPages.Shared;
 using MyBlazorApp.Client.Shared;
@@ -21,6 +17,7 @@ var hostedServices = host.Services.GetRequiredService<IEnumerable<IHostedService
 
 foreach (var hostedService in hostedServices)
 {
+    // can block app start? 1 thread in wasm
     await hostedService.StartAsync(CancellationToken.None);
 }
 

@@ -1,12 +1,11 @@
-﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Server
+﻿namespace MyBlazorApp.Services.DiscriminatedUnions.Server.V1
 
 open System.Runtime.CompilerServices
 open System.Threading.Tasks
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
-open MyBlazorApp.Services.DiscriminatedUnions.Client
+open MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
 open MyBlazorApp.Services.DiscriminatedUnions.Domain
-open MyBlazorApp.Services.DiscriminatedUnions.Server
 open Microsoft.AspNetCore.Builder
 open En3Tho.FSharp.Extensions.AspNetCore
 

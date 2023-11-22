@@ -6,7 +6,7 @@ module HttpClient =
     let setBaseAddress uri (httpClient: HttpClient) = httpClient.BaseAddress <- uri
 
 [<AbstractClass; Sealed>]
-type UriHelper() = // TODO escape data string, C# interpolation instead of F#
+type UriHelper() = // TODO escape url string, C# interpolation instead of F#
     static member inline GetParametrizedUriString(baseAddress: string, p1Name: string, p1Value) =
         $"{baseAddress}?{p1Name}={p1Value}"
 

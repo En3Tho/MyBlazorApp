@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyBlazorApp.BlazorClient.Backend.Models;
-using MyBlazorApp.Services.DiscriminatedUnions.Clients;
-using MyBlazorApp.Services.WeatherForecasts.Clients;
+using MyBlazorApp.Services.DiscriminatedUnions.Client.V1;
+using MyBlazorApp.Services.WeatherForecasts.Client.V1;
 using MyBlazorApp.Utility;
 using OpenTelemetry;
 using OpenTelemetry.Resources;
@@ -52,8 +52,8 @@ public static class HostBuilderExtensions
             .AddSingleton<StateStorage>()
             .AddSingleton(new ThemeSwitch(Theme.Red))
 
-            .AddWeatherForecastsHttpClient(configuration)
-            .AddDiscriminatedUnionsHttpClient(configuration)
+            .AddWeatherForecastsHttpClient()
+            .AddDiscriminatedUnionsHttpClient()
             .AddClientTelemetry(configuration);
 
         return services;

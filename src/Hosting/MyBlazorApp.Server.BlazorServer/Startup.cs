@@ -1,7 +1,7 @@
 ﻿using MyBlazorApp.BlazorClient.Backend.Models;
 using MyBlazorApp.Server.Shared;
-using MyBlazorApp.Services.DiscriminatedUnions.Server;
-using MyBlazorApp.Services.WeatherForecasts.Server;
+using MyBlazorApp.Services.DiscriminatedUnions.Server.V1;
+using MyBlazorApp.Services.WeatherForecasts.Server.V1;
 using MyBlazorApp.Utility;
 
 namespace MyBlazorApp.Server.BlazorServer;

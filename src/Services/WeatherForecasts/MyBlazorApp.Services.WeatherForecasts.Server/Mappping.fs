@@ -1,6 +1,6 @@
-﻿namespace MyBlazorApp.Services.WeatherForecasts.Server
+﻿namespace MyBlazorApp.Services.WeatherForecasts.Server.V1
 
-open MyBlazorApp.Services.WeatherForecasts.Client
+open MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 open MyBlazorApp.Services.WeatherForecasts.Domain
 
 module WeatherForecast =

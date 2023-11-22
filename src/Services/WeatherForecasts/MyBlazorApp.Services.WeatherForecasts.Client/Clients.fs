@@ -1,61 +1,51 @@
-﻿namespace MyBlazorApp.Services.WeatherForecasts.Clients
+﻿namespace MyBlazorApp.Services.WeatherForecasts.Client.V1
 
 open System
 open System.Net.Http
 open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Threading.Tasks
-open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
-open Microsoft.Extensions.Logging
-open Microsoft.Extensions.Options
 open En3Tho.FSharp.ComputationExpressions.HttpBuilder
-open MyBlazorApp.Services.WeatherForecasts.Client
+open MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 open MyBlazorApp.Utility.Http
 
-[<CLIMutable>]
-type WeatherForecastsServiceConnectionSettings = {
-    Uri: string
-}
-
 [<Sealed>]
-type WeatherForecastsApiVersion1HttpClient(logger: ILogger<WeatherForecastsApiVersion1HttpClient>,
-                                           settings: IOptions<WeatherForecastsServiceConnectionSettings>,
-                                           httpClient: HttpClient,
+type WeatherForecastsApiVersion1HttpClient(httpClient: HttpClient,
                                            jsonSerializerOptions: JsonSerializerOptions) =
 
-    do httpClient.BaseAddress <- Uri settings.Value.Uri
-
-    member this.GetForecasts (count: int) = task {
+    member this.GetForecasts(count: int) =
         let endPoint =
             UriHelper.GetParametrizedUriString(
                 Endpoints.GetForecasts,
                 nameof count, count)
 
-        logger.LogTrace("{methodName}. Sending message to: {baseAddress}{endPoint}", nameof this.GetForecasts, httpClient.BaseAddress, endPoint)
-        return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
-    }
+        httpClient
+            .Get(endPoint)
+            .AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
+            .SendRequest()
 
-    member this.GetSuperForecasts (count: int) (superNumber: int) = task {
+    member this.GetSuperForecasts(count: int, superNumber: int) =
         let endPoint =
             UriHelper.GetParametrizedUriString(
                 Endpoints.GetSuperForecasts,
                 nameof count, count,
                 nameof superNumber, superNumber)
 
-        logger.LogTrace("{methodName}. Sending message tto: {baseAddress}{endPoint}", nameof this.GetForecasts, httpClient.BaseAddress, endPoint)
-        return! httpClient.Get(endPoint).AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
-    }
+        httpClient
+            .Get(endPoint)
+            .AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
+            .SendRequest()
 
     interface IWeatherForecastsServiceV1 with
-       member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts count)
-       member this.GetSuperForecasts (count, superNumber) = ValueTask<_>(task = this.GetSuperForecasts count superNumber)
+       member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts(count))
+       member this.GetSuperForecasts (count, superNumber) = ValueTask<_>(task = this.GetSuperForecasts(count, superNumber))
 
 [<Extension; AbstractClass>]
 type DependencyInjectionExtensions() =
 
     [<Extension>]
-    static member AddWeatherForecastsHttpClient(services: IServiceCollection, configuration: IConfiguration) =
-        services.Configure<WeatherForecastsServiceConnectionSettings>(configuration.GetSection(nameof(WeatherForecastsServiceConnectionSettings)))
-                .AddHttpClient<IWeatherForecastsServiceV1, WeatherForecastsApiVersion1HttpClient>() |> ignore
+    static member AddWeatherForecastsHttpClient(services: IServiceCollection) =
+        services.AddHttpClient<IWeatherForecastsServiceV1, WeatherForecastsApiVersion1HttpClient>(
+            fun client -> client.BaseAddress <- Uri Endpoints.ServiceDiscoveryUrl) |> ignore
         services

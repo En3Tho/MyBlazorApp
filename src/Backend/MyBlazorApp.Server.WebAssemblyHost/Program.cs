@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using MyBlazorApp.Server.Shared;
-using MyBlazorApp.Services.DiscriminatedUnions.Server;
-using MyBlazorApp.Services.WeatherForecasts.Server;
+﻿using MyBlazorApp.Server.Shared;
 using MyBlazorApp.Server.WebAssemblyHost;
+using MyBlazorApp.Services.DiscriminatedUnions.Server.V1;
+using MyBlazorApp.Services.WeatherForecasts.Server.V1;
 
 var builder = WebApplication.CreateBuilder(args);
 
