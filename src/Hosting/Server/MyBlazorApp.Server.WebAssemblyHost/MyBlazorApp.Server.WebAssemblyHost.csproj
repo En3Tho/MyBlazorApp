@@ -7,7 +7,6 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Configuration" />
         <PackageReference Include="En3Tho.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.OpenApi" />
-        <PackageReference Include="Yarp.ReverseProxy" />
     </ItemGroup>
 
     <ItemGroup>
@@ -15,7 +14,8 @@
         <ProjectReference Include="..\..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Server\MyBlazorApp.Services.WeatherForecasts.Server.fsproj" />
         <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
         <ProjectReference Include="..\..\Client\MyBlazorApp.Client.WebAssembly\MyBlazorApp.Client.WebAssembly.csproj" />
-        <ProjectReference Include="..\MyBlazorApp.Server.Shared\MyBlazorApp.Server.Shared.csproj" />
+        <ProjectReference Include="..\..\MyBlazorApp.ServiceDefaults\MyBlazorApp.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\MyBlazorApp.ServerDefaults\MyBlazorApp.ServerDefaults.csproj" />
     </ItemGroup>
 
 </Project>

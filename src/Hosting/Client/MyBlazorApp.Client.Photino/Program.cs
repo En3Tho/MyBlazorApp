@@ -1,36 +1,27 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using MyBlazorApp.Client.Shared;
 using MyBlazorApp.ComponentsAndPages.Shared;
-using Photino.Blazor;
 
 namespace MyBlazorApp.Client.Photino;
-
-// TODO: proper host for photino
-
-record LoggingBuilder(IServiceCollection Services) : ILoggingBuilder;
 
 public class Program
 {
     [STAThread]
     private static void Main(string[] args)
     {
-        var configurationManager = new ConfigurationManager();
-        configurationManager.AddJsonFile("wwwroot/appsettings.json");
+        var builder = new PhotinoHostApplicationBuilder(args);
 
-        var builder = PhotinoBlazorAppBuilder.CreateDefault(args);
+        builder.AddMyBlazorAppClient();
+        builder.AddClientDefaults();
+        builder.ConfigureClientOpenTelemetry(new(ServiceName: "Photino"));
 
-        var loggingBuilder = new LoggingBuilder(builder.Services);
-        loggingBuilder.ConfigureLogging(configurationManager);
-
-        builder.Services.AddMyBlazorAppClient(configurationManager);
-        builder.Services.AddSingleton<IConfiguration>(_ => configurationManager);
+        builder.Configuration.AddJsonFile("wwwroot/appsettings.json"); // check if added automatically?
 
         builder.RootComponents.Add<App>("app");
 
-        var app = builder.Build();
+        var (host, app) = builder.Build();
+
         app.MainWindow.SetLogVerbosity(0);
 
         var hostedServices = app.Services.GetRequiredService<IEnumerable<IHostedService>>().ToArray();
@@ -41,7 +32,6 @@ public class Program
             return false; // or true?
         };
 
-        // TODO: just write a better photino builder based on consoleapp stuff?
         foreach (var hostedService in hostedServices)
         {
             // can block everything so should be async?
@@ -55,7 +45,7 @@ public class Program
         {
             foreach (var hostedService in hostedServices)
             {
-                hostedService.StopAsync(cts.Token).GetAwaiter().GetResult();
+                hostedService.StopAsync(CancellationToken.None).GetAwaiter().GetResult();
             }
         }
     }

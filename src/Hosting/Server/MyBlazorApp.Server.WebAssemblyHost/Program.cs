@@ -1,24 +1,32 @@
-﻿using MyBlazorApp.Server.Shared;
-using MyBlazorApp.Server.WebAssemblyHost;
-using MyBlazorApp.Services.DiscriminatedUnions.Server.V1;
-using MyBlazorApp.Services.WeatherForecasts.Server.V1;
+﻿using System.Text.Json;
+using En3Tho.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http.Json;
+using MyBlazorApp.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServerDefaults();
+builder.ConfigureServerOpenTelemetry(new(ServiceName: "Wasm host"));
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddMyBlazorAppServer(builder.Configuration);
 builder.Services.AddRazorPages();
 
-builder.Services
-    .AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+builder.Services.AddAuthorization();
+builder.Services.AddCors(o =>
+    o.AddDefaultPolicy(builder =>
+        builder
+            .SetIsOriginAllowed(_ => true)
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
 
-builder.Logging.ConfigureLogging(builder.Configuration);
+builder.Services.ConfigureHttpJsonOptions(options =>
+    Json.AddFSharpConverters(options.SerializerOptions));
+
+builder.Services.AddOrReplaceSingleton<JsonSerializerOptions>(serviceProvider =>
+    serviceProvider.GetRequiredService<JsonOptions>().SerializerOptions);
 
 var app = builder.Build();
-
-app.MapDiscriminatedUnionsEndpoints();
-app.MapWeatherForecastsServiceEndpoints();
 
 app.UseCors();
 app.UseAuthorization();
@@ -30,7 +38,7 @@ app.UseStaticFiles();
 //app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
-app.MapReverseProxy();
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

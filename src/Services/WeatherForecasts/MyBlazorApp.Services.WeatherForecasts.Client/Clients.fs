@@ -23,7 +23,7 @@ type WeatherForecastsApiVersion1HttpClient(httpClient: HttpClient,
         httpClient
             .Get(endPoint)
             .AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
-            .SendRequest()
+            .Send()
 
     member this.GetSuperForecasts(count: int, superNumber: int) =
         let endPoint =
@@ -35,7 +35,7 @@ type WeatherForecastsApiVersion1HttpClient(httpClient: HttpClient,
         httpClient
             .Get(endPoint)
             .AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
-            .SendRequest()
+            .Send()
 
     interface IWeatherForecastsServiceV1 with
        member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts(count))

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" /> 
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\MyBlazorApp.ServiceDefaults\MyBlazorApp.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>

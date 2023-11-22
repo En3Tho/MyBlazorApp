@@ -16,7 +16,7 @@ type DiscriminatedUnionsServiceV1HttpClient(httpClient: HttpClient,
         httpClient
             .Get(Endpoints.GetRandomImportantData)
             .AsJson<ImportantDataDto>(jsonSerializerOptions)
-            .SendRequest()
+            .Send()
 
     interface IDiscriminatedUnionsServiceV1 with
         member this.GetRandomImportantData() = ValueTask<_>(task = this.GetRandomImportantData())

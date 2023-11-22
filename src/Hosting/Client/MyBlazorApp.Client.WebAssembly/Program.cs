@@ -1,16 +1,11 @@
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Hosting;
-using MyBlazorApp.ComponentsAndPages.Shared;
-using MyBlazorApp.Client.Shared;
+using Microsoft.Extensions.Hosting;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+var builder = new WebAssemblyHostApplicationBuilder(args);
 
-builder.Services.AddMyBlazorAppClient(builder.Configuration);
-builder.Logging.ConfigureLogging(builder.Configuration);
-builder.Configuration.ConfigureOptions();
+builder.AddMyBlazorAppClient();
+builder.AddClientDefaults();
+builder.ConfigureClientOpenTelemetry(new (ServiceName: "WebAssembly"));
 
 var host = builder.Build();
 var hostedServices = host.Services.GetRequiredService<IEnumerable<IHostedService>>().ToArray();

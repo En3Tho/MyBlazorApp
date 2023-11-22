@@ -161,17 +161,3 @@ module QuickGrid__1__Import =
         static member inline Render(builder: BlazorBuilderCore) =
             builder.OpenComponent<QuickGrid<'TGridItem>>()
             QuickGrid__1__Import<'TGridItem>(builder)
-
-[<AutoOpen>]
-module _Imports__Import =
-    open Microsoft.AspNetCore.Components.QuickGrid
-
-    type [<Struct; IsReadOnly>] _Imports__Import(builder: BlazorBuilderCore) =
-
-        interface IComponentImport with
-            member _.Builder = builder
-
-    type _Imports with
-        static member inline Render(builder: BlazorBuilderCore) =
-            builder.OpenComponent<_Imports>()
-            _Imports__Import(builder)

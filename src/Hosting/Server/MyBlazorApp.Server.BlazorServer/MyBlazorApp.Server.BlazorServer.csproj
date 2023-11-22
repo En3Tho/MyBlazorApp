@@ -4,11 +4,10 @@
         <ProjectReference Include="..\..\..\Frontend\MyBlazorApp.BlazorClient.Backend\MyBlazorApp.BlazorClient.Backend.fsproj" />
         <ProjectReference Include="..\..\..\Frontend\MyBlazorApp.ComponentsAndPages\MyBlazorApp.ComponentsAndPages.csproj" />
         <ProjectReference Include="..\..\..\Frontend\TailwindComponents\TailwindComponents.csproj" />
-        <ProjectReference Include="..\..\..\Services\DiscriminatedUnions\MyBlazorApp.Services.DiscriminatedUnions.Server\MyBlazorApp.Services.DiscriminatedUnions.Server.fsproj" />
-        <ProjectReference Include="..\..\..\Services\WeatherForecasts\MyBlazorApp.Services.WeatherForecasts.Server\MyBlazorApp.Services.WeatherForecasts.Server.fsproj" />
         <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility.FSharpHelpers\MyBlazorApp.Utility.FSharpHelpers.csproj" />
         <ProjectReference Include="..\..\..\Shared\MyBlazorApp.Utility\MyBlazorApp.Utility.fsproj" />
-        <ProjectReference Include="..\MyBlazorApp.Server.Shared\MyBlazorApp.Server.Shared.csproj" />
+        <ProjectReference Include="..\..\MyBlazorApp.ServiceDefaults\MyBlazorApp.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\MyBlazorApp.ServerDefaults\MyBlazorApp.ServerDefaults.csproj" />
     </ItemGroup>
 
     <ItemGroup>
