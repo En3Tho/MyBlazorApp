@@ -10,6 +10,7 @@
     <PackageVersion Include="En3Tho.FSharp.ComputationExpressions" Version="8.0.1" />
     <PackageVersion Include="En3Tho.FSharp.Extensions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.FileProviders.Physical" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />

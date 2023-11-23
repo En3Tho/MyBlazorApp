@@ -14,7 +14,17 @@ builder.Services
     .AddWeatherForecastsService()
     .AddDiscriminatedUnionsService();
 
+builder.Services.AddCors(o =>
+    o.AddDefaultPolicy(builder =>
+        builder
+            .SetIsOriginAllowed(_ => true)
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
 var app = builder.Build();
+
+app.UseCors();
 
 app.MapWeatherForecastsServiceEndpoints();
 app.MapDiscriminatedUnionsEndpoints();

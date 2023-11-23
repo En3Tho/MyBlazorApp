@@ -18,7 +18,7 @@ class WebAssemblyHostApplicationBuilder : IHostApplicationBuilder
         public string EnvironmentName { get; set; } = hostEnvironment.Environment;
         public string ApplicationName { get; set; } = "MyBlazorApp";
         public string ContentRootPath { get; set; } = "/";
-        public IFileProvider ContentRootFileProvider { get; set; } = null!; // ?
+        public IFileProvider ContentRootFileProvider { get; set; } = new NullFileProvider();
     }
 
     class WebAssemblyHostConfigurationManager(WebAssemblyHostConfiguration configuration) : IConfigurationManager
@@ -56,6 +56,8 @@ class WebAssemblyHostApplicationBuilder : IHostApplicationBuilder
         Configuration = new WebAssemblyHostConfigurationManager(_builder.Configuration);
         Metrics = new WebAssemblyMetricsBuilder(_builder.Services);
     }
+
+    public WebAssemblyHostBuilder Builder => _builder;
 
     public void ConfigureContainer<TContainerBuilder>(IServiceProviderFactory<TContainerBuilder> factory, Action<TContainerBuilder>? configure = null) where TContainerBuilder : notnull
     {

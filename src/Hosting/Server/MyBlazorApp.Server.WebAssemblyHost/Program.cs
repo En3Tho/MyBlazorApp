@@ -7,29 +7,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthorization();
-builder.Services.AddCors(o =>
-    o.AddDefaultPolicy(builder =>
-        builder
-            .SetIsOriginAllowed(_ => true)
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
 
 var app = builder.Build();
 
-app.UseCors();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 
-//app.UseBlazorFrameworkFiles();
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
+app.UseStaticWasmEnvFile();
 
-//app.MapRazorPages();
+app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
