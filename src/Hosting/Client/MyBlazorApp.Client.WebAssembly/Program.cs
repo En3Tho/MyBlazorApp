@@ -12,7 +12,6 @@ foreach (var element in jsonObj.RootElement.EnumerateObject())
     Environment.SetEnvironmentVariable(element.Name, element.Value.GetString()!);
 }
 
-builder.AddServiceDefaults();
 builder.AddClientDefaults();
 builder.ConfigureOpenTelemetry(new (Logging: false, Metrics: false));
 builder.Configuration.AddEnvironmentVariables();

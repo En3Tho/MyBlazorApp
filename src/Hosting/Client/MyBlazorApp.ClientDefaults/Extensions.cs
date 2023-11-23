@@ -13,8 +13,6 @@ public static class Extensions
 {
     public static IHostApplicationBuilder AddClientDefaults(this IHostApplicationBuilder builder)
     {
-        builder.AddServiceDefaults();
-
         builder.Services
             .TryAddSingleton(new JsonSerializerOptions());
 
@@ -26,6 +24,6 @@ public static class Extensions
             .AddWeatherForecastsHttpClient()
             .AddDiscriminatedUnionsHttpClient();
 
-        return builder;
+        return builder.AddServiceDefaults();
     }
 }
