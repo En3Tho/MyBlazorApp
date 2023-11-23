@@ -5,7 +5,7 @@ using System.Text.Json.Nodes;
 static class WasmEnvFile
 {
     public const string WasmEnvPrefix = "WASM__";
-    public const string WasmEnv = "wasm.env";
+    public const string WasmEnv = "env.json";
 
     public static InMemoryFileInfo CreateFromEnvironment()
     {

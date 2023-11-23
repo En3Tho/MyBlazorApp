@@ -1,12 +1,11 @@
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
-using MyBlazorApp.Client.WebAssembly;
 using OpenTelemetry.Exporter;
 
 var builder = new WebAssemblyHostApplicationBuilder(args);
 
 var httpClient = new HttpClient { BaseAddress = new(builder.HostEnvironment.BaseAddress) };
-var wasmEnv = await httpClient.GetStringAsync("/wasm/wasm.env");
+var wasmEnv = await httpClient.GetStringAsync("/wasm/env.json");
 var jsonObj = JsonDocument.Parse(wasmEnv);
 
 foreach (var element in jsonObj.RootElement.EnumerateObject())
@@ -17,7 +16,7 @@ foreach (var element in jsonObj.RootElement.EnumerateObject())
 builder.AddServiceDefaults();
 builder.AddClientDefaults();
 builder.ConfigureOpenTelemetry(new (ServiceName: "WebAssembly", Protocol: OtlpExportProtocol.HttpProtobuf));
-builder.AddWasmEnvironmentVariables();
+builder.Configuration.AddEnvironmentVariables();
 
 var host = builder.Build();
 
