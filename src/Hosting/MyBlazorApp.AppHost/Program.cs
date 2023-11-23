@@ -16,6 +16,6 @@ builder.AddProject<MyBlazorApp_Client_Photino>("photino")
 
 builder.AddProject<MyBlazorApp_Server_WebAssemblyHost>("wasmhost")
     .WithReferences(backend)
-    .WithWasmEnvironmentVariables();
+    .WithEnvironmentVariablesCopy("WASM__");
 
 builder.Build().Run();

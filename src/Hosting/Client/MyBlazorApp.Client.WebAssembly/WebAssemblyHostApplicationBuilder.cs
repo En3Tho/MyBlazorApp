@@ -57,7 +57,7 @@ class WebAssemblyHostApplicationBuilder : IHostApplicationBuilder
         Metrics = new WebAssemblyMetricsBuilder(_builder.Services);
     }
 
-    public WebAssemblyHostBuilder Builder => _builder;
+    public IWebAssemblyHostEnvironment HostEnvironment => _builder.HostEnvironment;
 
     public void ConfigureContainer<TContainerBuilder>(IServiceProviderFactory<TContainerBuilder> factory, Action<TContainerBuilder>? configure = null) where TContainerBuilder : notnull
     {

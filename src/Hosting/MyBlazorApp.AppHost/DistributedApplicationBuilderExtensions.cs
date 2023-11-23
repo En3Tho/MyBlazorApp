@@ -55,8 +55,7 @@ public static class DistributedApplicationBuilderExtensions
 
             var containsAmbiguousEndpoints = ContainsAmbiguousEndpoints(allocatedEndPoints);
 
-            string[] aliases =  [source.Resource.Name,
-            ..source.Resource.Annotations.OfType<EndpointAliasAnnotation>().Select(a => a.Alias)];
+            string[] aliases =  [source.Resource.Name, ..source.Resource.Annotations.OfType<EndpointAliasAnnotation>().Select(a => a.Alias)];
 
             foreach (var name in aliases.Distinct())
             {
@@ -99,15 +98,15 @@ public static class DistributedApplicationBuilderExtensions
         return builder.WithAnnotation(new EndpointAliasAnnotation(alias));
     }
 
-    public static IResourceBuilder<ProjectResource> WithWasmEnvironmentVariables(
-        this IResourceBuilder<ProjectResource> project)
+    public static IResourceBuilder<ProjectResource> WithEnvironmentVariablesCopy(
+        this IResourceBuilder<ProjectResource> project, string prefix)
     {
         return project.WithEnvironment(context =>
         {
             var envs = new Dictionary<string, string>(context.EnvironmentVariables);
             foreach (var env in envs)
             {
-                context.EnvironmentVariables[$"WASM__{env.Key}"] = env.Value;
+                context.EnvironmentVariables[$"{prefix}{env.Key}"] = env.Value;
             }
         });
     }

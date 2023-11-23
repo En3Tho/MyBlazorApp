@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyBlazorApp.Utility;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
+using OpenTelemetry;
 using OpenTelemetry.Trace;
 
 namespace Microsoft.Extensions.Hosting;
@@ -57,66 +55,27 @@ public static class Extensions
 
     public static IHostApplicationBuilder ConfigureServerOpenTelemetry(this IHostApplicationBuilder builder, OpenTelemetryOptions options)
     {
-        if (options.Enabled)
+        var configureBuilder = (OpenTelemetryBuilder builder) =>
         {
-            if (options.Logging)
+            options.ConfigureBuilder?.Invoke(builder);
+            builder.WithTracing(tracing =>
             {
-                builder.Logging.AddOpenTelemetry(logging =>
+                tracing.AddAspNetCoreInstrumentation(options => // configurable?
                 {
-                    logging.IncludeFormattedMessage = true;
-                    logging.IncludeScopes = true;
-                });
-            }
-
-            var otelBuilder = builder.Services.AddOpenTelemetry();
-
-            otelBuilder.ConfigureResource(builder =>
-            {
-                builder.AddService(options.ServiceName);
-                if (options.Attributes is {} attributes)
-                    builder.AddAttributes(attributes);
-            });
-
-            if (options.Traces)
-            {
-                otelBuilder.WithTracing(tracing =>
-                {
-                    if (builder.Environment.IsDevelopment())
+                    options.Filter = context =>
                     {
-                        tracing.SetSampler(new ParentBasedSampler(rootSampler: new AlwaysOnSampler()));
-                    }
-
-                    tracing
-                        .AddAspNetCoreInstrumentation(options =>
+                        if (context.Request.Path.Value is {} path)
                         {
-                            options.Filter = context =>
-                            {
-                                if (context.Request.Path.Value is {} path)
-                                {
-                                    // This is for YARP proxy
-                                    return !path.Equals("/opentelemetry.proto.collector.trace.v1.TraceService/Export");
-                                }
+                            // This is for YARP proxy
+                            return !path.Equals("/opentelemetry.proto.collector.trace.v1.TraceService/Export");
+                        }
 
-                                return true;
-                            };
-                        })
-                        .AddGrpcClientInstrumentation()
-                        .AddHttpClientInstrumentation();
+                        return true;
+                    };
                 });
-            }
+            });
+        };
 
-            if (options.Metrics)
-            {
-                otelBuilder.WithMetrics(metrics =>
-                {
-                    metrics.AddRuntimeInstrumentation()
-                        .AddBuiltInMeters();
-                });
-            }
-
-            builder.AddOpenTelemetryExporters(options);
-        }
-
-        return builder;
+        return builder.ConfigureOpenTelemetry(options with {ConfigureBuilder = configureBuilder});
     }
 }

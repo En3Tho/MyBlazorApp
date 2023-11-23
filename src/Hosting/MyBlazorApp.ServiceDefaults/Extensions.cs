@@ -1,10 +1,7 @@
-using System.Text.Json;
-using En3Tho.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using MyBlazorApp.Utility;
 using OpenTelemetry;
+using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -18,6 +15,8 @@ public record OpenTelemetryOptions(
     bool Metrics = true,
     bool Logging = true,
     ExportProcessorType ExportProcessorType = ExportProcessorType.Batch,
+    OtlpExportProtocol Protocol = OtlpExportProtocol.Grpc,
+    Action<OpenTelemetryBuilder>? ConfigureBuilder = null,
     IEnumerable<KeyValuePair<string, object>>? Attributes = null)
 {
     public bool Enabled => Traces || Metrics || Logging;
@@ -41,7 +40,7 @@ public static class Extensions
         return builder;
     }
 
-    public static IHostApplicationBuilder ConfigureClientOpenTelemetry(this IHostApplicationBuilder builder, OpenTelemetryOptions options)
+    public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder, OpenTelemetryOptions options)
     {
         if (options.Enabled)
         {
@@ -88,6 +87,8 @@ public static class Extensions
             }
 
             builder.AddOpenTelemetryExporters(options);
+
+            options.ConfigureBuilder?.Invoke(otelBuilder);
         }
 
         return builder;
@@ -101,13 +102,22 @@ public static class Extensions
         {
             builder.Services.Configure<OpenTelemetryLoggerOptions>(logging =>
                 logging.AddOtlpExporter(exporterOptions =>
-                    exporterOptions.ExportProcessorType = options.ExportProcessorType));
+                {
+                    exporterOptions.Protocol = options.Protocol;
+                    exporterOptions.ExportProcessorType = options.ExportProcessorType;
+                }));
             builder.Services.ConfigureOpenTelemetryMeterProvider(metrics =>
                 metrics.AddOtlpExporter(exporterOptions =>
-                    exporterOptions.ExportProcessorType = options.ExportProcessorType));
+                {
+                    exporterOptions.Protocol = options.Protocol;
+                    exporterOptions.ExportProcessorType = options.ExportProcessorType;
+                }));
             builder.Services.ConfigureOpenTelemetryTracerProvider(tracing =>
                 tracing.AddOtlpExporter(exporterOptions =>
-                    exporterOptions.ExportProcessorType = options.ExportProcessorType));
+                {
+                    exporterOptions.Protocol = options.Protocol;
+                    exporterOptions.ExportProcessorType = options.ExportProcessorType;
+                }));
         }
 
         return builder;
