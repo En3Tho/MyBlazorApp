@@ -4,7 +4,7 @@ using MyBlazorApp.Services.WeatherForecasts.Server.V1;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServerDefaults();
-builder.ConfigureServerOpenTelemetry(new(ServiceName: "Backend"));
+builder.ConfigureServerOpenTelemetry(new());
 
 builder.Services
     .AddReverseProxy()

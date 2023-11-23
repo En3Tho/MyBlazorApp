@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
-using OpenTelemetry.Exporter;
 
 var builder = new WebAssemblyHostApplicationBuilder(args);
 
@@ -15,8 +14,10 @@ foreach (var element in jsonObj.RootElement.EnumerateObject())
 
 builder.AddServiceDefaults();
 builder.AddClientDefaults();
-builder.ConfigureOpenTelemetry(new (ServiceName: "WebAssembly", Protocol: OtlpExportProtocol.HttpProtobuf));
+builder.ConfigureOpenTelemetry(new (Logging: false, Metrics: false));
 builder.Configuration.AddEnvironmentVariables();
+
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 var host = builder.Build();
 

@@ -10,7 +10,6 @@ using OpenTelemetry.Trace;
 namespace Microsoft.Extensions.Hosting;
 
 public record OpenTelemetryOptions(
-    string ServiceName,
     bool Traces = true,
     bool Metrics = true,
     bool Logging = true,
@@ -57,7 +56,6 @@ public static class Extensions
 
             otelBuilder.ConfigureResource(builder =>
             {
-                builder.AddService(options.ServiceName);
                 if (options.Attributes is {} attributes)
                     builder.AddAttributes(attributes);
             });

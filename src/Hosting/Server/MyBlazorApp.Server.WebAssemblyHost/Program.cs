@@ -1,7 +1,7 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServerDefaults();
-builder.ConfigureServerOpenTelemetry(new(ServiceName: "Wasm host"));
+builder.ConfigureServerOpenTelemetry(new());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddRazorPages();

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.AddServerDefaults();
-builder.ConfigureServerOpenTelemetry(new(ServiceName: "BlazorServer"));
+builder.ConfigureServerOpenTelemetry(new());
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

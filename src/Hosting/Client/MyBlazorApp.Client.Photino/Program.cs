@@ -13,7 +13,7 @@ public class Program
         var builder = new PhotinoHostApplicationBuilder(args);
 
         builder.AddClientDefaults();
-        builder.ConfigureOpenTelemetry(new(ServiceName: "Photino"));
+        builder.ConfigureOpenTelemetry(new());
 
         builder.Configuration.AddJsonFile("wwwroot/appsettings.json"); // check if added automatically?
 

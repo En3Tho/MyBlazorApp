@@ -76,8 +76,18 @@ public static class DistributedApplicationBuilderExtensions
         });
     }
 
-    public static IResourceBuilder<ProjectResource> WithLogLevel(this IResourceBuilder<ProjectResource> resourceBuilder,
+    public static void All(IResourceBuilder<ProjectResource>[] resourceBuilders,
+        Action<IResourceBuilder<ProjectResource>> action)
+    {
+        foreach (var resourceBuilder in resourceBuilders)
+        {
+            action(resourceBuilder);
+        }
+    }
+
+    public static IResourceBuilder<T> WithLogLevel<T>(this IResourceBuilder<T> resourceBuilder, string prefix,
         LogLevel defaultLogLevel, (string, LogLevel)[]? logLevels = null)
+        where T : IResourceWithEnvironment
     {
         return resourceBuilder.WithEnvironment(context =>
         {
@@ -98,16 +108,29 @@ public static class DistributedApplicationBuilderExtensions
         return builder.WithAnnotation(new EndpointAliasAnnotation(alias));
     }
 
-    public static IResourceBuilder<ProjectResource> WithEnvironmentVariablesCopy(
-        this IResourceBuilder<ProjectResource> project, string prefix)
+    public static IResourceBuilder<T> WithEnvironmentVariablesCopy<T>(
+        this IResourceBuilder<T> project, string prefix)
+        where T : IResourceWithEnvironment
     {
         return project.WithEnvironment(context =>
         {
             var envs = new Dictionary<string, string>(context.EnvironmentVariables);
             foreach (var env in envs)
             {
-                context.EnvironmentVariables[$"{prefix}{env.Key}"] = env.Value;
+                var prefixedKey = $"{prefix}{env.Key}";
+                if (env.Key.StartsWith(prefix) || context.EnvironmentVariables.ContainsKey(prefixedKey))
+                {
+                    continue;
+                }
+                context.EnvironmentVariables[prefixedKey] = env.Value;
             }
         });
+    }
+
+    public static IResourceBuilder<T> WithEnvironmentVariable<T>(
+        this IResourceBuilder<T> project, string key, string value)
+        where T : IResourceWithEnvironment
+    {
+        return project.WithEnvironment(context => { context.EnvironmentVariables[key] = value; });
     }
 }
