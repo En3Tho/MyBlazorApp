@@ -117,6 +117,10 @@ public static class Extensions
                     exporterOptions.ExportProcessorType = options.ExportProcessorType;
                 }));
         }
+        else
+        {
+            throw new InvalidOperationException("OTEL_EXPORTER_OTLP_ENDPOINT must be set to use OpenTelemetry");
+        }
 
         return builder;
     }

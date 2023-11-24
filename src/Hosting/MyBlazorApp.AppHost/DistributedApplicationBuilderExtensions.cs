@@ -76,13 +76,15 @@ public static class DistributedApplicationBuilderExtensions
         });
     }
 
-    public static void All(IResourceBuilder<ProjectResource>[] resourceBuilders,
+    public static IDistributedApplicationBuilder ForAll(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders,
         Action<IResourceBuilder<ProjectResource>> action)
     {
         foreach (var resourceBuilder in resourceBuilders)
         {
             action(resourceBuilder);
         }
+
+        return builder;
     }
 
     public static IResourceBuilder<T> WithLogLevel<T>(this IResourceBuilder<T> resourceBuilder, string prefix,
@@ -100,6 +102,13 @@ public static class DistributedApplicationBuilderExtensions
                 }
             }
         });
+    }
+
+    public static IResourceBuilder<T> WithLogLevel<T>(this IResourceBuilder<T> resourceBuilder,
+        LogLevel defaultLogLevel, (string, LogLevel)[]? logLevels = null)
+        where T : IResourceWithEnvironment
+    {
+        return resourceBuilder.WithLogLevel("", defaultLogLevel, logLevels);
     }
 
     public static IResourceBuilder<ProjectResource> WithAlias(this IResourceBuilder<ProjectResource> builder,
