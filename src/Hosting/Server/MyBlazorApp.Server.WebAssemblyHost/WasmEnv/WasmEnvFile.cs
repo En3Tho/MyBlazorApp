@@ -1,25 +1,40 @@
 using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Microsoft.Extensions.FileProviders;
 
 static class WasmEnvFile
 {
     public const string WasmEnvPrefix = "WASM__";
-    public const string WasmEnv = "env.json";
+    public const string AppSettingsJson = "appsettings.json";
 
-    public static InMemoryFileInfo CreateFromEnvironment()
+    public static InMemoryFileInfo CreateFromEnvironment(JsonNode? appSettings)
     {
-        var jsonObject = new JsonObject();
+        appSettings ??= new JsonObject();
+        var envNode = new JsonObject();
+
+        appSettings["EnvironmentVariables"] = envNode;
 
         foreach (DictionaryEntry env in (Hashtable)Environment.GetEnvironmentVariables())
         {
             if (env.Key is string key && key.StartsWith(WasmEnvPrefix))
             {
-                jsonObject[key[WasmEnvPrefix.Length..]] = env.Value!.ToString();
+                envNode[key[WasmEnvPrefix.Length..]] = env.Value!.ToString();
             }
         }
 
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(jsonObject);
-        return new(WasmEnv, bytes, DateTimeOffset.Now);
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(appSettings);
+        return new(AppSettingsJson, bytes, DateTimeOffset.Now);
+    }
+
+    public static async Task<IFileInfo> CreateAppSettingsJson(IFileInfo appSettingsInfo)
+    {
+        if (appSettingsInfo is { Exists: true })
+        {
+            var obj = await JsonNode.ParseAsync(appSettingsInfo.CreateReadStream());
+            return CreateFromEnvironment(obj);
+        }
+
+        return CreateFromEnvironment(null);
     }
 }

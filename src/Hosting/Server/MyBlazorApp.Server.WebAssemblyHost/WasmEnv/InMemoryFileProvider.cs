@@ -1,39 +1,27 @@
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
-class InMemoryFileProvider : IFileProvider
+class WasmEnvFileProvider(IFileProvider webRootFileProvider, IFileInfo modifiedAppSettings) : IFileProvider
 {
-    private readonly InMemoryDirectoryContents _directoryContents;
-    private readonly InMemoryFileInfo _fileInfo;
-
-    public InMemoryFileProvider()
-    {
-        _fileInfo = WasmEnvFile.CreateFromEnvironment();
-        _directoryContents = new InMemoryDirectoryContents([_fileInfo]);
-    }
-
     public IDirectoryContents GetDirectoryContents(string subpath)
     {
-        if (subpath.Equals("/"))
-        {
-            return _directoryContents;
-        }
-
-        return NotFoundDirectoryContents.Singleton;
+        return webRootFileProvider.GetDirectoryContents(subpath);
     }
 
     public IFileInfo GetFileInfo(string subpath)
     {
-        if (subpath.Equals($"/{WasmEnvFile.WasmEnv}"))
+        var fileInfo = webRootFileProvider.GetFileInfo(subpath);
+
+        if (fileInfo is { Exists: true } && subpath.Equals($"/{WasmEnvFile.AppSettingsJson}", StringComparison.Ordinal))
         {
-            return _fileInfo;
+            return modifiedAppSettings;
         }
 
-        return new NotFoundFileInfo(subpath);
+        return fileInfo;
     }
 
     public IChangeToken Watch(string filter)
     {
-        return NullChangeToken.Singleton;
+        return webRootFileProvider.Watch(filter);
     }
 }

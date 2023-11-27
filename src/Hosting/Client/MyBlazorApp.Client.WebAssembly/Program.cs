@@ -1,39 +1,33 @@
-using System.Text.Json;
 using Microsoft.Extensions.Hosting;
-using OpenTelemetry;
-using OpenTelemetry.Exporter;
+using MyBlazorApp.Client.WebAssembly;
 
 var builder = new WebAssemblyHostApplicationBuilder(args);
 
-var httpClient = new HttpClient { BaseAddress = new(builder.HostEnvironment.BaseAddress) };
-var wasmEnv = await httpClient.GetStringAsync("/wasm/env.json");
-var jsonObj = JsonDocument.Parse(wasmEnv);
-
-foreach (var element in jsonObj.RootElement.EnumerateObject())
-{
-    Environment.SetEnvironmentVariable(element.Name, element.Value.GetString()!);
-}
-
+builder.AddWasmEnvironmentVariables();
 builder.Configuration.AddEnvironmentVariables();
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.AddClientDefaults();
-builder.ConfigureOpenTelemetry(new (Logging: false, Metrics: false, Protocol: OtlpExportProtocol.HttpProtobuf, ExportProcessorType: ExportProcessorType.Simple));
+builder.ConfigureOpenTelemetry(new (Metrics: false, Logging: false));
 
 var host = builder.Build();
 
 var hostedServices = host.Services.GetRequiredService<IEnumerable<IHostedService>>().ToArray();
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 
-foreach (var hostedService in hostedServices)
-{
-    logger.LogInformation("Starting service {ServiceName}", hostedService.GetType().Name);
-    await hostedService.StartAsync(CancellationToken.None);
-}
-
 try
 {
+    foreach (var hostedService in hostedServices)
+    {
+        logger.LogInformation("Starting service {ServiceName}", hostedService.GetType().Name);
+        await hostedService.StartAsync(CancellationToken.None);
+    }
+
     await host.RunAsync();
+}
+catch (Exception e)
+{
+    logger.LogError("Unhandled exception: {Exception}", e);
 }
 finally
 {

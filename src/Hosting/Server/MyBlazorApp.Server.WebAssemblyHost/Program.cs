@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServerDefaults();
 builder.ConfigureServerOpenTelemetry(new());
@@ -10,12 +12,18 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+var webHostEnvironment = app.Services.GetRequiredService<IWebHostEnvironment>();
+
+// modify appsettings.json with provided env variables for wasm
+var fileInfo =
+    await WasmEnvFile.CreateAppSettingsJson(webHostEnvironment.WebRootFileProvider.GetFileInfo("appsettings.json"));
+webHostEnvironment.WebRootFileProvider = new WasmEnvFileProvider(webHostEnvironment.WebRootFileProvider, fileInfo);
+
 app.UseAuthorization();
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-app.UseStaticWasmEnvFile();
 
 app.MapRazorPages();
 app.MapFallbackToFile("index.html");
