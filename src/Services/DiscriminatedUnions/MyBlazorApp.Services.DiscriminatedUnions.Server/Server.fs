@@ -9,14 +9,14 @@ open MyBlazorApp.Services.DiscriminatedUnions.Domain
 open Microsoft.AspNetCore.Builder
 open En3Tho.FSharp.Extensions.AspNetCore
 
-type DiscriminatedUnionsServiceV1(logger: ILogger<DiscriminatedUnionsServiceV1>) =
+type DiscriminatedUnionsService(logger: ILogger<DiscriminatedUnionsService>) =
 
     member this.GetRandomImportantData() =
         DiscriminatedUnions.getRandomImportantData logger
         |> ImportantData.toDto
         |> ValueTask.FromResult
 
-    interface IDiscriminatedUnionsServiceV1 with
+    interface IDiscriminatedUnionsService with
         member this.GetRandomImportantData() = this.GetRandomImportantData()
 
 [<Extension; AbstractClass>]
@@ -24,10 +24,10 @@ type DependencyInjectionExtensions() =
 
     [<Extension>]
     static member MapDiscriminatedUnionsEndpoints(webApplication: WebApplication) =
-        webApplication.MapGet(Endpoints.GetRandomImportantData, (fun (service: IDiscriminatedUnionsServiceV1) ->
+        webApplication.MapGet(Endpoints.GetRandomImportantData, (fun (service: IDiscriminatedUnionsService) ->
             service.GetRandomImportantData()
         )) |> ignore
 
     [<Extension>]
     static member AddDiscriminatedUnionsService(services: IServiceCollection) =
-        services.AddSingleton<IDiscriminatedUnionsServiceV1, DiscriminatedUnionsServiceV1>()
+        services.AddSingleton<IDiscriminatedUnionsService, DiscriminatedUnionsService>()

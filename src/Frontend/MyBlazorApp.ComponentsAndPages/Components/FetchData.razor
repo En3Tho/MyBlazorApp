@@ -1,6 +1,6 @@
 @using MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 
-@inject IWeatherForecastsServiceV1 WeatherForecastClientV1
+@inject IWeatherForecastsService WeatherForecastService
 @inject ILogger<FetchData> Logger
 @inject ThemeSwitch ThemeSwitch
 
@@ -67,11 +67,9 @@
     {
         Logger.Trace()?.Log(nameof(GetForecasts));
 
-        var forecastDto = await WeatherForecastClientV1.GetSuperForecasts(_forecastRequestCount, 500).ConfigureAwait(false);
+        var forecastDto = await WeatherForecastService.GetSuperForecasts(_forecastRequestCount, 500);
         _forecasts = forecastDto.Select(WeatherForecastMapper.fromDto).ToArray();
         Logger.Trace()?.Log($"Successfully got {_forecastRequestCount} weather forecasts!");
-
-        await InvokeAsync(StateHasChanged);
     }
 
 }

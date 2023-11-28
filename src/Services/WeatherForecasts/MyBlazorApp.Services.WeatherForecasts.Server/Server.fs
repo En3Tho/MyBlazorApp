@@ -9,7 +9,7 @@ open MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 open MyBlazorApp.Services.WeatherForecasts.Domain
 open En3Tho.FSharp.Extensions.AspNetCore
 
-type WeatherForecastServiceV1(logger: ILogger<WeatherForecastServiceV1>) =
+type WeatherForecastService(logger: ILogger<WeatherForecastService>) =
 
     member this.GetForecasts(count) =
         WeatherForecastsService.getForecasts logger count
@@ -21,7 +21,7 @@ type WeatherForecastServiceV1(logger: ILogger<WeatherForecastServiceV1>) =
         |> Array.map WeatherForecast.toDto
         |> ValueTask.FromResult
 
-    interface IWeatherForecastsServiceV1 with
+    interface IWeatherForecastsService with
         member this.GetForecasts count = this.GetForecasts(count)
         member this.GetSuperForecasts (count, superNumber) = this.GetSuperForecasts(count, superNumber)
 
@@ -31,14 +31,14 @@ type DependencyInjectionExtensions() = // can be generated automatically from ca
 
     [<Extension>]
     static member MapWeatherForecastsServiceEndpoints(webApplication: WebApplication) =
-        webApplication.MapGet(Endpoints.GetForecasts, (fun (count: int) (service: IWeatherForecastsServiceV1) ->
+        webApplication.MapGet(Endpoints.GetForecasts, (fun (count: int) (service: IWeatherForecastsService) ->
             service.GetForecasts(count)
         )) |> ignore
 
-        webApplication.MapGet(Endpoints.GetSuperForecasts, (fun (count: int) (superNumber: int) (service: IWeatherForecastsServiceV1) ->
+        webApplication.MapGet(Endpoints.GetSuperForecasts, (fun (count: int) (superNumber: int) (service: IWeatherForecastsService) ->
             service.GetSuperForecasts(count, superNumber)
         )) |> ignore
 
     [<Extension>]
     static member AddWeatherForecastsService(services: IServiceCollection) =
-        services.AddSingleton<IWeatherForecastsServiceV1, WeatherForecastServiceV1>()
+        services.AddSingleton<IWeatherForecastsService, WeatherForecastService>()

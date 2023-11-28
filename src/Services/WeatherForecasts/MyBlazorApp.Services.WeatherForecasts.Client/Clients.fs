@@ -11,8 +11,7 @@ open MyBlazorApp.Services.WeatherForecasts.Contracts.V1
 open MyBlazorApp.Utility.Http
 
 [<Sealed>]
-type WeatherForecastsApiVersion1HttpClient(httpClient: HttpClient,
-                                           jsonSerializerOptions: JsonSerializerOptions) =
+type WeatherForecastsHttpClient(httpClient: HttpClient, jsonSerializerOptions: JsonSerializerOptions) =
 
     member this.GetForecasts(count: int) =
         let endPoint =
@@ -37,7 +36,7 @@ type WeatherForecastsApiVersion1HttpClient(httpClient: HttpClient,
             .AsJson<WeatherForecastDto[]>(jsonSerializerOptions)
             .Send()
 
-    interface IWeatherForecastsServiceV1 with
+    interface IWeatherForecastsService with
        member this.GetForecasts count = ValueTask<_>(task = this.GetForecasts(count))
        member this.GetSuperForecasts (count, superNumber) = ValueTask<_>(task = this.GetSuperForecasts(count, superNumber))
 
@@ -46,6 +45,6 @@ type DependencyInjectionExtensions() =
 
     [<Extension>]
     static member AddWeatherForecastsHttpClient(services: IServiceCollection) =
-        services.AddHttpClient<IWeatherForecastsServiceV1, WeatherForecastsApiVersion1HttpClient>(
+        services.AddHttpClient<IWeatherForecastsService, WeatherForecastsHttpClient>(
             fun client -> client.BaseAddress <- Uri Endpoints.ServiceDiscoveryUrl) |> ignore
         services

@@ -13,5 +13,5 @@ type ImportantDataDto =
     | PriceRangeAndCount of RangeFrom: int * RangeTo: int * Count: int
     | Cart of Items: string[]
 
-type IDiscriminatedUnionsServiceV1 =
+type IDiscriminatedUnionsService =
     abstract GetRandomImportantData: unit -> ValueTask<ImportantDataDto>

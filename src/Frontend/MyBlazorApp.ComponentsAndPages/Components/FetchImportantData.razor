@@ -2,7 +2,7 @@
 
 @using MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
 
-@inject IDiscriminatedUnionsServiceV1 DiscriminatedUnionApiV1HttpClient
+@inject IDiscriminatedUnionsService DiscriminatedUnionService
 @inject ILogger<FetchImportantData> Logger
 @inject ThemeSwitch ThemeSwitch
 
@@ -95,13 +95,11 @@
 
     private async Task GetImportantData()
     {
-        Logger.Trace()?.Log(nameof(GetImportantData));
+        Logger.LogTrace(nameof(GetImportantData));
 
-        var result = await DiscriminatedUnionApiV1HttpClient.GetRandomImportantData().ConfigureAwait(false);
+        var result = await DiscriminatedUnionService.GetRandomImportantData();
         _importantData = ImportantDataMapper.fromDto(result);
-        Logger.Trace()?.Log($"Successfully got important data!");
-
-        await InvokeAsync(StateHasChanged);
+        Logger.LogTrace("Successfully got important data!");
     }
 
 }

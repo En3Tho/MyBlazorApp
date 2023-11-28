@@ -9,8 +9,7 @@ open Microsoft.Extensions.DependencyInjection
 open MyBlazorApp.Services.DiscriminatedUnions.Contracts.V1
 open En3Tho.FSharp.ComputationExpressions.HttpBuilder
 
-type DiscriminatedUnionsServiceV1HttpClient(httpClient: HttpClient,
-                                            jsonSerializerOptions: JsonSerializerOptions) =
+type DiscriminatedUnionsHttpClient(httpClient: HttpClient, jsonSerializerOptions: JsonSerializerOptions) =
 
     member this.GetRandomImportantData() =
         httpClient
@@ -18,7 +17,7 @@ type DiscriminatedUnionsServiceV1HttpClient(httpClient: HttpClient,
             .AsJson<ImportantDataDto>(jsonSerializerOptions)
             .Send()
 
-    interface IDiscriminatedUnionsServiceV1 with
+    interface IDiscriminatedUnionsService with
         member this.GetRandomImportantData() = ValueTask<_>(task = this.GetRandomImportantData())
 
 [<Extension; AbstractClass>]
@@ -26,6 +25,6 @@ type DependencyInjectionExtensions() =
 
     [<Extension>]
     static member AddDiscriminatedUnionsHttpClient(services: IServiceCollection) =
-        services.AddHttpClient<IDiscriminatedUnionsServiceV1, DiscriminatedUnionsServiceV1HttpClient>(
+        services.AddHttpClient<IDiscriminatedUnionsService, DiscriminatedUnionsHttpClient>(
             fun client -> client.BaseAddress <- Uri Endpoints.ServiceDiscoveryUrl) |> ignore
         services

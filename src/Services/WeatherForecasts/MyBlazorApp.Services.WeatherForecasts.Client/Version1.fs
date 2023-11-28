@@ -15,6 +15,6 @@ type WeatherForecastDto = {
     Summary: string
 }
 
-type IWeatherForecastsServiceV1 =
+type IWeatherForecastsService =
     abstract GetForecasts: count: int -> ValueTask<WeatherForecastDto[]>
     abstract GetSuperForecasts: count: int * superNumber: int -> ValueTask<WeatherForecastDto[]>
