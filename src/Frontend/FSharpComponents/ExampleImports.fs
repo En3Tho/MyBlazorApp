@@ -4,7 +4,6 @@ open System
 open System.Linq.Expressions
 open En3Tho.FSharp.BlazorBuilder
 open FSharpComponents
-open Microsoft.AspNetCore.Components
 open TailwindComponents
 open TailwindComponents.Data
 open TailwindComponents.Basics

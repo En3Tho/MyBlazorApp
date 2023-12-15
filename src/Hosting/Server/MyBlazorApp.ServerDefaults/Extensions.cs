@@ -76,6 +76,6 @@ public static class Extensions
             });
         };
 
-        return builder.ConfigureOpenTelemetry(options with {ConfigureBuilder = configureBuilder});
+        return builder.ConfigureOpenTelemetry(options with { ConfigureBuilder = configureBuilder });
     }
 }

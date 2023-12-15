@@ -9,7 +9,7 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.AddClientDefaults();
 // turn off for now?
-builder.ConfigureOpenTelemetry(new (Metrics: false, Logging: false, Traces: false));
+builder.ConfigureOpenTelemetry(new (ExportMetrics: false, ExportLogging: false, ExportTraces: false));
 
 var host = builder.Build();
 
