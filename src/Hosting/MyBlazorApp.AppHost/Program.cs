@@ -19,8 +19,18 @@ builder.ForAll([backend, blazorserver, photino, wasmhost], resourceBuilder =>
         .ForAll([blazorserver, photino, wasmhost], resourceBuilder =>
     resourceBuilder.WithReferences(backend));
 
+// // ElasticAPM
+// builder.ForAll([backend, blazorserver, photino, wasmhost], resourceBuilder =>
+//     resourceBuilder.WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:8200"));
+
+// Seq
 builder.ForAll([backend, blazorserver, photino, wasmhost], resourceBuilder =>
-    resourceBuilder.WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:8200"));
+{
+    resourceBuilder
+        .WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:5341/ingest/otlp")
+        .WithEnvironmentVariable("OTEL_EXPORTER_OTLP_HEADERS", "X-Seq-ApiKey=jd4fexdTXU7VEdmvcFz3")
+        .WithEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL", "http/protobuf");
+});
 
 wasmhost
     .WithEnvironmentVariable("WASM__OTEL_SERVICE_NAME", "wasm")
