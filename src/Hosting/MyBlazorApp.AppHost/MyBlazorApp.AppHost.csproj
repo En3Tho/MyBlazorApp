@@ -10,6 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
+
       <ProjectReference Include="..\Client\MyBlazorApp.Client.Photino\MyBlazorApp.Client.Photino.csproj" />
       <ProjectReference Include="..\Server\MyBlazorApp.Server.Backend\MyBlazorApp.Server.Backend.csproj" />
       <ProjectReference Include="..\Server\MyBlazorApp.Server.BlazorServer\MyBlazorApp.Server.BlazorServer.csproj" />

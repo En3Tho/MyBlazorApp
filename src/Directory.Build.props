@@ -1,4 +1,12 @@
 <Project>
+    <!--Shared-->
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <!--F#-->
     <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
         <Tailcalls>false</Tailcalls>
         <OtherFlags>$(OtherFlags) --reflectionfree</OtherFlags>
@@ -18,10 +26,11 @@
         <PackageReference Include="FSharp.Core"  />
     </ItemGroup>
 
+    <!--C#-->
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+
+    <ItemGroup>
+    </ItemGroup>
 
 </Project>
