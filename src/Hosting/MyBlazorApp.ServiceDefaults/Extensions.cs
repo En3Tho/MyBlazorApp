@@ -14,7 +14,7 @@ public record OpenTelemetryOptions(
     bool ExportMetrics = true,
     bool ExportLogging = true,
     ExportProcessorType ExportProcessorType = ExportProcessorType.Batch,
-    Action<OpenTelemetryBuilder>? ConfigureBuilder = null,
+    Action<IOpenTelemetryBuilder>? ConfigureBuilder = null,
     Action<OtlpExporterOptions>? ConfigureExporter = null,
     IEnumerable<KeyValuePair<string, object>>? Attributes = null)
 {

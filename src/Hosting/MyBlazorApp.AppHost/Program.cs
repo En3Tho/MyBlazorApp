@@ -19,8 +19,9 @@ builder
         resourceBuilder.WithLogLevel(LogLevel.Trace))
     .ForAll([blazorserver, photino, wasmhost], resourceBuilder =>
         resourceBuilder.WithReferences(backend));
+
 // ElasticAPM
-builder.UseElastic([backend, blazorserver, photino, wasmhost]);
+// builder.UseElastic([backend, blazorserver, photino, wasmhost]);
 
 // Seq
 // builder.UseSeq([backend, blazorserver, photino, wasmhost]);
@@ -28,6 +29,6 @@ builder.UseElastic([backend, blazorserver, photino, wasmhost]);
 wasmhost
     .WithEnvironmentVariable("WASM__OTEL_SERVICE_NAME", "wasm")
     .WithLogLevel("WASM__", LogLevel.Error)
-    .WithEnvironmentVariablesCopy("WASM__");
+    .WithEnvironmentCopy("WASM__");
 
 builder.Build().Run();

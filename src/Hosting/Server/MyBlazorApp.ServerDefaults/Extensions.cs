@@ -45,7 +45,7 @@ public static class Extensions
         app.MapHealthChecks("/health");
 
         // Only health checks tagged with the "live" tag must pass for app to be considered alive
-        app.MapHealthChecks("/alive", new HealthCheckOptions
+        app.MapHealthChecks("/alive", new()
         {
             Predicate = r => r.Tags.Contains("live")
         });
@@ -55,7 +55,7 @@ public static class Extensions
 
     public static IHostApplicationBuilder ConfigureServerOpenTelemetry(this IHostApplicationBuilder builder, OpenTelemetryOptions options)
     {
-        var configureBuilder = (OpenTelemetryBuilder builder) =>
+        var configureBuilder = (IOpenTelemetryBuilder builder) =>
         {
             options.ConfigureBuilder?.Invoke(builder);
             builder.WithTracing(tracing =>

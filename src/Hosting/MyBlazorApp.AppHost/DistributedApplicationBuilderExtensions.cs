@@ -1,56 +1,7 @@
-﻿using Aspire.Hosting;
-using Aspire.Hosting.ApplicationModel;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 public static partial class DistributedApplicationBuilderExtensions
 {
-    public static IResourceBuilder<ProjectResource> WithAlias(this IResourceBuilder<ProjectResource> builder, string alias)
-    {
-        return builder.WithAnnotation(new EndpointAliasAnnotation(alias));
-    }
-
-    public static IResourceBuilder<TDestination> WithReferences<TDestination, U>(
-        this IResourceBuilder<TDestination> destination,
-        IResourceBuilder<U> source)
-        where TDestination : IResourceWithEnvironment
-        where U : IResource
-    {
-        static bool ContainsAmbiguousEndpoints(IEnumerable<EndpointAnnotation> endpoints)
-        {
-            // An ambiguous endpoint is where any scheme (
-            return endpoints.GroupBy(e => e.UriScheme).Any(g => g.Count() > 1);
-        }
-
-        return destination.WithEnvironment(context =>
-        {
-            if (!source.Resource.TryGetEndpoints(out var allocatedEndPoints))
-            {
-                return;
-            }
-
-            var containsAmbiguousEndpoints = ContainsAmbiguousEndpoints(allocatedEndPoints);
-
-            string[] aliases =  [source.Resource.Name, ..source.Resource.Annotations.OfType<EndpointAliasAnnotation>().Select(a => a.Alias)];
-
-            foreach (var name in aliases.Distinct())
-            {
-                var i = 0;
-                foreach (var allocatedEndPoint in allocatedEndPoints)
-                {
-                    var bindingNameQualifiedUriStringKey = $"services__{name}__{i++}";
-                    context.EnvironmentVariables[bindingNameQualifiedUriStringKey] =
-                        allocatedEndPoint.Name;
-
-                    if (!containsAmbiguousEndpoints)
-                    {
-                        var uriStringKey = $"services__{name}__{i++}";
-                        context.EnvironmentVariables[uriStringKey] = allocatedEndPoint.Name;
-                    }
-                }
-            }
-        });
-    }
-
     public static IDistributedApplicationBuilder ForAll(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders,
         Action<IResourceBuilder<ProjectResource>> action)
     {
@@ -86,13 +37,13 @@ public static partial class DistributedApplicationBuilderExtensions
         return resourceBuilder.WithLogLevel("", defaultLogLevel, logLevels);
     }
 
-    public static IResourceBuilder<T> WithEnvironmentVariablesCopy<T>(
+    public static IResourceBuilder<T> WithEnvironmentCopy<T>(
         this IResourceBuilder<T> project, string prefix)
         where T : IResourceWithEnvironment
     {
         return project.WithEnvironment(context =>
         {
-            var envs = new Dictionary<string, string>(context.EnvironmentVariables);
+            var envs = new Dictionary<string, object>(context.EnvironmentVariables);
             foreach (var env in envs)
             {
                 var prefixedKey = $"{prefix}{env.Key}";
