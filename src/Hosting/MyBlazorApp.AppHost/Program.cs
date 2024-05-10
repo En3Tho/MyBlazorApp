@@ -1,17 +1,17 @@
 using Microsoft.Extensions.Logging;
-using Projects;
+using MyBlazorApp.AppHost;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var backend = builder.AddProject<MyBlazorApp_Server_Backend>("srv")
+var backend = builder.AddProject<Projects.MyBlazorApp_Server_Backend>("srv")
     .WithAlias("discriminated-unions")
     .WithAlias("weather-forecasts");
 
-var blazorserver = builder.AddProject<MyBlazorApp_Server_BlazorServer>("blazorserver");
+var blazorserver = builder.AddProject<Projects.MyBlazorApp_Server_BlazorServer>("blazorserver");
 
-var photino = builder.AddProject<MyBlazorApp_Client_Photino>("photino");
+var photino = builder.AddProject<Projects.MyBlazorApp_Client_Photino>("photino");
 
-var wasmhost = builder.AddProject<MyBlazorApp_Server_WebAssemblyHost>("wasmhost");
+var wasmhost = builder.AddProject<Projects.MyBlazorApp_Server_WebAssemblyHost>("wasmhost");
 
 builder
     .ForAll([backend, blazorserver, photino, wasmhost], resourceBuilder =>
@@ -19,9 +19,8 @@ builder
         resourceBuilder.WithLogLevel(LogLevel.Trace))
     .ForAll([blazorserver, photino, wasmhost], resourceBuilder =>
         resourceBuilder.WithReferences(backend));
-
 // ElasticAPM
-//builder.UseElastic([backend, blazorserver, photino, wasmhost]);
+builder.UseElastic([backend, blazorserver, photino, wasmhost]);
 
 // Seq
 // builder.UseSeq([backend, blazorserver, photino, wasmhost]);

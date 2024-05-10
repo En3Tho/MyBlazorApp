@@ -1,4 +1,7 @@
-﻿namespace MyBlazorApp.AppHost;
+﻿using Aspire.Hosting;
+using Aspire.Hosting.ApplicationModel;
+
+namespace MyBlazorApp.AppHost;
 
 public static partial class DistributedApplicationBuilderExtensions
 {

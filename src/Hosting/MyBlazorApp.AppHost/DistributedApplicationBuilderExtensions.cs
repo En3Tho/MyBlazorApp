@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Aspire.Hosting;
+using Aspire.Hosting.ApplicationModel;
+using Microsoft.Extensions.Logging;
 
 public static partial class DistributedApplicationBuilderExtensions
 {
@@ -13,7 +15,7 @@ public static partial class DistributedApplicationBuilderExtensions
         where TDestination : IResourceWithEnvironment
         where U : IResource
     {
-        static bool ContainsAmbiguousEndpoints(IEnumerable<AllocatedEndpointAnnotation> endpoints)
+        static bool ContainsAmbiguousEndpoints(IEnumerable<EndpointAnnotation> endpoints)
         {
             // An ambiguous endpoint is where any scheme (
             return endpoints.GroupBy(e => e.UriScheme).Any(g => g.Count() > 1);
@@ -21,7 +23,7 @@ public static partial class DistributedApplicationBuilderExtensions
 
         return destination.WithEnvironment(context =>
         {
-            if (!source.Resource.TryGetAllocatedEndPoints(out var allocatedEndPoints))
+            if (!source.Resource.TryGetEndpoints(out var allocatedEndPoints))
             {
                 return;
             }
@@ -37,12 +39,12 @@ public static partial class DistributedApplicationBuilderExtensions
                 {
                     var bindingNameQualifiedUriStringKey = $"services__{name}__{i++}";
                     context.EnvironmentVariables[bindingNameQualifiedUriStringKey] =
-                        allocatedEndPoint.EndpointNameQualifiedUriString;
+                        allocatedEndPoint.Name;
 
                     if (!containsAmbiguousEndpoints)
                     {
                         var uriStringKey = $"services__{name}__{i++}";
-                        context.EnvironmentVariables[uriStringKey] = allocatedEndPoint.UriString;
+                        context.EnvironmentVariables[uriStringKey] = allocatedEndPoint.Name;
                     }
                 }
             }
