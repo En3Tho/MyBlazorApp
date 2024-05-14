@@ -46,12 +46,13 @@ public static partial class DistributedApplicationBuilderExtensions
             var envs = new Dictionary<string, object>(context.EnvironmentVariables);
             foreach (var env in envs)
             {
-                var prefixedKey = $"{prefix}{env.Key}";
-                if (env.Key.StartsWith(prefix) || context.EnvironmentVariables.ContainsKey(prefixedKey))
+                if (env.Key.StartsWith(prefix))
                 {
                     continue;
                 }
-                context.EnvironmentVariables[prefixedKey] = env.Value;
+
+                var prefixedKey = $"{prefix}{env.Key}";
+                context.EnvironmentVariables.TryAdd(prefixedKey, env.Value);
             }
         });
     }
