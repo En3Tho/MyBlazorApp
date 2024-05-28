@@ -15,6 +15,7 @@
       <ProjectReference Include="..\Server\MyBlazorApp.Server.Backend\MyBlazorApp.Server.Backend.csproj" />
       <ProjectReference Include="..\Server\MyBlazorApp.Server.BlazorServer\MyBlazorApp.Server.BlazorServer.csproj" />
       <ProjectReference Include="..\Server\MyBlazorApp.Server.WebAssemblyHost\MyBlazorApp.Server.WebAssemblyHost.csproj" />
+      <ProjectReference Include="..\Server\TelemetryProxy\TelemetryProxy.csproj" />
     </ItemGroup>
 
 </Project>

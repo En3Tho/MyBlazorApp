@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.Hosting;
 
 public record OpenTelemetryOptions(
     bool ExportTraces = true,
-    bool ExportMetrics = true,
+    bool ExportMetrics = false,
     bool ExportLogging = true,
     ExportProcessorType ExportProcessorType = ExportProcessorType.Batch,
     Action<IOpenTelemetryBuilder>? ConfigureBuilder = null,
@@ -51,8 +51,7 @@ public static class Extensions
 
         otelBuilder.ConfigureResource(builder =>
         {
-            if (options.Attributes is {} attributes)
-                builder.AddAttributes(attributes);
+            builder.AddAttributes([ new("run.id", "test"), ..options.Attributes ?? [] ]);
         });
 
         otelBuilder.WithTracing(tracing =>

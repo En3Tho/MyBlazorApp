@@ -1,0 +1,17 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5198",
+      "environmentVariables": {
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "applicationUrl": "https://localhost:7198;http://localhost:5198",
+      "environmentVariables": {
+      }
+    }
+  }
+}

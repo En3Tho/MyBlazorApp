@@ -60,14 +60,13 @@ public static class Extensions
             options.ConfigureBuilder?.Invoke(builder);
             builder.WithTracing(tracing =>
             {
-                tracing.AddAspNetCoreInstrumentation(options => // configurable?
+                tracing.AddAspNetCoreInstrumentation(options =>
                 {
                     options.Filter = context =>
                     {
                         if (context.Request.Path.Value is {} path)
                         {
-                            // This is for YARP proxy
-                            return !path.Equals("/opentelemetry.proto.collector.trace.v1.TraceService/Export");
+                            return !path.StartsWith("/opentelemetry.proto.collector.");
                         }
 
                         return true;

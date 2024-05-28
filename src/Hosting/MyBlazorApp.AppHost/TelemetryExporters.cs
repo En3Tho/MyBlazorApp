@@ -1,10 +1,24 @@
-﻿using Aspire.Hosting;
-using Aspire.Hosting.ApplicationModel;
-
-namespace MyBlazorApp.AppHost;
+﻿namespace MyBlazorApp.AppHost;
 
 public static partial class DistributedApplicationBuilderExtensions
 {
+    public static IDistributedApplicationBuilder UseTelemetryProxy(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders)
+    {
+        builder.ForAll(resourceBuilders, resourceBuilder =>
+            resourceBuilder.WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "https://localhost:7198"));
+
+        return builder;
+    }
+
+    public static IDistributedApplicationBuilder UseJaeger(this IDistributedApplicationBuilder builder,
+        IResourceBuilder<ProjectResource>[] resourceBuilders)
+    {
+        builder.ForAll(resourceBuilders, resourceBuilder =>
+            resourceBuilder.WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4317"));
+
+        return builder;
+    }
+
     public static IDistributedApplicationBuilder UseElastic(this IDistributedApplicationBuilder builder,
         IResourceBuilder<ProjectResource>[] resourceBuilders)
     {

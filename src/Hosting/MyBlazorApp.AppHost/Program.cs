@@ -13,18 +13,16 @@ var photino = builder.AddProject<Projects.MyBlazorApp_Client_Photino>("photino")
 
 var wasmhost = builder.AddProject<Projects.MyBlazorApp_Server_WebAssemblyHost>("wasmhost");
 
+var telemetryProxy = builder.AddProject<Projects.TelemetryProxy>("telemetry-proxy", "https");
+
 builder
-    .ForAll([backend, blazorserver, photino, wasmhost], resourceBuilder =>
-    // resourceBuilder.WithLogLevel(LogLevel.Trace, [("Microsoft", LogLevel.Error)]))
+    .ForAll([backend, blazorserver, photino, wasmhost, telemetryProxy], resourceBuilder =>
         resourceBuilder.WithLogLevel(LogLevel.Trace))
     .ForAll([blazorserver, photino, wasmhost], resourceBuilder =>
-        resourceBuilder.WithReferences(backend));
+        resourceBuilder
+            .WithReferences(backend));
 
-// ElasticAPM
-// builder.UseElastic([backend, blazorserver, photino, wasmhost]);
-
-// Seq
-// builder.UseSeq([backend, blazorserver, photino, wasmhost]);
+// builder.UseTelemetryProxy([backend, blazorserver, photino, wasmhost]);
 
 wasmhost
     .WithEnvironmentVariable("WASM__OTEL_SERVICE_NAME", "wasm")
