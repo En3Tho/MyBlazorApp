@@ -1,38 +1,43 @@
-Command:
+## Commands:
 ```
 npx tailwindcss -i ./Styles/TailwindComponents.css -o ./wwwroot/css/TailwindComponents.css --watch
 ```
-Docs:
+
+## Docs:
 ```
 https://tailwindcss.com/docs/installation
 https://tailwindcss.com/docs/customizing-colors
 https://play.tailwindcss.com/
 https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 ```
-Svgs:
+
+## Svgs:
 ```
 http://www.zondicons.com/icons.html
 https://heroicons.com/
 https://heropatterns.com/
 ```
-Components:
+
+## Components:
 ```
 https://tailwindui.com/components   
 https://tailwindui.com/components/preview
 https://flowbite.com/docs/components/alerts/
 https://tailwind-elements.com/docs/standard/forms/checkbox/
 ```
-Tricks:
+## Tricks:
+
+### Applying a style to all children
 ```
-Applying a style to all children
 <nav class="[&>*]:cursor-pointer">
   <a>...</a>
   <a>...</a>
 </nav>
 ```
-Ideas:
 
-Source generator:
+## Ideas:
+
+### Source generator:
 ```
 there can be a source generator that looks for references in razor files
 and can process stuff like @focus@shadowLight for example to generate a file with a comment to enable tailwind jit.
