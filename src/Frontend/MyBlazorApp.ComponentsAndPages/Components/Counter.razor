@@ -20,7 +20,7 @@
     [Parameter]
     public int IncrementAmount { get; set; } = 1;
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+    protected override ComponentData[] Subscriptions => [ ThemeSwitch ];
 
     [MemberNotNull(nameof(_counterData))]
     protected override void OnParametersSet()

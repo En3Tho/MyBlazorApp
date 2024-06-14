@@ -17,7 +17,7 @@
     [Parameter]
     public int IncrementAmount { get; init; }
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { _counterData };
+    protected override ComponentData[] Subscriptions => [ _counterData ];
 
     protected override void OnParametersSet()
     {

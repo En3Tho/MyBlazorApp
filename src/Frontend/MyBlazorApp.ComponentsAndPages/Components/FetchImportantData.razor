@@ -85,7 +85,7 @@
 @code {
     private ImportantData? _importantData;
 
-    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+    protected override ComponentData[] Subscriptions => [ ThemeSwitch ];
 
     protected override Task OnInitializedAsync()
     {

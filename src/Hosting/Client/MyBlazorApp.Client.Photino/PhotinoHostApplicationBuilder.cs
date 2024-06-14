@@ -28,7 +28,7 @@ class PhotinoHostApplicationBuilder : IHostApplicationBuilder
         photinoBlazorApp
             .GetType()
             .GetMethod("Initialize", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-            .Invoke(photinoBlazorApp, new object[] { host.Services, RootComponents });
+            .Invoke(photinoBlazorApp, [ host.Services, RootComponents ]);
 
         return (host, photinoBlazorApp);
     }

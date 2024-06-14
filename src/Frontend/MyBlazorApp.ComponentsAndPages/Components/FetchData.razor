@@ -55,7 +55,7 @@
     private WeatherForecast[]? _forecasts;
 
     private int _forecastRequestCount = 5;
-    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+    protected override ComponentData[] Subscriptions => [ ThemeSwitch ];
 
     protected override Task OnInitializedAsync()
     {

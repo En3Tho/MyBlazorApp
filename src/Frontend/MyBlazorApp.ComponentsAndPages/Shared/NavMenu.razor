@@ -60,7 +60,7 @@
     private bool _collapseNavMenu = true;
 
     private string NavMenuCssClass => _collapseNavMenu ? "collapse" : "collapse show";
-    protected override ComponentData[] Subscriptions => new ComponentData[] { ThemeSwitch };
+    protected override ComponentData[] Subscriptions => [ ThemeSwitch ];
 
     private void ToggleNavMenu()
     {
