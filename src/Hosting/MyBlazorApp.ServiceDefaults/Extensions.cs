@@ -75,7 +75,8 @@ public static class Extensions
 
         otelBuilder.WithMetrics(metrics =>
         {
-            metrics.AddRuntimeInstrumentation()
+            metrics
+                .AddRuntimeInstrumentation()
                 .AddBuiltInMeters();
         });
 
@@ -97,6 +98,16 @@ public static class Extensions
             builder.Services.Configure<OpenTelemetryLoggerOptions>(logging =>
                 logging.AddOtlpExporter(exporterOptions =>
                 {
+                    exporterOptions.HttpClientFactory = () =>
+                    {
+                        var handler = new HttpClientHandler
+                        {
+                            ClientCertificateOptions = ClientCertificateOption.Manual,
+                            ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                        };
+                        var httpClient = new HttpClient(handler);
+                        return httpClient;
+                    };
                     exporterOptions.ExportProcessorType = options.ExportProcessorType;
                     options.ConfigureExporter?.Invoke(exporterOptions);
                 }));

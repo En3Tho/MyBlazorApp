@@ -6,6 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
+        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' == '' ">$(MSBuildThisFileDirectory)artifacts</ARTIFACTS_PATH_DOTNET>
+        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' != '' ">$(ARTIFACTS_PATH_DOTNET)\$(SolutionName)</ARTIFACTS_PATH_DOTNET>
+        <ArtifactsPath>$(ARTIFACTS_PATH_DOTNET)</ArtifactsPath>
+    </PropertyGroup>
+
     <!--F#-->
     <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
         <Tailcalls>false</Tailcalls>
