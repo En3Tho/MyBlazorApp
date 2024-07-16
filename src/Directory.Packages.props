@@ -7,53 +7,53 @@
     <PackageVersion Include="En3Tho.FSharp.Extensions.Logging" Version="8.0.1" />
     <PackageVersion Include="FSharp.Core" Version="8.0.100" />
     <PackageVersion Include="CraftTalk.FSharp.SystemTextJson" Version="5.0.100" />
-    <PackageVersion Include="En3Tho.FSharp.ComputationExpressions" Version="8.2.0" />
-    <PackageVersion Include="En3Tho.FSharp.Extensions" Version="8.4.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.4" />
+    <PackageVersion Include="En3Tho.FSharp.ComputationExpressions" Version="8.3.0" />
+    <PackageVersion Include="En3Tho.FSharp.Extensions" Version="8.5.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.6" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.FileProviders.Physical" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.6" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.14" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.15" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="8.0.6" />
     <PackageVersion Include="En3Tho.Extensions.DependencyInjection" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.6" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
     <PackageVersion Include="System.Net.Http.Json" Version="8.0.0" />
-    <PackageVersion Include="Photino.Blazor" Version="2.7.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" />
+    <PackageVersion Include="Photino.Blazor" Version="3.0.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.6" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <PackageVersion Include="bunit" Version="1.28.9" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="xunit" Version="2.8.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0">
+    <PackageVersion Include="xunit" Version="2.8.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.0.0-preview.7.24251.11" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.4.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.0.0-preview.7.24251.11" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.8.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.6.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.0.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.6.0-beta.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.8.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
   </ItemGroup>
   <ItemGroup>
     <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.315" />

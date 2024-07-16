@@ -8,8 +8,9 @@
 
     <PropertyGroup>
         <UseArtifactsOutput>true</UseArtifactsOutput>
-        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' == '' ">$(MSBuildThisFileDirectory)artifacts</ARTIFACTS_PATH_DOTNET>
+        <SolutionName Condition=" '$(SolutionName)' == ''">MyBlazorApp</SolutionName>
         <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' != '' ">$(ARTIFACTS_PATH_DOTNET)\$(SolutionName)</ARTIFACTS_PATH_DOTNET>
+        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' == '' ">$(MSBuildThisFileDirectory)artifacts</ARTIFACTS_PATH_DOTNET>
         <ArtifactsPath>$(ARTIFACTS_PATH_DOTNET)</ArtifactsPath>
     </PropertyGroup>
 

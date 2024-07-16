@@ -14,7 +14,10 @@
     </ItemGroup>
 
     <Target Name="BuildCSS" AfterTargets="PostBuildEvent">
-        <Exec Command="npx postcss $(ArtifactsPath)/obj/$(ProjectName)/$(ConfigurationName)/scopedcss/projectbundle/$(ProjectName).bundle.scp.css -r" />
+        <PropertyGroup>
+            <ProjectBundleFilePath>$([System.IO.Path]::Combine($(IntermediateOutputPath), "scopedcss", "projectbundle", "$(ProjectName).bundle.scp.css"))</ProjectBundleFilePath>
+        </PropertyGroup>
+        <Exec Command="npx postcss $(ProjectBundleFilePath) -r" />
     </Target>
 
 </Project>
