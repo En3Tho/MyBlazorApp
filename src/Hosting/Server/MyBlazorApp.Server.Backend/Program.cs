@@ -26,8 +26,8 @@ var app = builder.Build();
 
 app.UseCors();
 
-app.MapWeatherForecastsServiceEndpoints();
-app.MapDiscriminatedUnionsEndpoints();
+app.MapWeatherForecastsService();
+app.MapDiscriminatedUnionsService();
 
 app.MapReverseProxy();
 

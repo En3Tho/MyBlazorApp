@@ -19,11 +19,11 @@ type DiscriminatedUnionsService(logger: ILogger<DiscriminatedUnionsService>) =
     interface IDiscriminatedUnionsService with
         member this.GetRandomImportantData() = this.GetRandomImportantData()
 
-[<Extension; AbstractClass>]
+[<AbstractClass>]
 type DependencyInjectionExtensions() =
 
     [<Extension>]
-    static member MapDiscriminatedUnionsEndpoints(webApplication: WebApplication) =
+    static member MapDiscriminatedUnionsService(webApplication: WebApplication) =
         webApplication.MapGet(Endpoints.GetRandomImportantData, (fun (service: IDiscriminatedUnionsService) ->
             service.GetRandomImportantData()
         )) |> ignore

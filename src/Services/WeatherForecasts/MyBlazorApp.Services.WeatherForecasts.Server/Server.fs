@@ -22,15 +22,14 @@ type WeatherForecastService(logger: ILogger<WeatherForecastService>) =
         |> ValueTask.FromResult
 
     interface IWeatherForecastsService with
-        member this.GetForecasts count = this.GetForecasts(count)
-        member this.GetSuperForecasts (count, superNumber) = this.GetSuperForecasts(count, superNumber)
+        member this.GetForecasts(count) = this.GetForecasts(count)
+        member this.GetSuperForecasts(count, superNumber) = this.GetSuperForecasts(count, superNumber)
 
-// TODO: better in C#?
-[<Extension; AbstractClass>]
+[<AbstractClass>]
 type DependencyInjectionExtensions() = // can be generated automatically from cadl or something?
 
     [<Extension>]
-    static member MapWeatherForecastsServiceEndpoints(webApplication: WebApplication) =
+    static member MapWeatherForecastsService(webApplication: WebApplication) =
         webApplication.MapGet(Endpoints.GetForecasts, (fun (count: int) (service: IWeatherForecastsService) ->
             service.GetForecasts(count)
         )) |> ignore
