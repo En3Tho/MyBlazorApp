@@ -22,6 +22,7 @@ builder
         resourceBuilder
             .WithReferences(backend));
 
+builder.UseElasticExporter([ backend, blazorserver, photino, wasmhost ]);
 // builder.UseTelemetryProxy([backend, blazorserver, photino, wasmhost]);
 
 wasmhost

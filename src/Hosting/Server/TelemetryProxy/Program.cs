@@ -103,6 +103,10 @@ class TelemetryProxyMiddleware(RequestDelegate next, ILogger<TelemetryProxyMiddl
     }
 }
 
+// HttpRequestMessageFactory: ...
+// Host, headers, whatever
+// ...
+
 // In theory, for each exporter a stream can be opened and kept alive for some time?
 // then reuse that stream by utilizing a channel/query?
 class HostProxy(HttpClient client, ILogger<HostProxy> logger)
@@ -145,6 +149,9 @@ static class Proxy
         }
     }
 
+    // broadcast stream only writes
+    // read a part of the stream and write to multiple streams (each stream can have a channel to store byte chunks?)
+
     public static async Task MirrorRequest(string path, HttpContext context, HttpClient client, ILogger logger)
     {
         var originalStream = context.Request.Body;
@@ -164,7 +171,10 @@ static class Proxy
 
             foreach (var header in context.Request.Headers)
             {
-                msg.Headers.TryAddWithoutValidation(header.Key, (IEnumerable<string>)header.Value);
+                foreach (var value in header.Value)
+                {
+                    msg.Headers.TryAddWithoutValidation(header.Key, value);
+                }
             }
 
             _ = SendRequest(client, msg, logger, context.RequestAborted);

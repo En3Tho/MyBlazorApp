@@ -2,7 +2,8 @@
 
 public static partial class DistributedApplicationBuilderExtensions
 {
-    public static IDistributedApplicationBuilder UseTelemetryProxy(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders)
+    // TODO: get link from app itself?
+    public static IDistributedApplicationBuilder UseTelemetryProxyExporter(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders)
     {
         builder.ForAll(resourceBuilders, resourceBuilder =>
             resourceBuilder.WithEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "https://localhost:7198"));
@@ -10,7 +11,7 @@ public static partial class DistributedApplicationBuilderExtensions
         return builder;
     }
 
-    public static IDistributedApplicationBuilder UseJaeger(this IDistributedApplicationBuilder builder,
+    public static IDistributedApplicationBuilder UseJaegerExporter(this IDistributedApplicationBuilder builder,
         IResourceBuilder<ProjectResource>[] resourceBuilders)
     {
         builder.ForAll(resourceBuilders, resourceBuilder =>
@@ -19,7 +20,7 @@ public static partial class DistributedApplicationBuilderExtensions
         return builder;
     }
 
-    public static IDistributedApplicationBuilder UseElastic(this IDistributedApplicationBuilder builder,
+    public static IDistributedApplicationBuilder UseElasticExporter(this IDistributedApplicationBuilder builder,
         IResourceBuilder<ProjectResource>[] resourceBuilders)
     {
         builder.ForAll(resourceBuilders, resourceBuilder =>
@@ -28,7 +29,7 @@ public static partial class DistributedApplicationBuilderExtensions
         return builder;
     }
 
-    public static IDistributedApplicationBuilder UseSeq(this IDistributedApplicationBuilder builder,
+    public static IDistributedApplicationBuilder UseSeqExporter(this IDistributedApplicationBuilder builder,
         IResourceBuilder<ProjectResource>[] resourceBuilders)
     {
         builder.ForAll(resourceBuilders, resourceBuilder =>
