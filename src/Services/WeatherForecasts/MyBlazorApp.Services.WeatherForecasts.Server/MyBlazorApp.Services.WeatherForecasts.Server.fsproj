@@ -12,7 +12,6 @@
 
     <ItemGroup>
         <PackageReference Include="En3Tho.FSharp.Extensions.AspNetCore" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
     </ItemGroup>
 
     <ItemGroup>

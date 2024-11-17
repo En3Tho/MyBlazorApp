@@ -1,17 +1,16 @@
 <Project>
     <!--Shared-->
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <UseArtifactsOutput>true</UseArtifactsOutput>
-        <SolutionName Condition=" '$(SolutionName)' == ''">MyBlazorApp</SolutionName>
-        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' != '' ">$(ARTIFACTS_PATH_DOTNET)\$(SolutionName)</ARTIFACTS_PATH_DOTNET>
-        <ARTIFACTS_PATH_DOTNET Condition=" '$(ARTIFACTS_PATH_DOTNET)' == '' ">$(MSBuildThisFileDirectory)artifacts</ARTIFACTS_PATH_DOTNET>
-        <ArtifactsPath>$(ARTIFACTS_PATH_DOTNET)</ArtifactsPath>
+    <PropertyGroup Condition=" '$(ARTIFACTS_PATH_DOTNET)' != '' ">
+        <MSBuildThisFileDirectoryName>$([System.IO.Path]::GetFileName($(MSBuildThisFileDirectory.TrimEnd($([System.IO.Path]::DirectorySeparatorChar)))))</MSBuildThisFileDirectoryName>
+        <SolutionName Condition="'$(SolutionName)' == ''">$(MSBuildThisFileDirectoryName)</SolutionName>
+        <ArtifactsPath>$(ARTIFACTS_PATH_DOTNET)\$(SolutionName)</ArtifactsPath>
     </PropertyGroup>
 
     <!--F#-->

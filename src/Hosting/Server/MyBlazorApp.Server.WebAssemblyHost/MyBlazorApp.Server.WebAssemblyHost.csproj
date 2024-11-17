@@ -2,7 +2,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
         <PackageReference Include="Microsoft.Extensions.Logging.Configuration" />
         <PackageReference Include="En3Tho.Extensions.DependencyInjection" />
