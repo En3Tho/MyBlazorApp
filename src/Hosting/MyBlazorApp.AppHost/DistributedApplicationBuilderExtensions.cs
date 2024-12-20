@@ -2,8 +2,9 @@
 
 public static partial class DistributedApplicationBuilderExtensions
 {
-    public static IDistributedApplicationBuilder ForAll(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource>[] resourceBuilders,
-        Action<IResourceBuilder<ProjectResource>> action)
+    public static IDistributedApplicationBuilder ForAll<TResource>(this IDistributedApplicationBuilder builder, IResourceBuilder<TResource>[] resourceBuilders,
+        Action<IResourceBuilder<TResource>> action)
+        where TResource : IResource
     {
         foreach (var resourceBuilder in resourceBuilders)
         {

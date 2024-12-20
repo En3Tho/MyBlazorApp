@@ -1,7 +1,29 @@
 @attribute [Route($"/{nameof(Inputs)}")]
 
-<ConstrainedInput/>
+@using System.Drawing
+@using TailwindComponents.VectorDisplay
+
+@{
+    var vectorDataArray = new UIVectorData[8];
+    for (var i = 0; i < 8; i++)
+    {
+        vectorDataArray[i] = new()
+        {
+            Color = Color.Red
+        };
+        vectorDataArray[i].Element.Write(1);
+    }
+
+    var uiVector = new UIVector<int>(256, vectorDataArray);
+}
+
+@* <ConstrainedInput/> *@
+
+<VectorDisplay Vector="@uiVector" />
+<VectorDisplay Vector="@uiVector" />
+<VectorDisplay Vector="@uiVector" />
+<VectorDisplay Vector="@uiVector" />
 
 @code {
-
+    
 }
