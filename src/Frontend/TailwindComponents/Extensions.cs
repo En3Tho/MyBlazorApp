@@ -4,7 +4,7 @@ namespace TailwindComponents;
 
 public static class IDictionaryExtensions
 {
-    public static string? TryString(this IDictionary<string, object> dictionary, string key)
+    public static string? TryGetValuesAsString(this IDictionary<string, object> dictionary, string key)
     {
         dictionary.TryGetValue(key, out var value);
         return value as string;

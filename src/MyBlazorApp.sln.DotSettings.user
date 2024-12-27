@@ -34,14 +34,14 @@
   &lt;Assembly Path="X:\Packages\Nuget\opentelemetry.exporter.opentelemetryprotocol\1.7.0-alpha.1\lib\net6.0\OpenTelemetry.Exporter.OpenTelemetryProtocol.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b979fcf_002D7c28_002D491a_002Db811_002D9b19f50b07b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CounterCSharpTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="G:\source\repos\En3Tho\MyBlazorApp\src\Frontend\ComponentsTests" Presentation="&amp;lt;Frontend&amp;gt;\&amp;lt;ComponentsTests&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b979fcf_002D7c28_002D491a_002Db811_002D9b19f50b07b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CounterCSharpTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="G:\source\repos\En3Tho\MyBlazorApp\src\Frontend\ComponentsTests" Presentation="&amp;lt;Frontend&amp;gt;\&amp;lt;ComponentsTests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a093973f_002D194c_002D4ccc_002Da8c5_002D9d5a2ed45697/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestThatQuickGridImportFSharpRenders" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.FSharpFunTests.TestThatQuickGridImportFSharpRenders&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.CounterFSharpTests.Lul&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a093973f_002D194c_002D4ccc_002Da8c5_002D9d5a2ed45697/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestThatQuickGridImportFSharpRenders" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.FSharpFunTests.TestThatQuickGridImportFSharpRenders&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::9C5525D1-B7B4-4F40-BE17-B746FE420AB8::net7.0::ComponentsTests.CounterFSharpTests.Lul&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=adf166cf_002D7be1_002D43ef_002D953d_002Db12d26a39da9_0023MyBlazorApp_002EClient_002EMaui/@EntryIndexedValue">True</s:Boolean>
 	

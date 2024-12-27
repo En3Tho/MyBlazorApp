@@ -7,11 +7,11 @@
 @code {
 
     [Parameter, EditorRequired]
-    public RenderFragment Main { get; init; } = default!;
+    public RenderFragment Main { get; init; } = null!;
 
     [Parameter, EditorRequired]
-    public RenderFragment Error { get; init; } = default!;
+    public RenderFragment Error { get; init; } = null!;
 
     [Parameter, EditorRequired]
-    public Func<bool> Validator { get; init; } = default!;
+    public Func<bool> Validator { get; init; } = null!;
 }
