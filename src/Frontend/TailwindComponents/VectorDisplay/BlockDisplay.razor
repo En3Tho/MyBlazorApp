@@ -1,0 +1,24 @@
+﻿<div class="flex flex-grow border border-black rounded-lg">
+    @foreach (var t in Block.Data)
+    {
+        var color = t.Color;
+        var colorString = $"color: rgb({color.R} {color.G} {color.B})";
+        var value = t.ToString();
+        <span class="flex-1 border border-red text-center px-2" style="@colorString">
+            @value
+        </span>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Block Block { get; init; }
+    private bool BitDisplay { get; set; } = false;
+}
+
+@*
+Notes:
+    Each number within a string should be colorized
+    So it's like an enumerable of string values + color
+    And a block which separates them
+*@

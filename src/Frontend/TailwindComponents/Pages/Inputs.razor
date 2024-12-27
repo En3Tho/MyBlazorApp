@@ -4,25 +4,92 @@
 @using TailwindComponents.VectorDisplay
 
 @{
-    var vectorDataArray = new UIVectorData[8];
-    for (var i = 0; i < 8; i++)
+    // 16x8 bits optimal for 1920*1080
+    // 6x32 bits fit but 4 optimal?
+    
+    // 32 bytes optimal in hex
+    // 8 longs/ulongs optimal
+    
+    // so like 128 chars max per row?
+    
+    var bitString8 = string.Create(8, '1', (span, c) => span.Fill(c));
+    var bitString32 = string.Create(32, '1', (span, c) => span.Fill(c));
+    var bitString64 = string.Create(64, '1', (span, c) => span.Fill(c));
+    
+    static Block Replicate<T>(T value, int count, Color color)
     {
-        vectorDataArray[i] = new()
+        var data = new BlockData[count];
+        for (var i = 0; i < count; i++)
         {
-            Color = Color.Red
-        };
-        vectorDataArray[i].Element.Write(1);
+            data[i] = new BlockData<T>(value, color);
+        }
+        return new(data);
     }
-
-    var uiVector = new UIVector<int>(256, vectorDataArray);
+    
+    var builder = new BlockBuilder
+    {
+        (1, Color.Red)
+    }.Build();
 }
 
-@* <ConstrainedInput/> *@
+<div class="flex flex-col w-full">
+    <div class="mt-2">
+        <BlockDisplay Block="@BlockExtensions.ToBytesBlock(1234, Color.Blue)" />
+    </div>
 
-<VectorDisplay Vector="@uiVector" />
-<VectorDisplay Vector="@uiVector" />
-<VectorDisplay Vector="@uiVector" />
-<VectorDisplay Vector="@uiVector" />
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(bitString8, 64, Color.Aquamarine)" />
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(bitString32, 8, Color.Brown)" />
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(11, 64, Color.Blue)" />
+    </div>
+
+    <div class="mt-2">
+        16x8 bits
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(bitString8, 16, Color.Coral)" />
+    </div>
+    
+    <div class="mt-2">
+        4x32 bits
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(bitString32, 4, Color.Brown)" />
+    </div>
+
+    <div class="mt-2">
+        4x64 bits
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(bitString64, 4, Color.Brown)" />
+    </div>
+    
+    <div class="mt-2">
+        8 long min values
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(long.MinValue.ToString("X"), 8, Color.Blue)" />
+    </div>
+    
+    <div class="mt-2">
+        32 bytes in hex
+    </div>
+
+    <div class="mt-2">
+        <BlockDisplay Block="@Replicate(11, 32, Color.Blue)"/>
+    </div>
+</div>
+
 
 @code {
     

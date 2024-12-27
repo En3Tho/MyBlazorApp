@@ -1,0 +1,41 @@
+﻿@attribute [Route($"/{nameof(Matrix4x4TransposePage)}")]
+
+@using TailwindComponents.VectorDisplay
+
+<div class="flex flex-col w-full">
+    <div class="mt-2">
+        Original Matrix
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.X0, Matrix4x4BlockData.X1, Matrix4x4BlockData.X2, Matrix4x4BlockData.X3 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.Y0, Matrix4x4BlockData.Y1, Matrix4x4BlockData.Y2, Matrix4x4BlockData.Y3 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.Z0, Matrix4x4BlockData.Z1, Matrix4x4BlockData.Z2, Matrix4x4BlockData.Z3 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.V0, Matrix4x4BlockData.V1, Matrix4x4BlockData.V2, Matrix4x4BlockData.V3 ])"/>
+    </div>
+
+    <div class="mt-2">
+        Transposed matrix
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.X0, Matrix4x4BlockData.Y0, Matrix4x4BlockData.Z0, Matrix4x4BlockData.V0 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.X1, Matrix4x4BlockData.Y1, Matrix4x4BlockData.Z1, Matrix4x4BlockData.V1 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.X2, Matrix4x4BlockData.Y2, Matrix4x4BlockData.Z2, Matrix4x4BlockData.V2 ])"/>
+    </div>
+    <div class="mt-2">
+        <BlockDisplay Block="new([ Matrix4x4BlockData.X3, Matrix4x4BlockData.Y3, Matrix4x4BlockData.Z3, Matrix4x4BlockData.V3 ])"/>
+    </div>
+</div>
+
+@code {
+    
+}
