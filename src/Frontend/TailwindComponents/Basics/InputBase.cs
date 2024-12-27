@@ -13,8 +13,7 @@ public interface IInput<T>
 public abstract class StrictInput<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Strict>
     where TValidatable : IValidatable<TValidatable, TData> where TParser : struct, IInputParser<TData>
 {
-    protected StrictInput() : base()
-    {
+    protected StrictInput() {
     }
 
     protected StrictInput(TValidatable value) : base(value)
@@ -25,8 +24,7 @@ public abstract class StrictInput<TValidatable, TData, TParser> : InputBase<TVal
 public abstract class Input<TValidatable, TData, TParser> : InputBase<TValidatable, TData, TParser, InputMode.Loose>
     where TValidatable : IValidatable<TValidatable, TData> where TParser : struct, IInputParser<TData>
 {
-    protected Input() : base()
-    {
+    protected Input() {
     }
 
     protected Input(TValidatable value) : base(value)
@@ -49,14 +47,14 @@ public static class InputMode
     }
 }
 
-public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInput<SafeBox<TValidatable>>
+public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInput<Option<TValidatable>>
     where TValidatable : IValidatable<TValidatable, TData>
     where TParser : struct, IInputParser<TData>
     where TInputMode : struct, IInputMode
 {
     private string? _rawString = "";
-    public SafeBox<TValidatable> Value { get; private set; }
-    public Action<SafeBox<TValidatable>>? OnValueChange { get; init; }
+    public Option<TValidatable> Value { get; private set; }
+    public Action<Option<TValidatable>>? OnValueChange { get; init; }
     public Action<string?>? OnRawChange { get; init; }
 
     protected InputBase()
@@ -73,7 +71,7 @@ public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInp
         return _rawString ?? "";
     }
 
-    private void SetValue(SafeBox<TValidatable> value, string? raw = null)
+    private void SetValue(Option<TValidatable> value, string? raw = null)
     {
         var rawString = raw ?? value.ToString();
         Value = value;
@@ -118,7 +116,7 @@ public abstract class InputBase<TValidatable, TData, TParser, TInputMode> : IInp
                     string.IsNullOrEmpty(value)
                     && TParser.TryParse(value, null, out var parsed)
                     && TValidatable.Try(parsed, out var validated)
-                        ? new SafeBox<TValidatable>(validated)
+                        ? new Option<TValidatable>(validated)
                         : default;
                 SetValue(result, value);
             }

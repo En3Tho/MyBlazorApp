@@ -7,7 +7,7 @@ public readonly struct SmallString : IValidatable<SmallString, string>, IEquatab
 #if DEBUG
     // use box in debug to generate an exception if value was not set correctly
     // TODO: maybe CHECKED is a better flag for this?
-    private readonly SafeBox<string> _value;
+    private readonly Option<string> _value;
 #else
     // in release mode use a simple string
     private readonly string _value;
@@ -25,7 +25,7 @@ public readonly struct SmallString : IValidatable<SmallString, string>, IEquatab
             return true;
         }
 
-        result = default;
+        result = default(SmallString);
         return false;
     }
 
