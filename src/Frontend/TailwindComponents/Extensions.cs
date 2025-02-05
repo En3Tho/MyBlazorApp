@@ -15,8 +15,6 @@ public static class ArrayExtensions
 {
     public static IndexedArray<T> ToIndexable<T>(this T[] array) => new(array);
 
-    public static ArrayIndexedEnumerator<T> GetEnumerator<T>(this T[] array) => new(array);
-
     public record struct ArrayIndexedEnumerator<T>(T[] array) : IEnumerator<(int, T)>
     {
         private int _index = -1;
@@ -40,16 +38,11 @@ public static class ArrayExtensions
         }
     }
 
-    public readonly record struct IndexedArray<T>(T[] array) : IEnumerable<(int, T)>
+    public readonly ref struct IndexedArray<T>(T[] array)
     {
-        public IEnumerator<(int, T)> GetEnumerator()
+        public ArrayIndexedEnumerator<T> GetEnumerator()
         {
-            return new ArrayIndexedEnumerator<T>(array);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return new(array);
         }
     }
 }

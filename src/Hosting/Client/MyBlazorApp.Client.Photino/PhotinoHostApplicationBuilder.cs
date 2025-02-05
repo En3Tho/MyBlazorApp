@@ -24,7 +24,8 @@ class PhotinoHostApplicationBuilder : IHostApplicationBuilder
 
         PhotinoBlazorApp photinoBlazorApp = host.Services.GetRequiredService<PhotinoBlazorApp>();
         serviceProviderOptions?.Invoke(host.Services);
-
+        
+        // TODO: unsafe accessor maybe?
         photinoBlazorApp
             .GetType()
             .GetMethod("Initialize", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!

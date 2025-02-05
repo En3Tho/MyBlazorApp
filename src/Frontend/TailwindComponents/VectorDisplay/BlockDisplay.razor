@@ -2,7 +2,7 @@
     @foreach (var t in Block.Data)
     {
         var color = t.Color;
-        var colorString = $"color: rgb({color.R} {color.G} {color.B})";
+        var colorString = $"background-color: rgb({color.R} {color.G} {color.B})";
         var value = t.ToString();
         <span class="flex-1 border border-red text-center px-2" style="@colorString">
             @value

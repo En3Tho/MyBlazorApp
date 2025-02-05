@@ -1,17 +1,17 @@
 <div class="flex flex-col gap-4 max-w-sm">
     <div class="p-4 lg:p-4 rounded-md bg-violet-200">
         <table class="w-full">
-            <tr class="@tableRow">
-                <th class="@tableCell invisible">
+            <tr class="@TableRow">
+                <th class="@TableCell invisible">
                     0
                 </th>
                 @foreach (var colIdx in ..(Data[0].Length - 1))
                 {
-                    <th class="@tableCell text-red-500">
+                    <th class="@TableCell text-red-500">
                         @colIdx
                     </th>
                 }
-                <th class="@tableCell text-blue-500">
+                <th class="@TableCell text-blue-500">
                     V
                 </th>
             </tr>
@@ -20,14 +20,14 @@
             {
                 var row = Data[colIdx];
 
-                <tr class="@tableRow hover:bg-violet-300">
-                    <th class="@tableCell text-red-500">
+                <tr class="@TableRow hover:bg-violet-300">
+                    <th class="@TableCell text-red-500">
                         @colIdx
                     </th>
                     @foreach (var rowIdx in ..row.Length)
                     {
                         var data = row[rowIdx];
-                        <td class="@tableCell @If(data == 0, "text-gray-100") last:text-blue-300">
+                        <td class="@TableCell @If(data == 0, "text-gray-100") last:text-blue-300">
                             @data
                         </td>
                     }
@@ -59,8 +59,8 @@
 
 @code {
 
-    const string tableRow = "flex gap-2 rounded-md justify-between";
-    const string tableCell = "w-4 font-semibold text-xl text-end";
+    const string TableRow = "flex gap-2 rounded-md justify-between";
+    const string TableCell = "w-4 font-semibold text-xl text-end";
 
     [Parameter, EditorRequired]
     public int[][] Data { get; init; } = default!;

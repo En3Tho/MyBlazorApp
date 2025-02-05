@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MyBlazorApp.Client.Shared;
 
 namespace MyBlazorApp.Client.Maui;
 
